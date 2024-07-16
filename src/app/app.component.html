@@ -1,8 +1,10 @@
 <div id="page-container">
     <div id="content-wrap">
-        <app-header></app-header>
-        <app-topbar></app-topbar>
-        <app-sidebar></app-sidebar>
+        <div class="d-flex align-items-start">
+            <app-sidebar></app-sidebar>
+            <app-topbar></app-topbar>
+        </div>
+        <!-- <app-header></app-header> -->
         <router-outlet></router-outlet>
     </div>
 </div>
