@@ -1,0 +1,87 @@
+<div
+  class="modal fade"
+  id="proposalFilterModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">Filter</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="info d-flex flex-column gap-1">
+          <h3>Status</h3>
+          <div class="d-flex align-items-center mb-4 gap-2">
+            <a
+              class="text-decoration-none d-flex align-items-center"
+              href="#"
+              [ngClass]="{
+                breadcrumb: isActiveLink('approved'),
+                active: isActiveLink('approved'),
+                inActive: !isActiveLink('approved')
+              }"
+              (click)="toggleLink('approved', $event)"
+            >
+              Approved
+              <span
+                *ngIf="isActiveLink('approved')"
+                (click)="clearLink('approved', $event)"
+                class="clear-link"
+              >
+                ✖
+              </span>
+            </a>
+            <a
+              class="text-decoration-none d-flex align-items-center gap-1"
+              href="#"
+              [ngClass]="{
+                breadcrumb: isActiveLink('rejected'),
+                active: isActiveLink('rejected'),
+                inActive: !isActiveLink('rejected')
+              }"
+              (click)="toggleLink('rejected', $event)"
+            >
+              Rejected
+              <span
+                *ngIf="isActiveLink('rejected')"
+                (click)="clearLink('rejected', $event)"
+                class="clear-link"
+              >
+                ✖
+              </span>
+            </a>
+            <a
+              class="text-decoration-none d-flex align-items-center gap-1"
+              href="#"
+              [ngClass]="{
+                breadcrumb: isActiveLink('pending'),
+                active: isActiveLink('pending'),
+                inActive: !isActiveLink('pending')
+              }"
+              (click)="toggleLink('pending', $event)"
+            >
+              Pending
+              <span
+                *ngIf="isActiveLink('pending')"
+                (click)="clearLink('pending', $event)"
+                class="clear-link"
+              >
+                ✖
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="filter-btn m-auto d-block">Filter</button>
+      </div>
+    </div>
+  </div>
+</div>

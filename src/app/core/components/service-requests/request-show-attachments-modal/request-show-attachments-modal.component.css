@@ -1,0 +1,17 @@
+h4,
+p {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+}
+p {
+  font-size: 10px;
+  line-height: 15px;
+  font-weight: 400;
+  color: #1c1c1c80;
+}
+.action img {
+  width: 16px;
+  height: 16px;
+}

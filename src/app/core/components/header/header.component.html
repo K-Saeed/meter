@@ -1,1 +1,93 @@
-<p>header works!</p>
+<div class="m-5">
+  <table class="table my-5">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">
+          <input
+            type="checkbox"
+            [(ngModel)]="selectAll"
+            (change)="toggleAll()"
+          />
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Name</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Role</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Registered</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Address</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Phone number</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Spent</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Actions</p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <th scope="row">
+          <input
+            type="checkbox"
+            [(ngModel)]="user.selected"
+            (change)="checkIfAllSelected()"
+          />
+        </th>
+        <td>
+          <div class="d-flex flex-column gap-1">
+            <h3 class="m-0">{{ user.name }}</h3>
+            <h5 class="m-0">{{ user.email }}</h5>
+          </div>
+        </td>
+        <td>
+          <h4 class="m-0">{{ user.role }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ user.registered }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ user.address }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ user.phone }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ user.spent }}</h4>
+        </td>
+        <td>
+          <div class="d-flex align-items-center gap-3">
+            <!-- Actions Icons -->
+            <img
+              class="cursor-pointer"
+              src="../../../../assets/img/eye.svg"
+              alt="View"
+            />
+            <img
+              class="cursor-pointer"
+              src="../../../../assets/img/edit-2.svg"
+              alt="Edit"
+            />
+            <!-- Toggle Switch -->
+            <label class="toggle">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+            <img
+              class="cursor-pointer"
+              src="../../../../assets/img/trash.svg"
+              alt="Delete"
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,83 +1,223 @@
-<nav class="nav flex-column side-bar offcanvas">
-    <a class="nav-link active mx-auto" aria-current="page" href="#">
-        <img src="../../../assets/img/logo.png">
+<nav class="nav side-bar offcanvas">
+  <a class="nav-link space-style active mx-auto" aria-current="page" href="#">
+    <img class="img-fluid img-style" src="../../../../assets/img/logo.png" />
+  </a>
+  <div
+    class="d-flex flex-column bottom list-group"
+    id="list-tab"
+    role="tablist"
+  >
+    <a
+      class="nav-link text-style list-group-item list-group-item-action active"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+      href="#"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/bar-chart-2.svg"
+          alt=""
+        />
+        <div>Dashboard</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/bar-chart-2.png" alt="">
-            <div>Dashboard</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      [routerLink]="'/servicerequests'"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/category-2.svg"
+          alt=""
+        />
+        <div>Service Requests</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/category-2.png" alt="">
-            <div>Service Requests</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      [routerLink]="'/providersproposal'"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/Amount_Icon_UIA.svg"
+          alt=""
+        />
+        <div>Providers Proposals</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/Amount_Icon_UIA.png" alt="">
-            <div>Providers Proposals</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      [routerLink]="'/users'"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/profile-2user.svg"
+          alt=""
+        />
+        <div>Users</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/profile-2user.png" alt="">
-            <div>Users</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img class="icon-style" src="../../../../assets/img/box.svg" alt="" />
+        <div>Products</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/box.png" alt="">
-            <div>Products</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      [routerLink]="'/Conversations'"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/messages.svg"
+          alt=""
+        />
+        <div>Conversations</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/box.png" alt="">
-            <div>Products</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img class="icon-style" src="../../../../assets/img/chart.svg" alt="" />
+        <div>Transactions</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/messages.png" alt="">
-            <div>Conversations</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/clipboard-text.svg"
+          alt=""
+        />
+        <div>Reports</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/chart.png" alt="">
-            <div>Transactions</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/clipboard-tick.svg"
+          alt=""
+        />
+        <div>Work Submission</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/clipboard-text.png" alt="">
-            <div>Reports</div>
-        </div>
+
+    <a
+      class="d-flex align-items-center gap-3 nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+      (click)="toggleSubmenu('employees')"
+    >
+      <img class="icon-style" src="../../../../assets/img/people.svg" alt="" />
+      <div class="d-flex align-items-center gap-5">
+        {{ employees }}
+        <img
+          *ngIf="!isEmployeesOpen"
+          class="icon-style"
+          src="../../../../assets/img/arrow-down.svg"
+          alt=""
+        />
+        <img
+          *ngIf="isEmployeesOpen"
+          class="icon-style"
+          src="../../../../assets/img/arrow-up.svg"
+          alt=""
+        />
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/clipboard-tick.png" alt="">
-            <div>Work Submission</div>
-        </div>
+
+    <ul class="submenu" *ngIf="isEmployeesOpen">
+      <li class=""><a class="nav-link text-style" href="http://">Role</a></li>
+    </ul>
+
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/notification.svg"
+          alt=""
+        />
+        <div>Notifications</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/people.png" alt="">
-            <div>Employees</div>
-        </div>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      href="#list-home"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/setting.svg"
+          alt=""
+        />
+        <div>Settings</div>
+      </div>
     </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/notification.png" alt="">
-            <div>Notifications</div>
-        </div>
-    </a>
-    <a class="nav-link text-style" href="#">
-        <div class="d-flex">
-            <img class="img-fluid" src="../../../assets/img/setting.png" alt="">
-            <div>Settings</div>
-        </div>
-    </a>
-  </nav>
+  </div>
+</nav>
