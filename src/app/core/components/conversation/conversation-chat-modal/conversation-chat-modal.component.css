@@ -1,0 +1,55 @@
+.modal {
+  --bs-modal-padding: 0.5rem;
+}
+.modal-header {
+  border-bottom: 0;
+}
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 0px 8px -4px #10182814;
+  width: 610px;
+  height: auto;
+  padding: 10px;
+}
+.modal-dialog {
+  margin-top: 7rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-close {
+  color: #667085;
+  width: 12px;
+  height: 12px;
+}
+.img-style img {
+  width: 50px;
+  height: 50px;
+}
+.text-style h4,
+.text-style span,
+.text-style h6 {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19.36px;
+  color: #000;
+}
+.text-style span {
+  color: #f28f45;
+}
+.text-style h6 {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.52px;
+  color: #1c1c1c80;
+}
+.provider p {
+  line-height: 21.78px;
+  color: #fff;
+  background-color: #f28f45;
+  border-radius: 14px 0px 14px 14px;
+  padding: 16px 24px 16px 30px;
+}
+.btn-close:focus {
+  box-shadow: none;
+}

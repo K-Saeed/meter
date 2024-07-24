@@ -1,0 +1,108 @@
+<div
+  class="modal fade"
+  id="viewModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">Transaction Details</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="title d-flex align-items-start gap-2 flex-column mt-4"> -->
+        <!-- <h1>Request Information:</h1> -->
+        <div class="info d-flex flex-column align-items-start gap-3 mt-3">
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Transaction ID:</span>
+            <span class="value">TX12345</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Customer Name:</span>
+            <span class="value">Mohamed MonGe</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Service Provider Name:</span>
+            <span class="value">Eman Mohamed Office</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Amount:</span>
+            <span class="value">1300 SAR</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Date:</span>
+            <span class="value">2024-06-26 10:30</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Status:</span>
+            <span class="value">Completed</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Payment Method:</span>
+            <span class="value">Mobiamo</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Transaction Notes:</span>
+            <span class="value">Mobiamo</span>
+          </h3>
+          <!-- </div> -->
+        </div>
+        <div class="title d-flex align-items-start gap-2 flex-column mt-4">
+          <h1>Involved Parties:</h1>
+          <div class="info d-flex flex-column align-items-start gap-3">
+            <h3 class="d-flex justify-content-between m-0">
+              <span class="label">Customer:</span>
+              <span class="value">1234</span>
+            </h3>
+            <h3 class="d-flex justify-content-between m-0">
+              <span class="label">Request Title:</span>
+              <span class="value">Residential Survey</span>
+            </h3>
+            <h3 class="d-flex justify-content-between m-0">
+              <span class="label">Request Description:</span>
+              <span class="value"
+                >Detailed survey for residential construction.</span
+              >
+            </h3>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button
+            type="button"
+            class="reject-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#rejectModal"
+          >
+            Reject
+          </button>
+          <button
+            type="button"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#approveModal"
+          >
+            Refund
+          </button>
+          <button
+            type="button"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#approveModal"
+          >
+            Complete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-transactions-reject-modal></app-transactions-reject-modal>
+<app-transactions-approve-modal></app-transactions-approve-modal>

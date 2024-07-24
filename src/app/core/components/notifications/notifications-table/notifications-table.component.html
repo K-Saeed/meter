@@ -1,0 +1,165 @@
+<div class="mx-3">
+  <table class="table my-4">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">
+          <input
+            type="checkbox"
+            [(ngModel)]="selectAll"
+            (change)="toggleAll($event)"
+          />
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">ID</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Title</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Message</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Recipients</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Date Sent</p>
+        </th>
+        <!-- <th scope="col" class="title-table">
+            <p class="m-0">Type of Service</p>
+          </th> -->
+        <th scope="col" class="title-table">
+          <p class="m-0">Status</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Actions</p>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of paginatedUsers">
+        <th scope="row">
+          <input
+            type="checkbox"
+            [(ngModel)]="user.selected"
+            (change)="checkIfAllSelected()"
+          />
+        </th>
+        <td>
+          <h4 class="m-0">{{ user.id }}</h4>
+        </td>
+        <td>
+          <h3 class="m-0">{{ user.title }}</h3>
+        </td>
+        <td>
+          <h3 class="m-0">{{ user.message }}</h3>
+        </td>
+        <td>
+          <h3 class="m-0">{{ user.Recipients }}</h3>
+        </td>
+        <td>
+          <h4 class="m-0">{{ user.dateSent }}</h4>
+        </td>
+        <td>
+          <h4
+            [ngClass]="{
+              green: user.status === 'Sent',
+              orange: user.status === 'Scheduled'
+            }"
+            class="m-0"
+          >
+            {{ user.status }}
+          </h4>
+        </td>
+        <td>
+          <div class="">
+            <!-- Actions Icons -->
+            <img
+              class="cursor-pointer pe-2"
+              data-bs-toggle="modal"
+              data-bs-target="#viewModal"
+              src="../../../../assets/img/eye.svg"
+              alt="View"
+            />
+            <img
+              class="cursor-pointer ps-2"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              src="../../../../assets/img/trash.svg"
+              alt="Delete"
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <app-notifications-delete-modal></app-notifications-delete-modal>
+  <app-notifications-show-modal></app-notifications-show-modal>
+  <div class="font d-flex align-items-center justify-content-between my-4">
+    <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination gap-2 m-0 align-items-center">
+        <li class="page-item" [class.disabled]="currentPage === 1">
+          <a
+            class="page-link previous"
+            href="#"
+            aria-label="Previous"
+            (click)="setPage(currentPage - 1, $event)"
+          >
+            <span aria-hidden="true">
+              <img
+                src="../../../../../assets/img/arrow-left.svg"
+                alt="Previous"
+              />
+            </span>
+          </a>
+        </li>
+        <li
+          class="page-item"
+          *ngFor="
+            let page of [].constructor(Math.ceil(users.length / itemsPerPage));
+            let i = index
+          "
+          [class.active]="i + 1 === currentPage"
+        >
+          <a class="page-link" href="#" (click)="setPage(i + 1, $event)">{{
+            i + 1
+          }}</a>
+        </li>
+        <li
+          class="page-item"
+          [class.disabled]="
+            currentPage === Math.ceil(users.length / itemsPerPage)
+          "
+        >
+          <a
+            class="page-link next"
+            href="#"
+            aria-label="Next"
+            (click)="setPage(currentPage + 1, $event)"
+          >
+            <span aria-hidden="true">
+              <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="font d-flex align-items-center">
+      <h5 class="m-0 me-2">Show</h5>
+
+      <div class="select-wrapper">
+        <select
+          class="form-select mx-2 custom-select"
+          [(ngModel)]="itemsPerPage"
+          (change)="setPage(1, $event)"
+        >
+          <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+        <i class="fa-solid fa-chevron-down custom-select-icon"></i>
+      </div>
+      <h5 class="m-0 ms-2">entries</h5>
+    </div>
+  </div>
+</div>

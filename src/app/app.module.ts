@@ -44,6 +44,24 @@ import { ConversationComponent } from './core/components/conversation/conversati
 import { ConversationTitleComponent } from './core/components/conversation/conversation-title/conversation-title.component';
 import { ConversationActionComponent } from './core/components/conversation/conversation-action/conversation-action.component';
 import { ConversationTableComponent } from './core/components/conversation/conversation-table/conversation-table.component';
+import { ConversationChatModalComponent } from './core/components/conversation/conversation-chat-modal/conversation-chat-modal.component';
+import { TransactionsComponent } from './core/components/transactions/transactions.component';
+import { TransactionsTitleComponent } from './core/components/transactions/transactions-title/transactions-title.component';
+import { TransactionsActionComponent } from './core/components/transactions/transactions-action/transactions-action.component';
+import { TransactionsFilterModalComponent } from './core/components/transactions/transactions-filter-modal/transactions-filter-modal.component';
+import { TransactionsTableComponent } from './core/components/transactions/transactions-table/transactions-table.component';
+import { TransactionsShowModalComponent } from './core/components/transactions/transactions-show-modal/transactions-show-modal.component';
+import { TransactionsDeleteModalComponent } from './core/components/transactions/transactions-delete-modal/transactions-delete-modal.component';
+import { TransactionsApproveModalComponent } from './core/components/transactions/transactions-approve-modal/transactions-approve-modal.component';
+import { TransactionsRejectModalComponent } from './core/components/transactions/transactions-reject-modal/transactions-reject-modal.component';
+import { NotificationsComponent } from './core/components/notifications/notifications.component';
+import { NotificationsTitleComponent } from './core/components/notifications/notifications-title/notifications-title.component';
+import { NotificationsActionComponent } from './core/components/notifications/notifications-action/notifications-action.component';
+import { NotificationsFilterModalComponent } from './core/components/notifications/notifications-filter-modal/notifications-filter-modal.component';
+import { NotificationsTableComponent } from './core/components/notifications/notifications-table/notifications-table.component';
+import { NotificationsDeleteModalComponent } from './core/components/notifications/notifications-delete-modal/notifications-delete-modal.component';
+import { NotificationsShowModalComponent } from './core/components/notifications/notifications-show-modal/notifications-show-modal.component';
+import { NotificationsSendModalComponent } from './core/components/notifications/notifications-send-modal/notifications-send-modal.component';
 // import { RequestPaginationComponent } from './core/components/service-requests/request-pagination/request-pagination.component';
 
 
@@ -90,6 +108,24 @@ import { ConversationTableComponent } from './core/components/conversation/conve
     ConversationTitleComponent,
     ConversationActionComponent,
     ConversationTableComponent,
+    ConversationChatModalComponent,
+    TransactionsComponent,
+    TransactionsTitleComponent,
+    TransactionsActionComponent,
+    TransactionsFilterModalComponent,
+    TransactionsTableComponent,
+    TransactionsShowModalComponent,
+    TransactionsDeleteModalComponent,
+    TransactionsApproveModalComponent,
+    TransactionsRejectModalComponent,
+    NotificationsComponent,
+    NotificationsTitleComponent,
+    NotificationsActionComponent,
+    NotificationsFilterModalComponent,
+    NotificationsTableComponent,
+    NotificationsDeleteModalComponent,
+    NotificationsShowModalComponent,
+    NotificationsSendModalComponent,
   ],
   imports: [
     BrowserModule,

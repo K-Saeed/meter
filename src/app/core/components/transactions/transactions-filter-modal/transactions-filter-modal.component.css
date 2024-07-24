@@ -1,0 +1,206 @@
+.modal {
+  --bs-modal-padding: 0.5rem;
+}
+.modal-header {
+  border-bottom: 0;
+}
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 0px 8px -4px #10182814;
+  width: 400px;
+  height: auto;
+  padding: 10px;
+}
+.modal-dialog {
+  margin-top: 7rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-close {
+  color: #667085;
+  width: 12px;
+  height: 12px;
+}
+
+.info .label,
+.info .value {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.info .value {
+  font-weight: 500;
+}
+
+.modal-header h1,
+.modal-body h1,
+.info h3 .label,
+.info h3 .value,
+.info h3 {
+  font-family: Inter, sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+}
+.info h3 {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 14px;
+  color: #000;
+}
+.breadcrumb,
+.breadcrumbSpace,
+.inActive {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 18px;
+  text-align: center;
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #edf1f3;
+  color: #000;
+}
+
+.breadcrumb,
+.breadcrumbSpace {
+  /* padding: 7px 40px 7px 15px; */
+  background-color: #f28f45;
+  color: #fff;
+  width: 100%;
+}
+.breadcrumb {
+  position: relative;
+}
+
+.breadcrumb.active::after {
+  content: "";
+  position: absolute;
+  right: 7px;
+  top: 51%;
+  transform: translateY(-50%);
+  color: white;
+  font-size: 16px;
+}
+.clear-link {
+  margin-left: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+}
+
+/* .inActive {
+    color: gray;
+  } */
+
+.breadcrumbSpace {
+  width: 120px;
+}
+
+/* .inActive {
+    color: #000;
+    background-color: transparent;
+  } */
+
+.modal-body h1 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.info h3 .label,
+.info h3 .value {
+  font-weight: 400;
+  font-size: 12px;
+  width: 165px;
+  text-align: start;
+}
+
+.info h3 .value {
+  font-weight: 500;
+}
+.position {
+  top: 30px;
+  right: 30px;
+}
+.filter-btn {
+  padding: 10px;
+  width: 100%;
+  height: 48px;
+  border-radius: 12px;
+  background-color: #f28f45;
+  border: 0px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff;
+}
+.btn-close:focus {
+  box-shadow: none;
+}
+
+.range-slider {
+  position: relative;
+  width: 100%;
+  height: 40px; /* تعديل الارتفاع */
+}
+
+.range-slider .form-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: transparent; /* جعل الخلفية شفافة */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.range-slider .form-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #f28f45;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: -6px 0 0 0; /* تعديل الهامش */
+  position: relative;
+  z-index: 2;
+}
+
+.range-slider .form-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #f28f45;
+  cursor: pointer;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+
+.range-highlight {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 8px;
+  background: #f28f45;
+  z-index: 1;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 5px;
+  margin-bottom: 15px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #1c1c1c80;
+}

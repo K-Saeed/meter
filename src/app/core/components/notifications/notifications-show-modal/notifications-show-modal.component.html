@@ -1,0 +1,89 @@
+<div
+  class="modal fade"
+  id="viewModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">Notification Details</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- <div class="title d-flex align-items-start gap-2 flex-column mt-4"> -->
+        <!-- <h1>Request Information:</h1> -->
+        <div class="info d-flex flex-column align-items-start gap-3 mt-3">
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Notification ID:</span>
+            <span class="value">TX12345</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Title:</span>
+            <span class="value">Service Update</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Message:</span>
+            <span class="value">New features available...</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Recipients:</span>
+            <span class="value">All Users</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Date Sent:</span>
+            <span class="value">2024-06-26 10:30</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Status:</span>
+            <span class="value">Sent</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Delivery Status:</span>
+            <span class="value">Delivered to 95%, Failed to deliver to 5%</span>
+          </h3>
+          <!-- <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Transaction Notes:</span>
+            <span class="value">Delivered to 95%, Failed to deliver to 5%</span>
+          </h3> -->
+          <!-- </div> -->
+        </div>
+        <!-- <div class="d-flex justify-content-between mt-4">
+          <button
+            type="button"
+            class="reject-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#rejectModal"
+          >
+            Reject
+          </button>
+          <button
+            type="button"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#approveModal"
+          >
+            Refund
+          </button>
+          <button
+            type="button"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#approveModal"
+          >
+            Complete
+          </button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-transactions-reject-modal></app-transactions-reject-modal>
+<app-transactions-approve-modal></app-transactions-approve-modal>

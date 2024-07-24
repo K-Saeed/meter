@@ -13,7 +13,7 @@
           <p class="m-0">ID</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Provider Name</p>
+          <p class="m-0">Service Provider Name</p>
         </th>
         <th scope="col" class="title-table">
           <p class="m-0">Customer Name</p>
@@ -53,30 +53,23 @@
         <td>
           <h4 class="m-0">{{ user.dateSubmitted }}</h4>
         </td>
-       
+
         <td>
           <div class="">
             <!-- Actions Icons -->
             <img
               class="cursor-pointer pe-2"
               data-bs-toggle="modal"
-              data-bs-target="#viewModal"
-              src="../../../../assets/img/eye.svg"
-              alt="View"
-            />
-            <img
-              class="cursor-pointer ps-2"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg"
-              alt="Delete"
+              data-bs-target="#chatModal"
+              src="../../../../../assets/img/message-add.svg"
+              alt="chat"
             />
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <app-proposal-delete-modal></app-proposal-delete-modal>
+  <app-conversation-chat-modal></app-conversation-chat-modal>
   <app-proposal-show-modal></app-proposal-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>

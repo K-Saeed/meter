@@ -1,0 +1,30 @@
+<div class="d-flex align-items-center justify-content-between">
+  <div class="d-flex align-items-center gap-2">
+    <div class="search-container d-flex align-items-center position-relative">
+      <span class="search-icon p-2">
+        <img
+          src="../../../../../assets/img/search-normal.svg"
+          alt="Search Icon"
+        />
+      </span>
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search in transactions"
+      />
+    </div>
+    <button
+      class="btn d-flex align-items-center gap-2"
+      data-bs-toggle="modal"
+      data-bs-target="#transactionsFilterModal"
+    >
+      <img src="../../../../../assets/img/filter.svg" alt="" />
+      <span>Filter</span>
+    </button>
+  </div>
+  <button class="btn-orange d-flex align-items-center gap-2">
+    <img src="../../../../../assets/img/printer.svg" alt="" />
+    <span>Print</span>
+  </button>
+</div>
+<app-transactions-filter-modal></app-transactions-filter-modal>

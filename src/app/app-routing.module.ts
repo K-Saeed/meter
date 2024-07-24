@@ -4,6 +4,8 @@ import { ServiceRequestsComponent } from './core/components/service-requests/ser
 import { UsersComponent } from './core/components/users/users.component';
 import { ProvidersProposalsComponent } from './core/components/providers-proposals/providers-proposals.component';
 import { ConversationComponent } from './core/components/conversation/conversation.component';
+import { TransactionsComponent } from './core/components/transactions/transactions.component';
+import { NotificationsComponent } from './core/components/notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -19,8 +21,16 @@ const routes: Routes = [
     component: ProvidersProposalsComponent,
   },
   {
-    path:'Conversations',
+    path:'conversations',
     component: ConversationComponent,
+  },
+  {
+    path:'transactions',
+    component: TransactionsComponent,
+  },
+  {
+    path:'notifications',
+    component: NotificationsComponent,
   },
 ];
 
