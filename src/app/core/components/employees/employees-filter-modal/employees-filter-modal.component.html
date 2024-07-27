@@ -1,0 +1,70 @@
+<div
+  class="modal fade"
+  id="proposalFilterModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">Filter</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="info d-flex flex-column gap-1">
+          <h3>Role</h3>
+          <div
+            class="d-flex align-items-center justify-content-start mb-4 gap-2"
+          >
+            <a
+              class="text-decoration-none d-flex align-items-center"
+              href="#"
+              [ngClass]="{
+                breadcrumb: isActiveLink('admin'),
+                active: isActiveLink('admin'),
+                inActive: !isActiveLink('admin')
+              }"
+              (click)="toggleLink('admin', $event)"
+            >
+              Admin
+              <span
+                *ngIf="isActiveLink('admin')"
+                (click)="clearLink('admin', $event)"
+                class="clear-link"
+              >
+                ✖
+              </span>
+            </a>
+            <a
+              class="text-decoration-none d-flex align-items-center gap-1"
+              href="#"
+              [ngClass]="{
+                breadcrumb: isActiveLink('modrtetor'),
+                active: isActiveLink('modrtetor'),
+                inActive: !isActiveLink('modrtetor')
+              }"
+              (click)="toggleLink('modrtetor', $event)"
+            >
+              Modrtetor
+              <span
+                *ngIf="isActiveLink('modrtetor')"
+                (click)="clearLink('modrtetor', $event)"
+                class="clear-link"
+              >
+                ✖
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <button type="button" class="filter-btn m-auto d-block">Filter</button>
+      </div>
+    </div>
+  </div>
+</div>

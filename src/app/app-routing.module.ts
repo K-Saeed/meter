@@ -6,6 +6,9 @@ import { ProvidersProposalsComponent } from './core/components/providers-proposa
 import { ConversationComponent } from './core/components/conversation/conversation.component';
 import { TransactionsComponent } from './core/components/transactions/transactions.component';
 import { NotificationsComponent } from './core/components/notifications/notifications.component';
+import { EmployeesComponent } from './core/components/employees/employees.component';
+import { RoleComponent } from './core/components/role/role.component';
+import { SettingsComponent } from './core/components/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -31,6 +34,18 @@ const routes: Routes = [
   {
     path:'notifications',
     component: NotificationsComponent,
+  },
+  {
+    path:'employees',
+    component: EmployeesComponent,
+  },
+  {
+    path:'roles',
+    component: RoleComponent,
+  },
+  {
+    path:'settings',
+    component: SettingsComponent,
   },
 ];
 

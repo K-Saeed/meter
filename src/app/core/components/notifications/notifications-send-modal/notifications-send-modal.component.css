@@ -1,0 +1,252 @@
+.modal {
+  --bs-modal-padding: 0.5rem;
+}
+.modal-header {
+  border-bottom: 0;
+}
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 0px 8px -4px #10182814;
+  width: 749px;
+  height: auto;
+  padding: 10px;
+}
+.modal-dialog {
+  margin-top: 7rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-close {
+  color: #667085;
+  width: 12px;
+  height: 12px;
+}
+.info h3 {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+/* .info .label,
+.info .value {
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.info .value {
+  font-weight: 500;
+} */
+
+.modal-header h1,
+.modal-body h1,
+.info h3 .label,
+.info h3 .value {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  text-align: center;
+}
+.info label {
+  font-weight: 500;
+  font-size: 14px;
+}
+.modal-body h1 {
+  /* font-size: 16px;
+  line-height: 24px; */
+  text-align: start;
+}
+
+/* .info h3 .label,
+.info h3 .value {
+  font-weight: 400;
+  font-size: 12px;
+  width: 165px;
+  text-align: start;
+}
+
+.info h3 .value {
+  font-weight: 500;
+} */
+.btn-close:focus {
+  box-shadow: none;
+}
+.input-container {
+  width: 100%;
+  position: relative;
+}
+
+.label-style {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 0 5px;
+  font-size: 12px;
+  color: #232323b0;
+  font-weight: 400;
+  font-family: Inter;
+  line-height: 14.52px;
+}
+
+.input-style,
+.input-style::placeholder,
+.dropdown-content {
+  width: 344.5px;
+  height: 53px;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+  color: #000;
+}
+.input-style::placeholder {
+  /* color: #000; */
+  border: none;
+  padding: 0px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  width: 344.5px;
+  height: auto;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.input-container .dropdown-content {
+  display: block;
+}
+
+.dropdown-content label {
+  display: block;
+  margin: 5px 0;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #888888;
+  border-radius: 6.2px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -43%);
+  display: block;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #f28f45;
+  border-color: #f28f45;
+}
+
+input[type="radio"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #d9d9d9;
+  background-color: #fff;
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+input[type="radio"]:checked {
+  border-color: #f28f45;
+}
+
+input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #f28f45;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.reject-btn,
+.approve-btn {
+  padding: 10px;
+  width: 84px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  border: 0px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff;
+  color: #f28f45;
+}
+.approve-btn {
+  width: 110px;
+  background-color: #f28f45;
+  color: #fff;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-style {
+  padding-right: 30px;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+.calendar-icon {
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}

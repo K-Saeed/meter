@@ -1,0 +1,153 @@
+.modal {
+  --bs-modal-padding: 0.5rem;
+}
+.modal-header {
+  border-bottom: 0;
+}
+.modal-content {
+  border-radius: 12px;
+  box-shadow: 0 0px 8px -4px #10182814;
+  width: 749px;
+  height: auto;
+  padding: 10px;
+}
+.modal-dialog {
+  margin-left: auto;
+  margin-right: auto;
+}
+.btn-close {
+  color: #667085;
+  width: 12px;
+  height: 12px;
+}
+.modal-header h1,
+.modal-body h1,
+.info p {
+  font-family: Inter, sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 18px;
+  text-align: center;
+}
+.info p {
+  font-weight: 400;
+  font-size: 14px;
+  text-align: start;
+}
+
+.modal-body h1 {
+  text-align: start;
+}
+
+.btn-close:focus {
+  box-shadow: none;
+}
+
+.input-style,
+.input-style::placeholder {
+  width: 350px;
+  height: 53px;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+  color: #000;
+}
+.input-style::placeholder {
+  border: none;
+  padding: 0px;
+  color: #9a9a9a;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #4f4f4f;
+  border-radius: 6.2px;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -43%);
+  display: block;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #f28f45;
+  border-color: #f28f45;
+}
+
+.reject-btn,
+.approve-btn {
+  padding: 10px;
+  width: 84px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  border: 0px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff;
+  color: #f28f45;
+}
+.approve-btn {
+  width: 110px;
+  background-color: #f28f45;
+  color: #fff;
+}
+
+/*  */
+table {
+  width: 100%;
+  height: auto;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  vertical-align: middle;
+}
+
+.table-light {
+  --bs-table-color: #000;
+  --bs-table-bg: #f9f9f9;
+  --bs-table-border-color: #f9f9f9;
+}
+.title-table,
+h3,
+h5,
+h4 {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: -3%;
+  color: #6c6c6c;
+}
+.title-table p {
+  margin: 0 0 0 0;
+  padding: 5px 14px 5px 0px;
+}
+
+h3,
+h4 {
+  font-size: 14px;
+  color: #000;
+  line-height: 21px;
+}

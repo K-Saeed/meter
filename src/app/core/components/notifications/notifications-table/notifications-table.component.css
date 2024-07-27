@@ -42,9 +42,7 @@ h4 {
   margin: 0 0 0 0;
   padding: 5px 14px 5px 0px;
 }
-.table > :not(caption) > * > * {
-  /* padding: 16px 12px 12px 12px; */
-}
+
 h3,
 h4 {
   font-size: 14px;

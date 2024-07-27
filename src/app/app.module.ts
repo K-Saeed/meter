@@ -7,7 +7,7 @@ import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { TopbarComponent } from './core/components/topbar/topbar.component';
 import { ServiceRequestsComponent } from './core/components/service-requests/service-requests.component';
 // import { TableOfServiceComponent } from './core/components/service-requests/table/table.component';
-import { FormsModule } from '@angular/forms';
+// import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './core/components/users/users.component';
 import { RequestActionComponent } from './core/components/service-requests/request-action/request-action.component';
 import { RequestTableComponent } from './core/components/service-requests/request-table/request-table.component';
@@ -62,7 +62,26 @@ import { NotificationsTableComponent } from './core/components/notifications/not
 import { NotificationsDeleteModalComponent } from './core/components/notifications/notifications-delete-modal/notifications-delete-modal.component';
 import { NotificationsShowModalComponent } from './core/components/notifications/notifications-show-modal/notifications-show-modal.component';
 import { NotificationsSendModalComponent } from './core/components/notifications/notifications-send-modal/notifications-send-modal.component';
-// import { RequestPaginationComponent } from './core/components/service-requests/request-pagination/request-pagination.component';
+import { FormsModule } from '@angular/forms';
+import { EmployeesComponent } from './core/components/employees/employees.component';
+import { EmployeesTitleComponent } from './core/components/employees/employees-title/employees-title.component';
+import { EmployeesActionComponent } from './core/components/employees/employees-action/employees-action.component';
+import { EmployeesFilterModalComponent } from './core/components/employees/employees-filter-modal/employees-filter-modal.component';
+import { EmployeesTableComponent } from './core/components/employees/employees-table/employees-table.component';
+import { EmployeesDeleteModalComponent } from './core/components/employees/employees-delete-modal/employees-delete-modal.component';
+import { EmployeesAddModalComponent } from './core/components/employees/employees-add-modal/employees-add-modal.component';
+import { EmployeesVerificationModalComponent } from './core/components/employees/employees-verification-modal/employees-verification-modal.component';
+import { EmployeesEditModalComponent } from './core/components/employees/employees-edit-modal/employees-edit-modal.component';
+import { RoleComponent } from './core/components/role/role.component';
+import { RoleTitleComponent } from './core/components/role/role-title/role-title.component';
+import { RoleActionComponent } from './core/components/role/role-action/role-action.component';
+import { RoleCardsComponent } from './core/components/role/role-cards/role-cards.component';
+import { RoleEditModalComponent } from './core/components/role/role-edit-modal/role-edit-modal.component';
+import { RoleDeleteModalComponent } from './core/components/role/role-delete-modal/role-delete-modal.component';
+import { RoleAddModalComponent } from './core/components/role/role-add-modal/role-add-modal.component';
+import { SettingsComponent } from './core/components/settings/settings.component';
+import { SettingsTitleComponent } from './core/components/settings/settings-title/settings-title.component';
+import { SettingsEditComponent } from './core/components/settings/settings-edit/settings-edit.component'; 
 
 
 @NgModule({
@@ -126,11 +145,30 @@ import { NotificationsSendModalComponent } from './core/components/notifications
     NotificationsDeleteModalComponent,
     NotificationsShowModalComponent,
     NotificationsSendModalComponent,
+    EmployeesComponent,
+    EmployeesTitleComponent,
+    EmployeesActionComponent,
+    EmployeesFilterModalComponent,
+    EmployeesTableComponent,
+    EmployeesDeleteModalComponent,
+    EmployeesAddModalComponent,
+    EmployeesVerificationModalComponent,
+    EmployeesEditModalComponent,
+    RoleComponent,
+    RoleTitleComponent,
+    RoleActionComponent,
+    RoleCardsComponent,
+    RoleEditModalComponent,
+    RoleDeleteModalComponent,
+    RoleAddModalComponent,
+    SettingsComponent,
+    SettingsTitleComponent,
+    SettingsEditComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

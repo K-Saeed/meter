@@ -49,37 +49,6 @@
   text-align: center;
 }
 
-.breadcrumb,
-.breadcrumbSpace,
-.inActive {
-  font-family: Inter;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  text-align: center;
-  width: 80px;
-  height: 40px;
-  border-radius: 4px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.breadcrumb,
-.breadcrumbSpace {
-  background-color: #f28f45;
-  color: #fff;
-}
-
-.breadcrumbSpace {
-  width: 120px;
-}
-
-.inActive {
-  color: #000;
-  background-color: transparent;
-}
 
 .modal-body h1 {
   font-size: 16px;
@@ -97,11 +66,6 @@
 .info h3 .value {
   font-weight: 500;
 }
-/* .position {
-  top: 30px;
-  right: 30px;
-} */
-
 .btn-close:focus {
   box-shadow: none;
 }

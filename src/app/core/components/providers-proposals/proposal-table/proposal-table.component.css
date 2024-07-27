@@ -1,21 +1,20 @@
 input[type="checkbox"] {
-  position: relative; /* Ensure positioning context */
-  width: 18px; /* Adjust size as needed */
-  height: 18px; /* Adjust size as needed */
-  appearance: none; /* Remove default checkbox appearance */
-  background-color: #fff; /* White background for unchecked state */
-  border: 2px solid #4f4f4f; /* Border color */
-  border-radius: 6.2px; /* Rounded corners, optional */
-  cursor: pointer; /* Pointer cursor on hover */
+  position: relative;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #4f4f4f;
+  border-radius: 6.2px;
+  cursor: pointer;
 }
 
-/* إضافة رمز التحديد اليدوي */
 input[type="checkbox"]:checked::before {
-  content: "\f00c"; /* رمز العلامة "✔" */
+  content: "\f00c";
   font-family: "Font Awesome 5 Free";
   font-size: 11px;
   font-weight: 900;
-  color: #fff; /* اللون الأبيض للعلامة */
+  color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;

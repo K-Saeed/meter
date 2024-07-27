@@ -1,0 +1,49 @@
+.profile-pic-container {
+  background-color: #edf2f6;
+  border: 1.21px dashed #8f8f8f;
+  border-radius: 50%;
+  width: 157.58px;
+  height: 150px;
+  text-align: center;
+}
+#profilePic {
+  cursor: pointer;
+  width: 43.64px;
+  height: 43.64px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.upload-text,
+.title h3 {
+  font-family: Inter;
+  margin: 0;
+  font-size: 14.55px;
+  color: #8f8f8f;
+  font-weight: 500;
+}
+.title h3 {
+  font-size: 16px;
+  line-height: 26px;
+  color: #1c1c1c80;
+}
+.reject-btn,
+.approve-btn {
+  padding: 10px;
+  width: 84px;
+  height: 56px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  border: 0px;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #fff;
+  color: #f28f45;
+}
+.approve-btn {
+  width: 110px;
+  background-color: #f28f45;
+  color: #fff;
+}

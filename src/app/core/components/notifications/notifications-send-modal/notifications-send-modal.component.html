@@ -1,1 +1,140 @@
-<p>notifications-send-modal works!</p>
+<div
+  class="modal fade"
+  id="sendModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">Sent Notification</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex gap-3 mt-2">
+        <div class="d-flex flex-column" style="gap: 2rem">
+          <div class="position-relative input-container">
+            <label for="title" class="position-absolute label-style"
+              >Title</label
+            >
+            <input
+              type="text"
+              id="title"
+              placeholder="Enter Title"
+              class="input-style"
+            />
+          </div>
+          <div class="position-relative input-container">
+            <label for="recipients" class="position-absolute label-style"
+              >Recipients</label
+            >
+            <div
+              class="input-style d-flex justify-content-between align-items-center text-black"
+              (click)="toggleDropdown()"
+            >
+              {{
+                selectedRecipients.length
+                  ? selectedRecipients.join(", ")
+                  : "Choose Recipients"
+              }}
+              <img src="../../../../../assets/img/arrow-down-o.svg" />
+            </div>
+            <div
+              *ngIf="dropdownOpen"
+              id="dropdown"
+              class="dropdown-content d-flex flex-column"
+            >
+              <label
+                class="d-flex align-items-center gap-2 mx-1"
+                *ngFor="let recipient of recipients"
+              >
+                <input
+                  type="checkbox"
+                  [(ngModel)]="recipient.selected"
+                  (change)="updateSelectedRecipients()"
+                />
+                {{ recipient.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex flex-column" style="gap: 2rem">
+          <div class="position-relative input-container">
+            <label for="message" class="position-absolute label-style"
+              >Message</label
+            >
+            <textarea
+              type="text"
+              id="message"
+              placeholder="Enter Message"
+              class="input-style overflow-hidden"
+            ></textarea>
+          </div>
+          <div class="d-flex flex-column gap-3 mx-4">
+            <h1>Visibility</h1>
+            <div class="d-flex flex-column gap-3">
+              <div class="info d-flex align-items-center" style="gap: 12px">
+                <input
+                  type="radio"
+                  name="Visibility"
+                  id="Published"
+                  [(ngModel)]="selectedVisibility"
+                  value="Published"
+                  (change)="onRadioChange()"
+                />
+                <label for="Published">Published</label>
+              </div>
+              <div class="info d-flex align-items-center" style="gap: 12px">
+                <input
+                  type="radio"
+                  name="Visibility"
+                  id="Scheduled"
+                  [(ngModel)]="selectedVisibility"
+                  value="Scheduled"
+                  (change)="onRadioChange()"
+                />
+                <label for="Scheduled">Scheduled</label>
+              </div>
+
+              <div
+                class="position-relative input-container mt-2"
+                *ngIf="showDateInput"
+              >
+                <label for="Date" class="position-absolute label-style"
+                  >Date</label
+                >
+                <img
+                  src="../../../../../assets/img/calendar.svg"
+                  alt="Calendar Icon"
+                  class="calendar-icon"
+                />
+                <input
+                  type="date"
+                  id="Date"
+                  class="input-style"
+                  style="width: 278px; padding-left: 40px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-flex gap-3 justify-content-end"
+        style="margin: 20px 10px 20px 0px"
+      >
+        <button type="button" class="reject-btn" data-bs-toggle="modal">
+          Cancel
+        </button>
+        <button type="button" class="approve-btn" data-bs-toggle="modal">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

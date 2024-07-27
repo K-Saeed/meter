@@ -1,0 +1,103 @@
+.card {
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+}
+.card-body {
+  padding: 16px;
+}
+
+.img-style {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: white;
+  position: relative;
+  z-index: 1;
+  border: 2px solid #fff;
+  background-color: red;
+}
+
+.one {
+  z-index: 4;
+}
+
+.bg-danger-subtle {
+  background-color: #ff6b6b;
+  z-index: 3;
+  margin-left: -0.4rem;
+}
+
+.bg-black {
+  background-color: #000000;
+  z-index: 2;
+  margin-left: -0.4rem;
+}
+
+.bg-info {
+  background-color: #17a2b8;
+  z-index: 1;
+  margin-left: -0.4rem;
+}
+
+.card-title,
+.number-style h3,
+.delete-btn,
+.edit-btn {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 33.6px;
+}
+.number-style h3 {
+  font-size: 16px;
+  line-height: 24px;
+  color: #667085;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  height: 44px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #333;
+  margin-left: 1rem;
+  /* margin-right: 1rem; */
+}
+
+.delete-btn,
+.edit-btn {
+  color: #ff6b6b;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 19.6px;
+  letter-spacing: -2%;
+}
+.delete-btn:focus {
+  color: #ff6b6b;
+}
+
+.edit-btn {
+  color: #4f4f4f;
+}
+.edit-btn:focus {
+  color: #4f4f4f;
+}
+.delete-btn .icon,
+.edit-btn .icon {
+  width: 24px;
+  height: 24px;
+}
