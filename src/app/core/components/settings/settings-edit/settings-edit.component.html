@@ -18,9 +18,110 @@
       <h5 class="upload-text px-2">Upload Profile Picture</h5>
     </div>
   </div>
+  <div class="d-flex flex-column gap-4 mt-5">
+    <div class="d-flex gap-4">
+      <div class="position-relative input-container">
+        <label for="title" class="position-absolute label-style">Name</label>
+        <input
+          type="text"
+          id="title"
+          placeholder="Enter Name"
+          class="input-style"
+        />
+      </div>
+      <div class="position-relative input-container">
+        <label for="phone" class="position-absolute z-1 label-style"
+          >Phone Number</label
+        >
+        <div class="input-wrapper">
+          <img
+            src="../../../../../assets/img/SA.svg"
+            class="flag-icon ps-1 position-absolute"
+          />
+          <input
+            type="text"
+            id="phone"
+            class="input-style"
+            [value]="phoneNumber"
+            (input)="onPhoneInput($event)"
+            style="padding-left: 2.5rem"
+          />
+          <div
+            class="verify-text position-absolute pe-1"
+            data-bs-toggle="modal"
+            data-bs-target="#verifyModal"
+          >
+            Verify
+          </div>
+        </div>
+      </div>
+      <div class="position-relative input-container">
+        <label for="Email" class="position-absolute label-style">Email</label>
+        <input
+          type="email"
+          id="Email"
+          placeholder="Enter Email"
+          class="input-style"
+        />
+      </div>
+    </div>
+    <div class="d-flex gap-4">
+      <div class="position-relative input-container">
+        <label for="currentPassword" class="position-absolute label-style"
+          >Current Password</label
+        >
+        <input
+          type="{{ showPassword ? 'text' : 'password' }}"
+          id="currentPassword"
+          placeholder="Enter Current Password"
+          class="input-style"
+        />
+        <i
+          class="fa-regular pe-1 {{
+            showPassword ? 'fa-eye-slash' : 'fa-eye'
+          }} toggle-password-icon"
+          (click)="togglePasswordVisibility()"
+        ></i>
+      </div>
+      <div class="position-relative input-container">
+        <label for="newPassword" class="position-absolute label-style"
+          >New Password</label
+        >
+        <input
+          type="{{ showNewPassword ? 'text' : 'password' }}"
+          id="newPassword"
+          placeholder="Enter New Password"
+          class="input-style"
+        />
+        <i
+          class="fa-regular pe-1 {{
+            showNewPassword ? 'fa-eye-slash' : 'fa-eye'
+          }} toggle-password-icon"
+          (click)="toggleNewPasswordVisibility()"
+        ></i>
+      </div>
+      <div class="position-relative input-container">
+        <label for="confirmPassword" class="position-absolute label-style"
+          >Confirm Password</label
+        >
+        <input
+          type="{{ showConfirmPassword ? 'text' : 'password' }}"
+          id="confirmPassword"
+          placeholder="Enter Confirm Password"
+          class="input-style"
+        />
+        <i
+          class="fa-regular pe-1 {{
+            showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'
+          }} toggle-password-icon"
+          (click)="toggleConfirmPasswordVisibility()"
+        ></i>
+      </div>
+    </div>
+  </div>
   <div
     class="d-flex gap-3 justify-content-end"
-    style="margin: 20px 10px 20px 0px"
+    style="margin: 40px 10px 0px 0px"
   >
     <button type="button" class="reject-btn" data-bs-toggle="modal">
       Cancel

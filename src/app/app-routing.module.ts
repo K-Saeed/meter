@@ -9,6 +9,8 @@ import { NotificationsComponent } from './core/components/notifications/notifica
 import { EmployeesComponent } from './core/components/employees/employees.component';
 import { RoleComponent } from './core/components/role/role.component';
 import { SettingsComponent } from './core/components/settings/settings.component';
+import { ProductsComponent } from './core/components/products/products.component';
+import { WorkSubmissionComponent } from './core/components/work-submission/work-submission.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,14 @@ const routes: Routes = [
   {
     path:'settings',
     component: SettingsComponent,
+  },
+  {
+    path:'products',
+    component: ProductsComponent,
+  },
+  {
+    path:'WorkSubmission',
+    component: WorkSubmissionComponent,
   },
 ];
 

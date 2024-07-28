@@ -27,6 +27,76 @@
   line-height: 26px;
   color: #1c1c1c80;
 }
+.input-container {
+  /* width: 100%; */
+  position: relative;
+  display: block;
+}
+
+.label-style {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  transform: translateY(-50%);
+  background-color: white;
+  padding: 0 5px;
+  font-size: 12px;
+  color: #232323b0;
+  font-weight: 400;
+  font-family: Inter;
+  line-height: 14.52px;
+}
+.input-style,
+.input-style::placeholder,
+.dropdown-content {
+  width: 344.5px;
+  height: 53px;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+  color: #000;
+}
+.input-style::placeholder {
+  border: none;
+  padding: 0px;
+  color: #9a9a9a;
+}
+/* .input-container .dropdown-content {
+  display: block;
+} */
+.toggle-password-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 15px;
+  color: #888;
+}
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.flag-icon {
+  position: absolute;
+  left: 10px;
+  width: 24px;
+  height: auto;
+}
+.verify-text {
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f28f45;
+  font-size: 14px;
+  cursor: pointer;
+}
 .reject-btn,
 .approve-btn {
   padding: 10px;

@@ -81,7 +81,23 @@ import { RoleDeleteModalComponent } from './core/components/role/role-delete-mod
 import { RoleAddModalComponent } from './core/components/role/role-add-modal/role-add-modal.component';
 import { SettingsComponent } from './core/components/settings/settings.component';
 import { SettingsTitleComponent } from './core/components/settings/settings-title/settings-title.component';
-import { SettingsEditComponent } from './core/components/settings/settings-edit/settings-edit.component'; 
+import { SettingsEditComponent } from './core/components/settings/settings-edit/settings-edit.component';
+import { ProductsComponent } from './core/components/products/products.component';
+import { ProductsTitleComponent } from './core/components/products/products-title/products-title.component';
+import { ProductsActionComponent } from './core/components/products/products-action/products-action.component';
+import { ProductsFilterModalComponent } from './core/components/products/products-filter-modal/products-filter-modal.component';
+import { ProductsTableComponent } from './core/components/products/products-table/products-table.component';
+import { ProductsDeleteModalComponent } from './core/components/products/products-delete-modal/products-delete-modal.component';
+import { ProductsShowModalComponent } from './core/components/products/products-show-modal/products-show-modal.component';
+import { ProductsShowDetailsModalComponent } from './core/components/products/products-show-details-modal/products-show-details-modal.component';
+import { ProductsShowAttechmentModalComponent } from './core/components/products/products-show-attechment-modal/products-show-attechment-modal.component';
+import { ProductsShowRejectModalComponent } from './core/components/products/products-show-reject-modal/products-show-reject-modal.component';
+import { ProductsApproveModalComponent } from './core/components/products/products-approve-modal/products-approve-modal.component';
+import { WorkSubmissionComponent } from './core/components/work-submission/work-submission.component';
+import { WorkSubmissionTitleComponent } from './core/components/work-submission/work-submission-title/work-submission-title.component';
+import { WorkSubmissionActionComponent } from './core/components/work-submission/work-submission-action/work-submission-action.component';
+import { WorkSubmissionFilterModalComponent } from './core/components/work-submission/work-submission-filter-modal/work-submission-filter-modal.component';
+import { WorkSubmissionTableComponent } from './core/components/work-submission/work-submission-table/work-submission-table.component'; 
 
 
 @NgModule({
@@ -164,6 +180,22 @@ import { SettingsEditComponent } from './core/components/settings/settings-edit/
     SettingsComponent,
     SettingsTitleComponent,
     SettingsEditComponent,
+    ProductsComponent,
+    ProductsTitleComponent,
+    ProductsActionComponent,
+    ProductsFilterModalComponent,
+    ProductsTableComponent,
+    ProductsDeleteModalComponent,
+    ProductsShowModalComponent,
+    ProductsShowDetailsModalComponent,
+    ProductsShowAttechmentModalComponent,
+    ProductsShowRejectModalComponent,
+    ProductsApproveModalComponent,
+    WorkSubmissionComponent,
+    WorkSubmissionTitleComponent,
+    WorkSubmissionActionComponent,
+    WorkSubmissionFilterModalComponent,
+    WorkSubmissionTableComponent,
   ],
   imports: [
     BrowserModule,
