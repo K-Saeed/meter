@@ -8,18 +8,18 @@ import { Component } from '@angular/core';
 export class EmployeesTableComponent {
   selectAll: boolean = false;
   users = [
-    { id: '20', name: 'Mohamede MonGe', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
-    { id: '20', name: 'Mohamede MonGe', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
-    { id: '20', name: 'Mohamede MonGe', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
-    { id: '20', name: 'Mohamede MonGe', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
-    { id: '20', name: 'Mohamede MonGe', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
+    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
   ];
 
   currentPage: number = 1;

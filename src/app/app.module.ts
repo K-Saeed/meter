@@ -97,7 +97,18 @@ import { WorkSubmissionComponent } from './core/components/work-submission/work-
 import { WorkSubmissionTitleComponent } from './core/components/work-submission/work-submission-title/work-submission-title.component';
 import { WorkSubmissionActionComponent } from './core/components/work-submission/work-submission-action/work-submission-action.component';
 import { WorkSubmissionFilterModalComponent } from './core/components/work-submission/work-submission-filter-modal/work-submission-filter-modal.component';
-import { WorkSubmissionTableComponent } from './core/components/work-submission/work-submission-table/work-submission-table.component'; 
+import { WorkSubmissionTableComponent } from './core/components/work-submission/work-submission-table/work-submission-table.component';
+import { WorkSubmissionDeleteModalComponent } from './core/components/work-submission/work-submission-delete-modal/work-submission-delete-modal.component';
+import { WorkSubmissionShowModalComponent } from './core/components/work-submission/work-submission-show-modal/work-submission-show-modal.component';
+import { WorkSubmissionDetailsModalComponent } from './core/components/work-submission/work-submission-details-modal/work-submission-details-modal.component';
+import { WorkSubmissionAttachmentModalComponent } from './core/components/work-submission/work-submission-attachment-modal/work-submission-attachment-modal.component';
+import { WorkSubmissionShowRejectModalComponent } from './core/components/work-submission/work-submission-show-reject-modal/work-submission-show-reject-modal.component';
+import { WorkSubmissionShowApproveModalComponent } from './core/components/work-submission/work-submission-show-approve-modal/work-submission-show-approve-modal.component';
+import { ChatComponent } from './core/components/chat/chat.component';
+import { ChatListsComponent } from './core/components/chat/chat-lists/chat-lists.component';
+import { ChatMsgComponent } from './core/components/chat/chat-msg/chat-msg.component';
+import { UserAddModalComponent } from './core/components/users/user-add-modal/user-add-modal.component';
+import { TransactionsRefundModalComponent } from './core/components/transactions/transactions-refund-modal/transactions-refund-modal.component';
 
 
 @NgModule({
@@ -196,6 +207,17 @@ import { WorkSubmissionTableComponent } from './core/components/work-submission/
     WorkSubmissionActionComponent,
     WorkSubmissionFilterModalComponent,
     WorkSubmissionTableComponent,
+    WorkSubmissionDeleteModalComponent,
+    WorkSubmissionShowModalComponent,
+    WorkSubmissionDetailsModalComponent,
+    WorkSubmissionAttachmentModalComponent,
+    WorkSubmissionShowRejectModalComponent,
+    WorkSubmissionShowApproveModalComponent,
+    ChatComponent,
+    ChatListsComponent,
+    ChatMsgComponent,
+    UserAddModalComponent,
+    TransactionsRefundModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@
 .text-style {
   color: #ffffff;
   font-family: Inter;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 26px;
 }
@@ -34,9 +34,9 @@
   gap: 5px !important;
   padding: 0px 16px 0px 16px;
 }
-.gap-3 {
+/* .gap-3 {
   gap: 12px !important;
-}
+} */
 .list-group-item {
   background-color: transparent;
   border: none;

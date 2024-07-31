@@ -25,6 +25,10 @@
             <span class="value">TX12345</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Title:</span>
+            <span class="value">Survey Report</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
             <span class="label">Customer Name:</span>
             <span class="value">Mohamed MonGe</span>
           </h3>
@@ -50,7 +54,7 @@
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Transaction Notes:</span>
-            <span class="value">Mobiamo</span>
+            <span class="value">Payment for design services</span>
           </h3>
           <!-- </div> -->
         </div>
@@ -59,17 +63,24 @@
           <div class="info d-flex flex-column align-items-start gap-3">
             <h3 class="d-flex justify-content-between m-0">
               <span class="label">Customer:</span>
-              <span class="value">1234</span>
+              <span class="value">Mohamed MonGe</span>
+            </h3>
+          </div>
+        </div>
+        <div class="title d-flex align-items-start gap-2 flex-column mt-4">
+          <h1>Breakdown of Charges:</h1>
+          <div class="info d-flex flex-column align-items-start gap-3">
+            <h3 class="d-flex justify-content-between m-0">
+              <span class="label">Service Fee:</span>
+              <span class="value">$450</span>
             </h3>
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Request Title:</span>
-              <span class="value">Residential Survey</span>
+              <span class="label">Fee:</span>
+              <span class="value">15%</span>
             </h3>
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Request Description:</span>
-              <span class="value"
-                >Detailed survey for residential construction.</span
-              >
+              <span class="label">Consolation Fee:</span>
+              <span class="value">35 SAR</span>
             </h3>
           </div>
         </div>
@@ -86,7 +97,7 @@
             type="button"
             class="approve-btn"
             data-bs-toggle="modal"
-            data-bs-target="#approveModal"
+            data-bs-target="#refundModal"
           >
             Refund
           </button>
@@ -106,3 +117,4 @@
 
 <app-transactions-reject-modal></app-transactions-reject-modal>
 <app-transactions-approve-modal></app-transactions-approve-modal>
+<app-transactions-refund-modal></app-transactions-refund-modal>

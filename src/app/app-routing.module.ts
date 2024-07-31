@@ -11,6 +11,7 @@ import { RoleComponent } from './core/components/role/role.component';
 import { SettingsComponent } from './core/components/settings/settings.component';
 import { ProductsComponent } from './core/components/products/products.component';
 import { WorkSubmissionComponent } from './core/components/work-submission/work-submission.component';
+import { ChatComponent } from './core/components/chat/chat.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path:'WorkSubmission',
     component: WorkSubmissionComponent,
+  }, 
+  {
+    path:'chat',
+    component: ChatComponent,
   },
 ];
 

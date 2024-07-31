@@ -208,6 +208,23 @@
       class="nav-link text-style list-group-item list-group-item-action"
       id="list-home-list"
       data-bs-toggle="list"
+      [routerLink]="'/chat'"
+      role="tab"
+      aria-controls="list-home"
+    >
+      <div class="d-flex gap-3 align-items-center">
+        <img
+          class="icon-style"
+          src="../../../../assets/img/message-text.svg"
+          alt=""
+        />
+        <div>Chat</div>
+      </div>
+    </a>
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
       [routerLink]="'/settings'"
       role="tab"
       aria-controls="list-home"

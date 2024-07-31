@@ -45,7 +45,10 @@
           <h4 class="m-0">{{ user.id }}</h4>
         </td>
         <td>
-          <h3 class="m-0">{{ user.name }}</h3>
+          <div class="d-flex flex-column gap-1">
+            <h3 class="m-0">{{ user.name }}</h3>
+            <h5 class="m-0">{{ user.email }}</h5>
+          </div>
         </td>
         <td>
           <h4 class="m-0">{{ user.role }}</h4>

@@ -12,7 +12,6 @@
   padding: 10px;
 }
 .modal-dialog {
-  /* margin-top: 7rem; */
   margin-left: auto;
   margin-right: auto;
 }
@@ -133,4 +132,7 @@
 }
 .btn-close:focus {
   box-shadow: none;
+}
+.orang {
+  color: #f28f45;
 }
