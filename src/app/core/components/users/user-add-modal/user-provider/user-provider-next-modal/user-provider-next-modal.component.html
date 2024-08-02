@@ -1,0 +1,188 @@
+<div
+  class="modal fade"
+  id="nextPoviderModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">Add New User</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3 mt-2">
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Date" class="position-absolute label-style">Date</label>
+            <img
+              src="../../../../../../../assets/img/calendar-o.svg"
+              alt="Calendar Icon"
+              class="calendar-icon"
+            />
+            <input
+              type="date"
+              id="Date"
+              class="input-style"
+              style="padding-left: 40px"
+            />
+          </div>
+          <div class="position-relative input-container">
+            <label for="title" class="position-absolute label-style"
+              >Commercial Registration</label
+            >
+            <input
+              type="number"
+              id="title"
+              placeholder="Enter Commercial Registration"
+              class="input-style"
+            />
+          </div>
+        </div>
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Manager" class="position-absolute label-style"
+              >Manager Name</label
+            >
+            <input
+              type="text"
+              id="Manager"
+              placeholder="Enter Manager Name"
+              class="input-style"
+            />
+          </div>
+          <div class="position-relative input-container">
+            <label for="phone" class="position-absolute z-1 label-style"
+              >Phone Number</label
+            >
+            <div class="input-wrapper">
+              <img
+                src="../../../../../assets/img/SA.svg"
+                class="flag-icon ps-1 position-absolute"
+              />
+              <input
+                type="text"
+                id="phone"
+                class="input-style"
+                [value]="phoneNumber"
+                (input)="onPhoneInput($event)"
+                style="padding-left: 2.5rem"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Region" class="position-absolute label-style"
+              >Region</label
+            >
+            <input
+              type="text"
+              id="Region"
+              placeholder="Enter Region"
+              class="input-style"
+            />
+          </div>
+          <div class="position-relative input-container">
+            <label for="City" class="position-absolute label-style">City</label>
+            <input
+              type="text"
+              id="City"
+              placeholder="Enter City"
+              class="input-style"
+            />
+          </div>
+        </div>
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Neighborhood" class="position-absolute label-style"
+              >Neighborhood</label
+            >
+            <input
+              type="text"
+              id="Neighborhood"
+              placeholder="Enter Neighborhood"
+              class="input-style"
+            />
+          </div>
+          <div class="position-relative input-container">
+            <label for="Location" class="position-absolute label-style"
+              >Location</label
+            >
+            <img
+              src="../../../../../../../assets/img/location.svg"
+              alt=""
+              srcset=""
+              class="calendar-icon"
+            />
+            <input
+              type="text"
+              id="Location"
+              placeholder="Enter City"
+              class="input-style"
+              style="padding-left: 40px"
+            />
+          </div>
+        </div>
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Password" class="position-absolute label-style"
+              >Password</label
+            >
+            <input
+              type="{{ showPassword ? 'text' : 'password' }}"
+              id="Password"
+              placeholder="Enter Password"
+              class="input-style"
+            />
+            <i
+              class="fa-regular pe-1 {{
+                showPassword ? 'fa-eye-slash' : 'fa-eye'
+              }} toggle-password-icon"
+              (click)="togglePasswordVisibility()"
+            ></i>
+          </div>
+
+          <div class="position-relative input-container">
+            <label for="confirmPassword" class="position-absolute label-style"
+              >Confirm Password</label
+            >
+            <input
+              type="{{ showConfirmPassword ? 'text' : 'password' }}"
+              id="confirmPassword"
+              placeholder="Enter Password"
+              class="input-style"
+            />
+            <i
+              class="fa-regular pe-1 {{
+                showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'
+              }} toggle-password-icon"
+              (click)="toggleConfirmPasswordVisibility()"
+            ></i>
+          </div>
+        </div>
+      </div>
+      <div
+        class="d-flex gap-3 justify-content-end"
+        style="margin: 20px 10px 20px 0px"
+      >
+        <button
+          type="button"
+          class="reject-btn"
+          data-bs-target="#poviderModal"
+          data-bs-toggle="modal"
+        >
+          Back
+        </button>
+        <button type="button" class="approve-btn" data-bs-toggle="modal">
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

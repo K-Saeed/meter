@@ -1,0 +1,239 @@
+<div
+  class="modal fade"
+  id="poviderModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">Add New User</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3 mt-2">
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Role" class="position-absolute label-style">Role</label>
+            <div
+              class="input-style d-flex justify-content-between align-items-center text-black"
+              (click)="toggleDropdown('role')"
+            >
+              {{ selectedRole ? selectedRole : "Choose Role" }}
+              <img src="../../../../../assets/img/arrow-down-o.svg" />
+            </div>
+            <div
+              *ngIf="dropdownOpen === 'role'"
+              id="dropdown"
+              class="dropdown-content d-flex flex-column gap-1"
+            >
+              <label
+                class="d-flex align-items-center gap-2 mx-1"
+                *ngFor="let role of Role"
+              >
+                <input
+                  type="radio"
+                  name="roleRadio"
+                  [value]="role.name"
+                  [(ngModel)]="selectedRole"
+                  (change)="updateSelectedRole()"
+                />
+                {{ role.name }}
+              </label>
+            </div>
+          </div>
+          <div class="position-relative input-container">
+            <label for="title" class="position-absolute label-style"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="title"
+              placeholder="Enter Name"
+              class="input-style"
+            />
+          </div>
+        </div>
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="phone" class="position-absolute z-1 label-style"
+              >Phone Number</label
+            >
+            <div class="input-wrapper">
+              <img
+                src="../../../../../assets/img/SA.svg"
+                class="flag-icon ps-1 position-absolute"
+              />
+              <input
+                type="text"
+                id="phone"
+                class="input-style"
+                [value]="phoneNumber"
+                (input)="onPhoneInput($event)"
+                style="padding-left: 2.5rem"
+              />
+              <div
+                class="verify-text position-absolute pe-1"
+                data-bs-toggle="modal"
+                data-bs-target="#verifyModal"
+              >
+                Verify
+              </div>
+            </div>
+          </div>
+          <div class="position-relative input-container">
+            <label for="Email" class="position-absolute label-style"
+              >Email</label
+            >
+            <input
+              type="email"
+              id="Email"
+              placeholder="Enter Email"
+              class="input-style"
+            />
+          </div>
+        </div>
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Provider" class="position-absolute label-style"
+              >Service Provider</label
+            >
+            <div
+              class="input-style d-flex justify-content-between align-items-center text-black"
+              (click)="toggleDropdown('provider')"
+            >
+              {{
+                selectedProvider ? selectedProvider : "Choose Service Provider"
+              }}
+              <img src="../../../../../assets/img/arrow-down-o.svg" />
+            </div>
+            <div
+              *ngIf="dropdownOpen === 'provider'"
+              id="dropdown"
+              class="dropdown-content d-flex flex-column gap-1"
+            >
+              <label
+                class="d-flex align-items-center gap-2 mx-1"
+                *ngFor="let provider of filteredProviders"
+              >
+                <input
+                  type="radio"
+                  name="providerRadio"
+                  [value]="provider.name"
+                  [(ngModel)]="selectedProvider"
+                  (change)="updateSelectedProvider()"
+                />
+                {{ provider.name }}
+              </label>
+            </div>
+          </div>
+          <div class="position-relative input-container">
+            <label for="title" class="position-absolute label-style"
+              >Facility name</label
+            >
+            <input
+              type="text"
+              id="title"
+              placeholder="Enter Facility Name"
+              class="input-style"
+            />
+          </div>
+        </div>
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="activity" class="position-absolute label-style"
+              >Type of Activity</label
+            >
+            <div
+              class="input-style d-flex justify-content-between align-items-center text-black"
+              (click)="toggleDropdown('activity')"
+            >
+              {{
+                selectedActivity ? selectedActivity : "Choose Type of Activity"
+              }}
+              <img src="../../../../../assets/img/arrow-down-o.svg" />
+            </div>
+            <div
+              *ngIf="dropdownOpen === 'activity'"
+              id="dropdown"
+              class="dropdown-content d-flex flex-column gap-1"
+            >
+              <label
+                class="d-flex align-items-center gap-2 mx-1"
+                *ngFor="let activity of Activity"
+              >
+                <input
+                  type="radio"
+                  name="activityRadio"
+                  [value]="activity.name"
+                  [(ngModel)]="selectedActivity"
+                  (change)="updateSelectedActivity()"
+                />
+                {{ activity.name }}
+              </label>
+            </div>
+          </div>
+          <div class="position-relative input-container">
+            <label for="title" class="position-absolute label-style"
+              >License Number</label
+            >
+            <input
+              type="text"
+              id="title"
+              placeholder="Enter License Number"
+              class="input-style"
+            />
+          </div>
+        </div>
+        <div class="position-relative input-container my-1">
+          <label for="title" class="position-absolute label-style"
+            >Description of Services</label
+          >
+          <textarea
+            type="text"
+            id="title"
+            placeholder="Enter Description of Services"
+            class="input-style w-100 overflow-hidden"
+            style="height: 85px"
+          ></textarea>
+        </div>
+        <div
+          class="position-relative input-container my-1 boder-style d-flex flex-column w-50"
+        >
+          <img
+            src="../../../../../../../assets/img/document-upload.svg"
+            alt=""
+            srcset=""
+          />
+          <h2 class="m-0">Click to Upload</h2>
+          <h6 class="m-0">(Maximum file size: 25MB)</h6>
+          <input type="file" name="" id="" />
+        </div>
+      </div>
+      <div
+        class="d-flex gap-3 justify-content-end"
+        style="margin: 20px 10px 20px 0px"
+      >
+        <button type="button" class="reject-btn" data-bs-toggle="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="approve-btn"
+          data-bs-toggle="modal"
+          data-bs-target="#nextPoviderModal"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-user-verification-modal></app-user-verification-modal>
+<app-user-provider-next-modal></app-user-provider-next-modal>

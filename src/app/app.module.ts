@@ -109,6 +109,14 @@ import { ChatListsComponent } from './core/components/chat/chat-lists/chat-lists
 import { ChatMsgComponent } from './core/components/chat/chat-msg/chat-msg.component';
 import { UserAddModalComponent } from './core/components/users/user-add-modal/user-add-modal.component';
 import { TransactionsRefundModalComponent } from './core/components/transactions/transactions-refund-modal/transactions-refund-modal.component';
+import { UserCustomerComponent } from './core/components/users/user-add-modal/user-customer/user-customer.component';
+import { UserProviderComponent } from './core/components/users/user-add-modal/user-provider/user-provider.component';
+import { UserVerificationModalComponent } from './core/components/users/user-verification-modal/user-verification-modal.component';
+import { UserProviderModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-modal/user-provider-modal.component';
+import { UserProviderNextModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-next-modal/user-provider-next-modal.component';
+import { UserSellerNextModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-next-modal/user-seller-next-modal.component';
+import { UserSellerModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-modal/user-seller-modal.component';
+import { UserSellerComponent } from './core/components/users/user-add-modal/user-seller/user-seller.component';
 
 
 @NgModule({
@@ -218,6 +226,14 @@ import { TransactionsRefundModalComponent } from './core/components/transactions
     ChatMsgComponent,
     UserAddModalComponent,
     TransactionsRefundModalComponent,
+    UserCustomerComponent,
+    UserProviderComponent,
+    UserVerificationModalComponent,
+    UserProviderModalComponent,
+    UserProviderNextModalComponent,
+    UserSellerNextModalComponent,
+    UserSellerModalComponent,
+    UserSellerComponent,
   ],
   imports: [
     BrowserModule,
