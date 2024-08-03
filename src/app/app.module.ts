@@ -117,6 +117,7 @@ import { UserProviderNextModalComponent } from './core/components/users/user-add
 import { UserSellerNextModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-next-modal/user-seller-next-modal.component';
 import { UserSellerModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-modal/user-seller-modal.component';
 import { UserSellerComponent } from './core/components/users/user-add-modal/user-seller/user-seller.component';
+import { SignInComponent } from './core/components/sign-in/sign-in.component';
 
 
 @NgModule({
@@ -234,6 +235,7 @@ import { UserSellerComponent } from './core/components/users/user-add-modal/user
     UserSellerNextModalComponent,
     UserSellerModalComponent,
     UserSellerComponent,
+    SignInComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.full-width-image {
+  width: 617px;
+  height: 100vh;
+  object-fit: fill;
+}
+.overlay-text {
+  position: absolute;
+  bottom: 0;
+  left: 38%;
+  transform: translate(-50%, -25%);
+  color: white;
+  text-align: start;
+}
+.overlay-text h2,
+.overlay-text p,
+.from-style h5,
+.from-style h2,
+.btn-singin {
+  font-family: Inter;
+  font-size: 65px;
+  font-weight: 600;
+  line-height: 75px;
+}
+.overlay-text h2 span,
+.from-style h5 {
+  color: #f28f45;
+}
+.overlay-text p {
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 35px;
+}
+.dropdown-menu-end {
+  right: 0;
+  left: auto;
+  padding: 0;
+}
+.btn-secondary {
+  font-family: Inter;
+  font-size: 19.67px;
+  font-weight: 400;
+  line-height: 25.57px;
+  color: #4a5154;
+  background-color: #f5f6f7;
+  border-color: transparent;
+  width: 163px;
+  padding: 10px 15px 10px 15px;
+}
+.world {
+  width: 22.48px;
+  height: 22.48px;
+  border-radius: 112.41px;
+  margin-right: 8px;
+}
+.btn-secondary.dropdown-toggle::after {
+  display: none;
+}
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: auto;
+}
+
+.dropdown-item {
+  padding: 10px 15px 10px 15px;
+  font-size: 19.67px;
+  font-weight: 400;
+  line-height: 25.57px;
+  font-family: Inter;
+  color: #4a5154;
+}
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: var(--bs-dropdown-link-hover-color);
+  background-color: var(--bs-dropdown-link-hover-bg);
+  border-radius: 5px;
+}
+.from-style h5,
+.from-style h2 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+}
+.from-style h2 {
+  font-size: 32px;
+  font-weight: 500;
+}
+.input-container {
+  width: 100%;
+  position: relative;
+}
+
+.label-style {
+  background-color: white;
+  padding: 10px 5px;
+  font-size: 16px;
+  color: #232323b0;
+  font-weight: 300;
+  font-family: Inter;
+  line-height: 14.52px;
+}
+
+.input-style,
+.input-style::placeholder,
+.dropdown-content {
+  width: 534px;
+  height: 53px;
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 400;
+  outline: none;
+  cursor: pointer;
+  color: #000;
+}
+.input-style::placeholder {
+  border: none;
+  color: #232323b0;
+  padding: 0px;
+}
+.toggle-password-icon {
+  position: absolute;
+  right: 10px;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 15px;
+  color: #888;
+}
+.top-50 {
+  top: 20% !important;
+}
+.btn-signin {
+  width: 100%;
+  background-color: #f28f45;
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  border-radius: 40px;
+  padding: 0;
+  height: 50px;
+ 
+}

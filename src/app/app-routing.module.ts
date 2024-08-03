@@ -12,8 +12,13 @@ import { SettingsComponent } from './core/components/settings/settings.component
 import { ProductsComponent } from './core/components/products/products.component';
 import { WorkSubmissionComponent } from './core/components/work-submission/work-submission.component';
 import { ChatComponent } from './core/components/chat/chat.component';
+import { SignInComponent } from './core/components/sign-in/sign-in.component';
 
 const routes: Routes = [
+  // {
+  //   path:'signin',
+  //   component: SignInComponent,
+  // },
   {
     path:'servicerequests',
     component: ServiceRequestsComponent,
