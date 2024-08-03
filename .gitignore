@@ -46,3 +46,6 @@ testem.log
 Thumbs.db
 
 /.angular/cache
+.angular/cached/
+node_modules
+.angular/cached/
