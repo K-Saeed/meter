@@ -26,14 +26,11 @@ export class SignInComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-  ) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
   ngOnInit(): void {
     this.initializeForm();
     this.signInForm.reset();
-    }
+  }
   private initializeForm(): void {
     this.signInForm = this.fb.group({
       emailAddress: new FormControl("", {
@@ -58,25 +55,7 @@ export class SignInComponent implements OnInit {
     if (this.signInForm.valid) {
       const emailAddress = this.signInForm.get("emailAddress")?.value;
       const password = this.signInForm.get("password")?.value;
-      this.authService
-        .login(emailAddress, password)
-        .pipe(
-          catchError((error) => {
-            if (error.status === 403) {
-              this.unverifiedEmailError = true;
-            } else if (error.status === 401) {
-              this.wrongPasswordOrEmailError = true;
-            }
-            return throwError(error);
-          })
-        )
-        .subscribe((error) => {
-          console.log("error: ", error);
-          this.authService.logout();
-          if (!(this.unverifiedEmailError || this.wrongPasswordOrEmailError)) {
-            this.generalLoginError = true;
-          }
-        });
+      this.authService.login(emailAddress, password);
     } else {
       this.signInForm.markAllAsTouched();
     }
