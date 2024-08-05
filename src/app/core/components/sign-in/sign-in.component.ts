@@ -29,11 +29,10 @@ export class SignInComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
   ) {}
   ngOnInit(): void {
     this.initializeForm();
-    this.signInForm.get("emailAddress")
+    this.signInForm.reset();
     }
   private initializeForm(): void {
     this.signInForm = this.fb.group({

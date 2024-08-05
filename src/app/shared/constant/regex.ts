@@ -5,7 +5,8 @@ export const Regex = {
   EMAIL_REGEX: /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
   SMARTLY_API_SKILL_ID_REGEX: /^[0-9A-Fa-f]{24}$/,
   TEXT_NEVER_START_WITH_WHITE_SPACES: /^[^\s]/,
-  PASSWORD_REGEX: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[}{><@$!%#=()*^?&_\.:;,\\~\\-])[A-Za-z\d}{><@$!%#^=()*?&_\.:;,\\~\\-]{8,}$/,
+  // PASSWORD_REGEX: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[}{><@$!%#=()*^?&_\.:;,\\~\\-])[A-Za-z\d}{><@$!%#^=()*?&_\.:;,\\~\\-]{8,}$/,
+  PASSWORD_REGEX: /.*/,
   NO_HTML_TAGS_REGEX: /^[^<>]+$/,
   NEW_DOMAIN_REGEX: /^[A-Za-z0-9 _-]{0,20}$/,
   JSON_WITH_DOUBLE_QUOTES_REGEX: /({|,)(?:\s*)(?:')?([A-Za-z_$\.][A-Za-z0-9_ \-\.$]*)(?:')?(?:\s*):/g

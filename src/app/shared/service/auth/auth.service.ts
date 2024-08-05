@@ -20,7 +20,9 @@ export class AuthService {
           map((res) => {
           localStorage.setItem("JWT_Token", res.body.token);
           this.isLoggedIn = true;
+          console.log('done');
           return true;
+
          }),
           catchError((error) => {
           console.log(error);
