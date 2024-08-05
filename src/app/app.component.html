@@ -1,11 +1,13 @@
 <div id="page-container">
   <div id="content-wrap">
-    <app-sign-in></app-sign-in>
+    <!-- <app-sign-in></app-sign-in> -->
     <div class="d-flex">
-      <!-- <app-sidebar class="flex-shrink-0"></app-sidebar> -->
+      <app-sidebar class="flex-shrink-0"></app-sidebar>
       <div class="flex-grow-1">
-        <!-- <app-topbar></app-topbar> -->
-        <!-- <router-outlet></router-outlet> -->
+        <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-pulse" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+        <app-topbar></app-topbar>
+        <router-outlet></router-outlet>
       </div>
     </div>
   </div>
