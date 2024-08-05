@@ -38,7 +38,8 @@
           <div class="input-container">
             <label for="Email" class="label-style">Email</label>
             <br />
-            <input type="email" id="Email" placeholder="Enter Email" class="input-style" [formControl]="emailAddressControl" type="email" class="form-control" />
+            <input type="email" id="Email" placeholder="Enter Email" class="input-style"
+              [formControl]="emailAddressControl" type="email" />
             <div *ngIf="emailAddressControl.invalid && (emailAddressControl.dirty || emailAddressControl.touched)">
               <small class="text-danger" *ngIf="emailAddressControl.errors?.['required']">Email is required.</small>
               <small class="text-danger" *ngIf="emailAddressControl.errors?.['email']">Invalid email address.</small>
@@ -53,10 +54,10 @@
           <i class="fa-regular pe-1 {{
               showPassword ? 'fa-eye-slash' : 'fa-eye'
             }} toggle-password-icon" (click)="togglePasswordVisibility()"></i>
-            <div *ngIf="passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)">
-              <small class="text-danger" *ngIf="passwordControl.errors?.['required']">Password is required.</small>
-              <small class="text-danger" *ngIf="passwordControl.errors?.['pattern']">Invalid password address.</small>
-            </div>
+          <div *ngIf="passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)">
+            <small class="text-danger" *ngIf="passwordControl.errors?.['required']">Password is required.</small>
+            <small class="text-danger" *ngIf="passwordControl.errors?.['pattern']">Invalid password address.</small>
+          </div>
         </div>
         <h5 class="text-end text-decoration-underline fs-6 cursor-pointer">
           Forget Password?

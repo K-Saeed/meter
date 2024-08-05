@@ -75,6 +75,9 @@
   border-radius: 6px;
   margin: 0;
 }
+.active {
+  color: #f28f45;
+}
 
 .dropdown-menu-sidebar {
   display: none;
