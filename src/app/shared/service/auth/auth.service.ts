@@ -19,7 +19,8 @@ export class AuthService {
     const apiUrl = `${environment.apiUrl}/api/user/login`;
     const loginDto = { email, password };
     this.http.post<any>(apiUrl, loginDto, {
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true
       }).subscribe((res) => {
           localStorage.setItem("JWT_Token", res.token);
           localStorage.setItem("user-profile", res);

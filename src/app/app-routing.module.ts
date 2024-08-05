@@ -14,65 +14,25 @@ import { WorkSubmissionComponent } from './core/components/work-submission/work-
 import { ChatComponent } from './core/components/chat/chat.component';
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
+import { AuthGuardService } from './shared/service/auth/auth-guard.service';
 
 const routes: Routes = [
-  {
-    path:'signin',
-    component: SignInComponent,
-  },
-  {
-    path:'dashboard',
-    component: DashboardComponent,
-  },
-  {
-    path:'servicerequests',
-    component: ServiceRequestsComponent,
-  },
-  {
-    path:'users',
-    component: UsersComponent,
-  },
-  {
-    path:'providersproposal',
-    component: ProvidersProposalsComponent,
-  },
-  {
-    path:'conversations',
-    component: ConversationComponent,
-  },
-  {
-    path:'transactions',
-    component: TransactionsComponent,
-  },
-  {
-    path:'notifications',
-    component: NotificationsComponent,
-  },
-  {
-    path:'employees',
-    component: EmployeesComponent,
-  },
-  {
-    path:'roles',
-    component: RoleComponent,
-  },
-  {
-    path:'settings',
-    component: SettingsComponent,
-  },
-  {
-    path:'products',
-    component: ProductsComponent,
-    // canActivate: [AuthGuardService]
-  },
-  {
-    path:'WorkSubmission',
-    component: WorkSubmissionComponent,
-  },
-  {
-    path:'chat',
-    component: ChatComponent,
-  },
+  { path: 'signin', component: SignInComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
+  { path: 'servicerequests', component: ServiceRequestsComponent, canActivate: [AuthGuardService] },
+  { path: 'users', component: UsersComponent },
+  { path: 'providersproposal', component: ProvidersProposalsComponent },
+  { path: 'conversations', component: ConversationComponent },
+  { path: 'transactions', component: TransactionsComponent },
+  { path: 'notifications', component: NotificationsComponent },
+  { path: 'employees', component: EmployeesComponent },
+  { path: 'roles', component: RoleComponent },
+  { path: 'settings', component: SettingsComponent },
+  { path: 'products', component: ProductsComponent },
+  { path: 'worksubmission', component: WorkSubmissionComponent },
+  { path: 'chat', component: ChatComponent },
+  { path: '', redirectTo: '/signin', pathMatch: 'full' }, // Default route
+  { path: '**', redirectTo: '/signin' } // Wildcard route for a 404 page
 ];
 
 @NgModule({

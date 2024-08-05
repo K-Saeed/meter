@@ -8,6 +8,7 @@ export class JwtInterceptor implements HttpInterceptor {
       const authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
+
         }
       });
       return next.handle(authReq);
@@ -15,4 +16,6 @@ export class JwtInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
   }
+
+
 }
