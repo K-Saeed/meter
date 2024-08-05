@@ -7,45 +7,78 @@
   font-weight: 500;
   line-height: 26px;
 }
+
 .side-bar {
   background-color: #314352;
   width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0; /* Adjust padding as needed */
 }
+
+.img-style {
+  width: 149.96px;
+  height: 66.39px;
+  margin-bottom: 20px; /* Adjust margin as needed */
+}
+
+.navbar-menu {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+}
+
+.navbar-menu li {
+  margin: 10px 0; /* Adjust margin as needed */
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: #fff; /* Adjust text color as needed */
+  display: block;
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 5px; /* Adjust border radius as needed */
+  transition: background-color 0.3s;
+}
+
+.navbar-menu a:hover {
+  background-color: #4c70ba; /* Adjust hover background color as needed */
+}
+
 .space-style {
-  margin: 8px 0 0 0;
-  height: 14vh;
+  margin: 0; /* Remove margin */
+  height: auto; /* Adjust height as needed */
 }
+
 .offcanvas {
   top: 0;
   visibility: visible;
   gap: 5px;
-  flex-direction: row;
+  flex-direction: column; /* Change to column */
 }
-.img-style {
-  width: 149.96px;
-  height: 66.39px;
-  margin: 15px 0 15px 0;
-}
+
 .icon-style {
   width: 20px;
   height: 20px;
 }
+
 .bottom {
   gap: 5px !important;
   padding: 0px 16px 0px 16px;
 }
-/* .gap-3 {
-  gap: 12px !important;
-} */
+
 .list-group-item {
   background-color: transparent;
   border: none;
 }
+
 .list-group-item.active {
   background-color: #f28f45;
-  padding: 8px, 12px, 8px, 12px;
+  padding: 8px 12px; /* Corrected padding syntax */
   border-radius: 6px;
 }
+
 .dropdown-menu-sidebar {
   display: none;
 }
@@ -56,10 +89,28 @@
 
 .submenu {
   list-style: none;
-  /* padding-left: 33px; */
   margin: 0;
 }
 
 .submenu li {
-  padding: 5px 0;
+  padding: 5px 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .side-bar {
+    padding: 10px 0; /* Adjust padding for smaller screens */
+  }
+
+  .img-style {
+    margin-bottom: 10px; /* Adjust margin for smaller screens */
+  }
+
+  .navbar-menu li {
+    margin: 5px 0; /* Adjust margin for smaller screens */
+  }
+
+  .navbar-menu a {
+    padding: 8px 16px; /* Adjust padding for smaller screens */
+  }
 }
