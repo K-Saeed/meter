@@ -13,12 +13,16 @@ import { ProductsComponent } from './core/components/products/products.component
 import { WorkSubmissionComponent } from './core/components/work-submission/work-submission.component';
 import { ChatComponent } from './core/components/chat/chat.component';
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
-import { AuthGuardService } from './shared/service/auth/auth-guard.service';
+import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path:'signin',
     component: SignInComponent,
+  },
+  {
+    path:'dashboard',
+    component: DashboardComponent,
   },
   {
     path:'servicerequests',
