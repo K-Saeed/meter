@@ -1,12 +1,28 @@
-<div id="page-container">
-  <div id="content-wrap">
+<!-- <div id="page-container">
+  <div id="content-wrap"> -->
     <!-- <app-sign-in></app-sign-in> -->
-    <div class="d-flex">
+    <!-- <div class="d-flex">
       <app-sidebar class="flex-shrink-0"></app-sidebar>
       <div class="flex-grow-1">
         <app-topbar></app-topbar>
         <router-outlet></router-outlet>
       </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- app.component.html -->
+<div id="page-container">
+  <div id="content-wrap">
+    <div *ngIf="showSidebarAndTopbar" class="d-flex">
+      <app-sidebar class="flex-shrink-0"></app-sidebar>
+      <div class="flex-grow-1">
+        <app-topbar></app-topbar>
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <div *ngIf="!showSidebarAndTopbar">
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>
