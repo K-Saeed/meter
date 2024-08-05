@@ -9,7 +9,7 @@ import { TopbarComponent } from "./core/components/topbar/topbar.component";
 // import { TableOfServiceComponent } from './core/components/service-requests/table/table.component';
 // import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ChatListsComponent } from "./core/components/chat/chat-lists/chat-lists.component";
 import { ChatMsgComponent } from "./core/components/chat/chat-msg/chat-msg.component";
 import { ChatComponent } from "./core/components/chat/chat.component";
@@ -122,7 +122,8 @@ import { WorkSubmissionComponent } from "./core/components/work-submission/work-
 import { JwtInterceptor } from "./shared/service/auth/auth.interceptor";
 import { RquestCallService } from "./shared/service/request-call.service";
 import { NgxSpinnerModule } from "ngx-spinner";
-// import { AuthGuardService } from "./shared/service/auth/auth-guard.service";
+import { AuthGuardService } from "./shared/service/auth/auth-guard.service";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -239,11 +240,19 @@ import { NgxSpinnerModule } from "ngx-spinner";
     UserSellerNextModalComponent,
     UserSellerModalComponent,
     UserSellerComponent,
-    SignInComponent,
+    SignInComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgxSpinnerModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    NgxSpinnerModule,
+    ReactiveFormsModule,
+    CommonModule
+  ],
   providers: [
-    // AuthGuardService,
+    AuthGuardService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     RquestCallService,
   ],
