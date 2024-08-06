@@ -7,9 +7,10 @@ import { map, Observable, of, tap } from "rxjs";
   providedIn: "root",
 })
 export class ProductService {
-  constructor(private requestCall: RquestCallService) {}
+  private products?: Product[];
+  private lastFetchTime?: number;
 
-  products?: Product[];
+  constructor(private requestCall: RquestCallService) {}
 
   retriveProductList(): Observable<Product[]> {
     return this.requestCall.getProductList().pipe(
@@ -20,6 +21,7 @@ export class ProductService {
       tap(
         (res) => {
           this.products = res;
+          this.lastFetchTime = Date.now();
         },
         (err) => {
           console.log(err);
@@ -27,8 +29,12 @@ export class ProductService {
       )
     );
   }
+
   getProductList(): Observable<Product[]> {
-    if (!this.products || this.products.length === 0) {
+    const oneHour = (60 * 60 * 1000)/2;
+    const currentTime = Date.now();
+
+    if (!this.products || this.products.length === 0 || (this.lastFetchTime && (currentTime - this.lastFetchTime) > oneHour)) {
       return this.retriveProductList();
     } else {
       return of(this.products);
