@@ -9,9 +9,7 @@ import { ProductService } from "../services/product.service";
 })
 export class ProductsTableComponent {
   selectAll: boolean = false;
-
-  productList!: Product[];
-
+  productList: Product[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
@@ -42,11 +40,11 @@ export class ProductsTableComponent {
     this.currentPage = page;
   }
 
-
-  getProductList(){
+  getProductList() {
     this.productService.getProductList().subscribe(
       (res) => {
         this.productList = res;
+        this.setPage(1, new Event('')); // Reset to page 1 when new data is loaded
       },
       (err) => {
         console.log(err);
@@ -54,3 +52,4 @@ export class ProductsTableComponent {
     );
   }
 }
+

@@ -3,11 +3,7 @@
     <thead class="table-light">
       <tr>
         <th scope="col">
-          <input
-            type="checkbox"
-            [(ngModel)]="selectAll"
-            (change)="toggleAll()"
-          />
+          <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAll()" />
         </th>
         <th scope="col" class="title-table">
           <p class="m-0">Name</p>
@@ -35,11 +31,7 @@
     <tbody>
       <tr *ngFor="let user of paginatedUsers">
         <th scope="row">
-          <input
-            type="checkbox"
-            [(ngModel)]="user.selected"
-            (change)="checkIfAllSelected()"
-          />
+          <input type="checkbox" [(ngModel)]="user.selected" (change)="checkIfAllSelected()" />
         </th>
         <td>
           <div class="d-flex flex-column gap-1">
@@ -65,30 +57,16 @@
         <td>
           <div class="d-flex align-items-center justify-content-between">
             <!-- Actions Icons -->
-            <img
-              class="cursor-pointer"
-              src="../../../../assets/img/eye.svg"
-              alt="View"
-              data-bs-toggle="modal"
-              data-bs-target="#viewModal"
-            />
-            <img
-              class="cursor-pointer"
-              src="../../../../assets/img/edit-2.svg"
-              alt="Edit"
-            />
+            <img class="cursor-pointer" src="../../../../assets/img/eye.svg" alt="View" data-bs-toggle="modal"
+              data-bs-target="#viewModal" />
+            <img class="cursor-pointer" src="../../../../assets/img/edit-2.svg" alt="Edit" />
             <!-- Toggle Switch -->
             <label class="toggle">
               <input type="checkbox" />
               <span class="slider round"></span>
             </label>
-            <img
-              class="cursor-pointer"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg"
-              alt="Delete"
-            />
+            <img class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              src="../../../../assets/img/trash.svg" alt="Delete" />
           </div>
         </td>
       </tr>
@@ -102,44 +80,24 @@
     <nav aria-label="Page navigation example">
       <ul class="pagination gap-2 m-0 align-items-center">
         <li class="page-item" [class.disabled]="currentPage === 1">
-          <a
-            class="page-link previous"
-            href="#"
-            aria-label="Previous"
-            (click)="setPage(currentPage - 1, $event)"
-          >
+          <a class="page-link previous" href="#" aria-label="Previous" (click)="setPage(currentPage - 1, $event)">
             <span aria-hidden="true">
-              <img
-                src="../../../../../assets/img/arrow-left.svg"
-                alt="Previous"
-              />
+              <img src="../../../../../assets/img/arrow-left.svg" alt="Previous" />
             </span>
           </a>
         </li>
-        <li
-          class="page-item"
-          *ngFor="
+        <li class="page-item" *ngFor="
             let page of [].constructor(Math.ceil(users.length / itemsPerPage));
             let i = index
-          "
-          [class.active]="i + 1 === currentPage"
-        >
+          " [class.active]="i + 1 === currentPage">
           <a class="page-link" href="#" (click)="setPage(i + 1, $event)">{{
             i + 1
-          }}</a>
+            }}</a>
         </li>
-        <li
-          class="page-item"
-          [class.disabled]="
+        <li class="page-item" [class.disabled]="
             currentPage === Math.ceil(users.length / itemsPerPage)
-          "
-        >
-          <a
-            class="page-link next"
-            href="#"
-            aria-label="Next"
-            (click)="setPage(currentPage + 1, $event)"
-          >
+          ">
+          <a class="page-link next" href="#" aria-label="Next" (click)="setPage(currentPage + 1, $event)">
             <span aria-hidden="true">
               <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
             </span>
@@ -150,11 +108,7 @@
     <div class="font d-flex align-items-center">
       <h5 class="m-0 me-2">Show</h5>
       <div class="select-wrapper">
-        <select
-          class="form-select mx-2 custom-select"
-          [(ngModel)]="itemsPerPage"
-          (change)="setPage(1, $event)"
-        >
+        <select class="form-select mx-2 custom-select" [(ngModel)]="itemsPerPage" (change)="setPage(1, $event)">
           <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">
             {{ option }}
           </option>

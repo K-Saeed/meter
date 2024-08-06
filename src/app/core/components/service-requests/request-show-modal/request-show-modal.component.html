@@ -1,69 +1,84 @@
-<div
-  class="modal fade"
-  id="viewModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
         <h1 class="modal-title" id="exampleModalLabel">Request Details</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="d-flex align-items-center my-2">
-          <a
-            class="text-decoration-none me-3"
-            href="#"
-            [ngClass]="{
+          <a class="text-decoration-none me-3" href="#" [ngClass]="{
               breadcrumb: activeLink === 'details',
               inActive: activeLink !== 'details'
-            }"
-            (click)="setActiveLink('details', $event)"
-          >
+            }" (click)="setActiveLink('details', $event)">
             Details
           </a>
-          <a
-            class="text-decoration-none"
-            href="#"
-            [ngClass]="{
+          <a class="text-decoration-none" href="#" [ngClass]="{
               breadcrumbSpace: activeLink === 'attachments',
               inActive: activeLink !== 'attachments'
-            }"
-            (click)="setActiveLink('attachments', $event)"
-          >
+            }" (click)="setActiveLink('attachments', $event)">
             Attachments
           </a>
         </div>
 
         <div *ngIf="activeLink === 'details'">
-          <app-request-show-details-modal></app-request-show-details-modal>
+          <div class="d-flex flex-column">
+            <div class="title d-flex align-items-start gap-2 flex-column mt-4">
+              <h1>Customer Information:</h1>
+              <div class="info d-flex flex-column gap-3">
+                <h3 class="d-flex justify-content-between m-0">
+                  <span class="label">Name:</span>
+                  <span class="value">Mohamed MonGe</span>
+                </h3>
+                <h3 class="d-flex justify-content-between m-0">
+                  <span class="label">Email:</span>
+                  <span class="value">mohamedmonge7@gmail.com</span>
+                </h3>
+                <h3 class="d-flex justify-content-between m-0">
+                  <span class="label">Phone:</span>
+                  <span class="value">+966-555-555555</span>
+                </h3>
+              </div>
+            </div>
+            <div class="title d-flex align-items-start gap-2 flex-column mt-4">
+              <h1>Request Information:</h1>
+              <div class="info d-flex flex-column align-items-start gap-3">
+                <h3 class="d-flex justify-content-between m-0">
+                  <span class="label">Title:</span>
+                  <span class="value">Survey Report</span>
+                </h3>
+                <h3 class="d-flex justify-content-between m-0">
+                  <span class="label">Description::</span>
+                  <span class="value">Lorem ipsum dolor sit amet</span>
+                </h3>
+                <h3 class="d-flex justify-content-between m-0">
+                  <span class="label">Purpose of Pricing:</span>
+                  <span class="value">Survey Report</span>
+                </h3>
+              </div>
+            </div>
+          </div>
         </div>
         <div *ngIf="activeLink === 'attachments'">
-          <app-request-show-attachments-modal></app-request-show-attachments-modal>
+          <div class="d-flex flex-column gap-5 mt-5">
+            <div class="d-flex justify-content-between">
+              <div class="d-flex align-items-center gap-3">
+                <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
+                <div class="attechment d-flex flex-column">
+                  <h4 class="m-0">Survey report.pdf</h4>
+                  <p class="m-0">313 KB . 31 Aug, 2022</p>
+                </div>
+              </div>
+              <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" srcset="" />
+            </div>
+          </div>
         </div>
 
         <div class="d-flex gap-3 mt-4 justify-content-end">
-          <button
-            type="button"
-            class="reject-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#rejectModal"
-          >
+          <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
             Reject
           </button>
-          <button
-            type="button"
-            class="approve-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#approveModal"
-          >
+          <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
             Approve
           </button>
         </div>

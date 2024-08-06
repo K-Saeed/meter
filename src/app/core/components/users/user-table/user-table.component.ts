@@ -61,4 +61,5 @@ export class UserTableComponent {
     event.preventDefault();
     this.currentPage = page;
   }
+  
 }
