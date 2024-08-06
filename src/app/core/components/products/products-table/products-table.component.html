@@ -33,16 +33,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
+      <tr *ngFor="let product of productList">
         <th scope="row">
           <input
             type="checkbox"
-            [(ngModel)]="user.selected"
+            [(ngModel)]="product.selected"
             (change)="checkIfAllSelected()"
           />
         </th>
         <td>
-          <h4 class="m-0">{{ user.id }}</h4>
+          <h4 class="m-0">{{ product.productId }}</h4>
         </td>
         <td class="d-flex align-items-center gap-2">
           <img
@@ -51,13 +51,13 @@
             alt=""
             srcset=""
           />
-          <h4 class="m-0">{{ user.customerName }}</h4>
+          <h4 class="m-0">{{ product.ownerName }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.requestTitle }}</h4>
+          <h4 class="m-0">{{ product.name }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.dateSubmitted }}</h4>
+          <h4 class="m-0">{{ product.postDate | date: 'yyyy-MM-dd' }}</h4>
         </td>
         <!-- <td>
             <h4 class="m-0">{{ user.typeOfService }}</h4>
@@ -65,13 +65,13 @@
         <td>
           <h4
             [ngClass]="{
-              green: user.status === 'Approved',
-              red: user.status === 'Rejected',
-              orange: user.status === 'Pending'
+              green: product.status === 'Approved',
+              red: product.status === 'Rejected',
+              orange: product.status === 'Pending'
             }"
             class="m-0"
           >
-            {{ user.status }}
+            {{ product.status }}
           </h4>
         </td>
         <td>
@@ -120,7 +120,7 @@
         <li
           class="page-item"
           *ngFor="
-            let page of [].constructor(Math.ceil(users.length / itemsPerPage));
+            let page of [].constructor(Math.ceil(productList.length / itemsPerPage));
             let i = index
           "
           [class.active]="i + 1 === currentPage"
@@ -132,7 +132,7 @@
         <li
           class="page-item"
           [class.disabled]="
-            currentPage === Math.ceil(users.length / itemsPerPage)
+            currentPage === Math.ceil(productList.length / itemsPerPage)
           "
         >
           <a

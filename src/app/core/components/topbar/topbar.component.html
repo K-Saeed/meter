@@ -1,6 +1,6 @@
 <div class="top-bar d-flex align-items-center border-3 border-bottom">
   <div class="d-flex gap-1 align-items-center">
-    <h2 class="text-style m-0">Hello,Eman</h2>
+    <h2 class="text-style m-0">Hello,{{userProfile.name}}</h2>
     <img
       class="img-style"
       src="../../../assets/img/welcome.png"
@@ -180,8 +180,8 @@
           alt=""
         />
         <div class="d-flex flex-column">
-          <h4 class="profile-name">Eman Mohamed</h4>
-          <h6 class="profile-role">Admin</h6>
+          <h4 class="profile-name">{{userProfile.name}}</h4>
+          <h6 class="profile-role">{{userProfile.role}}</h6>
         </div>
       </div>
       <ul

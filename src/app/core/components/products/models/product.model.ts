@@ -10,6 +10,9 @@ export class Product {
   manufacturer?: string;
   description?: string;
   productImages?: string[];
+  selected!: boolean;
+  status!: string;
+  postDate!: Date;
 }
 
 
