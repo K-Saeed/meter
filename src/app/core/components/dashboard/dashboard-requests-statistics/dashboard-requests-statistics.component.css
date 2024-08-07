@@ -1,0 +1,11 @@
+canvas {
+    width: 330px !important;
+    height: 360px !important;
+  padding: 0 15px 0 15px;
+}
+h1 {
+  font-family: Inter;
+  font-size: 20.66px;
+  font-weight: 600;
+  color: black;
+}

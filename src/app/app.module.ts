@@ -113,8 +113,8 @@ import { UserCustomerComponent } from './core/components/users/user-add-modal/us
 import { UserProviderComponent } from './core/components/users/user-add-modal/user-provider/user-provider.component';
 import { UserVerificationModalComponent } from './core/components/users/user-verification-modal/user-verification-modal.component';
 import { UserProviderModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-modal/user-provider-modal.component';
-import { UserProviderNextModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-next-modal/user-provider-next-modal.component';
-import { UserSellerNextModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-next-modal/user-seller-next-modal.component';
+import { UserProviderNextModalComponent } from './core/components/users/user-add-modal/user-provider-next-modal/user-provider-next-modal.component';
+import { UserSellerNextModalComponent } from './core/components/users/user-add-modal/user-seller-next-modal/user-seller-next-modal.component';
 import { UserSellerModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-modal/user-seller-modal.component';
 import { UserSellerComponent } from './core/components/users/user-add-modal/user-seller/user-seller.component';
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
@@ -126,6 +126,9 @@ import { CommonModule } from "@angular/common";
 import { AuthGuardService } from "./shared/service/auth/auth-guard.service";
 import { RquestCallService } from "./shared/service/request-call.service";
 import { JwtInterceptor } from "./shared/service/auth/auth.interceptor";
+import { DashboardUsersChartComponent } from './core/components/dashboard/dashboard-users-chart/dashboard-users-chart.component';
+import { DashboardRequestsStatisticsComponent } from './core/components/dashboard/dashboard-requests-statistics/dashboard-requests-statistics.component';
+import { DashboardCardsComponent } from './core/components/dashboard/dashboard-cards/dashboard-cards.component';
 
 
 @NgModule({
@@ -246,6 +249,9 @@ import { JwtInterceptor } from "./shared/service/auth/auth.interceptor";
     SignInComponent,
     DashboardComponent,
     DashboardTitleComponent,
+    DashboardUsersChartComponent,
+    DashboardRequestsStatisticsComponent,
+    DashboardCardsComponent,
   ],
   imports: [
     BrowserModule,

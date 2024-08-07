@@ -1,0 +1,40 @@
+.card-style {
+  width: 280px;
+  height: 161px;
+  padding: 20px;
+}
+.card-style h2,
+.card-style h1,
+.card-style h5,
+.card-style .text-low,
+.card-style .high {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  color: #202224;
+  line-height: 19.36px;
+  opacity: 70%;
+}
+.card-style .text-low {
+  color: #f93c65;
+  opacity: 100%;
+}
+.card-style .text-high {
+  color: #00b69b;
+  opacity: 100%;
+}
+.card-style h5 {
+  color: #1c1c1c80;
+  opacity: 100%;
+}
+
+.card-style h1 {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 33.89px;
+  color: #000;
+  opacity: 100%;
+}
+.shadow {
+  box-shadow: 6px 6px 54px #0000000d !important;
+}

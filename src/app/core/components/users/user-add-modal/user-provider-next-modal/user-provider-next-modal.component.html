@@ -1,4 +1,4 @@
-<div class="modal fade" id="nextSellerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="nextPoviderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
@@ -6,11 +6,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body d-flex flex-column gap-3 mt-2">
-        <div class="position-relative input-container">
-          <label for="title" class="position-absolute label-style">Commercial Registration</label>
-          <input type="number" id="title" placeholder="Enter Commercial Registration" class="input-style w-100" />
+        <div class="d-flex my-1" style="gap: 1rem">
+          <div class="position-relative input-container">
+            <label for="Date" class="position-absolute label-style">Date</label>
+            <img src="../../../../../../../assets/img/calendar-o.svg" alt="Calendar Icon" class="calendar-icon" />
+            <input type="date" id="Date" class="input-style" style="padding-left: 40px" />
+          </div>
+          <div class="position-relative input-container">
+            <label for="title" class="position-absolute label-style">Commercial Registration</label>
+            <input type="number" id="title" placeholder="Enter Commercial Registration" class="input-style" />
+          </div>
         </div>
-
         <div class="d-flex my-1" style="gap: 1rem">
           <div class="position-relative input-container">
             <label for="Manager" class="position-absolute label-style">Manager Name</label>
@@ -46,7 +52,12 @@
             <input type="text" id="Location" placeholder="Enter City" class="input-style" style="padding-left: 40px" />
           </div>
         </div>
-
+        <div class="position-relative input-container my-1 boder-style d-flex flex-column gap-2 w-50">
+          <img src="../../../../../../../assets/img/document-upload.svg" alt="" srcset="" />
+          <h2 class="m-0">Click to Upload</h2>
+          <h6 class="m-0">(Maximum file size: 25MB)</h6>
+          <input type="file" name="" id="" />
+        </div>
       </div>
       <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
         <button type="button" class="reject-btn" data-bs-target="#poviderModal" data-bs-toggle="modal">
