@@ -129,6 +129,7 @@ import { JwtInterceptor } from "./shared/service/auth/auth.interceptor";
 import { DashboardUsersChartComponent } from './core/components/dashboard/dashboard-users-chart/dashboard-users-chart.component';
 import { DashboardRequestsStatisticsComponent } from './core/components/dashboard/dashboard-requests-statistics/dashboard-requests-statistics.component';
 import { DashboardCardsComponent } from './core/components/dashboard/dashboard-cards/dashboard-cards.component';
+import { DashboardLastActivityComponent } from './core/components/dashboard/dashboard-last-activity/dashboard-last-activity.component';
 
 
 @NgModule({
@@ -252,6 +253,7 @@ import { DashboardCardsComponent } from './core/components/dashboard/dashboard-c
     DashboardUsersChartComponent,
     DashboardRequestsStatisticsComponent,
     DashboardCardsComponent,
+    DashboardLastActivityComponent,
   ],
   imports: [
     BrowserModule,

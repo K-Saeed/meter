@@ -1,0 +1,21 @@
+.last-activity {
+  width: 721px;
+  border-radius: 12px;
+}
+.last-activity h3,
+.last-activity h4,
+.last-activity h5 {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+}
+.last-activity h4 {
+  font-weight: 600;
+  line-height: 19.36px;
+  font-size: 16px;
+}
+.last-activity h5 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #1c1c1c80;
+}
