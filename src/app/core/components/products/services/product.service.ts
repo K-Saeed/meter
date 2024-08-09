@@ -12,8 +12,8 @@ export class ProductService {
   public status$: Observable<string | null> = this.statusSubject.asObservable();
   laststatus!: string | null;
   constructor(private requestCall: RquestCallService) {}
-
-  products!: Product[];
+  private products?: Product[];
+  private lastFetchTime?: number;
 
   retriveProductList(status: string | null): Observable<Product[]> {
     return this.requestCall.getProductList(status).pipe(
@@ -24,6 +24,7 @@ export class ProductService {
       tap(
         (res) => {
           this.products = res;
+          this.lastFetchTime = Date.now();
         },
         (err) => {
           console.log(err);
@@ -32,8 +33,11 @@ export class ProductService {
     );
   }
 
-  getProductList(status: string | null): Observable<Product[]> {
-    if (!this.products || this.products.length === 0 || this.laststatus != status) {
+  getProductList(): Observable<Product[]> {
+    const oneHour = (60 * 60 * 1000)/2;
+    const currentTime = Date.now();
+
+    if (!this.products || this.products.length === 0 || this.laststatus != status || (this.lastFetchTime && (currentTime - this.lastFetchTime) > oneHour)) {
       this.laststatus = status;
       return this.retriveProductList(this.statusSubject.value);
     } else {
