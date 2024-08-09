@@ -1,5 +1,5 @@
 export class Product {
-  productId?: string;
+  productId?: number;
   ownerName?: string;
   name?: string;
   requestType?: string;

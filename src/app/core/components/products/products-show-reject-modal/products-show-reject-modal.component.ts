@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-products-show-reject-modal',
@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./products-show-reject-modal.component.css']
 })
 export class ProductsShowRejectModalComponent {
+  @Input() productId!: string;
+
 
 }

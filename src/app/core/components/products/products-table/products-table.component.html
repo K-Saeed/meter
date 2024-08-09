@@ -56,16 +56,16 @@
           <div class="">
             <!-- Actions Icons -->
             <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
-              src="../../../../assets/img/eye.svg" alt="View" />
-            <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg" alt="Delete" />
+            src="../../../../assets/img/eye.svg" alt="View" (click)="setProductId(product.productId)" />
+          <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            src="../../../../assets/img/trash.svg" alt="Delete" (click)="setProductId(product.productId)" />
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <app-products-delete-modal></app-products-delete-modal>
-  <app-products-show-modal></app-products-show-modal>
+  <app-products-delete-modal [product]="product"></app-products-delete-modal>
+  <app-products-show-modal [product]="product"></app-products-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage,
       productList.length) }} of {{ productList.length }} entries</h5>
