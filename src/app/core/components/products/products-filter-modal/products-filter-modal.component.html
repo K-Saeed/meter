@@ -26,16 +26,16 @@
               class="text-decoration-none d-flex align-items-center"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('approved'),
-                active: isActiveLink('approved'),
-                inActive: !isActiveLink('approved')
+                breadcrumb: isActiveLink('Approved'),
+                active: isActiveLink('Approved'),
+                inActive: !isActiveLink('Approved')
               }"
-              (click)="toggleLink('approved', $event)"
+              (click)="toggleLink('Approved', $event)"
             >
               Approved
               <span
-                *ngIf="isActiveLink('approved')"
-                (click)="clearLink('approved', $event)"
+                *ngIf="isActiveLink('Approved')"
+                (click)="clearLink('Approved', $event)"
                 class="clear-link"
               >
                 ✖
@@ -45,16 +45,16 @@
               class="text-decoration-none d-flex align-items-center gap-1"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('rejected'),
-                active: isActiveLink('rejected'),
-                inActive: !isActiveLink('rejected')
+                breadcrumb: isActiveLink('Rejected'),
+                active: isActiveLink('Rejected'),
+                inActive: !isActiveLink('Rejected')
               }"
-              (click)="toggleLink('rejected', $event)"
+              (click)="toggleLink('Rejected', $event)"
             >
               Rejected
               <span
-                *ngIf="isActiveLink('rejected')"
-                (click)="clearLink('rejected', $event)"
+                *ngIf="isActiveLink('Rejected')"
+                (click)="clearLink('Rejected', $event)"
                 class="clear-link"
               >
                 ✖
@@ -64,16 +64,16 @@
               class="text-decoration-none d-flex align-items-center gap-1"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('pending'),
-                active: isActiveLink('pending'),
-                inActive: !isActiveLink('pending')
+                breadcrumb: isActiveLink('Pending'),
+                active: isActiveLink('Pending'),
+                inActive: !isActiveLink('Pending')
               }"
-              (click)="toggleLink('pending', $event)"
+              (click)="toggleLink('Pending', $event)"
             >
               Pending
               <span
-                *ngIf="isActiveLink('pending')"
-                (click)="clearLink('pending', $event)"
+                *ngIf="isActiveLink('Pending')"
+                (click)="clearLink('Pending', $event)"
                 class="clear-link"
               >
                 ✖
@@ -82,7 +82,7 @@
           </div>
         </div>
 
-        <button type="button" class="filter-btn m-auto d-block">Filter</button>
+        <button type="button" class="filter-btn m-auto d-block" (click)="filter()">Filter</button>
       </div>
     </div>
   </div>

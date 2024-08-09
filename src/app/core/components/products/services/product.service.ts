@@ -1,18 +1,22 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, of } from "rxjs";
+import { last, map, tap } from "rxjs/operators";
 import { Product } from "../models/product.model";
 import { RquestCallService } from "src/app/shared/service/request-call.service";
-import { map, Observable, of, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProductService {
+  private statusSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+  public status$: Observable<string | null> = this.statusSubject.asObservable();
+  laststatus!: string | null;
   constructor(private requestCall: RquestCallService) {}
 
-  products?: Product[];
+  products!: Product[];
 
-  retriveProductList(): Observable<Product[]> {
-    return this.requestCall.getProductList().pipe(
+  retriveProductList(status: string | null): Observable<Product[]> {
+    return this.requestCall.getProductList(status).pipe(
       map(products => products.map(product => ({
         ...product,
         postDate: this.stripTime(new Date(product.postDate))
@@ -27,9 +31,11 @@ export class ProductService {
       )
     );
   }
-  getProductList(): Observable<Product[]> {
-    if (!this.products || this.products.length === 0) {
-      return this.retriveProductList();
+
+  getProductList(status: string | null): Observable<Product[]> {
+    if (!this.products || this.products.length === 0 || this.laststatus != status) {
+      this.laststatus = status;
+      return this.retriveProductList(this.statusSubject.value);
     } else {
       return of(this.products);
     }
@@ -37,5 +43,24 @@ export class ProductService {
 
   private stripTime(date: Date): Date {
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  }
+
+  setStatus(status: string | null): void {
+    this.statusSubject.next(status);
+  }
+
+  getStatus(): string | null {
+    return this.statusSubject.value;
+  }
+
+  onDeleteProduct(productId: number | undefined): void {
+    this.requestCall.deleteProduct(productId).subscribe(
+      () => {
+        console.log('Product deleted successfully');
+      },
+      error => {
+        console.error('Error deleting product', error);
+      }
+    );
   }
 }
