@@ -8,7 +8,7 @@ import { Chart, registerables } from 'chart.js';
 })
 export class DashboardRequestsStatisticsComponent implements AfterViewInit {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
-  chart!: Chart<'polarArea', number[], string>;  // تحديد نوع الرسم البياني بشكل صحيح
+  chart!: Chart;
 
   constructor() {
     Chart.register(...registerables);
@@ -21,48 +21,72 @@ export class DashboardRequestsStatisticsComponent implements AfterViewInit {
   createChart(): void {
     if (this.chartCanvas) {
       const canvas = this.chartCanvas.nativeElement;
-      this.chart = new Chart<'polarArea', number[], string>(canvas, {
-        type: 'polarArea',
+      this.chart = new Chart(canvas, {
+        type: 'bar',
         data: {
-          labels: ['service requests', 'job requests', 'Proposals', 'consultation requests'],
-          datasets: [
-            {
-              label: 'Requests',
-              data: [30, 35, 28, 25],
-              backgroundColor: ['#16DBCC', '#FFBB38', '#4C78FF', '#FF82AC'],
-              borderWidth: 10,
-            },
-          ]
+          labels: ['Service', 'Job', 'Consultation', 'Proposal'],
+          datasets: [{
+            barThickness: 50,
+            maxBarThickness: 100,
+            minBarLength: 2,
+            data: [10, 20, 55, 40],
+            backgroundColor: "#F28F45",
+            borderWidth: 0,
+            borderRadius: 8,
+          }]
         },
         options: {
-          scales: {
-
-            r: {
-              grid: {
-                display: false 
-              },
-              angleLines: {
-                display: false 
-              },
-              ticks: {
-                display: false
-              }
-            }
-          },
           plugins: {
             legend: {
               display: false,
-              labels: {
-                padding: 20,
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  return `${context.label}: ${context.raw}%`;
+                }
+              },
+              backgroundColor: '#000',
+              titleColor: '#FFF',
+              bodyColor: '#FFF',
+              borderColor: '#FFF',
+              borderWidth: 1,
+              padding: 10,
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              stacked: true,
+              grid: {
+                color: '#E5E5E5',
+              },
+              ticks: {
+                callback: (value) => {
+                  const validTicks = [10, 20, 30, 40, 50, 60];
+                  const numValue = typeof value === 'number' ? value : parseFloat(value as string);
+                  return validTicks.includes(numValue) ? `${numValue}%` : '';
+                },
+                color: '#000',
+                font: {
+                  size: 8,
+                  weight: 400,
+                }
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                color: '#F28F45',
                 font: {
                   size: 12,
                   weight: 400,
                 }
               }
             }
-          },
-          responsive: true,
-          maintainAspectRatio: false,
+          }
         }
       });
     }

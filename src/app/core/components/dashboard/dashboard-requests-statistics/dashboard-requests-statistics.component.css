@@ -1,8 +1,18 @@
-canvas {
-    width: 330px !important;
-    height: 360px !important;
-  padding: 0 15px 0 15px;
+.chart-container {
+  position: relative;
+  width: 465px;
+  max-width: 730px;
+  height: auto;
+  border: 1px solid #e2e8f0;
+  padding: 20px 15px;
+  border-radius: 12px;
+  overflow: hidden;
 }
+
+canvas {
+  height: 260px !important;
+}
+
 h1 {
   font-family: Inter;
   font-size: 20.66px;
