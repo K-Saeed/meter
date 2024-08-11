@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
 import { UserTableDto } from '../models/user-table.model';
@@ -7,7 +7,7 @@ import { UserTableDto } from '../models/user-table.model';
   templateUrl: './user-table.component.html',
   styleUrls: ['./user-table.component.css']
 })
-export class UserTableComponent {
+export class UserTableComponent implements OnInit{
   selectAll: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 4;
