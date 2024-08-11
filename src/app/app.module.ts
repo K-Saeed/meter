@@ -130,6 +130,7 @@ import { DashboardUsersChartComponent } from './core/components/dashboard/dashbo
 import { DashboardRequestsStatisticsComponent } from './core/components/dashboard/dashboard-requests-statistics/dashboard-requests-statistics.component';
 import { DashboardCardsComponent } from './core/components/dashboard/dashboard-cards/dashboard-cards.component';
 import { DashboardLastActivityComponent } from './core/components/dashboard/dashboard-last-activity/dashboard-last-activity.component';
+import { UserMatricsOverviewComponent } from './core/components/users/user-matrics-overview/user-matrics-overview.component';
 
 
 @NgModule({
@@ -254,6 +255,7 @@ import { DashboardLastActivityComponent } from './core/components/dashboard/dash
     DashboardRequestsStatisticsComponent,
     DashboardCardsComponent,
     DashboardLastActivityComponent,
+    UserMatricsOverviewComponent,
   ],
   imports: [
     BrowserModule,

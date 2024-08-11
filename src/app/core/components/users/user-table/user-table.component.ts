@@ -51,8 +51,13 @@ export class UserTableComponent {
 
   setPage(page: number, event: Event) {
     event.preventDefault();
+    const totalPages = Math.ceil(this.userList.length / this.itemsPerPage);
+    if (page < 1 || page > totalPages) {
+      return; // عدم تعيين صفحة غير صالحة
+    }
     this.currentPage = page;
   }
+  
 
   getUserList() {
     this.userService.getUsersList(this.role, this.status).subscribe(

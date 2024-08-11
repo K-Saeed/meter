@@ -24,12 +24,15 @@
           <p class="m-0">Spent</p>
         </th>
         <th scope="col" class="title-table">
+          <p class="m-0">Status</p>
+        </th>
+        <th scope="col" class="title-table">
           <p class="m-0">Actions</p>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of userList">
+      <tr *ngFor="let user of paginatedUsers">
         <th scope="row">
           <input type="checkbox" [(ngModel)]="user.selected" (change)="checkIfAllSelected()" />
         </th>
@@ -46,37 +49,50 @@
           <h4 class="m-0">{{ user.registeredDate }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.sellerDetails?.address ||   user.providerDetails?.address || user.customerDetails?.address}}</h4>
+          <h4 class="m-0">{{ user.sellerDetails?.address || user.providerDetails?.address ||
+            user.customerDetails?.address }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{user.mobile}}</h4>
+          <h4 class="m-0">{{ user.mobile }}</h4>
         </td>
         <td>
           <h4 class="m-0">{{ user.spent }}</h4>
         </td>
         <td>
+          <h4 [ngClass]="{
+              green: user.status === 'Approve',
+              red: user.status === 'Rejected',
+              orange: user.status === 'Pending'
+            }" class="m-0">
+            {{ user.status }}
+          </h4>
+        </td>
+        <td>
           <div class="d-flex align-items-center justify-content-between">
             <!-- Actions Icons -->
             <img class="cursor-pointer" src="../../../../assets/img/eye.svg" alt="View" data-bs-toggle="modal"
-              data-bs-target="#viewModal" (click)="setUserId(user.id)"/>
-            <img class="cursor-pointer" src="../../../../assets/img/edit-2.svg" alt="Edit" (click)="setUserId(user.id)"/>
+              data-bs-target="#viewModal" (click)="setUserId(user.id)" />
+            <img class="cursor-pointer" src="../../../../assets/img/edit-2.svg" alt="Edit"
+              (click)="setUserId(user.id)" />
             <!-- Toggle Switch -->
             <label class="toggle">
               <input type="checkbox" />
               <span class="slider round" (click)="setUserId(user.id)"></span>
             </label>
             <img class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg" alt="Delete" (click)="setUserId(user.id)"/>
+              src="../../../../assets/img/trash.svg" alt="Delete" (click)="setUserId(user.id)" />
           </div>
         </td>
       </tr>
     </tbody>
+
   </table>
   <app-user-filter-modal></app-user-filter-modal>
   <app-user-delete-modal></app-user-delete-modal>
   <app-user-show-modal [user]="user"></app-user-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
-    <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>
+    <h5 class="left m-0">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage,
+      userList.length) }} of {{ userList.length }} entries</h5>
     <nav aria-label="Page navigation example">
       <ul class="pagination gap-2 m-0 align-items-center">
         <li class="page-item" [class.disabled]="currentPage === 1">
@@ -107,6 +123,7 @@
     </nav>
     <div class="font d-flex align-items-center">
       <h5 class="m-0 me-2">Show</h5>
+
       <div class="select-wrapper">
         <select class="form-select mx-2 custom-select" [(ngModel)]="itemsPerPage" (change)="setPage(1, $event)">
           <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">
@@ -118,4 +135,5 @@
       <h5 class="m-0 ms-2">entries</h5>
     </div>
   </div>
+
 </div>
