@@ -29,7 +29,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
+      <tr *ngFor="let user of userList">
         <th scope="row">
           <input type="checkbox" [(ngModel)]="user.selected" (change)="checkIfAllSelected()" />
         </th>
@@ -43,13 +43,13 @@
           <h4 class="m-0">{{ user.role }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.registered }}</h4>
+          <h4 class="m-0">{{ user.registeredDate }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.address }}</h4>
+          <h4 class="m-0">{{ user.sellerDetails?.address ||   user.providerDetails?.address || user.customerDetails?.address}}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.phone }}</h4>
+          <h4 class="m-0">{{user.mobile}}</h4>
         </td>
         <td>
           <h4 class="m-0">{{ user.spent }}</h4>
@@ -58,15 +58,15 @@
           <div class="d-flex align-items-center justify-content-between">
             <!-- Actions Icons -->
             <img class="cursor-pointer" src="../../../../assets/img/eye.svg" alt="View" data-bs-toggle="modal"
-              data-bs-target="#viewModal" />
-            <img class="cursor-pointer" src="../../../../assets/img/edit-2.svg" alt="Edit" />
+              data-bs-target="#viewModal" (click)="setUserId(user.id)"/>
+            <img class="cursor-pointer" src="../../../../assets/img/edit-2.svg" alt="Edit" (click)="setUserId(user.id)"/>
             <!-- Toggle Switch -->
             <label class="toggle">
               <input type="checkbox" />
-              <span class="slider round"></span>
+              <span class="slider round" (click)="setUserId(user.id)"></span>
             </label>
             <img class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg" alt="Delete" />
+              src="../../../../assets/img/trash.svg" alt="Delete" (click)="setUserId(user.id)"/>
           </div>
         </td>
       </tr>
@@ -74,7 +74,7 @@
   </table>
   <app-user-filter-modal></app-user-filter-modal>
   <app-user-delete-modal></app-user-delete-modal>
-  <app-user-show-modal></app-user-show-modal>
+  <app-user-show-modal [user]="user"></app-user-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>
     <nav aria-label="Page navigation example">
@@ -87,7 +87,7 @@
           </a>
         </li>
         <li class="page-item" *ngFor="
-            let page of [].constructor(Math.ceil(users.length / itemsPerPage));
+            let page of [].constructor(Math.ceil(userList.length / itemsPerPage));
             let i = index
           " [class.active]="i + 1 === currentPage">
           <a class="page-link" href="#" (click)="setPage(i + 1, $event)">{{
@@ -95,7 +95,7 @@
             }}</a>
         </li>
         <li class="page-item" [class.disabled]="
-            currentPage === Math.ceil(users.length / itemsPerPage)
+            currentPage === Math.ceil(userList.length / itemsPerPage)
           ">
           <a class="page-link next" href="#" aria-label="Next" (click)="setPage(currentPage + 1, $event)">
             <span aria-hidden="true">

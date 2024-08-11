@@ -43,7 +43,7 @@
         </div>
 
         <div *ngIf="activeLink === 'details'">
-          <app-user-show-details-modal></app-user-show-details-modal>
+          <app-user-show-details-modal  [user]="user"></app-user-show-details-modal>
         </div>
         <div *ngIf="activeLink === 'attachments'">
           <app-user-show-attachment-modal></app-user-show-attachment-modal>

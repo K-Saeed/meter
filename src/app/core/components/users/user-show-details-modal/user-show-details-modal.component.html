@@ -8,43 +8,48 @@
   <div class="info d-flex flex-column gap-3">
     <h3 class="d-flex justify-content-between m-0">
       <span class="label">Role:</span>
-      <span class="value">Provider</span>
+      <span class="value">{{user?.role}}</span>
     </h3>
-    <h3 class="d-flex justify-content-between m-0">
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails === null">
       <span class="label">Name:</span>
-      <span class="value">Eman Mohamed Office</span>
+      <span class="value">{{user?.name}}</span>
+    </h3>
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails">
+      <span class="label">Name:</span>
+      <span class="value">{{user?.providerDetails?.ownerName}}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
       <span class="label">Phone Number:</span>
-      <span class="value">+966-555-555555</span>
+      <span class="value">{{user?.mobile}}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
       <span class="label">Email:</span>
-      <span class="value">emanmohamed@gmail.com</span>
+      <span class="value">{{user?.email}}</span>
     </h3>
-    <h3 class="d-flex justify-content-between m-0">
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.sellerDetails">
       <span class="label">Service Provider:</span>
-      <span class="value">Company</span>
+      <span class="value">{{user?.providerDetails?.serviceProvider || user?.sellerDetails?.serviceProvider}}</span>
     </h3>
-    <h3 class="d-flex justify-content-between m-0">
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.providerDetails">
       <span class="label">Facility Name:</span>
-      <span class="value">Nasr Company</span>
+      <span class="value">{{user?.name}}</span>
     </h3>
-    <h3 class="d-flex justify-content-between m-0">
+
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.sellerDetails">
       <span class="label">Type of activity:</span>
-      <span class="value">Engineering Office</span>
+      <span class="value">{{user?.providerDetails?.activityType || user?.sellerDetails?.facilityActivity }}</span>
     </h3>
-    <h3 class="d-flex justify-content-between m-0">
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.sellerDetails">
       <span class="label">License Number:</span>
-      <span class="value">1323611234568790</span>
+      <span class="value">{{user?.providerDetails?.licenseNumber || user?.sellerDetails?.licenseNumber }}</span>
     </h3>
-    <h3 class="d-flex justify-content-between m-0">
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails">
       <span class="label">Date of commercial:</span>
-      <span class="value">13 - 3 -2005</span>
+      <span class="value">{{user?.providerDetails?.commercialDate}}</span>
     </h3>
-    <h3 class="d-flex justify-content-between m-0">
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.sellerDetails">
       <span class="label">Commercial registration:</span>
-      <span class="value">13 - 3 -2005</span>
+      <span class="value">{{user?.providerDetails?.commercialRegistration || user?.sellerDetails?.commercialRegistration}}</span>
     </h3>
   </div>
 </div>

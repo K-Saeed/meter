@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Product } from "src/app/core/components/products/models/product.model";
+import { UserTableDto } from "src/app/core/components/users/models/user-table.model";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -32,7 +33,7 @@ export class RquestCallService {
     return this.http.get<Product[]>(apiUrl);
   }
 
-  getAllUsers(role: string | null, status: string | null): Observable<Product[]> {
+  getAllUsers(role: string | null, status: string | null): Observable<UserTableDto[]> {
      this.apiUrl =  `${environment.apiUrl}/api/user/all`;
     if(status != null && role === null){
         this.apiUrl = `${environment.apiUrl}/api/dashboard/all?status=${status}`
@@ -41,7 +42,7 @@ export class RquestCallService {
     }else if (role != null && status != null){
       this.apiUrl = `${environment.apiUrl}/api/dashboard/all?role=${role}&status=${status}`
     }
-    return this.http.get<Product[]>(this.apiUrl);
+    return this.http.get<UserTableDto[]>(this.apiUrl);
   }
 
   deleteProduct(productId: number | undefined): Observable<void> {

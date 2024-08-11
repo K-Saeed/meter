@@ -1,8 +1,13 @@
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { map, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 
+
+interface ValidateToken {
+  token: string;
+}
 @Injectable({
   providedIn: "root",
 })
@@ -11,6 +16,7 @@ export class AuthService {
   generalLoginError = false;
   submitClicked = false;
   unverifiedEmailError = false;
+  validToken: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -48,10 +54,32 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem("JWT_Token");
+    // if(!this.isLoggedIn ||token != null){
+    //   this.verifyToken(token).subscribe(
+    //     isAuthenticated => {
+    //       this.validToken = isAuthenticated;
+    //     },
+    //     error => {
+    //       console.error('Error checking authentication', error);
+    //       this.validToken = false;
+    //     }
+    //   );
+    // (token != null && this.validToken)
+    // }
     if (token != null) {
       return true;
     } else {
       return false;
     }
   }
+
+  verifyToken(token: string): Observable<boolean> {
+    const apiUrl = `${environment.apiUrl}/api/user/validateToken`;
+    const validateToken: ValidateToken = { token };
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post<any>(apiUrl, validateToken, { headers }).pipe(
+      map(response => response === 'Token is valid')
+    );  }
+
 }

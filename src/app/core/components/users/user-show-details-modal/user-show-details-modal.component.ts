@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UserTableDto } from '../models/user-table.model';
 
 @Component({
   selector: 'app-user-show-details-modal',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-show-details-modal.component.css']
 })
 export class UserShowDetailsModalComponent {
+  @Input () user?: UserTableDto;
+
 
 }

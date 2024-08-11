@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UserTableDto } from '../models/user-table.model';
 
 @Component({
   selector: 'app-user-show-modal',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-show-modal.component.css']
 })
 export class UserShowModalComponent {
+  @Input () user?: UserTableDto;
   activeLink: string = 'details';
 
   setActiveLink(link: string, event: Event) {

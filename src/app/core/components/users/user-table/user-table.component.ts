@@ -1,14 +1,7 @@
 import { Component } from '@angular/core';
-interface User {
-  name: string;
-  email: string;
-  role: string;
-  registered: string;
-  address: string;
-  phone: string;
-  spent: string;
-  selected: boolean;
-}
+import { UserService } from '../services/user.service';
+import { Subscription } from 'rxjs';
+import { UserTableDto } from '../models/user-table.model';
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
@@ -16,37 +9,36 @@ interface User {
 })
 export class UserTableComponent {
   selectAll: boolean = false;
-  users = [
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: true },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-    { name: 'Mohamede MonGe', email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013', address: '30 ahmed st. - makka - saudi arabia', phone: '(966) 555-0128', spent: '$7687.6', selected: false },
-  ];
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
+  status!: string;
+  role!: string;
+  userList: UserTableDto[] = [];
+  private statusSubscription!: Subscription;
+  private roleSubscription!: Subscription;
+  selectedUserId: string | undefined;
+  user?: UserTableDto;
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.statusSubscription = this.userService.status$.subscribe(status => {
+      this.status = status!;
+      this.getUserList();
+    });
+
+    this.getUserList();
+  }
 
   toggleAll() {
-    this.users.forEach(user => user.selected = this.selectAll);
+    // this.userList.forEach(user => user.selected = this.selectAll);
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.users.every(user => user.selected);
+    this.selectAll = this.userList.every(user => user.selected);
   }
 
-  toggleUser(user:User) {
+  toggleUser(user:UserTableDto) {
     user.selected = !user.selected;
     this.checkIfAllSelected();
   }
@@ -54,12 +46,33 @@ export class UserTableComponent {
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.users.slice(start, end);
+    return this.userList.slice(start, end);
   }
 
   setPage(page: number, event: Event) {
     event.preventDefault();
     this.currentPage = page;
   }
-  
+
+  getUserList() {
+    this.userService.getUsersList(this.role, this.status).subscribe(
+      (res) => {
+        this.userList = res;
+        this.setPage(1, new Event(""));
+        console.log(this.userList);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  setUserId(userId: string | undefined) {
+    this.selectedUserId = userId;
+    this.setUser();
+  }
+
+  setUser() {
+    this.user = this.userList.find(user => user.id === this.selectedUserId);
+
+  }
 }

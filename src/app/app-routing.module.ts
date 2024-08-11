@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuardService] },
   { path: 'worksubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
+  { path: 'workSubmisopns', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // Default route
   { path: '**', redirectTo: '/signin' } // Wildcard route for a 404 page
 ];
