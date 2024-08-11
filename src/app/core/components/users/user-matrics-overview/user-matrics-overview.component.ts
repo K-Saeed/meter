@@ -23,7 +23,7 @@ export class UserMatricsOverviewComponent implements OnInit {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
           data: [3000, 3100, 3150, 3200, 3250, 3300],
-          borderColor: 'orange',
+          borderColor: '#f28f45',
           backgroundColor: 'rgba(255,165,0,0.1)', // Lighter fill
           fill: true,
           tension: 0.4, // Smooth line
@@ -60,8 +60,8 @@ export class UserMatricsOverviewComponent implements OnInit {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
           data: [30, 40, 35, 50, 45, 50],
-          borderColor: 'magenta',
-          backgroundColor: 'rgba(255,0,255,0.1)', // Lighter fill
+          borderColor: '#f20b7a',
+          backgroundColor: '#f20b7a14', // Lighter fill
           fill: true,
           tension: 0.4, // Smooth line
           borderWidth: 2,
@@ -97,7 +97,7 @@ export class UserMatricsOverviewComponent implements OnInit {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
         datasets: [{
           data: [350, 360, 370, 380, 390, 400],
-          borderColor: 'cyan',
+          borderColor: '#08DCCF',
           backgroundColor: 'rgba(0,255,255,0.1)', // Lighter fill
           fill: true,
           tension: 0.4, // Smooth line
