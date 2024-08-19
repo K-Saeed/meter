@@ -33,39 +33,40 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
+      <tr *ngFor="let request of requests">
         <th scope="row">
           <input
             type="checkbox"
-            [(ngModel)]="user.selected"
+            [(ngModel)]="request.selected"
             (change)="checkIfAllSelected()"
           />
         </th>
         <td>
-          <h4 class="m-0">{{ user.id }}</h4>
+          <h4 class="m-0">{{ request.requestId }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.customerName }}</h4>
+          <h4 class="m-0">{{ request.requestOwner.name }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.requestTitle }}</h4>
+          <h4 class="m-0">{{ request.title }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.dateSubmitted }}</h4>
+          <h4 class="m-0">{{ request.creationDate  }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.typeOfService }}</h4>
+          <h4 class="m-0">{{ request.type }}</h4>
         </td>
+
         <td>
           <h4
             [ngClass]="{
-              green: user.status === 'Approved',
-              red: user.status === 'Rejected',
-              orange: user.status === 'Pending'
+              green: request.internalStatus === 'Approved',
+              red: request.internalStatus === 'Rejected',
+              orange: request.internalStatus === 'Pending'
             }"
             class="m-0"
           >
-            {{ user.status }}
+            {{ request.internalStatus }}
           </h4>
         </td>
         <td>
@@ -115,7 +116,7 @@
         <li
           class="page-item"
           *ngFor="
-            let page of [].constructor(Math.ceil(users.length / itemsPerPage));
+            let page of [].constructor(Math.ceil(requests.length / itemsPerPage));
             let i = index
           "
           [class.active]="i + 1 === currentPage"
@@ -127,7 +128,7 @@
         <li
           class="page-item"
           [class.disabled]="
-            currentPage === Math.ceil(users.length / itemsPerPage)
+            currentPage === Math.ceil(requests.length / itemsPerPage)
           "
         >
           <a

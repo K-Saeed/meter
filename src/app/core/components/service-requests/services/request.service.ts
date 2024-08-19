@@ -1,29 +1,30 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of } from "rxjs";
-import { last, map, tap } from "rxjs/operators";
-import { RquestCallService } from "src/app/shared/service/request-call.service";
-import { UserTableDto } from "../models/user-table.model";
+import { tap } from "rxjs/operators";
 import { UserRquestCallService } from "src/app/shared/service/userRequest-call.service";
+import { UserTableDto } from "../../users/models/user-table.model";
+import { RquestCallService } from "src/app/shared/service/request-call.service";
+import { RequestResponseDto } from "../models/request-table.model";
 
 @Injectable({
   providedIn: "root",
 })
-export class UserService {
+export class RequestService {
   private statusSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   public status$: Observable<string | null> = this.statusSubject.asObservable();
   private roleSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   public role$: Observable<string | null> = this.statusSubject.asObservable();
-  laststatus!: string | null;
-  lastrole!: string | null;
-  constructor(private userRequest: UserRquestCallService) {}
-  private users?: UserTableDto[];
+  lastStatus!: string | null;
+  lastType!: string | null;
+  constructor(private requsetCall: RquestCallService) {}
+  private rquests?: RequestResponseDto[];
   private lastFetchTime?: number;
 
-  retriveUsersList(status: string | null, role: string | null): Observable<UserTableDto[]> {
-    return this.userRequest.getAllUsers(role, status).pipe(
+  retriveRequestsList(type: string | null, status: string | null): Observable<RequestResponseDto[]> {
+    return this.requsetCall.getAllRequest(type, status).pipe(
       tap(
         (res) => {
-          this.users = res;
+          this.rquests = res;
           this.lastFetchTime = Date.now();
         },
         (err) => {
@@ -33,16 +34,16 @@ export class UserService {
     );
   }
 
-  getUsersList(role: string, status: string): Observable<UserTableDto[]> {
+  getRequestsList(type: string, status: string): Observable<RequestResponseDto[]> {
     const oneHour = (60 * 60 * 1000)/2;
     const currentTime = Date.now();
 
-    if (!this.users || this.users.length === 0 || this.lastrole != status || this.laststatus != status || (this.lastFetchTime && (currentTime - this.lastFetchTime) > oneHour)) {
-      this.laststatus = status;
-      this.lastrole = role;
-      return this.retriveUsersList(this.roleSubject.value, this.statusSubject.value);
+    if (!this.rquests || this.rquests.length === 0 || this.lastType != status || this.lastStatus != status || (this.lastFetchTime && (currentTime - this.lastFetchTime) > oneHour)) {
+      this.lastStatus = status;
+      this.lastType = type;
+      return this.retriveRequestsList(this.roleSubject.value, this.statusSubject.value);
     } else {
-      return of(this.users);
+      return of(this.rquests);
     }
   }
 
@@ -68,6 +69,4 @@ export class UserService {
   //     }
   //   );
   // }
-
-
 }

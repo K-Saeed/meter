@@ -8,7 +8,7 @@ import { environment } from "src/environments/environment";
 @Injectable({
   providedIn: "root",
 })
-export class RquestCallService {
+export class ProductCallService {
   constructor(private http: HttpClient) {}
 
   product?: Product[];
@@ -33,17 +33,6 @@ export class RquestCallService {
     return this.http.get<Product[]>(apiUrl);
   }
 
-  getAllUsers(role: string | null, status: string | null): Observable<UserTableDto[]> {
-     this.apiUrl =  `${environment.apiUrl}/api/user/all`;
-    if(status != null && role === null){
-        this.apiUrl = `${environment.apiUrl}/api/dashboard/all?status=${status}`
-    }else if(role != null && status === null){
-      this.apiUrl = `${environment.apiUrl}/api/dashboard/all?role=${role}`
-    }else if (role != null && status != null){
-      this.apiUrl = `${environment.apiUrl}/api/dashboard/all?role=${role}&status=${status}`
-    }
-    return this.http.get<UserTableDto[]>(this.apiUrl);
-  }
 
   deleteProduct(productId: number | undefined): Observable<void> {
     const apiUrl = `${environment.apiUrl}/api/dashboard/delete/product?productId=${productId}`;

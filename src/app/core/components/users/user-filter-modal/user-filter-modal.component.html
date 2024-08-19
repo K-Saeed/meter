@@ -24,16 +24,16 @@
               class="text-decoration-none d-flex align-items-center"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('customers'),
-                active: isActiveLink('customers'),
-                inActive: !isActiveLink('customers')
+                breadcrumb: isActiveLink('Customer'),
+                active: isActiveLink('Customer'),
+                inActive: !isActiveLink('Customer')
               }"
-              (click)="toggleLink('customers', $event)"
+              (click)="toggleLink('Customer', $event)"
             >
               Customers
               <span
-                *ngIf="isActiveLink('customers')"
-                (click)="clearLink('customers', $event)"
+                *ngIf="isActiveLink('Customer')"
+                (click)="clearLink('Customer', $event)"
                 class="clear-link"
               >
                 ✖
@@ -43,16 +43,16 @@
               class="text-decoration-none d-flex align-items-center gap-1"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('provider'),
-                active: isActiveLink('provider'),
-                inActive: !isActiveLink('provider')
+                breadcrumb: isActiveLink('Provider'),
+                active: isActiveLink('Provider'),
+                inActive: !isActiveLink('Provider')
               }"
-              (click)="toggleLink('provider', $event)"
+              (click)="toggleLink('Provider', $event)"
             >
-              Provider
+              Providers
               <span
-                *ngIf="isActiveLink('provider')"
-                (click)="clearLink('provider', $event)"
+                *ngIf="isActiveLink('Provider')"
+                (click)="clearLink('Provider', $event)"
                 class="clear-link"
               >
                 ✖
@@ -62,16 +62,16 @@
               class="text-decoration-none d-flex align-items-center gap-1"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('merchants'),
-                active: isActiveLink('merchants'),
-                inActive: !isActiveLink('merchants')
+                breadcrumb: isActiveLink('Seller'),
+                active: isActiveLink('Seller'),
+                inActive: !isActiveLink('Seller')
               }"
-              (click)="toggleLink('merchants', $event)"
+              (click)="toggleLink('Seller', $event)"
             >
               Merchants
               <span
-                *ngIf="isActiveLink('merchants')"
-                (click)="clearLink('merchants', $event)"
+                *ngIf="isActiveLink('Seller')"
+                (click)="clearLink('Seller', $event)"
                 class="clear-link"
               >
                 ✖
@@ -111,7 +111,7 @@
             <span id="slider-max-value" #sliderMaxValue>$5000</span>
           </div>
         </div>
-        <button type="button" class="filter-btn m-auto d-block">Filter</button>
+        <button type="button" class="filter-btn m-auto d-block" (click)="filter()" >Filter</button>
       </div>
     </div>
   </div>

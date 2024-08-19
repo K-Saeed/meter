@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Product } from "src/app/core/components/products/models/product.model";
-import { UserTableDto } from "src/app/core/components/users/models/user-table.model";
+import { RequestResponseDto } from "src/app/core/components/service-requests/models/request-table.model";
 import { environment } from "src/environments/environment";
 
 @Injectable({
@@ -26,30 +26,21 @@ export class RquestCallService {
     };
   }
 
-  getProductList(status: string | null): Observable<Product[]> {
-    const apiUrl = status
-      ? `${environment.apiUrl}/api/dashboard/all/products?status=${status}`
-      : `${environment.apiUrl}/api/dashboard/all/products`;
-    return this.http.get<Product[]>(apiUrl);
-  }
+  getAllRequest(type: string | null, status: string | null): Observable<RequestResponseDto[]> {
+    this.apiUrl =  `${environment.apiUrl}/api/admin/request/all`;
+   if(status != null && type === null){
+       this.apiUrl = `${environment.apiUrl}/api/admin/request/all?status=${status}`
+   }else if(type != null && status === null){
+     this.apiUrl = `${environment.apiUrl}/api/admin/request/all?type=${type}`
+   }else if (type != null && status != null){
+     this.apiUrl = `${environment.apiUrl}/api/admin/request/all?type=${type}&status=${status}`
+   }
+   return this.http.get<RequestResponseDto[]>(this.apiUrl);
+ }
 
-  getAllUsers(role: string | null, status: string | null): Observable<UserTableDto[]> {
-     this.apiUrl =  `${environment.apiUrl}/api/user/all`;
-    if(status != null && role === null){
-        this.apiUrl = `${environment.apiUrl}/api/dashboard/all?status=${status}`
-    }else if(role != null && status === null){
-      this.apiUrl = `${environment.apiUrl}/api/dashboard/all?role=${role}`
-    }else if (role != null && status != null){
-      this.apiUrl = `${environment.apiUrl}/api/dashboard/all?role=${role}&status=${status}`
-    }
-    return this.http.get<UserTableDto[]>(this.apiUrl);
-  }
-
-  deleteProduct(productId: number | undefined): Observable<void> {
+  deleteRequest(productId: number | undefined): Observable<void> {
     const apiUrl = `${environment.apiUrl}/api/dashboard/delete/product?productId=${productId}`;
     return this.http.delete<void>(apiUrl);
   }
-
-
 
 }

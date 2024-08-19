@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { RequestService } from '../services/request.service';
+import { RequestResponseDto } from '../models/request-table.model';
 
 @Component({
   selector: 'app-request-table',
@@ -6,21 +8,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./request-table.component.css']
 })
 export class RequestTableComponent {
+
+  status!: string;
+  type!: string;
+  requests: RequestResponseDto[] = [];
+
+  constructor(private requestService: RequestService) {}
+
+  ngOnInit(): void {
+
+    this.getRequestList();
+    console.log("requests: ", this.requests);
+  }
   selectAll: boolean = false;
-  users = [
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Consolation', status: 'Approved', selected: false },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Engineering Job', status: 'Rejected', selected: false },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Consolation', status: 'Approved', selected: false },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Engineering Job', status: 'Rejected', selected: false },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', customerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-  ];
+
 
   currentPage: number = 1;
   itemsPerPage: number = 4;
@@ -28,21 +29,33 @@ export class RequestTableComponent {
 
   toggleAll(event: Event) {
     event.preventDefault();
-    this.users.forEach(user => user.selected = this.selectAll);
+    this.requests.forEach(request => request.selected = this.selectAll);
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.users.every(user => user.selected);
+    this.selectAll = this.requests.every(request => request.selected);
   }
 
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.users.slice(start, end);
+    return this.requests.slice(start, end);
   }
 
   setPage(page: number, event: Event) {
     event.preventDefault();
     this.currentPage = page;
+  }
+
+  getRequestList() {
+    this.requestService.getRequestsList(this.type, this.status).subscribe(
+      (res) => {
+        this.requests = res;
+        this.setPage(1, new Event(""));
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

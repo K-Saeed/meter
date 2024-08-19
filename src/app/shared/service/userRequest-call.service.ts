@@ -25,10 +25,27 @@ export class UserRquestCallService {
       params: {},
     };
   }
+  getAllUsers(role: string | null, status: string | null): Observable<UserTableDto[]> {
+    this.apiUrl =  `${environment.apiUrl}/api/user/admin/all`;
+   if(status != null && role === null){
+       this.apiUrl = `${environment.apiUrl}/api/user/admin/all?status=${status}`
+   }else if(role != null && status === null){
+     this.apiUrl = `${environment.apiUrl}/api/user/admin/all?role=${role}`
+   }else if (role != null && status != null){
+     this.apiUrl = `${environment.apiUrl}/api/user/admin/all?role=${role}&status=${status}`
+   }
+   return this.http.get<UserTableDto[]>(this.apiUrl);
+ }
 
 
   updateUserStatus(id: string, status: string): Observable<void> {
     const url = `${environment.apiUrl}/api/user/${id}/update-status`;
     return this.http.put<void>(url, null, { params: { status } });
   }
+
+  // deleteProduct(productId: number | undefined): Observable<void> {
+  //   const apiUrl = `${environment.apiUrl}/api/dashboard/delete/product?productId=${productId}`;
+  //   return this.http.delete<void>(apiUrl);
+  // }
+
 }

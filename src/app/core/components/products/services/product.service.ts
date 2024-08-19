@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, of } from "rxjs";
 import { last, map, tap } from "rxjs/operators";
 import { Product } from "../models/product.model";
 import { RquestCallService } from "src/app/shared/service/request-call.service";
+import { ProductCallService } from "src/app/shared/service/product-call.service";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +12,7 @@ export class ProductService {
   private statusSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   public status$: Observable<string | null> = this.statusSubject.asObservable();
   laststatus!: string | null;
-  constructor(private requestCall: RquestCallService) {}
+  constructor(private requestCall: ProductCallService) {}
   private products?: Product[];
   private lastFetchTime?: number;
 

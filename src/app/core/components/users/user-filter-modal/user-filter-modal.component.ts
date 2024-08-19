@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-filter-modal',
@@ -14,6 +15,11 @@ export class UserFilterModalComponent {
   @ViewChild('sliderMaxValue') maxLabelRef!: ElementRef<HTMLElement>;
   @ViewChild('rangeHighlight') rangeHighlightRef!: ElementRef<HTMLElement>;
 
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+
+  }
   toggleLink(link: string, event: Event): void {
     event.preventDefault();
     if (this.activeLinks.includes(link)) {
@@ -68,4 +74,11 @@ export class UserFilterModalComponent {
 
     updateLabelsAndHighlight(); // التحديث الأولي للتسميات والخلفية
   }
+
+  filter(): void {
+    const choosenStatus = this.activeLinks[0];
+    console.log(choosenStatus)
+    this.userService.setStatus(choosenStatus)
+  }
+
 }
