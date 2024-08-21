@@ -9,11 +9,11 @@ import { UserService } from '../services/user.service';
 export class UserFilterModalComponent {
   activeLink: string = '';
   activeLinks: string[] = [];
-  @ViewChild('minRange') minRangeRef!: ElementRef<HTMLInputElement>;
-  @ViewChild('maxRange') maxRangeRef!: ElementRef<HTMLInputElement>;
-  @ViewChild('sliderMinValue') minLabelRef!: ElementRef<HTMLElement>;
-  @ViewChild('sliderMaxValue') maxLabelRef!: ElementRef<HTMLElement>;
-  @ViewChild('rangeHighlight') rangeHighlightRef!: ElementRef<HTMLElement>;
+  // @ViewChild('minRange') minRangeRef!: ElementRef<HTMLInputElement>;
+  // @ViewChild('maxRange') maxRangeRef!: ElementRef<HTMLInputElement>;
+  // @ViewChild('sliderMinValue') minLabelRef!: ElementRef<HTMLElement>;
+  // @ViewChild('sliderMaxValue') maxLabelRef!: ElementRef<HTMLElement>;
+  // @ViewChild('rangeHighlight') rangeHighlightRef!: ElementRef<HTMLElement>;
 
   constructor(private userService: UserService) {}
 
@@ -38,42 +38,42 @@ export class UserFilterModalComponent {
   isActiveLink(link: string): boolean {
     return this.activeLinks.includes(link);
   }
-  ngAfterViewInit(): void {
-    const minRange = this.minRangeRef.nativeElement;
-    const maxRange = this.maxRangeRef.nativeElement;
-    const minLabel = this.minLabelRef.nativeElement;
-    const maxLabel = this.maxLabelRef.nativeElement;
-    const rangeHighlight = this.rangeHighlightRef.nativeElement;
+  // ngAfterViewInit(): void {
+  //   const minRange = this.minRangeRef.nativeElement;
+  //   const maxRange = this.maxRangeRef.nativeElement;
+  //   const minLabel = this.minLabelRef.nativeElement;
+  //   const maxLabel = this.maxLabelRef.nativeElement;
+  //   const rangeHighlight = this.rangeHighlightRef.nativeElement;
 
-    const updateLabelsAndHighlight = () => {
-      const minVal = parseInt(minRange.value, 10);
-      const maxVal = parseInt(maxRange.value, 10);
-      minLabel.textContent = `$${minVal}`;
-      maxLabel.textContent = `$${maxVal}`;
+  //   const updateLabelsAndHighlight = () => {
+  //     const minVal = parseInt(minRange.value, 10);
+  //     const maxVal = parseInt(maxRange.value, 10);
+  //     minLabel.textContent = `$${minVal}`;
+  //     maxLabel.textContent = `$${maxVal}`;
 
-      const minPercent = ((minVal - parseInt(minRange.min, 10)) / (parseInt(minRange.max, 10) - parseInt(minRange.min, 10))) * 100;
-      const maxPercent = ((maxVal - parseInt(maxRange.min, 10)) / (parseInt(maxRange.max, 10) - parseInt(minRange.min, 10))) * 100;
+  //     const minPercent = ((minVal - parseInt(minRange.min, 10)) / (parseInt(minRange.max, 10) - parseInt(minRange.min, 10))) * 100;
+  //     const maxPercent = ((maxVal - parseInt(maxRange.min, 10)) / (parseInt(maxRange.max, 10) - parseInt(minRange.min, 10))) * 100;
 
-      rangeHighlight.style.left = `${minPercent}%`;
-      rangeHighlight.style.width = `${maxPercent - minPercent}%`;
-    };
+  //     rangeHighlight.style.left = `${minPercent}%`;
+  //     rangeHighlight.style.width = `${maxPercent - minPercent}%`;
+  //   };
 
-    minRange.addEventListener('input', () => {
-      if (parseInt(minRange.value, 10) > parseInt(maxRange.value, 10)) {
-        minRange.value = maxRange.value;
-      }
-      updateLabelsAndHighlight();
-    });
+  //   minRange.addEventListener('input', () => {
+  //     if (parseInt(minRange.value, 10) > parseInt(maxRange.value, 10)) {
+  //       minRange.value = maxRange.value;
+  //     }
+  //     updateLabelsAndHighlight();
+  //   });
 
-    maxRange.addEventListener('input', () => {
-      if (parseInt(maxRange.value, 10) < parseInt(minRange.value, 10)) {
-        maxRange.value = minRange.value;
-      }
-      updateLabelsAndHighlight();
-    });
+  //   maxRange.addEventListener('input', () => {
+  //     if (parseInt(maxRange.value, 10) < parseInt(minRange.value, 10)) {
+  //       maxRange.value = minRange.value;
+  //     }
+  //     updateLabelsAndHighlight();
+  //   });
 
-    updateLabelsAndHighlight(); // التحديث الأولي للتسميات والخلفية
-  }
+  //   updateLabelsAndHighlight(); // التحديث الأولي للتسميات والخلفية
+  // }
 
   filter(): void {
     const choosenStatus = this.activeLinks[0];
