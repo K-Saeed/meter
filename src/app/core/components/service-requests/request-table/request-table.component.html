@@ -78,6 +78,7 @@
               data-bs-target="#viewModal"
               src="../../../../assets/img/eye.svg"
               alt="View"
+              (click)="setRequestId(request.requestId)"
             />
             <img
               class="cursor-pointer ps-2"
@@ -85,6 +86,7 @@
               data-bs-target="#exampleModal"
               src="../../../../assets/img/trash.svg"
               alt="Delete"
+              (click)="setRequestId(request.requestId)"
             />
           </div>
         </td>
@@ -92,7 +94,7 @@
     </tbody>
   </table>
   <app-request-delete-modal></app-request-delete-modal>
-  <app-request-show-modal></app-request-show-modal>
+  <app-request-show-modal [request]="request"></app-request-show-modal>
   <app-request-filter-modal></app-request-filter-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>

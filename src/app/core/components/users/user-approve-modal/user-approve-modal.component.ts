@@ -9,7 +9,7 @@ import { UserRquestCallService } from "src/app/shared/service/userRequest-call.s
 export class UserApproveModalComponent {
   @Input() userId?: string;
   message!: string;
-  status: string = 'Approve';
+  status: string = 'Approved';
 
   constructor(private userService: UserRquestCallService) {}
 
@@ -22,10 +22,13 @@ export class UserApproveModalComponent {
     this.userService.updateUserStatus(this.userId, this.status).subscribe(
       () => {
         this.message = "Status updated successfully";
+        window.location.reload();
       },
       (error) => {
         this.message = "Error updating status";
         console.error("Error:", error);
+        window.location.reload();
+
       }
     );
   }

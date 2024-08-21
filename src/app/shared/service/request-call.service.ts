@@ -43,4 +43,10 @@ export class RquestCallService {
     return this.http.delete<void>(apiUrl);
   }
 
+
+  updateRequestStatus(id: string, status: string): Observable<void> {
+    const url = `${environment.apiUrl}/api/admin/request/${id}/update-internal-status`;
+    return this.http.put<void>(url, null, { params: { status } });
+  }
+
 }

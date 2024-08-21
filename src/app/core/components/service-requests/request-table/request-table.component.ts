@@ -12,6 +12,8 @@ export class RequestTableComponent {
   status!: string;
   type!: string;
   requests: RequestResponseDto[] = [];
+  request?: RequestResponseDto;
+  selectedRequestId: string | undefined;
 
   constructor(private requestService: RequestService) {}
 
@@ -57,5 +59,14 @@ export class RequestTableComponent {
         console.log(err);
       }
     );
+  }
+  setRequestId(requestId: string | undefined) {
+    this.selectedRequestId = requestId;
+    this.setUser();
+  }
+
+  setUser() {
+    this.request = this.requests.find(request => request.requestId === this.selectedRequestId);
+
   }
 }
