@@ -187,3 +187,37 @@
 .recevd-notification:hover {
   background-color: var(--bs-dropdown-link-hover-bg);
 }
+@media (max-width: 1024px) {
+  .top-bar {
+    padding: 12px 20px;
+  }
+  .btn-secondary {
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-style {
+    width: 40px;
+    height: 40px;
+  }
+  .img-style {
+    width: 24px;
+    height: 24px;
+  }
+  .btn-secondary {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+  .dropdown-menu {
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+  .custom-scrollbar {
+    height: 300px;
+  }
+  .text-style {
+    font-size: 14px;
+  }
+}

@@ -9,7 +9,9 @@ import { Component,Renderer2 } from '@angular/core';
 export class SidebarComponent {
   isActive: string | null = null; 
 
- 
+  isSidebarOpen = false;
+
+  
   employees = 'Employees';
   projects = 'Projects';
 
@@ -29,5 +31,8 @@ setActive(item: string) {
 handleClick(menu: string, activeItem: string) {
   this.toggleSubmenu(menu);
   this.setActive(activeItem);
+}
+toggleSidebar() {
+  this.isSidebarOpen = !this.isSidebarOpen;
 }
 }

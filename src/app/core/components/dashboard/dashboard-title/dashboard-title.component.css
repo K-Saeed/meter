@@ -22,3 +22,37 @@
   line-height: 33.6px;
   color: #000;
 }
+@media (max-width: 576px) {
+  .title-page {
+    gap: 8px;
+  }
+
+  .breadcrumb-item a,
+  .title-page h2 {
+    font-size: 10px;
+    line-height: 14px;
+  }
+
+  .title-page h2 {
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .title-page {
+    gap: 10px;
+  }
+
+  .breadcrumb-item a,
+  .title-page h2 {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .title-page h2 {
+    font-size: 20px;
+    line-height: 28px;
+
+  }
+}

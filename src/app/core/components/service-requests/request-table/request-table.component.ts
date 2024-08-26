@@ -15,19 +15,19 @@ export class RequestTableComponent {
   request?: RequestResponseDto;
   selectedRequestId: string | undefined;
 
+  currentPage: number = 1;
+  itemsPerPage: number = 4;
+  totalPages: number = 1;
+  startItemIndex: number = 1;
+  endItemIndex: number = 4;
+
   constructor(private requestService: RequestService) {}
 
   ngOnInit(): void {
-
     this.getRequestList();
-    console.log("requests: ", this.requests);
   }
+
   selectAll: boolean = false;
-
-
-  currentPage: number = 1;
-  itemsPerPage: number = 4;
-  Math = Math;
 
   toggleAll(event: Event) {
     event.preventDefault();
@@ -38,7 +38,7 @@ export class RequestTableComponent {
     this.selectAll = this.requests.every(request => request.selected);
   }
 
-  get paginatedUsers() {
+  get paginatedRequests() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     return this.requests.slice(start, end);
@@ -46,20 +46,31 @@ export class RequestTableComponent {
 
   setPage(page: number, event: Event) {
     event.preventDefault();
+    if (page < 1 || page > this.totalPages) {
+      return;
+    }
     this.currentPage = page;
+    this.updatePageInfo();
+  }
+
+  updatePageInfo() {
+    this.totalPages = Math.ceil(this.requests.length / this.itemsPerPage);
+    this.startItemIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    this.endItemIndex = Math.min(this.currentPage * this.itemsPerPage, this.requests.length);
   }
 
   getRequestList() {
     this.requestService.getRequestsList(this.type, this.status).subscribe(
       (res) => {
         this.requests = res;
-        this.setPage(1, new Event(""));
+        this.updatePageInfo();
       },
       (err) => {
         console.log(err);
       }
     );
   }
+
   setRequestId(requestId: string | undefined) {
     this.selectedRequestId = requestId;
     this.setUser();
@@ -67,6 +78,5 @@ export class RequestTableComponent {
 
   setUser() {
     this.request = this.requests.find(request => request.requestId === this.selectedRequestId);
-
   }
 }

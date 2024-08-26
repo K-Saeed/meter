@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/shared/service/auth/auth.service';
   styleUrls: ['./topbar.component.css']
 })
 export class TopbarComponent implements OnInit {
-  selectedOption: string = 'all'; // يمكنك تعيين القيمة الافتراضية كـ 'all' أو أي قيمة تناسبك
+  selectedOption: string = 'all';
   userProfile: any;
   constructor(
     private authService: AuthService,
@@ -17,13 +17,18 @@ export class TopbarComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-
     const userProfileString = localStorage.getItem("user-profile");
     if (userProfileString) {
       this.userProfile = JSON.parse(userProfileString);
+      
     } else {
       this.userProfile = null;
     }
+    // console.log(userProfileString);
+  }
+  getFirstName(): string {
+    // console.log(this.userProfile?.name.split(' ')[0] || '');
+    return this.userProfile?.name.split(' ')[0] || '';
   }
 
   onOptionChange(option: string) {

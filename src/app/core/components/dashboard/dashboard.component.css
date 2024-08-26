@@ -1,0 +1,23 @@
+@media (max-width: 768px) {
+  .user-style {
+    /* padding: 0 15px; */
+  }
+  .user-style .row {
+    gap: 1rem !important;
+  }
+  .d-flex {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 576px) {
+  .d-flex {
+    flex-direction: column;
+  }
+  .user-style {
+    /* padding: 0 15px; */
+  }
+  .user-style .row {
+    gap: 0.5rem !important;
+  }
+}

@@ -19,3 +19,32 @@ h1 {
   font-weight: 600;
   color: black;
 }
+@media (max-width: 576px) {
+  .chart-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  canvas {
+    height: 220px !important;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .chart-container {
+    width: 100%;
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 19px;
+  }
+
+  canvas {
+    height: 240px !important;
+  }
+}

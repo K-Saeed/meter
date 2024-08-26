@@ -1,204 +1,157 @@
 <div class="top-bar d-flex align-items-center border-3 border-bottom">
   <div class="d-flex gap-1 align-items-center">
-    <h2 class="text-style m-0">Hello,{{userProfile.name}}</h2>
-    <img
-      class="img-style"
-      src="../../../assets/img/welcome.png"
-      alt=""
-      srcset=""
-    />
+    <h2 class="text-style m-0">Hello,{{ getFirstName() }}</h2>
+    <img class="img-style" src="../../../assets/img/welcome.png" alt="" srcset="" />
   </div>
   <div class="left d-flex align-items-center ms-auto p-2">
     <div class="dropdown">
-      <button
-        class="btn btn-secondary dropdown-toggle d-flex align-items-center"
-        type="button"
-        id="languageDropdown"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <img
-          class="world"
-          src="../../../../assets/img/en.png"
-          alt=""
-          style="margin-right: 8px"
-        />
+      <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <img class="world" src="../../../../assets/img/en.png" alt="" style="margin-right: 8px" />
         <span class="d-flex gap-3 align-items-center">
           English
-          <img
-            src="../../../../assets/img/arrow.svg"
-            alt=""
-            class="custom-arrow ms-auto"
-          />
+          <img src="../../../../assets/img/arrow.svg" alt="" class="custom-arrow ms-auto" />
         </span>
       </button>
-      <ul
-        class="dropdown-menu dropdown-menu-end"
-        aria-labelledby="languageDropdown"
-      >
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
         <!-- <li><a class="d-flex dropdown-item" href="#">English</a></li> -->
         <li>
           <a class="dropdown-item d-flex align-items-center" href="#">
-            <img
-              class="world"
-              src="../../../../assets/img/ar.png"
-              alt=""
-              style="margin-right: 8px"
-            />
-            Arabic</a
-          >
+            <img class="world" src="../../../../assets/img/ar.png" alt="" style="margin-right: 8px" />
+            Arabic</a>
         </li>
       </ul>
     </div>
     <div class="img dropdown ">
-      <img
-        class="dropdown-toggle cursor-pointer"
-        id="dropdownMenu"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-        src="../../../../assets/img/notification-top.svg"
-        alt=""
-      />
+      <img class="dropdown-toggle cursor-pointer" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"
+        src="../../../../assets/img/notification-top.svg" alt="" />
 
-      <div
-        class="dropdown-menu dropdown-menu-end shadow-sm pt-4 pb-3  pe-1"
-        aria-labelledby="dropdownMenu"
-      >
+      <div class="dropdown-menu dropdown-menu-end shadow-sm pt-4 pb-3  pe-1" aria-labelledby="dropdownMenu">
         <div class="d-flex flex-column gap-4">
           <div class="d-flex align-items-center justify-content-between ps-4 pe-2 ">
-          <div class="d-flex align-items-center justify-content-center gap-4">
+            <div class="d-flex align-items-center justify-content-center gap-4">
               <div class="d-flex justify-content-center">
                 <h2 class="m-0 drop-text-style-one">Notifications</h2>
               </div>
               <div class="d-flex gap-3 align-items-center justify-content-center drop-text-style-two mt-1">
-                <h5 class="m-0 cursor-pointer" (click)="onOptionChange('all')" [class.selected]="selectedOption === 'all'">All</h5>
-                <h5 class="m-0 cursor-pointer" (click)="onOptionChange('unread')" [class.selected]="selectedOption === 'unread'">Unread</h5>
-                <h5 class="m-0 cursor-pointer" (click)="onOptionChange('read')" [class.selected]="selectedOption === 'read'">Read</h5>
+                <h5 class="m-0 cursor-pointer" (click)="onOptionChange('all')"
+                  [class.selected]="selectedOption === 'all'">All</h5>
+                <h5 class="m-0 cursor-pointer" (click)="onOptionChange('unread')"
+                  [class.selected]="selectedOption === 'unread'">Unread</h5>
+                <h5 class="m-0 cursor-pointer" (click)="onOptionChange('read')"
+                  [class.selected]="selectedOption === 'read'">Read</h5>
               </div>
             </div>
             <a class="d-flex gap-3 align-items-center drop-text-style-three  cursor-pointer text-decoration-none mt-1">
               Mark all as read
               <img src="../../../../assets/img/outline.svg" alt="" srcset="">
             </a>
-      </div>
-    <div class="d-flex flex-column gap-4 overflow-auto custom-scrollbar pt-2 " >
-        <!-- first notification -->
-        <div class="recevd-notification d-flex align-items-start gap-3 pb-2 pt-3 border-bottom cursor-pointer">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
           </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
+          <div class="d-flex flex-column gap-4 overflow-auto custom-scrollbar pt-2 ">
+            <!-- first notification -->
+            <div class="recevd-notification d-flex align-items-start gap-3 pb-2 pt-3 border-bottom cursor-pointer">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
+            <!-- second notification -->
+            <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
+            <!-- third notification -->
+            <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
+            <!-- third notification -->
+            <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
+            <!-- third notification -->
+            <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
+            <!-- third notification -->
+            <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
+            <!-- third notification -->
+            <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
+            <!-- third notification -->
+            <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
+              <div class="ps-4">
+                <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
+              </div>
+              <div class="d-flex flex-column gap-1 drop-text-style-four">
+                <h4>Dennis Nedry have a request a service to survey report</h4>
+                <h5>Last Wednesday at 9:42 AM</h5>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- second notification -->
-        <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
-          </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
-          </div>
-        </div>
-        <!-- third notification -->
-        <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
-          </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
-          </div>
-        </div>
-        <!-- third notification -->
-        <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
-          </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
-          </div>
-        </div>
-        <!-- third notification -->
-        <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
-          </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
-          </div>
-        </div>
-        <!-- third notification -->
-        <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
-          </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
-          </div>
-        </div>
-        <!-- third notification -->
-        <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
-          </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
-          </div>
-        </div>
-        <!-- third notification -->
-        <div class="d-flex align-items-start gap-3 pb-2 border-bottom">
-          <div class="ps-4">
-            <span class="rounded-circle py-1 px-1 bg-orange text-white">MM</span>
-          </div>
-          <div class="d-flex flex-column gap-1 drop-text-style-four">
-            <h4>Dennis Nedry have a request a service to survey report</h4>
-            <h5>Last Wednesday at 9:42 AM</h5>
-          </div>
-        </div>
-    </div>
-    </div>
       </div>
     </div>
 
     <div class="profile dropdown ms-auto d-flex align-items-center">
-      <div
-        class="profile d-flex align-items-center dropdown-toggle"
-        id="logoutDropdown"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-      >
-        <img
-          class="profile-style"
-          src="../../../../assets/img/profile.png"
-          alt=""
-        />
+      <div class="profile d-flex align-items-center dropdown-toggle" id="logoutDropdown" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        <img class="profile-style" src="../../../../assets/img/profile.png" alt="" />
         <div class="d-flex flex-column">
-          <h4 class="profile-name">{{userProfile.name}}</h4>
+          <h4 class="profile-name">{{ getFirstName() }}</h4>
           <h6 class="profile-role">{{userProfile.role}}</h6>
         </div>
       </div>
-      <ul
-        class="dropdown-menu dropdown-menu-end"
-        aria-labelledby="logoutDropdown"
-      >
+      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="logoutDropdown">
         <li>
           <a class="dropdown-item drop-text-style" href="#">
             <img src="../../../../assets/img/frame.svg" alt="" srcset="" />
-            Setting</a
-          >
+            Setting</a>
         </li>
         <li>
           <a class="dropdown-item drop-text-style text-danger" href="#" (click)="logout()">
             <img src="../../../../assets/img/logout.svg" alt="" srcset="" />
-            Logout</a
-          >
+            Logout</a>
         </li>
       </ul>
     </div>

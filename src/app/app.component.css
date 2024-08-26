@@ -5,3 +5,44 @@ app-sidebar {
 app-topbar {
   width: 100%;
 }
+.flex {
+  display: flex;
+}
+
+@media (max-width: 1024px) {
+  app-sidebar {
+    width: 200px;
+  }
+  .flex {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  #page-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex {
+    display: block;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  app-sidebar {
+    position: relative;
+    transition: left 0.3s ease;
+    height: 100%;
+    z-index: 1000;
+  }
+
+  .sidebar-open app-sidebar {
+    left: 0;
+  }
+
+  .flex-grow-1 {
+    width: 100%;
+  }
+}

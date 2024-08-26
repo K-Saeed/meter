@@ -1,5 +1,6 @@
-<nav class="nav side-bar offcanvas">
-  <a class="nav-link space-style  mx-auto" aria-current="page" href="#">
+<div class="hamburger" (click)="toggleSidebar()">&#9776;</div>
+<nav class="nav side-bar offcanvas" [class.active]="isSidebarOpen">
+  <a class="nav-link space-style mx-auto" aria-current="page" href="#">
     <img class="img-fluid img-style" src="../../../../assets/img/logo.png" />
   </a>
   <div class="d-flex flex-column bottom list-group navbar-menu" id="list-tab" role="tablist">

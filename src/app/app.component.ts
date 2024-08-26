@@ -10,7 +10,11 @@ import { AuthService } from './shared/service/auth/auth.service';
 export class AppComponent implements OnInit  {
   title = 'meter-dashboard-frontend';
   showSidebarAndTopbar: boolean = false;
+  isSidebarOpen = false;
 
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
