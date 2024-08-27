@@ -24,124 +24,67 @@
               class="text-decoration-none d-flex align-items-center"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('consolation'),
-                active: isActiveLink('consolation'),
-                inActive: !isActiveLink('consolation')
+                breadcrumb: isActiveType('consolation'),
+                active: isActiveType('consolation'),
+                inActive: !isActiveType('consolation')
               }"
-              (click)="toggleLink('consolation', $event)"
+              (click)="toggleType('consolation', $event)"
             >
               Consolation
-              <span
-                *ngIf="isActiveLink('consolation')"
-                (click)="clearLink('consolation', $event)"
-                class="clear-link"
-              >
-                ✖
-              </span>
             </a>
             <a
               class="text-decoration-none d-flex align-items-center gap-1"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('job'),
-                active: isActiveLink('job'),
-                inActive: !isActiveLink('job')
+                breadcrumb: isActiveType('job'),
+                active: isActiveType('job'),
+                inActive: !isActiveType('job')
               }"
-              (click)="toggleLink('job', $event)"
+              (click)="toggleType('job', $event)"
             >
               Engineering Job
-              <span
-                *ngIf="isActiveLink('job')"
-                (click)="clearLink('job', $event)"
-                class="clear-link"
-              >
-                ✖
-              </span>
             </a>
             <a
               class="text-decoration-none d-flex align-items-center gap-1"
               href="#"
               [ngClass]="{
-                breadcrumb: isActiveLink('service'),
-                active: isActiveLink('service'),
-                inActive: !isActiveLink('service')
+                breadcrumb: isActiveType('service'),
+                active: isActiveType('service'),
+                inActive: !isActiveType('service')
               }"
-              (click)="toggleLink('service', $event)"
+              (click)="toggleType('service', $event)"
             >
               Service
-              <span
-                *ngIf="isActiveLink('service')"
-                (click)="clearLink('service', $event)"
-                class="clear-link"
-              >
-                ✖
-              </span>
             </a>
           </div>
         </div>
         <div class="info d-flex flex-column gap-1">
           <h3>Status</h3>
           <div class="d-flex align-items-center mb-4 gap-2">
-            <a
-              class="text-decoration-none d-flex align-items-center"
-              href="#"
-              [ngClass]="{
-                breadcrumb: isActiveLink('approved'),
-                active: isActiveLink('approved'),
-                inActive: !isActiveLink('approved')
-              }"
-              (click)="toggleLink('approved', $event)"
-            >
+            <a class="text-decoration-none d-flex align-items-center" href="#" [ngClass]="{
+              breadcrumb: isActiveStatus('Approved'),
+              active: isActiveStatus('Approved'),
+              inActive: !isActiveStatus('Approved')
+            }" (click)="toggleStatus('Approved', $event)">
               Approved
-              <span
-                *ngIf="isActiveLink('approved')"
-                (click)="clearLink('approved', $event)"
-                class="clear-link"
-              >
-                ✖
-              </span>
             </a>
-            <a
-              class="text-decoration-none d-flex align-items-center gap-1"
-              href="#"
-              [ngClass]="{
-                breadcrumb: isActiveLink('rejected'),
-                active: isActiveLink('rejected'),
-                inActive: !isActiveLink('rejected')
-              }"
-              (click)="toggleLink('rejected', $event)"
-            >
+            <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
+              breadcrumb: isActiveStatus('Rejected'),
+              active: isActiveStatus('Rejected'),
+              inActive: !isActiveStatus('Rejected')
+            }" (click)="toggleStatus('Rejected', $event)">
               Rejected
-              <span
-                *ngIf="isActiveLink('rejected')"
-                (click)="clearLink('rejected', $event)"
-                class="clear-link"
-              >
-                ✖
-              </span>
             </a>
-            <a
-              class="text-decoration-none d-flex align-items-center gap-1"
-              href="#"
-              [ngClass]="{
-                breadcrumb: isActiveLink('pending'),
-                active: isActiveLink('pending'),
-                inActive: !isActiveLink('pending')
-              }"
-              (click)="toggleLink('pending', $event)"
-            >
+            <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
+              breadcrumb: isActiveStatus('Pending'),
+              active: isActiveStatus('Pending'),
+              inActive: !isActiveStatus('Pending')
+            }" (click)="toggleStatus('Pending', $event)">
               Pending
-              <span
-                *ngIf="isActiveLink('pending')"
-                (click)="clearLink('pending', $event)"
-                class="clear-link"
-              >
-                ✖
-              </span>
             </a>
           </div>
         </div>
-        <button type="button" class="filter-btn m-auto d-block">Filter</button>
+        <button type="button" class="filter-btn m-auto d-block" (click)="filter()">Filter</button>
       </div>
     </div>
   </div>

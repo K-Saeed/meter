@@ -1,4 +1,6 @@
 import { Component,Renderer2 } from '@angular/core';
+import { RequestService } from '../service-requests/services/request.service';
+import { RequestResponseDto } from '../service-requests/models/request-table.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,16 +9,25 @@ import { Component,Renderer2 } from '@angular/core';
 })
 
 export class SidebarComponent {
-  isActive: string | null = null; 
-
+  isActive: string | null = null;
+  requests: RequestResponseDto[] = [];
+  status: string = 'Pending';
+  type!: string;
   isSidebarOpen = false;
 
-  
+
   employees = 'Employees';
   projects = 'Projects';
 
   isEmployeesOpen = false;
   isProjectsOpen = false;
+
+  constructor(private requestService: RequestService) {}
+
+  ngOnInit(): void {
+    this.getRequestList();
+  }
+
 
   toggleSubmenu(menu: string) {
     if (menu === 'employees') {
@@ -34,5 +45,16 @@ handleClick(menu: string, activeItem: string) {
 }
 toggleSidebar() {
   this.isSidebarOpen = !this.isSidebarOpen;
+}
+
+getRequestList() {
+  this.requestService.getRequestsList(this.type, this.status).subscribe(
+    (res) => {
+      this.requests = res;
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
 }
 }

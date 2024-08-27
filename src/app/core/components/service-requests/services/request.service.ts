@@ -12,8 +12,8 @@ import { RequestResponseDto } from "../models/request-table.model";
 export class RequestService {
   private statusSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   public status$: Observable<string | null> = this.statusSubject.asObservable();
-  private roleSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-  public role$: Observable<string | null> = this.statusSubject.asObservable();
+  private typeSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
+  public type$: Observable<string | null> = this.statusSubject.asObservable();
   lastStatus!: string | null;
   lastType!: string | null;
   constructor(private requsetCall: RquestCallService) {}
@@ -41,7 +41,7 @@ export class RequestService {
     if (!this.rquests || this.rquests.length === 0 || this.lastType != status || this.lastStatus != status || (this.lastFetchTime && (currentTime - this.lastFetchTime) > oneHour)) {
       this.lastStatus = status;
       this.lastType = type;
-      return this.retriveRequestsList(this.roleSubject.value, this.statusSubject.value);
+      return this.retriveRequestsList(this.typeSubject.value, this.statusSubject.value);
     } else {
       return of(this.rquests);
     }
@@ -53,6 +53,10 @@ export class RequestService {
 
   setStatus(status: string | null): void {
     this.statusSubject.next(status);
+  }
+
+  setType(type: string | null): void {
+    this.typeSubject.next(type);
   }
 
   getStatus(): string | null {

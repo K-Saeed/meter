@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of } from "rxjs";
-import { last, map, tap } from "rxjs/operators";
-import { RquestCallService } from "src/app/shared/service/request-call.service";
+import { tap } from "rxjs/operators";
 import { UserTableDto } from "../models/user-table.model";
 import { UserRquestCallService } from "src/app/shared/service/userRequest-call.service";
 
@@ -12,18 +11,20 @@ export class UserService {
   private statusSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   public status$: Observable<string | null> = this.statusSubject.asObservable();
   private roleSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-  public role$: Observable<string | null> = this.statusSubject.asObservable();
-  laststatus!: string | null;
-  lastrole!: string | null;
-  constructor(private userRequest: UserRquestCallService) {}
-  private users?: UserTableDto[];
+  public role$: Observable<string | null> = this.roleSubject.asObservable();
+  lastStatus!: string | null;
+  lastRole!: string | null;
+  private usersSubject: BehaviorSubject<UserTableDto[]> = new BehaviorSubject<UserTableDto[]>([]);
+  public users$: Observable<UserTableDto[]> = this.usersSubject.asObservable();
   private lastFetchTime?: number;
 
-  retriveUsersList(status: string | null, role: string | null): Observable<UserTableDto[]> {
+  constructor(private userRequest: UserRquestCallService) {}
+
+  private retrieveUsersList(role: string | null, status: string | null): Observable<UserTableDto[]> {
     return this.userRequest.getAllUsers(role, status).pipe(
       tap(
         (res) => {
-          this.users = res;
+          this.usersSubject.next(res);
           this.lastFetchTime = Date.now();
         },
         (err) => {
@@ -33,41 +34,28 @@ export class UserService {
     );
   }
 
-  getUsersList(role: string, status: string): Observable<UserTableDto[]> {
-    const oneHour = (60 * 60 * 1000)/2;
+  getUsersList(role: string | null, status: string | null): Observable<UserTableDto[]> {
+    const oneHour = (60 * 60 * 1000) / 2;
     const currentTime = Date.now();
 
-    if (!this.users || this.users.length === 0 || this.lastrole != status || this.laststatus != status || (this.lastFetchTime && (currentTime - this.lastFetchTime) > oneHour)) {
-      this.laststatus = status;
-      this.lastrole = role;
-      return this.retriveUsersList(this.roleSubject.value, this.statusSubject.value);
+    if (!this.usersSubject.value.length || this.lastRole !== role || this.lastStatus !== status || (this.lastFetchTime && (currentTime - this.lastFetchTime) > oneHour)) {
+      this.lastStatus = status;
+      this.lastRole = role;
+      return this.retrieveUsersList(role, status);
     } else {
-      return of(this.users);
+      return of(this.usersSubject.value);
     }
   }
-
-  // private stripTime(date: Date): Date {
-  //   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  // }
 
   setStatus(status: string | null): void {
     this.statusSubject.next(status);
   }
 
+  setType(type: string | null): void {
+    this.roleSubject.next(type);
+  }
+
   getStatus(): string | null {
     return this.statusSubject.value;
   }
-
-  // onDeleteProduct(productId: number | undefined): void {
-  //   this.requestCall.deleteProduct(productId).subscribe(
-  //     () => {
-  //       console.log('Product deleted successfully');
-  //     },
-  //     error => {
-  //       console.error('Error deleting product', error);
-  //     }
-  //   );
-  // }
-
-
 }

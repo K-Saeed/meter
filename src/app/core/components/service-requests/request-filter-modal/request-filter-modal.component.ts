@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RequestResponseDto } from '../models/request-table.model';
+import { RequestService } from '../services/request.service';
 
 @Component({
   selector: 'app-request-filter-modal',
@@ -6,24 +8,45 @@ import { Component } from '@angular/core';
   styleUrls: ['./request-filter-modal.component.css']
 })
 export class RequestFilterModalComponent {
-  activeLinks: string[] = [];
+  @Input () request?: RequestResponseDto;
+  activeType: string | null = null;
+  activeStatus: string | null = null;
+  constructor(private requestService: RequestService) { }
 
-  toggleLink(link: string, event: Event): void {
+  toggleType(type: string, event: Event): void {
     event.preventDefault();
-    if (this.activeLinks.includes(link)) {
-      this.activeLinks = this.activeLinks.filter(l => l !== link);
+    if (this.activeType === type) {
+      this.activeType = null;
     } else {
-      this.activeLinks.push(link);
+      this.activeType = type;
     }
   }
 
-  clearLink(link: string, event: Event): void {
+  toggleStatus(status: string, event: Event): void {
     event.preventDefault();
-    event.stopPropagation();
-    this.activeLinks = this.activeLinks.filter(l => l !== link);
+    if (this.activeStatus === status) {
+      this.activeStatus = null;
+    } else {
+      this.activeStatus = status;
+    }
   }
 
-  isActiveLink(link: string): boolean {
-    return this.activeLinks.includes(link);
+  isActiveType(role: string): boolean {
+    return this.activeType === role;
+  }
+
+  isActiveStatus(status: string): boolean {
+    return this.activeStatus === status;
+  }
+
+  filter(): void {
+    if (this.activeStatus && this.activeType) {
+      console.log('Selected Role:', this.activeType);
+      console.log('Selected Status:', this.activeStatus);
+      this.requestService.setType(this.activeType);
+      this.requestService.setStatus(this.activeStatus);
+    } else {
+      console.error('Both role and status must be selected');
+    }
   }
 }
