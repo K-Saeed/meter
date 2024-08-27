@@ -1,3 +1,4 @@
+<!-- user-filter-modal.component.html -->
 <div class="modal fade" id="userFilterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content d-flex">
@@ -10,32 +11,32 @@
           <h3>Role</h3>
           <div class="d-flex align-items-center mb-4 gap-2">
             <a class="text-decoration-none d-flex align-items-center" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('Customer'),
-                active: isActiveLink('Customer'),
-                inActive: !isActiveLink('Customer')
-              }" (click)="toggleLink('Customer', $event)">
+              breadcrumb: isActiveRole('Customer'),
+              active: isActiveRole('Customer'),
+              inActive: !isActiveRole('Customer')
+            }" (click)="toggleRole('Customer', $event)">
               Customers
-              <span *ngIf="isActiveLink('Customer')" (click)="clearLink('Customer', $event)" class="clear-link">
+              <span *ngIf="isActiveRole('Customer')">
                 ✖
               </span>
             </a>
             <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('Provider'),
-                active: isActiveLink('Provider'),
-                inActive: !isActiveLink('Provider')
-              }" (click)="toggleLink('Provider', $event)">
+              breadcrumb: isActiveRole('Provider'),
+              active: isActiveRole('Provider'),
+              inActive: !isActiveRole('Provider')
+            }" (click)="toggleRole('Provider', $event)">
               Providers
-              <span *ngIf="isActiveLink('Provider')" (click)="clearLink('Provider', $event)" class="clear-link">
+              <span *ngIf="isActiveRole('Provider')">
                 ✖
               </span>
             </a>
             <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('Seller'),
-                active: isActiveLink('Seller'),
-                inActive: !isActiveLink('Seller')
-              }" (click)="toggleLink('Seller', $event)">
+              breadcrumb: isActiveRole('Seller'),
+              active: isActiveRole('Seller'),
+              inActive: !isActiveRole('Seller')
+            }" (click)="toggleRole('Seller', $event)">
               Merchants
-              <span *ngIf="isActiveLink('Seller')" (click)="clearLink('Seller', $event)" class="clear-link">
+              <span *ngIf="isActiveRole('Seller')">
                 ✖
               </span>
             </a>
@@ -45,32 +46,32 @@
           <h3>Status</h3>
           <div class="d-flex align-items-center mb-4 gap-2">
             <a class="text-decoration-none d-flex align-items-center" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('approved'),
-                active: isActiveLink('approved'),
-                inActive: !isActiveLink('approved')
-              }" (click)="toggleLink('approved', $event)">
+              breadcrumb: isActiveStatus('approved'),
+              active: isActiveStatus('approved'),
+              inActive: !isActiveStatus('approved')
+            }" (click)="toggleStatus('approved', $event)">
               Approved
-              <span *ngIf="isActiveLink('approved')" (click)="clearLink('approved', $event)" class="clear-link">
+              <span *ngIf="isActiveStatus('approved')">
                 ✖
               </span>
             </a>
             <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('rejected'),
-                active: isActiveLink('rejected'),
-                inActive: !isActiveLink('rejected')
-              }" (click)="toggleLink('rejected', $event)">
+              breadcrumb: isActiveStatus('rejected'),
+              active: isActiveStatus('rejected'),
+              inActive: !isActiveStatus('rejected')
+            }" (click)="toggleStatus('rejected', $event)">
               Rejected
-              <span *ngIf="isActiveLink('rejected')" (click)="clearLink('rejected', $event)" class="clear-link">
+              <span *ngIf="isActiveStatus('rejected')">
                 ✖
               </span>
             </a>
             <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('pending'),
-                active: isActiveLink('pending'),
-                inActive: !isActiveLink('pending')
-              }" (click)="toggleLink('pending', $event)">
+              breadcrumb: isActiveStatus('pending'),
+              active: isActiveStatus('pending'),
+              inActive: !isActiveStatus('pending')
+            }" (click)="toggleStatus('pending', $event)">
               Pending
-              <span *ngIf="isActiveLink('pending')" (click)="clearLink('pending', $event)" class="clear-link">
+              <span *ngIf="isActiveStatus('pending')">
                 ✖
               </span>
             </a>

@@ -76,8 +76,8 @@
               (click)="setUserId(user.id)" />
             <!-- Toggle Switch -->
             <label class="toggle">
-              <input type="checkbox" />
-              <span class="slider round" (click)="setUserId(user.id)"></span>
+              <input type="checkbox" (change)="updateStatus(user.id)" />
+              <span class="slider round"></span>
             </label>
             <img class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal"
               src="../../../../assets/img/trash.svg" alt="Delete" (click)="setUserId(user.id)" />
@@ -88,7 +88,7 @@
 
   </table>
   <app-user-filter-modal></app-user-filter-modal>
-  <app-user-delete-modal></app-user-delete-modal>
+  <app-user-delete-modal [userId]="user?.id"></app-user-delete-modal>
   <app-user-show-modal [user]="user"></app-user-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage,

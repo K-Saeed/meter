@@ -43,9 +43,9 @@ export class UserRquestCallService {
     return this.http.put<void>(url, null, { params: { status } });
   }
 
-  // deleteProduct(productId: number | undefined): Observable<void> {
-  //   const apiUrl = `${environment.apiUrl}/api/dashboard/delete/product?productId=${productId}`;
-  //   return this.http.delete<void>(apiUrl);
-  // }
+  deleteUser(userId: string | undefined): Observable<void> {
+    const apiUrl = `${environment.apiUrl}/api/user/delete/${userId}`;
+    return this.http.delete<void>(apiUrl);
+  }
 
 }

@@ -21,7 +21,7 @@
         <div>Service Requests</div>
       </div>
       <span
-        [ngClass]="{'number-active': isActive === 'servicerequests', 'number-inActive': isActive !== 'servicerequests'}">10</span>
+        [ngClass]="{'number-active': isActive === 'servicerequests', 'number-inActive': isActive !== 'servicerequests'}">{{requests.length}}</span>
     </a>
 
     <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"

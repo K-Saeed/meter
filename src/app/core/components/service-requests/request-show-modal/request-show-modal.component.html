@@ -28,15 +28,15 @@
               <div class="info d-flex flex-column gap-3">
                 <h3 class="d-flex justify-content-between m-0">
                   <span class="label">Name:</span>
-                  <span class="value">Mohamed MonGe</span>
+                  <span class="value">{{request?.requestOwner?.name}}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0">
                   <span class="label">Email:</span>
-                  <span class="value">mohamedmonge7@gmail.com</span>
+                  <span class="value">{{request?.requestOwner?.email}}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0">
                   <span class="label">Phone:</span>
-                  <span class="value">+966-555-555555</span>
+                  <span class="value">{{request?.requestOwner?.phone}}</span>
                 </h3>
               </div>
             </div>
@@ -45,15 +45,23 @@
               <div class="info d-flex flex-column align-items-start gap-3">
                 <h3 class="d-flex justify-content-between m-0">
                   <span class="label">Title:</span>
-                  <span class="value">Survey Report</span>
+                  <span class="value">{{request?.title}}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0">
                   <span class="label">Description::</span>
-                  <span class="value">Lorem ipsum dolor sit amet</span>
+                  <span class="value">{{request?.description}}</span>
                 </h3>
-                <h3 class="d-flex justify-content-between m-0">
+                <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Request Service'">
                   <span class="label">Purpose of Pricing:</span>
-                  <span class="value">Survey Report</span>
+                  <span class="value">{{request?.requestServiceDto?.pricingPurpose}}</span>
+                </h3>
+                <h3 class="d-flex justify-content-between m-0 " *ngIf="request?.type === 'Consolation'">
+                  <span class="label">Application Name:</span>
+                  <span class="value">{{request?.consultationRequestDto?.applicationName}}</span>
+                </h3>
+                <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Engineering Job'">
+                  <span class="label">Certificate Type:</span>
+                  <span class="value">{{request?.jobRequestDto?.certificateType}}</span>
                 </h3>
               </div>
             </div>
@@ -62,14 +70,16 @@
         <div *ngIf="activeLink === 'attachments'">
           <div class="d-flex flex-column gap-5 mt-5">
             <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center gap-3">
-                <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
+              <div class="d-flex align-items-center gap-3" *ngFor="let file of request?.requestFiles">
+                <a href="file?.filePath" download>
+                  <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
+                </a>
                 <div class="attechment d-flex flex-column">
-                  <h4 class="m-0">Survey report.pdf</h4>
-                  <p class="m-0">313 KB . 31 Aug, 2022</p>
+                  <h4 class="m-0">{{file.fileName}}</h4>
+                  <p class="m-0">{{file.uploadDate}}</p>
                 </div>
+                <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" srcset="" />
               </div>
-              <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" srcset="" />
             </div>
           </div>
         </div>
@@ -87,5 +97,5 @@
   </div>
 </div>
 
-<app-request-reject-modal></app-request-reject-modal>
+<app-request-reject-modal ></app-request-reject-modal>
 <app-request-approve-modal [requestId]="request?.requestId"></app-request-approve-modal>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RequestResponseDto } from '../models/request-table.model';
+import { RquestCallService } from 'src/app/shared/service/request-call.service';
 
 @Component({
   selector: 'app-request-delete-modal',
@@ -6,5 +8,29 @@ import { Component } from '@angular/core';
   styleUrls: ['./request-delete-modal.component.css']
 })
 export class RequestDeleteModalComponent {
+  @Input () request?: RequestResponseDto;
+
+
+  constructor(private requestService: RquestCallService) { }
+
+  deleteRequest(requestId: string | undefined): void {
+    if (requestId !== undefined) {
+      const numericRequestId = Number(requestId);
+      if (!isNaN(numericRequestId)) {
+        this.requestService.deleteRequest(numericRequestId).subscribe(
+          () => {
+            console.log('Request deleted successfully');
+          },
+          error => {
+            console.error('Error deleting request', error);
+          }
+        );
+      } else {
+        console.error('Request ID is not a valid number');
+      }
+    } else {
+      console.error('Request ID is undefined');
+    }
+  }
 
 }
