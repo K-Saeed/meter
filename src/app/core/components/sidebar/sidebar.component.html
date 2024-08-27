@@ -20,7 +20,7 @@
         <img class="icon-style" src="../../../../assets/img/category-2.svg" alt="" />
         <div>Service Requests</div>
       </div>
-      <span
+      <span *ngIf="requests.length > 0"
         [ngClass]="{'number-active': isActive === 'servicerequests', 'number-inActive': isActive !== 'servicerequests'}">{{requests.length}}</span>
     </a>
 

@@ -15,10 +15,10 @@ export class RequestDeleteModalComponent {
 
   deleteRequest(requestId: string | undefined): void {
     if (requestId !== undefined) {
-      const numericRequestId = Number(requestId);
-      if (!isNaN(numericRequestId)) {
-        this.requestService.deleteRequest(numericRequestId).subscribe(
+      if (requestId) {
+        this.requestService.deleteRequest(requestId).subscribe(
           () => {
+            window.location.reload();
             console.log('Request deleted successfully');
           },
           error => {
