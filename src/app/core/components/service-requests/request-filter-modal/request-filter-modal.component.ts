@@ -1,16 +1,17 @@
-import { Component, Input } from '@angular/core';
-import { RequestResponseDto } from '../models/request-table.model';
-import { RequestService } from '../services/request.service';
+import { Component, Input } from "@angular/core";
+import { RequestResponseDto } from "../models/request-table.model";
+import { RequestService } from "../services/request.service";
 
 @Component({
-  selector: 'app-request-filter-modal',
-  templateUrl: './request-filter-modal.component.html',
-  styleUrls: ['./request-filter-modal.component.css']
+  selector: "app-request-filter-modal",
+  templateUrl: "./request-filter-modal.component.html",
+  styleUrls: ["./request-filter-modal.component.css"],
 })
 export class RequestFilterModalComponent {
-  @Input () request?: RequestResponseDto;
+  @Input() request?: RequestResponseDto;
   activeType: string | null = null;
   activeStatus: string | null = null;
+
   constructor(private requestService: RequestService) { }
 
   toggleType(type: string, event: Event): void {
@@ -31,8 +32,8 @@ export class RequestFilterModalComponent {
     }
   }
 
-  isActiveType(role: string): boolean {
-    return this.activeType === role;
+  isActiveType(type: string): boolean {
+    return this.activeType === type;
   }
 
   isActiveStatus(status: string): boolean {
@@ -40,13 +41,7 @@ export class RequestFilterModalComponent {
   }
 
   filter(): void {
-    if (this.activeStatus && this.activeType) {
-      console.log('Selected Role:', this.activeType);
-      console.log('Selected Status:', this.activeStatus);
-      this.requestService.setType(this.activeType);
-      this.requestService.setStatus(this.activeStatus);
-    } else {
-      console.error('Both role and status must be selected');
-    }
+    this.requestService.setType(this.activeType);
+    this.requestService.setStatus(this.activeStatus);
   }
 }
