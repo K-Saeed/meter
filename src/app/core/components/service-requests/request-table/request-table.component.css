@@ -106,12 +106,34 @@ img {
   --bs-table-bg: #f9f9f9;
   --bs-table-border-color: #f9f9f9;
 }
+.table-container {
+  overflow-x: auto; /* تمكين التمرير الأفقي */
+  -webkit-overflow-scrolling: touch; /* تحسين التمرير على أجهزة اللمس */
+  /* width: 100%; */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px; /* أو أي عرض مناسب لتجنب تجاوز العرض */
+}
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #f28f45;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
 .toggle-container {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
-
 .toggle {
   position: relative;
   display: inline-block;
@@ -249,4 +271,32 @@ select option:hover {
 .form-select:focus {
   border-color: #d9d9d9;
   box-shadow: none;
+}
+.img-space .img-one {
+  padding-right: 0.5rem !important;
+}
+@media (max-width: 768px) {
+  .table-container {
+    padding: 0 10px; /* إضافة مسافة حول الحاوية لتجنب التمرير بالقرب من الحواف */
+  }
+
+  .table {
+    min-width: 1000px; /* عرض أدنى يناسب الشاشات الأصغر */
+  }
+}
+
+@media (max-width: 576px) {
+  .table-container {
+    padding: 0 5px; /* تقليل المسافة حول الحاوية على الشاشات الصغيرة جدًا */
+  }
+
+  .table {
+    min-width: 845px; /* عرض أدنى يناسب الهواتف الصغيرة */
+  }
+
+  th,
+  td {
+    padding: 6px 8px; /* تقليل الحشو لجعل الجدول يناسب الشاشات الأصغر */
+    font-size: 12px; /* تقليل حجم الخط لتناسب الشاشات الصغيرة */
+  }
 }
