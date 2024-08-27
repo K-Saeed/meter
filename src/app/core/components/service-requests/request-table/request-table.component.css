@@ -1,21 +1,20 @@
 input[type="checkbox"] {
-  position: relative; /* Ensure positioning context */
-  width: 18px; /* Adjust size as needed */
-  height: 18px; /* Adjust size as needed */
-  appearance: none; /* Remove default checkbox appearance */
-  background-color: #fff; /* White background for unchecked state */
-  border: 2px solid #4f4f4f; /* Border color */
-  border-radius: 6.2px; /* Rounded corners, optional */
-  cursor: pointer; /* Pointer cursor on hover */
+  position: relative;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #4f4f4f;
+  border-radius: 6.2px;
+  cursor: pointer;
 }
 
-/* إضافة رمز التحديد اليدوي */
 input[type="checkbox"]:checked::before {
-  content: "\f00c"; /* رمز العلامة "✔" */
+  content: "\f00c";
   font-family: "Font Awesome 5 Free";
   font-size: 11px;
   font-weight: 900;
-  color: #fff; /* اللون الأبيض للعلامة */
+  color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -107,15 +106,15 @@ img {
   --bs-table-border-color: #f9f9f9;
 }
 .table-container {
-  overflow-x: auto; /* تمكين التمرير الأفقي */
-  -webkit-overflow-scrolling: touch; /* تحسين التمرير على أجهزة اللمس */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   /* width: 100%; */
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 800px; /* أو أي عرض مناسب لتجنب تجاوز العرض */
+  min-width: 800px;
 }
 .table-container::-webkit-scrollbar {
   height: 8px;
@@ -234,10 +233,10 @@ input:checked + .slider:before {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding-right: 2rem; /* Adjust padding to make space for the icon */
-  background: transparent; /* Make background transparent */
-  border: 1px solid #ced4da; /* Border similar to default Bootstrap */
-  font-size: 1rem; /* Ensure the font size matches Bootstrap */
+  padding-right: 2rem;
+  background: transparent;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
 }
 
 .custom-select-icon {
@@ -247,7 +246,7 @@ input:checked + .slider:before {
   right: 20px;
   pointer-events: none;
   transform: translateY(-50%);
-  color: #f28f45; /* Change this color to your desired arrow color */
+  color: #f28f45;
 }
 
 .select-wrapper::after {
@@ -277,26 +276,29 @@ select option:hover {
 }
 @media (max-width: 768px) {
   .table-container {
-    padding: 0 10px; /* إضافة مسافة حول الحاوية لتجنب التمرير بالقرب من الحواف */
+    padding: 0 10px;
   }
 
   .table {
-    min-width: 1000px; /* عرض أدنى يناسب الشاشات الأصغر */
+    min-width: 1000px;
   }
 }
 
 @media (max-width: 576px) {
   .table-container {
-    padding: 0 5px; /* تقليل المسافة حول الحاوية على الشاشات الصغيرة جدًا */
+    padding: 0 5px;
   }
 
   .table {
-    min-width: 845px; /* عرض أدنى يناسب الهواتف الصغيرة */
+    min-width: 845px;
   }
 
   th,
   td {
-    padding: 6px 8px; /* تقليل الحشو لجعل الجدول يناسب الشاشات الأصغر */
-    font-size: 12px; /* تقليل حجم الخط لتناسب الشاشات الصغيرة */
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .pagination-space {
+    width: 845px;
   }
 }
