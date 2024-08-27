@@ -1,33 +1,53 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { RequestService } from '../services/request.service';
 import { RequestResponseDto } from '../models/request-table.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-request-table',
   templateUrl: './request-table.component.html',
   styleUrls: ['./request-table.component.css']
 })
-export class RequestTableComponent {
+export class RequestTableComponent implements OnInit, OnDestroy {
 
   status!: string;
   type!: string;
   requests: RequestResponseDto[] = [];
   request?: RequestResponseDto;
   selectedRequestId: string | undefined;
-
+  private statusSubscription!: Subscription;
+  private typeSubscription!: Subscription;
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
   startItemIndex: number = 1;
   endItemIndex: number = 4;
+  selectAll: boolean = false;
 
-  constructor(private requestService: RequestService) {}
+  constructor(private requestService: RequestService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
+    this.statusSubscription = this.requestService.status$.subscribe(status => {
+      this.status = status!;
+      this.getRequestList();
+    });
+
+    this.typeSubscription = this.requestService.type$.subscribe(type => {
+      this.type = type!;
+      this.getRequestList();
+    });
+
     this.getRequestList();
   }
 
-  selectAll: boolean = false;
+  ngOnDestroy(): void {
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
+    }
+    if (this.typeSubscription) {
+      this.typeSubscription.unsubscribe();
+    }
+  }
 
   toggleAll(event: Event) {
     event.preventDefault();
@@ -64,6 +84,8 @@ export class RequestTableComponent {
       (res) => {
         this.requests = res;
         this.updatePageInfo();
+        this.setPage(1, new Event(""));
+        this.cdr.detectChanges(); // Manually trigger change detection
       },
       (err) => {
         console.log(err);
@@ -73,10 +95,10 @@ export class RequestTableComponent {
 
   setRequestId(requestId: string | undefined) {
     this.selectedRequestId = requestId;
-    this.setUser();
+    this.setRequest();
   }
 
-  setUser() {
+  setRequest() {
     this.request = this.requests.find(request => request.requestId === this.selectedRequestId);
   }
 }
