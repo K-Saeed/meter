@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Angular CI/CD Pipeline
 
 on:
   push:
@@ -13,23 +13,23 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v3
       with:
-        java-version: '17'
-        distribution: 'temurin'
-        cache: gradle
+        node-version: '18'
+        cache: 'npm'
         
-    - name: Build with Gradle
-      run: |
-        chmod +x gradlew  
-        ./gradlew clean build -x test --no-daemon
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Build
+      run: npm run build
       
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: app
-        path: build/libs/*.jar
+        name: dist
+        path: dist/
 
   docker:
     needs: build
@@ -37,8 +37,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-      attestations: write
-      id-token: write
 
     steps:
     - name: Checkout repository
@@ -47,11 +45,8 @@ jobs:
     - name: Download artifact
       uses: actions/download-artifact@v3
       with:
-        name: app
-        path: build/libs
-        
-    - name: Rename JAR file
-      run: mv /home/runner/work/meter-backend/meter-backend/build/libs/meter-backend-0.0.1-SNAPSHOT.jar ./app.jar
+        name: dist
+        path: dist
 
     - name: Log in to GitHub Container Registry
       uses: docker/login-action@v3
@@ -89,33 +84,16 @@ jobs:
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          # Convert repository name to lowercase for Docker
-          REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]") 
-          cd /home/ubuntu/meter-backend
-          # Create or update .env file
-              cat << EOF > .env
-        DB_NAME=${{ secrets.DB_NAME }}
-        DB_USER=${{ secrets.DB_USER }}
-        DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-        GITHUB_REPOSITORY=$REPO_LOWER
-        IMAGE_TAG=${{ github.ref_name }}
-        EOF
-
-          # Pull, stop, and restart the container
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
+          cd /home/ubuntu/meter
           docker pull ghcr.io/$REPO_LOWER:${{ github.ref_name }}
-          # Stop existing containers
           docker compose down || { echo "Docker Compose down failed"; exit 1; }
-          
-          # Start new containers
           docker compose up -d || { echo "Docker Compose up failed"; exit 1; }
-          
-          # Check if the containers are running
-          sleep 10  # Give some time for containers to start
+          sleep 10
           if ! docker compose ps | grep -q "Up"; then
             echo "Containers failed to start properly"
             docker compose logs
             exit 1
           fi
-          
           echo "Deployment successful"
         '
