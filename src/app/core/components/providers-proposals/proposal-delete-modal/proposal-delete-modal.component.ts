@@ -30,5 +30,6 @@ export class ProposalDeleteModalComponent {
     } else {
       console.error('Request ID is undefined');
     }
+    window.location.reload();
   }
 }
