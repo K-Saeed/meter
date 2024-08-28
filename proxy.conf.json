@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://3.83.97.229:8080",
+    "target": "http://44.202.8.76",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
