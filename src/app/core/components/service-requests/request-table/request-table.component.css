@@ -1,21 +1,20 @@
 input[type="checkbox"] {
-  position: relative; /* Ensure positioning context */
-  width: 18px; /* Adjust size as needed */
-  height: 18px; /* Adjust size as needed */
-  appearance: none; /* Remove default checkbox appearance */
-  background-color: #fff; /* White background for unchecked state */
-  border: 2px solid #4f4f4f; /* Border color */
-  border-radius: 6.2px; /* Rounded corners, optional */
-  cursor: pointer; /* Pointer cursor on hover */
+  position: relative;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  background-color: #fff;
+  border: 2px solid #4f4f4f;
+  border-radius: 6.2px;
+  cursor: pointer;
 }
 
-/* إضافة رمز التحديد اليدوي */
 input[type="checkbox"]:checked::before {
-  content: "\f00c"; /* رمز العلامة "✔" */
+  content: "\f00c";
   font-family: "Font Awesome 5 Free";
   font-size: 11px;
   font-weight: 900;
-  color: #fff; /* اللون الأبيض للعلامة */
+  color: #fff;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -106,12 +105,34 @@ img {
   --bs-table-bg: #f9f9f9;
   --bs-table-border-color: #f9f9f9;
 }
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* width: 100%; */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #f28f45;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
 .toggle-container {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
-
 .toggle {
   position: relative;
   display: inline-block;
@@ -212,10 +233,10 @@ input:checked + .slider:before {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding-right: 2rem; /* Adjust padding to make space for the icon */
-  background: transparent; /* Make background transparent */
-  border: 1px solid #ced4da; /* Border similar to default Bootstrap */
-  font-size: 1rem; /* Ensure the font size matches Bootstrap */
+  padding-right: 2rem;
+  background: transparent;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
 }
 
 .custom-select-icon {
@@ -225,7 +246,7 @@ input:checked + .slider:before {
   right: 20px;
   pointer-events: none;
   transform: translateY(-50%);
-  color: #f28f45; /* Change this color to your desired arrow color */
+  color: #f28f45;
 }
 
 .select-wrapper::after {
@@ -249,4 +270,35 @@ select option:hover {
 .form-select:focus {
   border-color: #d9d9d9;
   box-shadow: none;
+}
+.img-space .img-one {
+  padding-right: 0.5rem !important;
+}
+@media (max-width: 768px) {
+  .table-container {
+    padding: 0 10px;
+  }
+
+  .table {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width: 576px) {
+  .table-container {
+    padding: 0 5px;
+  }
+
+  .table {
+    min-width: 845px;
+  }
+
+  th,
+  td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .pagination-space {
+    width: 845px;
+  }
 }

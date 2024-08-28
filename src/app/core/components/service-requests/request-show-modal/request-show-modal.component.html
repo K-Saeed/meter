@@ -84,7 +84,7 @@
           </div>
         </div>
 
-        <div class="d-flex gap-3 mt-4 justify-content-end">
+        <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
           <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
             Reject
           </button>
@@ -97,5 +97,5 @@
   </div>
 </div>
 
-<app-request-reject-modal ></app-request-reject-modal>
+<app-request-reject-modal [requestId]="request?.requestId"></app-request-reject-modal>
 <app-request-approve-modal [requestId]="request?.requestId"></app-request-approve-modal>

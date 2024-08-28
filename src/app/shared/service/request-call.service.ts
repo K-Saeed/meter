@@ -38,7 +38,7 @@ export class RquestCallService {
    return this.http.get<RequestResponseDto[]>(this.apiUrl);
  }
 
-  deleteRequest(requestId: number | undefined): Observable<void> {
+  deleteRequest(requestId: string | undefined): Observable<void> {
     const apiUrl = `${environment.apiUrl}/api/admin/request/${requestId}`;
     return this.http.delete<void>(apiUrl);
   }

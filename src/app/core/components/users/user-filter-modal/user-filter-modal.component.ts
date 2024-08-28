@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { Component } from "@angular/core";
+import { UserService } from "../services/user.service";
 
 @Component({
-  selector: 'app-user-filter-modal',
-  templateUrl: './user-filter-modal.component.html',
-  styleUrls: ['./user-filter-modal.component.css']
+  selector: "app-user-filter-modal",
+  templateUrl: "./user-filter-modal.component.html",
+  styleUrls: ["./user-filter-modal.component.css"],
 })
 export class UserFilterModalComponent {
   activeRole: string | null = null;
@@ -46,7 +46,8 @@ export class UserFilterModalComponent {
       this.userService.setType(role);
       this.userService.setStatus(status);
     } else {
-      console.error('Please select at least one filter criteria');
+      this.userService.setType('');
+      this.userService.setStatus('');
     }
   }
 }

@@ -63,3 +63,58 @@
   font-weight: 600;
   color: #ffffff;
 }
+@media (max-width: 576px) {
+  .search-input {
+    width: 100%;
+    font-size: 10px;
+    height: 36px;
+    padding: 8px 15px 8px 35px;
+  }
+  .search-icon {
+    position: absolute;
+    top: 42%;
+    left: 3px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  .btn {
+    width: 80px;
+    height: 36px;
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  .btn span {
+    font-size: 12px;
+  }
+
+  .btn-orange {
+    width: 100px;
+    height: 36px;
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* Tablets (width between 577px and 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .search-input {
+    width: 100%;
+    font-size: 11px;
+    height: 40px;
+    padding: 8px 15px 8px 40px;
+  }
+
+  .btn {
+    width: 90px;
+    height: 40px;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .btn-orange {
+    width: 120px;
+    height: 40px;
+    font-size: 14px;
+    padding: 10px;
+  }
+}

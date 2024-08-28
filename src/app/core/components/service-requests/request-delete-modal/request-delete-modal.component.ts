@@ -14,23 +14,26 @@ export class RequestDeleteModalComponent {
   constructor(private requestService: RquestCallService) { }
 
   deleteRequest(requestId: string | undefined): void {
+    console.log('deleteRequest method called with requestId:', requestId);
     if (requestId !== undefined) {
-      const numericRequestId = Number(requestId);
-      if (!isNaN(numericRequestId)) {
-        this.requestService.deleteRequest(numericRequestId).subscribe(
-          () => {
-            console.log('Request deleted successfully');
+      if (requestId) {
+        this.requestService.deleteRequest(requestId).subscribe({
+          next: (res) => {
+            console.log('Request deleted successfully, reloading page');
+            window.location.reload();
           },
-          error => {
+          error: (error) => {
             console.error('Error deleting request', error);
           }
-        );
+        });
       } else {
         console.error('Request ID is not a valid number');
       }
     } else {
       console.error('Request ID is undefined');
     }
+    window.location.reload();
+
   }
 
 }

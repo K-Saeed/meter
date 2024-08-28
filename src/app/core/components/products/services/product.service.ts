@@ -12,9 +12,10 @@ export class ProductService {
   private statusSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   public status$: Observable<string | null> = this.statusSubject.asObservable();
   laststatus!: string | null;
-  constructor(private requestCall: ProductCallService) {}
   private products?: Product[];
   private lastFetchTime?: number;
+
+  constructor(private requestCall: ProductCallService) {}
 
   retriveProductList(status: string | null): Observable<Product[]> {
     return this.requestCall.getProductList(status).pipe(

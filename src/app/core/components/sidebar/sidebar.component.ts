@@ -48,7 +48,7 @@ toggleSidebar() {
 }
 
 getRequestList() {
-  this.requestService.getRequestsList(this.type, this.status).subscribe(
+  this.requestService.getRequestsList('', this.status).subscribe(
     (res) => {
       this.requests = res;
     },
