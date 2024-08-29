@@ -27,7 +27,7 @@ export class AuthService {
     this.http
       .post<any>(apiUrl, loginDto, {
         headers: { "Content-Type": "application/json" },
-        withCredentials: true,
+        withCredentials: false,
       })
       .subscribe(
         (res) => {
