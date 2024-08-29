@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl:'https://api.meter.com.sa'
+  apiUrl: 'http://44.202.8.76:8080'
 };

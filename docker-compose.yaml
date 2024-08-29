@@ -8,10 +8,4 @@ services:
       - "443:443"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
-    networks:
-      - my-external-network
     restart: always
-
-networks:
-  my-external-network:
-    external: true
