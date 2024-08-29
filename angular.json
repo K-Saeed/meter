@@ -57,7 +57,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:browserr",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "browserTarget": "meter-dashboard-frontend:build",
             "proxyConfig": "proxy.conf.json"
