@@ -1,6 +1,5 @@
-FROM node:20-alpine
-WORKDIR /app
-COPY  dist/meter-dashboard-frontend ./dist
-RUN npm install -g serve
+FROM nginx:alpine
+COPY  dist/meter-dashboard-frontend /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
-CMD ["serve", "-s", "dist", "-l", "80"]
+CMD ["nginx", "-g", "daemon off;"]
