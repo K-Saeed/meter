@@ -24,6 +24,24 @@ jobs:
       
     - name: Build
       run: npm run build -- --configuration=production 
+    - name: Delete Old Artifacts
+      uses: actions/github-script@v6
+      id: artifact
+      with:
+        script: |
+          const res = await github.rest.actions.listArtifactsForRepo({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+          })
+
+          res.data.artifacts
+            .forEach(({ id }) => {
+              github.rest.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: id,
+              })
+            })  
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
@@ -84,10 +102,11 @@ jobs:
         ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
-          cd /home/ubuntu/meter-backend
+          cd /home/ubuntu/meter
+          git pull
           docker pull ghcr.io/$REPO_LOWER:${{ github.ref_name }}
-          docker compose down meter-frontend || { echo "Docker Compose down failed"; exit 1; }
-          docker compose up meter-frontend -d || { echo "Docker Compose up failed"; exit 1; }
+          docker compose down  || { echo "Docker Compose down failed"; exit 1; }
+          docker compose up -d || { echo "Docker Compose up failed"; exit 1; }
           sleep 10
           if ! docker compose ps | grep -q "Up"; then
             echo "Containers failed to start properly"
