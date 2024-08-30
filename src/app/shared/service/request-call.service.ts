@@ -27,25 +27,25 @@ export class RquestCallService {
   }
 
   getAllRequest(type: string | null, status: string | null): Observable<RequestResponseDto[]> {
-    this.apiUrl =  `${environment.apiUrl}/api/admin/request/all`;
+    this.apiUrl =  `/api/admin/request/all`;
    if(status != null && type === null){
-       this.apiUrl = `${environment.apiUrl}/api/admin/request/all?status=${status}`
+       this.apiUrl = `/api/admin/request/all?status=${status}`
    }else if(type != null && status === null){
-     this.apiUrl = `${environment.apiUrl}/api/admin/request/all?type=${type}`
+     this.apiUrl = `/api/admin/request/all?type=${type}`
    }else if (type != null && status != null){
-     this.apiUrl = `${environment.apiUrl}/api/admin/request/all?type=${type}&status=${status}`
+     this.apiUrl = `/api/admin/request/all?type=${type}&status=${status}`
    }
    return this.http.get<RequestResponseDto[]>(this.apiUrl);
  }
 
   deleteRequest(requestId: string | undefined): Observable<void> {
-    const apiUrl = `${environment.apiUrl}/api/admin/request/${requestId}`;
+    const apiUrl = `/api/admin/request/${requestId}`;
     return this.http.delete<void>(apiUrl);
   }
 
 
   updateRequestStatus(id: string, status: string): Observable<void> {
-    const url = `${environment.apiUrl}/api/admin/request/${id}/update-internal-status`;
+    const url = `/api/admin/request/${id}/update-internal-status`;
     return this.http.put<void>(url, null, { params: { status } });
   }
 

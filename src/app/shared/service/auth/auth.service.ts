@@ -22,7 +22,7 @@ export class AuthService {
 
   isLoggedIn: boolean = false;
   login(email: string, password: string): void {
-    const apiUrl = `${environment.apiUrl}/api/user/login`;
+    const apiUrl = `/api/user/login`;
     const loginDto = { email, password };
     this.http
       .post<any>(apiUrl, loginDto, {
@@ -74,7 +74,7 @@ export class AuthService {
   }
 
   verifyToken(token: string): Observable<boolean> {
-    const apiUrl = `${environment.apiUrl}/api/user/validateToken`;
+    const apiUrl = `/api/user/validateToken`;
     const validateToken: ValidateToken = { token };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 

@@ -29,20 +29,20 @@ export class ProposalCallService {
 
  getAllProposals(status: string | null): Observable<ProposalResponse[]> {
   const apiUrl = status
-    ? `${environment.apiUrl}/api/admin/proposal/all?status=${status}`
-    : `${environment.apiUrl}/api/admin/proposal/all`;
+    ? `/api/admin/proposal/all?status=${status}`
+    : `/api/admin/proposal/all`;
   return this.http.get<ProposalResponse[]>(apiUrl);
 }
 
 
   deleteProposal(requestId: string | undefined): Observable<void> {
-    const apiUrl = `${environment.apiUrl}/api/admin/proposal/${requestId}`;
+    const apiUrl = `/api/admin/proposal/${requestId}`;
     return this.http.delete<void>(apiUrl);
   }
 
 
   updatProposalStatus(id: string, status: string): Observable<void> {
-    const url = `${environment.apiUrl}/api/admin/proposal/${id}/update-status`;
+    const url = `/api/admin/proposal/${id}/update-status`;
     return this.http.put<void>(url, null, { params: { status } });
   }
 
