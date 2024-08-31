@@ -23,7 +23,7 @@ jobs:
       run: npm ci
       
     - name: Build
-      run: npm run build -- --configuration=production 
+      run: npm run build 
     - name: Delete Old Artifacts
       uses: actions/github-script@v6
       id: artifact
