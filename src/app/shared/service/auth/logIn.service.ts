@@ -65,13 +65,6 @@ export class LoginService {
     }
   }
 
-  verifyToken(token: string): Observable<boolean> {
-    const apiUrl = `/api/user/validateToken`;
-    const validateToken: ValidateToken = { token };
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post<any>(apiUrl, validateToken, { headers }).pipe(
-      map(response => response === 'Token is valid')
-    );  }
 
 }
