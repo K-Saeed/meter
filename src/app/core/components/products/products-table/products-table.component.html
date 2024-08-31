@@ -33,10 +33,11 @@
         <td>
           <h4 class="m-0">{{ product.productId }}</h4>
         </td>
-        <td class="d-flex align-items-center gap-2">
-          <img class="product-img" src="../../../../../assets/img/product.jpeg" alt="" srcset="" />
-          <h4 class="m-0">{{ product.ownerName }}</h4>
+        <td class="d-flex align-items-center product-container" style="height: 100%;">
+          <img class="product-img" src="../../../../../assets/img/product.jpeg" alt="Product Image" />
+          <h4 class="m-0 product-name">{{ product.ownerName }}</h4>
         </td>
+
         <td>
           <h4 class="m-0">{{ product.name }}</h4>
         </td>
@@ -56,9 +57,9 @@
           <div class="">
             <!-- Actions Icons -->
             <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
-            src="../../../../assets/img/eye.svg" alt="View" (click)="setProductId(product.productId)" />
-          <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            src="../../../../assets/img/trash.svg" alt="Delete" (click)="setProductId(product.productId)" />
+              src="../../../../assets/img/eye.svg" alt="View" (click)="setProductId(product.productId)" />
+            <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              src="../../../../assets/img/trash.svg" alt="Delete" (click)="setProductId(product.productId)" />
           </div>
         </td>
       </tr>

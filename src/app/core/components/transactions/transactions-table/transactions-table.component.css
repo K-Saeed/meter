@@ -212,10 +212,10 @@ input:checked + .slider:before {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding-right: 2rem; /* Adjust padding to make space for the icon */
-  background: transparent; /* Make background transparent */
-  border: 1px solid #ced4da; /* Border similar to default Bootstrap */
-  font-size: 1rem; /* Ensure the font size matches Bootstrap */
+  padding-right: 2rem;
+  background: transparent;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
 }
 
 .custom-select-icon {
@@ -225,7 +225,7 @@ input:checked + .slider:before {
   right: 20px;
   pointer-events: none;
   transform: translateY(-50%);
-  color: #f28f45; /* Change this color to your desired arrow color */
+  color: #f28f45;
 }
 
 .select-wrapper::after {
@@ -249,4 +249,55 @@ select option:hover {
 .form-select:focus {
   border-color: #d9d9d9;
   box-shadow: none;
+}
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* width: 100%; */
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+.table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #f28f45;
+  border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background-color: #f0f0f0;
+}
+@media (max-width: 768px) {
+  .table-container {
+    padding: 0 10px;
+  }
+
+  .table {
+    min-width: 1000px;
+  }
+}
+
+@media (max-width: 576px) {
+  .table-container {
+    padding: 0 5px;
+  }
+
+  .table {
+    min-width: 890px;
+  }
+
+  th,
+  td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+  .pagination-space {
+    width: 860px;
+  }
 }
