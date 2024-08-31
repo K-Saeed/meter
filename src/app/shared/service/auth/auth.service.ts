@@ -21,7 +21,7 @@ export class AuthService {
 
   isLoggedIn: boolean = false;
   login(email: string, password: string): Observable<any> {
-    const apiUrl = `/api/user/login`;
+    const apiUrl = `/api/user/login/mail`;
     const loginDto = { email, password };
     return this.http.post<any>(apiUrl, loginDto, {
         headers: {
