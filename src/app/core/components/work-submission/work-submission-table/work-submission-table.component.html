@@ -36,19 +36,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
+      <tr ngIf="workSubmissions.serviceSubmissionResponses" *ngFor="let serviceSubmissionResponse of workSubmissions.serviceSubmissionResponses">
         <th scope="row">
           <input
             type="checkbox"
-            [(ngModel)]="user.selected"
+            [(ngModel)]="workSubmissions.selected"
             (change)="checkIfAllSelected()"
           />
         </th>
         <td>
-          <h4 class="m-0">{{ user.id }}</h4>
+          <h4 class="m-0">{{ serviceSubmissionResponse?.id}}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.Project }}</h4>
+          <h4 class="m-0">{{ serviceSubmissionResponse.applicantName }}</h4>
         </td>
         <td>
           <h4 class="m-0">{{ user.Provider }}</h4>
