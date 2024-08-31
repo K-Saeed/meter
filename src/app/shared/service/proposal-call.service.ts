@@ -17,7 +17,6 @@ export class ProposalCallService {
     const headerDict = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "Access-Control-Allow-Headers": "Content-Type",
     };
 
     return {
