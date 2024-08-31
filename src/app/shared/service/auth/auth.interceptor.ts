@@ -3,7 +3,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 export class JwtInterceptor implements HttpInterceptor {
   private excludedUrls: string[] = [
     '/api/user/validateToken',
-    '/api/user/login'
+    '/api/user/login/mail'
   ];
  intercept(req: HttpRequest<any>, next: HttpHandler) {
   const isExcluded = this.excludedUrls.some(url => req.url.includes(url));
