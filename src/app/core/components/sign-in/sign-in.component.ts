@@ -10,6 +10,7 @@ import { Router } from "@angular/router";
 import { catchError, throwError } from "rxjs";
 import { Regex } from "src/app/shared/constant/regex";
 import { AuthService } from "src/app/shared/service/auth/auth.service";
+import { LoginService } from "src/app/shared/service/auth/logIn.service";
 
 @Component({
   selector: "app-sign-in",
@@ -26,7 +27,7 @@ export class SignInComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private loginService: LoginService) {}
   ngOnInit(): void {
     this.initializeForm();
     this.signInForm.reset();
@@ -55,7 +56,7 @@ export class SignInComponent implements OnInit {
     if (this.signInForm.valid) {
       const emailAddress = this.signInForm.get("emailAddress")?.value;
       const password = this.signInForm.get("password")?.value;
-      this.authService.login(emailAddress, password);
+      this.loginService.login(emailAddress, password);
     } else {
       this.signInForm.markAllAsTouched();
     }

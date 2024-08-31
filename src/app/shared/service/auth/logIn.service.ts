@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { map, Observable } from "rxjs";
+import { AuthService } from "./auth.service";
 
 
 interface ValidateToken {
@@ -10,27 +11,31 @@ interface ValidateToken {
 @Injectable({
   providedIn: "root",
 })
-export class AuthService {
+export class LoginService {
   wrongPasswordOrEmailError = false;
   generalLoginError = false;
   submitClicked = false;
   unverifiedEmailError = false;
   validToken: boolean = false;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   isLoggedIn: boolean = false;
-  login(email: string, password: string): Observable<any> {
-    const apiUrl = `/api/user/login`;
-    const loginDto = { email, password };
-    return this.http.post<any>(apiUrl, loginDto, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Access-Control-Allow-Headers': 'Content-Type'
-        },
-        withCredentials: true,
-      });
+  login(email: string, password: string): void {
+    this.authService.login(email, password).subscribe({
+      next: response => {
+        localStorage.setItem("JWT_Token", response.token);
+        localStorage.setItem("user-profile", JSON.stringify(response));
+        this.isLoggedIn = true;
+        this.router.navigate(["/dashboard"]);
+      },
+      error: error => {
+        console.error('Login failed', error);
+      },
+      complete: () => {
+        console.log('Login request completed');
+      }
+    });
   }
 
   logout(): void {
