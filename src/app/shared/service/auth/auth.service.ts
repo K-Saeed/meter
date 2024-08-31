@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { map, Observable } from "rxjs";
-import { environment } from "src/environments/environment";
 
 
 interface ValidateToken {
@@ -27,7 +26,6 @@ export class AuthService {
     this.http
       .post<any>(apiUrl, loginDto, {
         headers: { "Content-Type": "application/json" },
-        withCredentials: false,
       })
       .subscribe(
         (res) => {

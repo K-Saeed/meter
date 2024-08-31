@@ -17,7 +17,6 @@ export class UserRquestCallService {
     const headerDict = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI4N2I1YjZiZi05NGFjLTQ0ZWUtYmQ5Ni1kYWVhZmFiOWM3OGYiLCJhdSI6WyJQcm92aWRlciJdLCJlIjoiZW1tb2hhbWVkOTAyQGdtYWlsLmNvbSIsImV4cCI6MTcyNTU4MTc3NywiaWF0IjoxNzI1MDYzMzc3fQ.jJVo2Zd1dun8fsPWWJY0QrI10B4NnKAsqMojJXMMBkE"
     };
 
     return {
