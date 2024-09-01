@@ -64,3 +64,33 @@ canvas {
   width: 161.17px !important;
   height: 47.85px !important;
 }
+@media (max-width: 1024px) {
+  .card {
+    width: 80%;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .card {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .card-title h5 {
+    font-size: 10px;
+  }
+
+  .card-title h2 {
+    font-size: 20px;
+  }
+
+  .percentage {
+    font-size: 10px;
+  }
+}

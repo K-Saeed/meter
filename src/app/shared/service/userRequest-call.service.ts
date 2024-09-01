@@ -17,7 +17,6 @@ export class UserRquestCallService {
     const headerDict = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "Access-Control-Allow-Headers": "Content-Type",
     };
 
     return {
@@ -26,25 +25,25 @@ export class UserRquestCallService {
     };
   }
   getAllUsers(role: string | null, status: string | null): Observable<UserTableDto[]> {
-    this.apiUrl =  `${environment.apiUrl}/api/user/admin/all`;
+    this.apiUrl =  `/api/user/admin/all`;
    if(status != null && role === null){
-       this.apiUrl = `${environment.apiUrl}/api/user/admin/all?status=${status}`
+       this.apiUrl = `/api/user/admin/all?status=${status}`
    }else if(role != null && status === null){
-     this.apiUrl = `${environment.apiUrl}/api/user/admin/all?role=${role}`
+     this.apiUrl = `/api/user/admin/all?role=${role}`
    }else if (role != null && status != null){
-     this.apiUrl = `${environment.apiUrl}/api/user/admin/all?role=${role}&status=${status}`
+     this.apiUrl = `/api/user/admin/all?role=${role}&status=${status}`
    }
    return this.http.get<UserTableDto[]>(this.apiUrl);
  }
 
 
   updateUserStatus(id: string, status: string): Observable<void> {
-    const url = `${environment.apiUrl}/api/user/admin/${id}/update-status`;
+    const url = `/api/user/admin/${id}/update-status`;
     return this.http.put<void>(url, null, { params: { status } });
   }
 
   deleteUser(userId: string | undefined): Observable<void> {
-    const apiUrl = `${environment.apiUrl}/api/user/delete/${userId}`;
+    const apiUrl = `/api/user/delete/${userId}`;
     return this.http.delete<void>(apiUrl);
   }
 

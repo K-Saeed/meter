@@ -17,7 +17,6 @@ export class ProductCallService {
     const headerDict = {
       "Content-Type": "application/json",
       Accept: "application/json",
-      "Access-Control-Allow-Headers": "Content-Type",
     };
 
     return {
@@ -28,14 +27,14 @@ export class ProductCallService {
 
   getProductList(status: string | null): Observable<Product[]> {
     const apiUrl = status
-      ? `${environment.apiUrl}/api/dashboard/all/products?status=${status}`
-      : `${environment.apiUrl}/api/dashboard/all/products`;
+      ? `/api/dashboard/all/products?status=${status}`
+      : `/api/dashboard/all/products`;
     return this.http.get<Product[]>(apiUrl);
   }
 
 
   deleteProduct(productId: number | undefined): Observable<void> {
-    const apiUrl = `${environment.apiUrl}/api/dashboard/delete/product?productId=${productId}`;
+    const apiUrl = `/api/dashboard/delete/product?productId=${productId}`;
     return this.http.delete<void>(apiUrl);
   }
 

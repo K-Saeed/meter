@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Subscription } from 'rxjs';
 import { UserTableDto } from '../models/user-table.model';
 import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.service';
+
 @Component({
   selector: 'app-user-table',
   templateUrl: './user-table.component.html',
@@ -131,4 +132,42 @@ export class UserTableComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  getPagination(): number[] {
+    const totalPages = Math.ceil(this.userList.length / this.itemsPerPage);
+    const maxVisiblePages = 4;
+    const pagination: number[] = [];
+  
+    if (totalPages <= maxVisiblePages + 1) {
+      for (let i = 1; i <= totalPages; i++) {
+        pagination.push(i);
+      }
+    } else {
+      if (this.currentPage <= 3) {
+        for (let i = 1; i <= Math.min(maxVisiblePages, totalPages); i++) {
+          pagination.push(i);
+        }
+        if (totalPages > maxVisiblePages) {
+          pagination.push(-1); 
+          pagination.push(totalPages);
+        }
+      } else if (this.currentPage > totalPages - 3) {
+        pagination.push(1);
+        pagination.push(-1);
+        for (let i = totalPages - maxVisiblePages + 1; i <= totalPages; i++) {
+          pagination.push(i);
+        }
+      } else {
+        pagination.push(1);
+        pagination.push(-1);
+        pagination.push(this.currentPage - 1);
+        pagination.push(this.currentPage);
+        pagination.push(this.currentPage + 1);
+        pagination.push(-1); 
+        pagination.push(totalPages);
+      }
+    }
+    return pagination;
+  }
+  
 }
