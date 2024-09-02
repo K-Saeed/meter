@@ -34,6 +34,7 @@ const routes: Routes = [
   { path: 'WorkSubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // Default route
   { path: '**', redirectTo: '/signin' } // Wildcard route for a 404 page
+  
 ];
 
 @NgModule({
