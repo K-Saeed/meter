@@ -101,6 +101,11 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
           cd /home/ubuntu/meter
+          # Create or update .env file
+              cat << EOF > .env
+        GITHUB_REPOSITORY=$REPO_LOWER
+        IMAGE_TAG=${{ github.ref_name }}
+        EOF
           git pull
           docker pull ghcr.io/$REPO_LOWER:${{ github.ref_name }}
           docker compose down  || { echo "Docker Compose down failed"; exit 1; }
