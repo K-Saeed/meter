@@ -40,7 +40,7 @@ export class WorkSubmissionTableComponent {
     // this.selectAll = this.workSubmissions.every(workSubmission => workSubmission.selected);
   }
 
-  get paginatedUsers() {
+   paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
     // return this.workSubmissions.slice(start, end);
