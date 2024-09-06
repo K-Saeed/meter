@@ -190,6 +190,19 @@ input[type="radio"]:checked {
   display: flex;
   align-items: center;
 }
+.country-code {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  pointer-events: none; /* تجنب التفاعل مع المستخدم */
+}
+.phone-number {
+  padding-left: 100px;
+  /* border: none; */
+  outline: none;
+}
 
 .flag-icon {
   position: absolute;
