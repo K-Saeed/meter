@@ -1,72 +1,24 @@
-<div
-  class="modal fade"
-  id="verifyModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="verifyModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="position position-absolute top-0 end-0 p-3 z-1">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div
-          class="text-style d-flex flex-column justify-content-center align-items-center gap-4"
-        >
+        <div class="text-style d-flex flex-column justify-content-center align-items-center gap-4">
           <h1>Verification</h1>
-
-          <h2>Code has been send to <span>(+966 ) 20 **** *678</span></h2>
+          <h2>Code has been sent to <span>{{ getMaskedPhoneNumber() }}</span></h2>
           <div class="code-inputs d-flex gap-4">
-            <input
-              type="text"
-              maxlength="1"
-              class="code-input"
-              [(ngModel)]="code[0]"
-              (input)="autoTab(0, $event)"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              class="code-input"
-              [(ngModel)]="code[1]"
-              (input)="autoTab(1, $event)"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              class="code-input"
-              [(ngModel)]="code[2]"
-              (input)="autoTab(2, $event)"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              class="code-input"
-              [(ngModel)]="code[3]"
-              (input)="autoTab(3, $event)"
-            />
-            <input
-              type="text"
-              maxlength="1"
-              class="code-input"
-              [(ngModel)]="code[4]"
-              (input)="autoTab(4, $event)"
-            />
+            <input type="text" maxlength="1" class="code-input" [(ngModel)]="code[0]" (input)="autoTab(0, $event)" />
+            <input type="text" maxlength="1" class="code-input" [(ngModel)]="code[1]" (input)="autoTab(1, $event)" />
+            <input type="text" maxlength="1" class="code-input" [(ngModel)]="code[2]" (input)="autoTab(2, $event)" />
+            <input type="text" maxlength="1" class="code-input" [(ngModel)]="code[3]" (input)="autoTab(3, $event)" />
+            <input type="text" maxlength="1" class="code-input" [(ngModel)]="code[4]" (input)="autoTab(4, $event)" />
           </div>
-          <button type="button" class="verify-btn" (click)="verifyCode()">
-            Verify Code
-          </button>
+          <button type="button" class="verify-btn" (click)="verifyCode()">Verify Code</button>
           <h4>
             Haven’t got the code yet?
-            <span class="resend-code cursor-pointer" (click)="resendCode()"
-              >Resend Code</span
-            >
+            <span class="resend-code cursor-pointer" (click)="resendCode()">Resend Code</span>
           </h4>
         </div>
       </div>

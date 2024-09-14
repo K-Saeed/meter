@@ -36,28 +36,28 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
+      <tr ngIf="workSubmissions.serviceSubmissionResponses" *ngFor="let serviceSubmissionResponse of workSubmissions.serviceSubmissionResponses">
         <th scope="row">
           <input
             type="checkbox"
-            [(ngModel)]="user.selected"
+            [(ngModel)]="workSubmissions.selected"
             (change)="checkIfAllSelected()"
           />
         </th>
         <td>
-          <h4 class="m-0">{{ user.id }}</h4>
+          <h4 class="m-0">{{ serviceSubmissionResponse?.id}}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.Project }}</h4>
+          <h4 class="m-0">{{ serviceSubmissionResponse.requestTitle }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.Provider }}</h4>
+          <h4 class="m-0">{{ serviceSubmissionResponse.providerName }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.Customer }}</h4>
+          <h4 class="m-0">{{  serviceSubmissionResponse.customerName }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.dateSubmitted }}</h4>
+          <h4 class="m-0">{{  serviceSubmissionResponse.submittingDate }}</h4>
         </td>
         <!-- <td>
               <h4 class="m-0">{{ user.typeOfService }}</h4>
@@ -65,13 +65,141 @@
         <td>
           <h4
             [ngClass]="{
-              green: user.status === 'Approved',
-              red: user.status === 'Rejected',
-              orange: user.status === 'Pending'
+              green: serviceSubmissionResponse.status === 'Approved',
+              red: serviceSubmissionResponse.status === 'Rejected',
+              orange: serviceSubmissionResponse.status === 'Pending'
             }"
             class="m-0"
           >
-            {{ user.status }}
+            {{ serviceSubmissionResponse.status }}
+          </h4>
+        </td>
+        <td>
+          <div class="">
+            <!-- Actions Icons -->
+            <img
+              [routerLink]="'/chat'"
+              class="cursor-pointer pe-2"
+              src="../../../../../assets/img/message-add.svg"
+              alt="chat"
+            />
+            <img
+              class="cursor-pointer ps-2"
+              data-bs-toggle="modal"
+              data-bs-target="#viewModal"
+              src="../../../../assets/img/eye.svg"
+              alt="View"
+            />
+            <img
+              class="cursor-pointer ps-2"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              src="../../../../assets/img/trash.svg"
+              alt="Delete"
+            />
+          </div>
+        </td>
+      </tr>
+      <tr ngIf="workSubmissions.constructionSubmissionResponses" *ngFor="let constructionSubmissionResponse of workSubmissions.constructionSubmissionResponses">
+        <th scope="row">
+          <input
+            type="checkbox"
+            [(ngModel)]="workSubmissions.selected"
+            (change)="checkIfAllSelected()"
+          />
+        </th>
+        <td>
+          <h4 class="m-0">{{ constructionSubmissionResponse?.id}}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ constructionSubmissionResponse.requestTitle }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ constructionSubmissionResponse.providerName }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{  constructionSubmissionResponse.customerName }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{  constructionSubmissionResponse.submittingDate }}</h4>
+        </td>
+        <!-- <td>
+              <h4 class="m-0">{{ user.typeOfService }}</h4>
+            </td> -->
+        <td>
+          <h4
+            [ngClass]="{
+              green: constructionSubmissionResponse.status === 'Approved',
+              red: constructionSubmissionResponse.status === 'Rejected',
+              orange: constructionSubmissionResponse.status === 'Pending'
+            }"
+            class="m-0"
+          >
+            {{ constructionSubmissionResponse.status }}
+          </h4>
+        </td>
+        <td>
+          <div class="">
+            <!-- Actions Icons -->
+            <img
+              [routerLink]="'/chat'"
+              class="cursor-pointer pe-2"
+              src="../../../../../assets/img/message-add.svg"
+              alt="chat"
+            />
+            <img
+              class="cursor-pointer ps-2"
+              data-bs-toggle="modal"
+              data-bs-target="#viewModal"
+              src="../../../../assets/img/eye.svg"
+              alt="View"
+            />
+            <img
+              class="cursor-pointer ps-2"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              src="../../../../assets/img/trash.svg"
+              alt="Delete"
+            />
+          </div>
+        </td>
+      </tr>
+      <tr ngIf="workSubmissions.consultationSubmissionResponses" *ngFor="let consultationSubmissionResponse of workSubmissions.consultationSubmissionResponses">
+        <th scope="row">
+          <input
+            type="checkbox"
+            [(ngModel)]="workSubmissions.selected"
+            (change)="checkIfAllSelected()"
+          />
+        </th>
+        <td>
+          <h4 class="m-0">{{ consultationSubmissionResponse?.id}}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ consultationSubmissionResponse.requestTitle }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ consultationSubmissionResponse.providerName }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{  consultationSubmissionResponse.customerName }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{  consultationSubmissionResponse.submittingDate }}</h4>
+        </td>
+        <!-- <td>
+              <h4 class="m-0">{{ user.typeOfService }}</h4>
+            </td> -->
+        <td>
+          <h4
+            [ngClass]="{
+              green: consultationSubmissionResponse.status === 'Approved',
+              red: consultationSubmissionResponse.status === 'Rejected',
+              orange: consultationSubmissionResponse.status === 'Pending'
+            }"
+            class="m-0"
+          >
+            {{ consultationSubmissionResponse.status }}
           </h4>
         </td>
         <td>
@@ -123,7 +251,7 @@
             </span>
           </a>
         </li>
-        <li
+        <!-- <li
           class="page-item"
           *ngFor="
             let page of [].constructor(Math.ceil(users.length / itemsPerPage));
@@ -151,7 +279,7 @@
               <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
             </span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </nav>
     <div class="font d-flex align-items-center">
