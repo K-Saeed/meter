@@ -1,8 +1,8 @@
 {
   "/api/*": {
-    "target": "https://dashboard-dev.meter.com.sa/",
+    "target": "https://dashboard-dev.meter.com.sa",
     "secure": false,
     "logLevel": "debug",
-    "headers": {"X-Forwarded-Prefix":"/api/"}
+    "headers": { "X-Forwarded-Prefix": "/api/" }
   }
 }

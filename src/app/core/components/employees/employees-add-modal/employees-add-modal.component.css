@@ -196,7 +196,7 @@ input[type="radio"]:checked {
   top: 50%;
   transform: translateY(-50%);
   background: none;
-  pointer-events: none; /* تجنب التفاعل مع المستخدم */
+  pointer-events: none;
 }
 .phone-number {
   padding-left: 100px;
