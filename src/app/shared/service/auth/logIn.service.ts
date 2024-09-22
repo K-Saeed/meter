@@ -26,6 +26,7 @@ export class LoginService {
       next: response => {
         localStorage.setItem("JWT_Token", response.token);
         localStorage.setItem("user-profile", JSON.stringify(response));
+        console.log(response.logoPath)
         this.isLoggedIn = true;
         this.router.navigate(["/dashboard"]);
       },
