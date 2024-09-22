@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RoleService } from '../service/role.service';
 
 @Component({
   selector: 'app-role-add-modal',
@@ -7,14 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleAddModalComponent implements OnInit {
   selectAll: boolean = false;
-  pages: any[] = []; 
+  pages: any[] = [];
+  roleName: string = '';
+  constructor(
+    private roleService: RoleService
+  ) {}
 
   ngOnInit() {
     this.loadPages();
   }
 
   loadPages() {
-    
+
     this.pages = [
       { id: 1, name: 'Dashboard', view: false, edit: false, delete: false, add: false },
       { id: 2, name: 'Users', view: false, edit: false, delete: false, add: false },
@@ -29,12 +34,30 @@ export class RoleAddModalComponent implements OnInit {
     ];
   }
 
+
+  saveRole() {
+    const roleDto = {
+      name: this.roleName,
+      pagePermission: this.pages.map(page => ({
+        id: page.id,
+        name: page.name,
+        permissions: ['view', 'edit', 'delete', 'add'].filter(perm => page[perm])
+      }))
+    };
+
+    this.roleService.addRole(roleDto).subscribe({
+      next: () => alert('Role added successfully!'),
+      error: (error) => alert('Error adding role: ' + error.message)
+    });
+  }
+
   checkIfAllSelected() {
     this.selectAll = this.pages.every(page => page.view && page.edit && page.delete && page.add);
   }
 
   toggleAll(event: Event) {
     event.preventDefault();
+    this.selectAll = !this.selectAll;
     this.pages.forEach(page => {
       page.view = this.selectAll;
       page.edit = this.selectAll;
@@ -42,4 +65,5 @@ export class RoleAddModalComponent implements OnInit {
       page.add = this.selectAll;
     });
   }
+
 }

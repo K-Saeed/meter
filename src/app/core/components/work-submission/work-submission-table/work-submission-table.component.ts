@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WorkSubmissionResponse } from '../models/work-submission-response {.model';
 import { WorkSubmisionService } from '../services/workSubmisionCallService';
+import { WorkSubmissionResponse } from '../models/work-submission-response {.model';
+import { ConstructionSubmissionResponse } from '../models/construction-submission-responses.model';
+import { ConsultationSubmissionResponse } from '../models/consultation-submission-responses.model';
+import { ServiceSubmissionResponse } from '../models/service-submission-responses.model';
 
 @Component({
   selector: 'app-work-submission-table',
   templateUrl: './work-submission-table.component.html',
   styleUrls: ['./work-submission-table.component.css']
 })
-export class WorkSubmissionTableComponent {
+export class WorkSubmissionTableComponent implements OnInit {
   selectAll: boolean = false;
   currentPage: number = 1;
-  itemsPerPage: number = 4;
+  itemsPerPage: number = 10;
   Math = Math;
-  workSubmissions!: WorkSubmissionResponse;
-  status!: string;
+  workSubmissions: WorkSubmissionResponse = new WorkSubmissionResponse();
+  status: string = '';
   selectedProposalId?: string;
-  workSubmission?: WorkSubmissionResponse;
+  allSubmissions: (ServiceSubmissionResponse | ConstructionSubmissionResponse | ConsultationSubmissionResponse)[] = [];
+  totalEntries: number = 0;
 
   private statusSubscription!: Subscription;
-  selectedproposalId: string | undefined;
 
   constructor(private workSubmisionService: WorkSubmisionService) {}
 
@@ -31,31 +34,20 @@ export class WorkSubmissionTableComponent {
     this.getWorkSubmissionsList();
   }
 
-  toggleAll(event: Event) {
-    event.preventDefault();
-    // this.workSubmissions.forEach(workSubmission => workSubmission.selected = this.selectAll);
-  }
-
-  checkIfAllSelected() {
-    // this.selectAll = this.workSubmissions.every(workSubmission => workSubmission.selected);
-  }
-
-   paginatedUsers() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    // return this.workSubmissions.slice(start, end);
-  }
-
-  setPage(page: number, event: Event) {
-    event.preventDefault();
-    this.currentPage = page;
-  }
-
-
   getWorkSubmissionsList() {
     this.workSubmisionService.getProposalList(this.status).subscribe(
       (res) => {
         this.workSubmissions = res;
+
+        // Combine all submission arrays into one for easy rendering and pagination
+        this.allSubmissions = [
+          ...this.workSubmissions.serviceSubmissionResponses,
+          ...this.workSubmissions.constructionSubmissionResponses,
+          ...this.workSubmissions.consultationSubmissionResponses
+        ];
+
+        // Calculate total entries
+        this.totalEntries = this.allSubmissions.length;
         this.setPage(1, new Event(""));
       },
       (err) => {
@@ -63,14 +55,29 @@ export class WorkSubmissionTableComponent {
       }
     );
   }
-  setProposalId(proposalId: string | undefined) {
-    this.selectedProposalId = proposalId;
-    this.setProposal();
+
+  toggleAll(event: Event) {
+    event.preventDefault();
+    this.selectAll = !this.selectAll;
+    this.allSubmissions.forEach(submission => submission['selected'] = this.selectAll);
   }
 
+  checkIfAllSelected() {
+    this.selectAll = this.allSubmissions.every(submission => submission['selected']);
+  }
 
-  setProposal() {
-    // this.workSubmission = this.workSubmissions.find(workSubmission => workSubmission. === this.selectedProposalId);
+  setPage(page: number, event: Event) {
+    event.preventDefault();
+    this.currentPage = page;
+  }
 
+  paginatedSubmissions() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.allSubmissions.slice(start, end);
+  }
+
+  setProposalId(proposalId: string | undefined) {
+    this.selectedProposalId = proposalId;
   }
 }

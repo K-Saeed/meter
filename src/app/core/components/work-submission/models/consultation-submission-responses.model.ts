@@ -11,8 +11,10 @@ export class ConsultationSubmissionResponse {
   applicantName!: string;
   electronicSignature!: string;
   status!: string;
-  submittingDate!: Date;
+  submittingDate!: string;
   files: FileResponse[] = [];
+  selected?: boolean = false;
+
 
 
 }
