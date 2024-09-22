@@ -19,8 +19,10 @@ export class ServiceSubmissionResponse {
   street!: string;
   electronicSignature!: string;
   status!: string;
-  submittingDate!: Date;
+  submittingDate!: string;
   files: FileResponse[] = [];
+  selected?: boolean = false;
+
 }
 
 

@@ -63,6 +63,10 @@
                   <span class="label">Certificate Type:</span>
                   <span class="value">{{request?.jobRequestDto?.certificateType}}</span>
                 </h3>
+                <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Engineering Job'">
+                  <span class="label">Address:</span>
+                  <!-- <span class="value">{{request?.requestServiceDto?.region || request?.requestServiceDto?. }}</span> -->
+                </h3>
               </div>
             </div>
           </div>
