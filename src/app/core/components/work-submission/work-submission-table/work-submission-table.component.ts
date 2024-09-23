@@ -14,13 +14,16 @@ import { ServiceSubmissionResponse } from '../models/service-submission-response
 export class WorkSubmissionTableComponent implements OnInit {
   selectAll: boolean = false;
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 4;
   Math = Math;
   workSubmissions: WorkSubmissionResponse = new WorkSubmissionResponse();
   status: string = '';
   selectedProposalId?: string;
   allSubmissions: (ServiceSubmissionResponse | ConstructionSubmissionResponse | ConsultationSubmissionResponse)[] = [];
   totalEntries: number = 0;
+  selectedSubmission: any;
+  selectedSubmissionId!: string;
+  selectedSubmissionType!: string;
 
   private statusSubscription!: Subscription;
 
@@ -39,14 +42,12 @@ export class WorkSubmissionTableComponent implements OnInit {
       (res) => {
         this.workSubmissions = res;
 
-        // Combine all submission arrays into one for easy rendering and pagination
         this.allSubmissions = [
           ...this.workSubmissions.serviceSubmissionResponses,
           ...this.workSubmissions.constructionSubmissionResponses,
           ...this.workSubmissions.consultationSubmissionResponses
         ];
 
-        // Calculate total entries
         this.totalEntries = this.allSubmissions.length;
         this.setPage(1, new Event(""));
       },
@@ -79,5 +80,14 @@ export class WorkSubmissionTableComponent implements OnInit {
 
   setProposalId(proposalId: string | undefined) {
     this.selectedProposalId = proposalId;
+  }
+
+
+  openModal(submission: any) {
+    this.selectedSubmission = submission;
+  }
+
+  refreshList() {
+    this.getWorkSubmissionsList();
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-work-submission-show-modal',
@@ -6,10 +6,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./work-submission-show-modal.component.css']
 })
 export class WorkSubmissionShowModalComponent {
+  @Input() submission: any; // Receive the submission as an input
   activeLink: string = 'details';
+  selectedSubmissionId!: string;
+  selectedSubmissionType!: string;
 
   setActiveLink(link: string, event: Event) {
     event.preventDefault();
     this.activeLink = link;
   }
+
+
+  openRejectModal(submission: any) {
+    this.selectedSubmissionId = submission.id;
+    this.selectedSubmissionType = submission.submissionType;
+    // Code to open the reject modal
+  }
+
+  openApproveModal(submission: any) {
+    this.selectedSubmissionId = submission.id;
+    this.selectedSubmissionType = submission.submissionType;
+    // Code to open the approve modal
+  }
 }
+

@@ -8,25 +8,16 @@
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">
-          Work Submission Details
-        </h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <h1 class="modal-title" id="exampleModalLabel">Work Submission Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <!-- Dynamic Content based on Tabs -->
         <div class="d-flex align-items-center my-2">
           <a
             class="text-decoration-none me-3"
             href="#"
-            [ngClass]="{
-              breadcrumb: activeLink === 'details',
-              inActive: activeLink !== 'details'
-            }"
+            [ngClass]="{breadcrumb: activeLink === 'details', inActive: activeLink !== 'details'}"
             (click)="setActiveLink('details', $event)"
           >
             Details
@@ -34,10 +25,7 @@
           <a
             class="text-decoration-none"
             href="#"
-            [ngClass]="{
-              breadcrumbSpace: activeLink === 'attachments',
-              inActive: activeLink !== 'attachments'
-            }"
+            [ngClass]="{breadcrumbSpace: activeLink === 'attachments', inActive: activeLink !== 'attachments'}"
             (click)="setActiveLink('attachments', $event)"
           >
             Attachments
@@ -45,33 +33,24 @@
         </div>
 
         <div *ngIf="activeLink === 'details'">
-          <app-work-submission-details-modal></app-work-submission-details-modal>
+          <app-work-submission-details-modal [submission]="submission"></app-work-submission-details-modal>
         </div>
+
         <div *ngIf="activeLink === 'attachments'">
-          <app-work-submission-attachment-modal></app-work-submission-attachment-modal>
+          <app-work-submission-attachment-modal [submission]="submission"></app-work-submission-attachment-modal>
         </div>
 
         <div class="d-flex gap-3 mt-4 justify-content-end">
-          <button
-            type="button"
-            class="reject-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#rejectModal"
-          >
-            Reject
-          </button>
-          <button
-            type="button"
-            class="approve-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#approveModal"
-          >
-            Approve
-          </button>
+          <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">Reject</button>
+          <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">Approve</button>
         </div>
       </div>
     </div>
   </div>
 </div>
-<app-work-submission-show-reject-modal></app-work-submission-show-reject-modal>
-<app-work-submission-show-approve-modal></app-work-submission-show-approve-modal>
+<!-- Reject Modal -->
+<app-work-submission-show-reject-modal [submission]="submission" ></app-work-submission-show-reject-modal>
+
+<!-- Approve Modal -->
+<app-work-submission-show-approve-modal [submission]="submission"></app-work-submission-show-approve-modal>
+

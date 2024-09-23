@@ -43,4 +43,10 @@ export class WorkSubmisionCallService {
     return this.http.put<void>(url, null, { params });
   }
 
+
+  deleteWorkSubmission(id: string, type: string): Observable<void> {
+    const url = `/api/admin/work-submissions/${id}/type/${type}`;
+    return this.http.delete<void>(url);
+  }
+
 }

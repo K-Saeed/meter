@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-work-submission-attachment-modal',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./work-submission-attachment-modal.component.css']
 })
 export class WorkSubmissionAttachmentModalComponent {
+  @Input() submission: any; // Input to receive submission details
 
 }

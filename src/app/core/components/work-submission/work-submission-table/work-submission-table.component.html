@@ -5,35 +5,69 @@
         <th scope="col">
           <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAll($event)" />
         </th>
-        <th scope="col" class="title-table">ID</th>
-        <th scope="col" class="title-table">Project Name</th>
-        <th scope="col" class="title-table">Provider Name</th>
-        <th scope="col" class="title-table">Customer Name</th>
-        <th scope="col" class="title-table">Date</th>
-        <th scope="col" class="title-table">Status</th>
-        <th scope="col" class="title-table">Actions</th>
+        <th scope="col" class="title-table">
+          <p class="m-0">ID</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Project Name</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Provider Name</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Customer Name</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Date</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Status</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">Actions</p>
+        </th>
       </tr>
     </thead>
     <tbody *ngIf="allSubmissions.length">
       <ng-container *ngFor="let submission of paginatedSubmissions()">
         <tr>
-          <td><input type="checkbox" [(ngModel)]="submission.selected" (change)="checkIfAllSelected()" /></td>
-          <td>{{ submission.id }}</td>
-          <td>{{ submission.requestTitle }}</td>
-          <td>{{ submission.providerName }}</td>
-          <td>{{ submission.customerName }}</td>
-          <td>{{ submission.submittingDate | date: 'longDate' }}</td>
+          <th scope="row">
+            <input type="checkbox" [(ngModel)]="submission.selected" (change)="checkIfAllSelected()" />
+          </th>
           <td>
-            <h4 [ngClass]="{
-              'green': submission.status === 'Approved',
-              'red': submission.status === 'Rejected',
-              'orange': submission.status === 'Pending'
-            }">{{ submission.status }}</h4>
+            <h4 class="m-0">{{ submission?.id }}</h4>
           </td>
           <td>
-            <img [routerLink]="['/chat']" class="cursor-pointer pe-2" src="../../../../../assets/img/message-add.svg" alt="chat" />
-            <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#viewModal" src="../../../../assets/img/eye.svg" alt="View" />
-            <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal" src="../../../../assets/img/trash.svg" alt="Delete" />
+            <h4 class="m-0">{{ submission.requestTitle }}</h4>
+          </td>
+          <td>
+            <h4 class="m-0">{{ submission.providerName }}</h4>
+          </td>
+          <td>
+            <h4 class="m-0">{{ submission.customerName }}</h4>
+          </td>
+          <td>
+            <h4 class="m-0">{{ submission.submittingDate | date: 'longDate' }}</h4>
+          </td>
+          <td>
+            <h4
+              [ngClass]="{
+                'green': submission.status === 'Approved',
+                'red': submission.status === 'Rejected',
+                'orange': submission.status === 'Pending'
+              }"
+              class="m-0"
+            >
+              {{ submission.status }}
+            </h4>
+          </td>
+          <td>
+            <div class="">
+              <!-- Actions Icons -->
+              <!-- <img [routerLink]="'/chat'" class="cursor-pointer pe-2" src="../../../../../assets/img/message-add.svg" alt="chat" /> -->
+              <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#viewModal" src="../../../../assets/img/eye.svg" alt="View" (click)="openModal(submission)"              />
+              <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal" src="../../../../assets/img/trash.svg" alt="Delete" />
+            </div>
           </td>
         </tr>
       </ng-container>
@@ -44,8 +78,9 @@
       </tr>
     </tbody>
   </table>
-
-  <!-- Pagination -->
+  <app-work-submission-delete-modal></app-work-submission-delete-modal>
+  <app-work-submission-show-modal [submission]="selectedSubmission"></app-work-submission-show-modal>
+  <!-- Pagination Section -->
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, totalEntries) }} of {{ totalEntries }} entries</h5>
     <nav aria-label="Page navigation example">
@@ -69,7 +104,7 @@
       <h5 class="m-0 me-2">Show</h5>
       <div class="select-wrapper">
         <select class="form-select mx-2 custom-select" [(ngModel)]="itemsPerPage" (change)="setPage(1, $event)">
-          <option *ngFor="let option of [10, 20, 50, 100]" [value]="option">{{ option }}</option>
+          <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">{{ option }}</option>
         </select>
         <i class="fa-solid fa-chevron-down custom-select-icon"></i>
       </div>

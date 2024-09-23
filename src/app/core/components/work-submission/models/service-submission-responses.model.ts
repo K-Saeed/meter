@@ -2,6 +2,8 @@ import { FileResponse } from "./file-response";
 
 export class ServiceSubmissionResponse {
   id!: string;
+  submissionType!: string;
+
   customerName!: string;
   providerName!: string;
   requestTitle!: string;

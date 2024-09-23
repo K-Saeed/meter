@@ -1,38 +1,19 @@
-<div
-  class="modal fade"
-  id="approveModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="position position-absolute top-0 end-0 p-3 z-1">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div
-          class="d-flex flex-column justify-content-center align-items-center gap-3"
-        >
-          <img src="../../../../../assets/img/approve.svg" alt="reject Icon" />
-          <div
-            class="delete d-flex flex-column justify-content-center align-items-center"
-          >
+        <div class="d-flex flex-column justify-content-center align-items-center gap-3">
+          <img src="../../../../../assets/img/approve.svg" alt="Approve Icon" />
+          <div class="delete d-flex flex-column justify-content-center align-items-center">
             <h2>Approve</h2>
-            <p class="px-5 text-center">
-              Are you sure you want to approve this work submission?
-            </p>
+            <p class="px-5 text-center">Are you sure you want to approve this submission?</p>
           </div>
           <div class="d-flex justify-content-between gap-3 mt-3">
-            <button type="button" class="close-btn" data-bs-dismiss="modal">
-              Close
-            </button>
-            <button type="button" class="delete-btn">Confirm</button>
+            <button type="button" class="close-btn" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="delete-btn" (click)="approveSubmission()">Approve</button>
           </div>
         </div>
       </div>
