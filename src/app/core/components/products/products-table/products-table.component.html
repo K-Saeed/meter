@@ -34,7 +34,7 @@
           <h4 class="m-0">{{ product.productId }}</h4>
         </td>
         <td class="d-flex align-items-center product-container" style="height: 100%;">
-          <img class="product-img" src="../../../../../assets/img/product.jpeg" alt="Product Image" />
+          <img class="product-img" [src]="product.productImages[0]" alt="Product Image" />
           <h4 class="m-0 product-name">{{ product.ownerName }}</h4>
         </td>
 

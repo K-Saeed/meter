@@ -9,7 +9,7 @@ export class Product {
   manufacturingYear?: Date;
   manufacturer?: string;
   description?: string;
-  productImages?: string[];
+  productImages: string[] = ['../../../../../assets/img/product.jpeg'];
   selected!: boolean;
   status!: string;
   postDate!: Date;
