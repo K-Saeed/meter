@@ -131,6 +131,8 @@ import { DashboardRequestsStatisticsComponent } from './core/components/dashboar
 import { DashboardCardsComponent } from './core/components/dashboard/dashboard-cards/dashboard-cards.component';
 import { DashboardLastActivityComponent } from './core/components/dashboard/dashboard-last-activity/dashboard-last-activity.component';
 import { UserMatricsOverviewComponent } from './core/components/users/user-matrics-overview/user-matrics-overview.component';
+import { HasPermissionDirective } from "./shared/service/auth/has-permission.directive";
+import { ErrorModalComponent } from "./error-modal/error-modal.component";
 
 
 @NgModule({
@@ -256,6 +258,8 @@ import { UserMatricsOverviewComponent } from './core/components/users/user-matri
     DashboardCardsComponent,
     DashboardLastActivityComponent,
     UserMatricsOverviewComponent,
+    HasPermissionDirective,
+    ErrorModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -24,6 +24,8 @@ export class SignInComponent implements OnInit {
   submitClicked = false;
   unverifiedEmailError = false;
   signInForm!: FormGroup;
+  public errorMessage!: string;
+  public showError: boolean = false;
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
