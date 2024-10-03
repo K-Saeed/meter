@@ -28,3 +28,8 @@ export class PageDto {
   name!: string;
   permissions!: string[];
 }
+
+export class RoleChooseDto {
+  roleName!: string;
+  selected:boolean = false;
+}

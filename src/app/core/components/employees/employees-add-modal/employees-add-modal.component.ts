@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { Regex } from 'src/app/shared/constant/regex';
 import { Employee } from '../model/employee.model';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
+import { RoleChooseDto} from '../../role/model/role.model';
 
 @Component({
   selector: 'app-employees-add-modal',
@@ -18,20 +19,19 @@ export class EmployeesAddModalComponent implements OnInit {
   submitClicked?: boolean;
   isVerified: boolean = false;
   logoImage?: File;
-
+  roles: RoleChooseDto[]  = [];
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
     this.initializeForm();
   }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.employeeService.getAllRoles().subscribe(data => {
+      this.roles = data;
+    });
   }
 
-  Role = [
-    { name: 'Admin', selected: false },
-    { name: 'Moderator', selected: false },
-    { name: 'Support', selected: false },
-  ];
+
 
   selectedVisibility: string = '';
 

@@ -36,4 +36,9 @@ export class EmployeeService {
 
     return this.http.post<any>(apiUrl, { otp, id, mobile });
   }
+
+  getAllRoles(): Observable<any> {
+    const url = `/api/admin/roles/all`;
+    return this.http.get<any>(url);
+  }
 }

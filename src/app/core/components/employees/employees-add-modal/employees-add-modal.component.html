@@ -28,10 +28,10 @@
                 <img src="../../../../../assets/img/arrow-down-o.svg" />
               </div>
               <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column">
-                <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let role of Role">
-                  <input type="radio" name="flexRadioDefault" [value]="role.name"
-                    (change)="updateSelectedRole(role.name)" />
-                  {{ role.name }}
+                <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let role of roles">
+                  <input type="radio" name="flexRadioDefault" [value]="role.roleName"
+                    (change)="updateSelectedRole(role.roleName)" />
+                  {{ role.roleName }}
                 </label>
               </div>
             </div>
