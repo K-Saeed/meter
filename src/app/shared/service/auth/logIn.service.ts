@@ -26,14 +26,12 @@ export class LoginService {
       next: response => {
         localStorage.setItem("JWT_Token", response.token);
         localStorage.setItem("user-profile", JSON.stringify(response));
+        localStorage.setItem("permissions", JSON.stringify(response.role.pagePermission));
         this.isLoggedIn = true;
         this.router.navigate(["/dashboard"]);
       },
       error: error => {
         console.error('Login failed', error);
-      },
-      complete: () => {
-        console.log('Login request completed');
       }
     });
   }
@@ -41,9 +39,9 @@ export class LoginService {
   logout(): void {
     localStorage.removeItem("JWT_Token");
     localStorage.removeItem("user-profile");
+    localStorage.removeItem("permissions");  // Clear permissions
     this.isLoggedIn = false;
   }
-
   isAuthenticated(): boolean {
     const token = localStorage.getItem("JWT_Token");
     // if(!this.isLoggedIn ||token != null){

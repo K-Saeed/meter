@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth/auth.service';
 
@@ -10,17 +11,18 @@ import { AuthService } from 'src/app/shared/service/auth/auth.service';
 export class TopbarComponent implements OnInit {
   selectedOption: string = 'all';
   userProfile: any;
+  imagPath:string = '';
   constructor(
     private authService: AuthService,
     private router: Router,
-
   ){}
 
   ngOnInit(): void {
     const userProfileString = localStorage.getItem("user-profile");
     if (userProfileString) {
       this.userProfile = JSON.parse(userProfileString);
-      
+      this.imagPath = this.userProfile.logoPath;
+      console.log(this.userProfile.logoPath)
     } else {
       this.userProfile = null;
     }
@@ -38,7 +40,6 @@ export class TopbarComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/signin']);
   }
-
 
 
 }

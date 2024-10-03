@@ -3,23 +3,23 @@
     <div class="info d-flex flex-column gap-3">
       <h3 class="d-flex justify-content-between m-0">
         <span class="label">Project Name:</span>
-        <span class="value">Survey Report</span>
+        <span class="value">{{ submission?.requestTitle || 'N/A' }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
         <span class="label">Provider Name:</span>
-        <span class="value">Eman Mohamed Office</span>
+        <span class="value">{{ submission?.providerName || 'N/A' }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
         <span class="label">Date:</span>
-        <span class="value">2024-06-26 10:30</span>
+        <span class="value">{{ submission?.submittingDate | date: 'short' }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
         <span class="label">Status:</span>
-        <span class="value">Approved</span>
+        <span class="value">{{ submission?.status || 'N/A' }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Product Details:</span>
-        <span class="value">Topcon Auto level AT-B2</span>
+        <span class="label">Details:</span>
+        <span class="value">{{ submission?.consultation || submission?.certificateType || 'N/A' }}</span>
       </h3>
     </div>
   </div>

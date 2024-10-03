@@ -24,6 +24,8 @@ export class SignInComponent implements OnInit {
   submitClicked = false;
   unverifiedEmailError = false;
   signInForm!: FormGroup;
+  public errorMessage!: string;
+  public showError: boolean = false;
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
@@ -40,7 +42,7 @@ export class SignInComponent implements OnInit {
       }),
       password: new FormControl("", [
         Validators.required,
-        Validators.pattern(Regex.PASSWORD_REGEX),
+        // Validators.pattern(Regex.PASSWORD_REGEX),
       ]),
     });
   }

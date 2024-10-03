@@ -1,6 +1,6 @@
-import { AbsoluteSourceSpan } from '@angular/compiler';
 import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { DashboardUsersChartService } from '../services/dashboard-users-chart.service';
 
 @Component({
   selector: 'app-dashboard-users-chart',
@@ -11,15 +11,35 @@ export class DashboardUsersChartComponent implements AfterViewInit {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
   chart!: Chart;
 
-  constructor() {
+  totalUsers: number = 0;
+  totalCustomers: number = 0;
+  totalProviders: number = 0;
+  totalSellers: number = 0;
+
+  customerGrowth: number = 0;
+  providerGrowth: number = 0;
+  sellerGrowth: number = 0;
+
+  constructor(private dashboardUsersChartService: DashboardUsersChartService) {
     Chart.register(...registerables);
   }
 
   ngAfterViewInit(): void {
-    this.createChart();
+    const currentYear = new Date().getFullYear();
+
+    this.dashboardUsersChartService.getUserDashboardData(currentYear).subscribe(data => {
+      this.createChart(data);
+      this.calculateTotalUsers(data);
+      this.calculateGrowthRates(data); // Calculate percentage change
+    });
   }
 
-  createChart(): void {
+  createChart(data: any): void {
+    const months = Object.keys(data.monthlyData);
+    const customersData = months.map(month => data.monthlyData[month]?.customers || 0);
+    const providersData = months.map(month => data.monthlyData[month]?.providers || 0);
+    const sellersData = months.map(month => data.monthlyData[month]?.sellers || 0);
+
     if (this.chartCanvas) {
       const canvas = this.chartCanvas.nativeElement;
       this.chart = new Chart(canvas, {
@@ -29,7 +49,7 @@ export class DashboardUsersChartComponent implements AfterViewInit {
           datasets: [
             {
               label: 'Customers',
-              data: [60, 20, 10, 25, 30, 15, 20, 35],
+              data: customersData,
               backgroundColor: '#FF7A00',
               borderWidth: 1,
               borderRadius: 4,
@@ -40,7 +60,7 @@ export class DashboardUsersChartComponent implements AfterViewInit {
             },
             {
               label: 'Providers',
-              data: [20, 20, 10, 15, 25, 20, 15, 30],
+              data: providersData,
               backgroundColor: '#FFB703',
               borderWidth: 1,
               borderRadius: 4,
@@ -51,7 +71,7 @@ export class DashboardUsersChartComponent implements AfterViewInit {
             },
             {
               label: 'Sellers',
-              data: [10, 20, 10, 5, 15, 10, 20, 25],
+              data: sellersData,
               backgroundColor: '#32383F',
               borderWidth: 1,
               borderRadius: 4,
@@ -79,9 +99,6 @@ export class DashboardUsersChartComponent implements AfterViewInit {
           },
           scales: {
             y: {
-              border: {
-                dash: [3],
-              },
               beginAtZero: true,
               stacked: true,
               grid: {
@@ -104,5 +121,33 @@ export class DashboardUsersChartComponent implements AfterViewInit {
         }
       });
     }
+  }
+
+  calculateTotalUsers(data: any): void {
+    const months = Object.keys(data.monthlyData);
+    this.totalUsers = months.reduce((sum, month) => {
+      const { customers, providers, sellers } = data.monthlyData[month];
+      this.totalCustomers += customers || 0;
+      this.totalProviders += providers || 0;
+      this.totalSellers += sellers || 0;
+      return sum + customers + providers + sellers;
+    }, 0);
+  }
+
+  calculateGrowthRates(data: any): void {
+    const months = Object.keys(data.monthlyData);
+    if (months.length > 1) {
+      const lastMonth = data.monthlyData[months[months.length - 1]];
+      const previousMonth = data.monthlyData[months[months.length - 2]];
+
+      this.customerGrowth = this.calculatePercentageChange(lastMonth.customers, previousMonth.customers);
+      this.providerGrowth = this.calculatePercentageChange(lastMonth.providers, previousMonth.providers);
+      this.sellerGrowth = this.calculatePercentageChange(lastMonth.sellers, previousMonth.sellers);
+    }
+  }
+
+  calculatePercentageChange(current: number, previous: number): number {
+    if (previous === 0) return 100; // If no users previously, return 100% increase
+    return ((current - previous) / previous) * 100;
   }
 }

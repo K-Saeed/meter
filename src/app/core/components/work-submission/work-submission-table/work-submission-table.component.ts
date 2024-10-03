@@ -1,48 +1,93 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { WorkSubmisionService } from '../services/workSubmisionCallService';
+import { WorkSubmissionResponse } from '../models/work-submission-response {.model';
+import { ConstructionSubmissionResponse } from '../models/construction-submission-responses.model';
+import { ConsultationSubmissionResponse } from '../models/consultation-submission-responses.model';
+import { ServiceSubmissionResponse } from '../models/service-submission-responses.model';
 
 @Component({
   selector: 'app-work-submission-table',
   templateUrl: './work-submission-table.component.html',
   styleUrls: ['./work-submission-table.component.css']
 })
-export class WorkSubmissionTableComponent {
+export class WorkSubmissionTableComponent implements OnInit {
   selectAll: boolean = false;
-  users = [
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Consolation', status: 'Approved', selected: false },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Engineering Job', status: 'Rejected', selected: false },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Consolation', status: 'Approved', selected: false },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Engineering Job', status: 'Rejected', selected: false },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-    { id: '20', Project: 'Survey Project', Provider: 'Mohamed MonGe',Customer: 'Mohamed MonGe', dateSubmitted: 'September 21, 2013', typeOfService: 'Service', status: 'Pending', selected: true },
-  ];
-
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
+  workSubmissions: WorkSubmissionResponse = new WorkSubmissionResponse();
+  status: string = '';
+  selectedProposalId?: string;
+  allSubmissions: (ServiceSubmissionResponse | ConstructionSubmissionResponse | ConsultationSubmissionResponse)[] = [];
+  totalEntries: number = 0;
+  selectedSubmission: any;
+  selectedSubmissionId!: string;
+  selectedSubmissionType!: string;
+
+  private statusSubscription!: Subscription;
+
+  constructor(private workSubmisionService: WorkSubmisionService) {}
+
+  ngOnInit(): void {
+    this.statusSubscription = this.workSubmisionService.status$.subscribe(status => {
+      this.status = status!;
+      this.getWorkSubmissionsList();
+    });
+    this.getWorkSubmissionsList();
+  }
+
+  getWorkSubmissionsList() {
+    this.workSubmisionService.getProposalList(this.status).subscribe(
+      (res) => {
+        this.workSubmissions = res;
+
+        this.allSubmissions = [
+          ...this.workSubmissions.serviceSubmissionResponses,
+          ...this.workSubmissions.constructionSubmissionResponses,
+          ...this.workSubmissions.consultationSubmissionResponses
+        ];
+
+        this.totalEntries = this.allSubmissions.length;
+        this.setPage(1, new Event(""));
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   toggleAll(event: Event) {
     event.preventDefault();
-    this.users.forEach(user => user.selected = this.selectAll);
+    this.selectAll = !this.selectAll;
+    this.allSubmissions.forEach(submission => submission['selected'] = this.selectAll);
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.users.every(user => user.selected);
-  }
-
-  get paginatedUsers() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return this.users.slice(start, end);
+    this.selectAll = this.allSubmissions.every(submission => submission['selected']);
   }
 
   setPage(page: number, event: Event) {
     event.preventDefault();
     this.currentPage = page;
+  }
+
+  paginatedSubmissions() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.allSubmissions.slice(start, end);
+  }
+
+  setProposalId(proposalId: string | undefined) {
+    this.selectedProposalId = proposalId;
+  }
+
+
+  openModal(submission: any) {
+    this.selectedSubmission = submission;
+  }
+
+  refreshList() {
+    this.getWorkSubmissionsList();
   }
 }
