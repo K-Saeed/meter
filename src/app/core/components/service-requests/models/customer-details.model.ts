@@ -1,6 +1,6 @@
-export class RequestOwner {
+export class RequestOwnerResponse {
   email!: string;
   role!: string;
   name!: string;
-  phone!: string;
+  mobile!: string;
 }
