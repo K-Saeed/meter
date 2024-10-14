@@ -75,7 +75,7 @@
           <div class="d-flex flex-column gap-5 mt-5">
             <div class="d-flex justify-content-between">
               <div class="d-flex align-items-center gap-3" *ngFor="let file of request?.requestFiles">
-                <a href="file?.filePath" download>
+                <a [href]="file?.filePath" download>
                   <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
                 </a>
                 <div class="attechment d-flex flex-column">
