@@ -15,4 +15,11 @@ export class RequestShowModalComponent {
     event.preventDefault();
     this.activeLink = link;
   }
+
+  downloadFile(file: any): void {
+    const link = document.createElement('a');
+    link.href = file.filePath;
+    link.download = file.fileName || 'download';
+    link.click();
+  }
 }

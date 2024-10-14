@@ -82,7 +82,8 @@
                   <h4 class="m-0">{{file.fileName}}</h4>
                   <p class="m-0">{{file.uploadDate}}</p>
                 </div>
-                <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" srcset="" />
+                <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt=""
+                  (click)="downloadFile(file)" />
               </div>
             </div>
           </div>
