@@ -133,6 +133,10 @@ import { DashboardLastActivityComponent } from './core/components/dashboard/dash
 import { UserMatricsOverviewComponent } from './core/components/users/user-matrics-overview/user-matrics-overview.component';
 import { HasPermissionDirective } from "./shared/service/auth/has-permission.directive";
 import { ErrorModalComponent } from "./error-modal/error-modal.component";
+import { RequestEditModalComponent } from './core/components/service-requests/request-edit-modal/request-edit-modal.component';
+import { RequestModalComponent } from './core/components/service-requests/request-edit-modal/request-modal/request-modal.component';
+import { ConsolationModalComponent } from './core/components/service-requests/request-edit-modal/consolation-modal/consolation-modal.component';
+import { JobModalComponent } from './core/components/service-requests/request-edit-modal/job-modal/job-modal.component';
 
 
 @NgModule({
@@ -260,6 +264,10 @@ import { ErrorModalComponent } from "./error-modal/error-modal.component";
     UserMatricsOverviewComponent,
     HasPermissionDirective,
     ErrorModalComponent,
+    RequestEditModalComponent,
+    RequestModalComponent,
+    ConsolationModalComponent,
+    JobModalComponent,
   ],
   imports: [
     BrowserModule,
