@@ -151,7 +151,7 @@
 
                             <p
                                 *ngIf="!isImageFile(uploadedFiles[i]) && preview !== 'assets/pdf-icon.png' && preview !== 'assets/file-icon.png'">
-                                {{ uploadedFiles[i]?.name }}
+                                {{ uploadedFiles[i].name }}
                             </p>
 
                             <button (click)="removeFile(i)" class="close-button position-absolute ">×</button>

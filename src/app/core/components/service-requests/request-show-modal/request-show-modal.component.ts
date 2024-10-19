@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { RequestResponseDto } from "../models/request-table.model";
 import { HttpClient } from "@angular/common/http";
 import { saveAs } from "file-saver";
@@ -8,11 +8,20 @@ import { saveAs } from "file-saver";
   templateUrl: "./request-show-modal.component.html",
   styleUrls: ["./request-show-modal.component.css"],
 })
-export class RequestShowModalComponent {
+export class RequestShowModalComponent  implements OnInit{
   @Input() request?: RequestResponseDto;
-
+  pricingPurpose: any;
   activeLink: string = "details";
   constructor(private http: HttpClient) {}
+
+
+  ngOnInit(): void {
+    if(this.request?.requestServiceDto?.pricingPurpose === "تقرير مساحي"){
+      this.pricingPurpose = "";
+    }else{
+      this.pricingPurpose = this.request?.requestServiceDto?.pricingPurpose;
+    }
+  }
 
   setActiveLink(link: string, event: Event) {
     event.preventDefault();
