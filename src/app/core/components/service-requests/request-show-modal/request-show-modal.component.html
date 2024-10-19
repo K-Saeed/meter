@@ -53,7 +53,7 @@
                 </h3>
                 <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Request Service'">
                   <span class="label">Purpose of Pricing:</span>
-                  <span class="value">{{pricingPurpose}}</span>
+                  <span class="value">{{request?.requestServiceDto?.pricingPurpose}}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0 " *ngIf="request?.type === 'Consolation'">
                   <span class="label">Application Name:</span>
@@ -73,36 +73,31 @@
         </div>
         <div *ngIf="activeLink === 'attachments'">
           <div class="d-flex flex-column gap-5 mt-5">
-            <div class="d-flex flex-column justify-content-between gap-5">
+            <div class="d-flex justify-content-between">
               <div class="d-flex align-items-center gap-3" *ngFor="let file of request?.requestFiles">
-                <a href="file?.filePath" download>
                   <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
-                </a>
-                <div class="d-flex align-items-center justify-content-between w-100">
-                  <div class="attechment d-flex flex-column">
-                    <h4 class="m-0">{{file.fileName}}</h4>
-                    <p class="m-0">{{file.uploadDate}}</p>
-                  </div>
-                  <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt=""
-                    (click)="downloadFile(file)" />
+                <div class="attechment d-flex flex-column">
+                  <h4 class="m-0">{{file.fileName}}</h4>
+                  <p class="m-0">{{file.uploadDate}}</p>
                 </div>
+                <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="Download"
+                  (click)="downloadFile(file)" />
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
-          <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
-            Reject
-          </button>
-          <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
-            Approve
-          </button>
+          <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
+            <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
+              Reject
+            </button>
+            <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
+              Approve
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<app-request-reject-modal [requestId]="request?.requestId"></app-request-reject-modal>
-<app-request-approve-modal [requestId]="request?.requestId"></app-request-approve-modal>
+  <app-request-reject-modal [requestId]="request?.requestId"></app-request-reject-modal>
+  <app-request-approve-modal [requestId]="request?.requestId"></app-request-approve-modal>

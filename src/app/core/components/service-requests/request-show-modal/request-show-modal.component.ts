@@ -16,11 +16,7 @@ export class RequestShowModalComponent  implements OnInit{
 
 
   ngOnInit(): void {
-    if(this.request?.requestServiceDto?.pricingPurpose === "تقرير مساحي"){
-      this.pricingPurpose = "";
-    }else{
-      this.pricingPurpose = this.request?.requestServiceDto?.pricingPurpose;
-    }
+
   }
 
   setActiveLink(link: string, event: Event) {
