@@ -7,7 +7,8 @@
 .modal-content {
   border-radius: 12px;
   box-shadow: 0 0px 8px -4px #10182814;
-  width: 400px;
+  width: auto;
+  /* width: 400px; */
   height: auto;
   padding: 10px;
 }

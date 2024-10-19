@@ -73,16 +73,18 @@
         </div>
         <div *ngIf="activeLink === 'attachments'">
           <div class="d-flex flex-column gap-5 mt-5">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column justify-content-between gap-5">
               <div class="d-flex align-items-center gap-3" *ngFor="let file of request?.requestFiles">
                 <a href="file?.filePath" download>
                   <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
                 </a>
-                <div class="attechment d-flex flex-column">
-                  <h4 class="m-0">{{file.fileName}}</h4>
-                  <p class="m-0">{{file.uploadDate}}</p>
+                <div class="d-flex align-items-center justify-content-between w-100">
+                  <div class="attechment d-flex flex-column">
+                    <h4 class="m-0">{{file.fileName}}</h4>
+                    <p class="m-0">{{file.uploadDate}}</p>
+                  </div>
+                  <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" />
                 </div>
-                <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" srcset="" />
               </div>
             </div>
           </div>
