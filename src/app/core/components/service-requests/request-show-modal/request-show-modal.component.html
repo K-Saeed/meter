@@ -53,7 +53,7 @@
                 </h3>
                 <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Request Service'">
                   <span class="label">Purpose of Pricing:</span>
-                  <span class="value">{{pricingPurpose}}</span>
+                  <span class="value">{{request?.requestServiceDto?.pricingPurpose}}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0 " *ngIf="request?.type === 'Consolation'">
                   <span class="label">Application Name:</span>
