@@ -83,25 +83,25 @@
                     <h4 class="m-0">{{file.fileName}}</h4>
                     <p class="m-0">{{file.uploadDate}}</p>
                   </div>
-                  <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" />
+                  <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" (click)="downloadFile(file)"/>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
-          <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
-            Reject
-          </button>
-          <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
-            Approve
-          </button>
+          <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
+            <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
+              Reject
+            </button>
+            <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
+              Approve
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 <app-request-reject-modal [requestId]="request?.requestId"></app-request-reject-modal>
 <app-request-approve-modal [requestId]="request?.requestId"></app-request-approve-modal>
