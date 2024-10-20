@@ -27,10 +27,9 @@ export class JobModalComponent implements OnInit{
     });
   }
 
-  // Save the form data using the FormDataService
   saveData() {
     if (this.jobForm.valid) {
-      this.formDataService.setFormData(1, this.jobForm.value); // Form ID 1 for Job Modal
+      this.formDataService.setFormData(1, this.jobForm.value);
     }
   }
 
