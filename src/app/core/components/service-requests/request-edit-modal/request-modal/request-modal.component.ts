@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RequestResponseDto } from '../../models/request-table.model';
 
 @Component({
   selector: 'app-request-modal',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./request-modal.component.css']
 })
 export class RequestModalComponent {
+  @Input () request?: RequestResponseDto;
+
   // dropdownOpen = false;
   pricingDropdownOpen = false;
   surveyDropdownOpen = false;
@@ -83,7 +86,7 @@ export class RequestModalComponent {
     { name: 'Owner', selected: false },
     { name: 'Dealer', selected: false },
   ];
- 
+
   togglePricingDropdown() {
     this.pricingDropdownOpen = !this.pricingDropdownOpen;
   }
@@ -98,7 +101,7 @@ export class RequestModalComponent {
   //   console.log('Selected Survey:', this.selectedSurvey);
   // }
   onSurveySelected() {
-    this.surveyDropdownOpen = false; 
+    this.surveyDropdownOpen = false;
     console.log('Selected Survey:', this.selectedSurvey);
   }
 
@@ -119,7 +122,7 @@ export class RequestModalComponent {
 }
 
 onApplicantSelected() {
-    this.applicantDropdownOpen = false;  
+    this.applicantDropdownOpen = false;
 }
 
   showSurveyReportNumber(): boolean {
@@ -139,7 +142,7 @@ onApplicantSelected() {
     }
     this.phoneNumber = input.value;
   }
- 
+
 
   resizeImage(file: File, maxWidth: number, maxHeight: number): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -185,7 +188,7 @@ onApplicantSelected() {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const files = Array.from(input.files);
-      
+
       for (const file of files) {
         if (file.size > this.maxFileSize) {
           alert(`File ${file.name} exceeds the maximum file size of 25MB.`);
@@ -205,7 +208,7 @@ onApplicantSelected() {
           };
           reader.readAsDataURL(file);
         } else {
-          this.filePreviews.push(file.name); 
+          this.filePreviews.push(file.name);
         }
       }
     }

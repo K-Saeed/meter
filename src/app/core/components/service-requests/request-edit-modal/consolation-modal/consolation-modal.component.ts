@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RequestResponseDto } from '../../models/request-table.model';
 
 @Component({
   selector: 'app-consolation-modal',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./consolation-modal.component.css']
 })
 export class ConsolationModalComponent {
+  @Input () request?: RequestResponseDto;
+
   consultationDropdownOpen = false;
   selectedConsultation: string = '';
   phoneNumber: string = '+966';
@@ -22,7 +25,7 @@ export class ConsolationModalComponent {
 }
 
 onConsultationSelected() {
-    this.consultationDropdownOpen = false;  
+    this.consultationDropdownOpen = false;
 }
 onPhoneInput(event: Event) {
   const input = event.target as HTMLInputElement;
@@ -78,7 +81,7 @@ onFilesSelected(event: Event) {
   const input = event.target as HTMLInputElement;
   if (input.files) {
     const files = Array.from(input.files);
-    
+
     for (const file of files) {
       if (file.size > this.maxFileSize) {
         alert(`File ${file.name} exceeds the maximum file size of 25MB.`);
@@ -98,7 +101,7 @@ onFilesSelected(event: Event) {
         };
         reader.readAsDataURL(file);
       } else {
-        this.filePreviews.push(file.name); 
+        this.filePreviews.push(file.name);
       }
     }
   }

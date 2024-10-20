@@ -1,11 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { RequestResponseDto } from '../../models/request-table.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormDataService } from '../form-data.service';
 
 @Component({
   selector: 'app-job-modal',
   templateUrl: './job-modal.component.html',
   styleUrls: ['./job-modal.component.css']
 })
-export class JobModalComponent {
+export class JobModalComponent implements OnInit{
+  @Input () request?: RequestResponseDto;
+
+  jobForm!: FormGroup;
+
+  constructor(private formDataService: FormDataService) {}
+  ngOnInit(): void {
+    this.jobForm = new FormGroup({
+      certificateType: new FormControl(this.request?.jobRequestDto?.certificateType || '', Validators.required),
+      experiences: new FormControl(this.request?.jobRequestDto.experienceDesc || '', Validators.required),
+      region: new FormControl(this.request?.jobRequestDto.workCity || '', Validators.required),
+      neighborhood: new FormControl(this.request?.jobRequestDto.email || '', Validators.required),
+      city: new FormControl(this.request?.jobRequestDto.workCity || '', Validators.required),
+      specialization: new FormControl(this.request?.jobRequestDto.specialization || '', Validators.required),
+      phoneNumber: new FormControl(this.request?.jobRequestDto.phoneNumber || '', Validators.required),
+      email: new FormControl(this.request?.jobRequestDto.email || '', [Validators.required, Validators.email])
+    });
+  }
+
+  // Save the form data using the FormDataService
+  saveData() {
+    if (this.jobForm.valid) {
+      this.formDataService.setFormData(1, this.jobForm.value); // Form ID 1 for Job Modal
+    }
+  }
+
   certificateDropdownOpen = false;
   selectedCertificate: string = '';
   specializationeDropdownOpen = false;
@@ -21,12 +49,12 @@ export class JobModalComponent {
   certificateOptions  = [
     { name: 'University degree', selected: false },
     { name: 'Diploma', selected: false },
-    { name: 'Other', selected: false } 
+    { name: 'Other', selected: false }
   ];
   specializationOptions  = [
     { name: 'Surveying engineer', selected: false },
     { name: 'Structural engineer', selected: false },
-    { name: 'Safety engineer', selected: false } 
+    { name: 'Safety engineer', selected: false }
   ];
   experiencesOptions = [
     { name: 'Yes', selected: false },
@@ -46,10 +74,10 @@ export class JobModalComponent {
     this.certificateDropdownOpen = false;
   }
   onspecializationSelected() {
-    this.specializationeDropdownOpen = false;  
+    this.specializationeDropdownOpen = false;
 }
 onExperiencesSelected() {
-  this.experiencesDropdownOpen = false;  
+  this.experiencesDropdownOpen = false;
 }
 onPhoneInput(event: Event) {
   const input = event.target as HTMLInputElement;
@@ -105,7 +133,7 @@ onFilesSelected(event: Event) {
   const input = event.target as HTMLInputElement;
   if (input.files) {
     const files = Array.from(input.files);
-    
+
     for (const file of files) {
       if (file.size > this.maxFileSize) {
         alert(`File ${file.name} exceeds the maximum file size of 25MB.`);
@@ -125,7 +153,7 @@ onFilesSelected(event: Event) {
         };
         reader.readAsDataURL(file);
       } else {
-        this.filePreviews.push(file.name); 
+        this.filePreviews.push(file.name);
       }
     }
   }
