@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { RequestResponseDto } from '../../models/request-table.model';
 
 @Component({
@@ -6,8 +7,10 @@ import { RequestResponseDto } from '../../models/request-table.model';
   templateUrl: './request-modal.component.html',
   styleUrls: ['./request-modal.component.css']
 })
-export class RequestModalComponent {
-  @Input () request?: RequestResponseDto;
+export class RequestModalComponent implements OnInit {
+
+  @Input() request?: RequestResponseDto;
+  @Input() parentForm!: FormGroup;
 
   // dropdownOpen = false;
   pricingDropdownOpen = false;
@@ -23,7 +26,22 @@ export class RequestModalComponent {
   uploadedFiles: File[] = [];
   filePreviews: (string | ArrayBuffer | null)[] = [];
   maxFileSize = 25 * 1024 * 1024;
+  ngOnInit(): void {
+    if (this.request) {
+      this.parentForm.patchValue({
+        pieceNumber: this.request.requestServiceDto.pieceNum || '',
+        applicantName: this.request.requestServiceDto.applicationName || '',
+        surveyReportNumber: this.request.requestServiceDto.surveyReportNum || '',
+        chartNumber: this.request.requestServiceDto.chartNum || '',
+        agencyNumber: this.request.requestServiceDto.idNumber || '',
+        id: this.request.requestServiceDto.idNumber || '',
+      });
+    }
+  }
 
+  getFormData() {
+    return this.parentForm.value;
+  }
   // selectedSurvey: string[] = [];
   pricingOptions = [
     { name: 'Survey report', selected: false },

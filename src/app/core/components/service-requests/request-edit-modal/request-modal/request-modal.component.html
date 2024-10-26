@@ -15,7 +15,7 @@
                         *ngFor="let option of pricingOptions">
                         <input type="radio" name="pricing" [value]="option.name" [(ngModel)]="selectedPricing"
                             (change)="onPricingSelected()" />
-                        <span class="radio-label">{{ option.name }}</span>
+                        <span class="radio-label">{{ request?.requestServiceDto?.pricingPurpose }}</span>
                     </label>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                     <label class="radio-container d-flex align-items-center gap-2 mx-1"
                         *ngFor="let survey of surveyReport">
                         <input type="radio" name="survey" [value]="survey.name" [(ngModel)]="selectedSurvey" />
-                        <span class="radio-label">{{ survey.name }}</span>
+                        <span class="radio-label">{{ request?.requestServiceDto?.surveyReport }}</span>
                     </label>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                         *ngFor="let applicant of applicantOptions">
                         <input type="radio" name="Applicant" [value]="applicant.name" [(ngModel)]="selectedApplicant"
                             (change)="onApplicantSelected()" />
-                        <span class="radio-label">{{ applicant.name }}</span>
+                        <span class="radio-label">{{ request?.requestServiceDto?.applicationName }}</span>
                     </label>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                         *ngFor="let certificate of certificateOptions">
                         <input type="radio" name="certificate" [value]="certificate.name"
                             [(ngModel)]="selectedCertificate" (change)="onCertificateSelected()" />
-                        <span class="radio-label">{{ certificate.name }}</span>
+                        <span class="radio-label">{{ request?.requestServiceDto?.certificateType}}</span>
                     </label>
                 </div>
             </div>

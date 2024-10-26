@@ -9,6 +9,9 @@ import { FormDataService } from '../form-data.service';
   styleUrls: ['./job-modal.component.css']
 })
 export class JobModalComponent implements OnInit{
+  getFormData() {
+    throw new Error('Method not implemented.');
+  }
   @Input () request?: RequestResponseDto;
 
   jobForm!: FormGroup;

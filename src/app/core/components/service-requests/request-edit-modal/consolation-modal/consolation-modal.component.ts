@@ -7,6 +7,9 @@ import { RequestResponseDto } from '../../models/request-table.model';
   styleUrls: ['./consolation-modal.component.css']
 })
 export class ConsolationModalComponent {
+  getFormData() {
+    throw new Error('Method not implemented.');
+  }
   @Input () request?: RequestResponseDto;
 
   consultationDropdownOpen = false;
