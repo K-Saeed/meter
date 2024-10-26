@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { TransactionResponse } from '../model/transaction.model';
 
 @Component({
   selector: 'app-transactions-show-modal',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./transactions-show-modal.component.css']
 })
 export class TransactionsShowModalComponent {
+  @Input () transaction?: TransactionResponse;
+
   activeLink: string = 'details';
 
   setActiveLink(link: string, event: Event) {

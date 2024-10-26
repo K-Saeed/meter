@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { TransactionResponse } from '../model/transaction.model';
+import { TransactionService } from 'src/app/shared/service/transaction-call.service';
 
 @Component({
   selector: 'app-transactions-table',
@@ -7,22 +9,24 @@ import { Component } from '@angular/core';
 })
 export class TransactionsTableComponent {
   selectAll: boolean = false;
-  users = [
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Completed', selected: false },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Rejected', selected: false },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Refund', selected: false },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Completed', selected: false },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Rejected', selected: false },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Rejected', selected: false },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-    { id: '20', providerName: 'Mohamede MonGe', requestTitle: 'Survey Report', dateSubmitted: 'September 21, 2013', amount: '$500', status: 'Pending', selected: true },
-  ];
+  transactions: TransactionResponse[] = [];
+  selectedTransactionId: string | undefined;
+  transactionResponse?: TransactionResponse;
+  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.fetchTransactions('');
+  }
+
+  fetchTransactions(status: string): void {
+    this.transactionService.getAllTransactionsList(status)
+      .subscribe({
+        next: (data) => {
+          this.transactions = data;
+        },
+        error: (err) => console.error('Error fetching transactions', err),
+      });
+  }
 
   currentPage: number = 1;
   itemsPerPage: number = 4;
@@ -30,21 +34,43 @@ export class TransactionsTableComponent {
 
   toggleAll(event: Event) {
     event.preventDefault();
-    this.users.forEach(user => user.selected = this.selectAll);
+    this.transactions.forEach(user => user.selected = this.selectAll);
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.users.every(user => user.selected);
+    this.selectAll = this.transactions.every(user => user.selected);
   }
 
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.users.slice(start, end);
+    return this.transactions.slice(start, end);
   }
 
   setPage(page: number, event: Event) {
     event.preventDefault();
     this.currentPage = page;
   }
+
+  setTransactionId(transactionId: string | undefined) {
+    this.selectedTransactionId = transactionId;
+    this.setTransactio();
+  }
+
+  setTransactio() {
+    this.transactionResponse = this.transactions.find(transaction => transaction.id === this.selectedTransactionId);
+  }
+
+  refreshUserList(): void {
+    this.transactionService.getAllTransactionsList('').subscribe(
+      (res) => {
+        this.transactions = res;
+        this.cdr.detectChanges();
+      },
+      (err) => {
+        console.error("Error fetching users:", err);
+      }
+    );
+  }
+
 }

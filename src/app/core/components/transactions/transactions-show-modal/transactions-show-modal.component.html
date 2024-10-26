@@ -22,39 +22,39 @@
         <div class="info d-flex flex-column align-items-start gap-3 mt-3">
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Transaction ID:</span>
-            <span class="value">TX12345</span>
+            <span class="value">{{transaction?.id}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Title:</span>
-            <span class="value">Survey Report</span>
+            <span class="value">{{transaction?.title}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Customer Name:</span>
-            <span class="value">Mohamed MonGe</span>
+            <span class="value">{{transaction?.customerName}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Service Provider Name:</span>
-            <span class="value">Eman Mohamed Office</span>
+            <span class="value">{{transaction?.serviceProviderName}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Amount:</span>
-            <span class="value">1300 SAR</span>
+            <span class="value">{{transaction?.amount}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Date:</span>
-            <span class="value">2024-06-26 10:30</span>
+            <span class="value">{{transaction?.submittingDate}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Status:</span>
-            <span class="value">Completed</span>
+            <span class="value">{{transaction?.status}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Payment Method:</span>
-            <span class="value">Mobiamo</span>
+            <span class="value">{{transaction?.paymentType}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Transaction Notes:</span>
-            <span class="value">Payment for design services</span>
+            <span class="value">{{transaction?.details}}</span>
           </h3>
           <!-- </div> -->
         </div>
@@ -63,7 +63,7 @@
           <div class="info d-flex flex-column align-items-start gap-3">
             <h3 class="d-flex justify-content-between m-0">
               <span class="label">Customer:</span>
-              <span class="value">Mohamed MonGe</span>
+              <span class="value">{{transaction?.customerName}}</span>
             </h3>
           </div>
         </div>
@@ -72,16 +72,16 @@
           <div class="info d-flex flex-column align-items-start gap-3">
             <h3 class="d-flex justify-content-between m-0">
               <span class="label">Service Fee:</span>
-              <span class="value">$450</span>
+              <span class="value">{{transaction?.serviceFees}}</span>
             </h3>
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Fee:</span>
-              <span class="value">15%</span>
+              <span class="label">Taxes:</span>
+              <span class="value">{{transaction?.taxes}}</span>
             </h3>
-            <h3 class="d-flex justify-content-between m-0">
+            <!-- <h3 class="d-flex justify-content-between m-0">
               <span class="label">Consolation Fee:</span>
               <span class="value">35 SAR</span>
-            </h3>
+            </h3> -->
           </div>
         </div>
         <div class="d-flex justify-content-between mt-4">
