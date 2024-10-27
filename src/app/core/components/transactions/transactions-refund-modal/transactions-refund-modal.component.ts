@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-transactions-refund-modal',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./transactions-refund-modal.component.css']
 })
 export class TransactionsRefundModalComponent {
+  @Input() transactionId?: string;
 
 }

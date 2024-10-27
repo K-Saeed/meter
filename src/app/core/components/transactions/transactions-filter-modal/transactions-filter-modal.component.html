@@ -22,43 +22,43 @@
               </span>
             </a>
             <a class="text-decoration-none d-flex align-items-center" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('completed'),
-                active: isActiveLink('completed'),
-                inActive: !isActiveLink('completed')
-              }" (click)="toggleStatus('completed', $event)">
+                breadcrumb: isActiveLink('Approved'),
+                active: isActiveLink('Approved'),
+                inActive: !isActiveLink('Approved')
+              }" (click)="toggleStatus('Approved', $event)">
 
-              Completed
-              <span *ngIf="isActiveStatus('completed')">
+              Approved
+              <span *ngIf="isActiveStatus('Approved')">
                 ✖
               </span>
             </a>
-            <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('pending'),
-                active: isActiveLink('pending'),
-                inActive: !isActiveLink('pending')
-              }" (click)="toggleStatus('pending', $event)">
+            <!-- <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
+                breadcrumb: isActiveLink('Pending'),
+                active: isActiveLink('Pending'),
+                inActive: !isActiveLink('Pending')
+              }" (click)="toggleStatus('Pending', $event)">
               Pending
-              <span *ngIf="isActiveStatus('pending')">
+              <span *ngIf="isActiveStatus('Pending')">
                 ✖
               </span>
-            </a>
+            </a> -->
             <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('rejected'),
-                active: isActiveLink('rejected'),
-                inActive: !isActiveLink('rejected')
-              }" (click)="toggleStatus('rejected', $event)">
+                breadcrumb: isActiveLink('Rejected'),
+                active: isActiveLink('Rejected'),
+                inActive: !isActiveLink('Rejected')
+              }" (click)="toggleStatus('Rejected', $event)">
               Rejected
-              <span *ngIf="isActiveStatus('rejected')">
+              <span *ngIf="isActiveStatus('Rejected')">
                 ✖
               </span>
             </a>
             <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                breadcrumb: isActiveLink('refund'),
-                active: isActiveLink('refund'),
-                inActive: !isActiveLink('refund')
-              }" (click)="toggleStatus('refund', $event)">
+                breadcrumb: isActiveLink('Refund'),
+                active: isActiveLink('Refund'),
+                inActive: !isActiveLink('Refund')
+              }" (click)="toggleStatus('Refund', $event)">
               Refund
-              <span *ngIf="isActiveStatus('refund')">
+              <span *ngIf="isActiveStatus('Refund')">
                 ✖
               </span>
             </a>

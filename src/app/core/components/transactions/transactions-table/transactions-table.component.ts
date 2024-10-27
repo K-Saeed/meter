@@ -1,44 +1,51 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TransactionResponse } from '../model/transaction.model';
 import { TransactionService } from 'src/app/shared/service/transaction-call.service';
+import { Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-transactions-table',
   templateUrl: './transactions-table.component.html',
   styleUrls: ['./transactions-table.component.css']
 })
-export class TransactionsTableComponent {
+export class TransactionsTableComponent implements OnInit {
   selectAll: boolean = false;
   transactions: TransactionResponse[] = [];
   selectedTransactionId: string | undefined;
   transactionResponse?: TransactionResponse;
-  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-    this.fetchTransactions('');
-  }
-
-  fetchTransactions(status: string): void {
-    this.transactionService.getAllTransactionsList(status)
-      .subscribe({
-        next: (data) => {
-          this.transactions = data;
-        },
-        error: (err) => console.error('Error fetching transactions', err),
-      });
-  }
+  private statusSubscription!: Subscription;
 
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
 
+  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit(): void {
+    this.statusSubscription = this.transactionService.status$
+      .pipe(
+        switchMap((status) => this.transactionService.getAllTransactionsList(status || ''))
+      )
+      .subscribe({
+        next: (data) => {
+          this.transactions = data;
+          this.cdr.detectChanges();
+        },
+        error: (err) => console.error('Error fetching transactions', err),
+      });
+  }
+
+  applyFilter(status: string) {
+    this.transactionService.setStatus(status);
+  }
+
   toggleAll(event: Event) {
     event.preventDefault();
-    this.transactions.forEach(user => user.selected = this.selectAll);
+    this.transactions.forEach(transaction => transaction.selected = this.selectAll);
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.transactions.every(user => user.selected);
+    this.selectAll = this.transactions.every(transaction => transaction.selected);
   }
 
   get paginatedUsers() {
@@ -54,23 +61,16 @@ export class TransactionsTableComponent {
 
   setTransactionId(transactionId: string | undefined) {
     this.selectedTransactionId = transactionId;
-    this.setTransactio();
+    this.setTransaction();
   }
 
-  setTransactio() {
+  setTransaction() {
     this.transactionResponse = this.transactions.find(transaction => transaction.id === this.selectedTransactionId);
   }
 
-  refreshUserList(): void {
-    this.transactionService.getAllTransactionsList('').subscribe(
-      (res) => {
-        this.transactions = res;
-        this.cdr.detectChanges();
-      },
-      (err) => {
-        console.error("Error fetching users:", err);
-      }
-    );
+  ngOnDestroy(): void {
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
+    }
   }
-
 }

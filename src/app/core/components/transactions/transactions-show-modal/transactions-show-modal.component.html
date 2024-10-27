@@ -107,7 +107,7 @@
             data-bs-toggle="modal"
             data-bs-target="#approveModal"
           >
-            Complete
+          Approved
           </button>
         </div>
       </div>
@@ -115,6 +115,6 @@
   </div>
 </div>
 
-<app-transactions-reject-modal></app-transactions-reject-modal>
-<app-transactions-approve-modal></app-transactions-approve-modal>
-<app-transactions-refund-modal></app-transactions-refund-modal>
+<app-transactions-reject-modal  [transactionId] = "transaction?.id"></app-transactions-reject-modal>
+<app-transactions-approve-modal [transactionId] = "transaction?.id"></app-transactions-approve-modal>
+<app-transactions-refund-modal  [transactionId] = "transaction?.id"></app-transactions-refund-modal>

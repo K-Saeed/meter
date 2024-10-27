@@ -57,7 +57,7 @@
 
         <td>
           <h4 [ngClass]="{
-              green: transaction.status === 'paid',
+              green: transaction.status === 'paid' || 'Approved',
               red: transaction.status === 'Rejected' || transaction.status === 'Refund',
               orange: transaction.status === 'Pending'
             }" class="m-0">
