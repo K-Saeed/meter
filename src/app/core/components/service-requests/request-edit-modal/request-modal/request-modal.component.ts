@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { RequestResponseDto } from '../../models/request-table.model';
 
 @Component({
@@ -10,7 +10,6 @@ import { RequestResponseDto } from '../../models/request-table.model';
 export class RequestModalComponent implements OnInit {
 
   @Input() request?: RequestResponseDto;
-  @Input() parentForm!: FormGroup;
 
   // dropdownOpen = false;
   pricingDropdownOpen = false;
@@ -18,6 +17,8 @@ export class RequestModalComponent implements OnInit {
   certificateDropdownOpen = false;
   applicantDropdownOpen = false;
   phoneNumber: string = '+966';
+  editServiceForm!: FormGroup;
+
 
   selectedPricing: string = '';
   selectedSurvey: string = '';
@@ -27,21 +28,45 @@ export class RequestModalComponent implements OnInit {
   filePreviews: (string | ArrayBuffer | null)[] = [];
   maxFileSize = 25 * 1024 * 1024;
   ngOnInit(): void {
+
+    this.initForm();
+    this.populateForm();
+  }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   if (changes['request'] && this.request) {
+  //     this.populateForm();
+  //   }
+  // }
+
+  initForm(): void {
+    this.editServiceForm = new FormGroup({
+      pricing: new FormControl(''),
+      pieceNumber: new FormControl(''),
+      applicantName: new FormControl(''),
+      surveyReportNumber: new FormControl(''),
+      chartNumber: new FormControl(''),
+      agencyNumber: new FormControl(''),
+      id: new FormControl(''),
+    });
+  }
+
+  populateForm(): void {
     if (this.request) {
-      this.parentForm.patchValue({
+      this.editServiceForm.patchValue({
         pieceNumber: this.request.requestServiceDto.pieceNum || '',
         applicantName: this.request.requestServiceDto.applicationName || '',
         surveyReportNumber: this.request.requestServiceDto.surveyReportNum || '',
         chartNumber: this.request.requestServiceDto.chartNum || '',
         agencyNumber: this.request.requestServiceDto.idNumber || '',
         id: this.request.requestServiceDto.idNumber || '',
+        pricing: this.request.requestServiceDto.pricingPurpose || '',
       });
     }
   }
-
-  getFormData() {
-    return this.parentForm.value;
-  }
+  // getFormData() {
+  //   return this.parentForm.value;
+  // }
   // selectedSurvey: string[] = [];
   pricingOptions = [
     { name: 'Survey report', selected: false },
@@ -131,8 +156,8 @@ export class RequestModalComponent implements OnInit {
     }
     this.pricingDropdownOpen = false;
   }
-  onPricingSelected() {
-    // console.log('Selected Pricing:', this.selectedPricing);
+  onPricingSelected(value: string) {
+    this.selectedPricing = value;
     this.pricingDropdownOpen = false;
   }
   toggleApplicantDropdown() {

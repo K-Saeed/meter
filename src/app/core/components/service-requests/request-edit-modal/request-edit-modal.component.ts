@@ -25,7 +25,7 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
   @Input() request?: RequestResponseDto;
   editForm!: FormGroup;
 
-  @ViewChild('editModal') editModal!: ElementRef;
+  // @ViewChild('editModal') editModal!: ElementRef;
 
   constructor(private formDataService: FormDataService, private cdr: ChangeDetectorRef) {}
 
@@ -43,6 +43,13 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
       phoneNumber: new FormControl(this.phoneNumber),
       location: new FormControl(''),
       description: new FormControl(''),
+      pricing: new FormControl(''),
+      pieceNumber: new FormControl(''),
+      applicantName: new FormControl(''),
+      surveyReportNumber: new FormControl(''),
+      chartNumber: new FormControl(''),
+      agencyNumber: new FormControl(''),
+      id: new FormControl(''),
     });
   }
 
@@ -56,13 +63,13 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
   populateForm(): void {
     if (this.request) {
       this.editForm.patchValue({
-        type: this.request.type || '',
-        title: this.request.title || '',
-        neighborhood: this.request?.requestServiceDto?.city ||  this.request?.consultationRequestDto?.neighborhood ||  this.request?.jobRequestDto?.workCity ||'',
-        region: this.request?.requestServiceDto?.city ||  this.request?.consultationRequestDto?.region ||  this.request?.jobRequestDto?.workCity ||'',
-        city: this.request?.requestServiceDto?.city ||  this.request?.consultationRequestDto?.city ||  this.request?.jobRequestDto?.workCity ||'',
+        type: this.request.type,
+        title: this.request.title ,
+        neighborhood: this.request?.requestServiceDto?.city ||  this.request?.consultationRequestDto?.neighborhood ||  this.request?.jobRequestDto?.workCity,
+        region: this.request?.requestServiceDto?.city ||  this.request?.consultationRequestDto?.region ||  this.request?.jobRequestDto?.workCity ,
+        city: this.request?.requestServiceDto?.city ||  this.request?.consultationRequestDto?.city ||  this.request?.jobRequestDto?.workCity ,
         phoneNumber: this.request.requestServiceDto?.phoneNumber || this.request.consultationRequestDto?.phoneNumber || this.request.jobRequestDto?.phoneNumber || this.phoneNumber,
-        description: this.request.description || '',
+        description: this.request.description ,
       });
 
       if (this.shouldDisableControl(this.request.type)) {
@@ -76,8 +83,8 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
   }
 
   openModal() {
-    const modalElement = new bootstrap.Modal(this.editModal.nativeElement);
-    modalElement.show();
+    // // const modalElement = new bootstrap.Modal(this.editModal.nativeElement);
+    // modalElement.show();
     this.cdr.detectChanges();
   }
 
@@ -95,7 +102,7 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
       ...this.editForm.value,
       jobData: this.jobModalComponent?.getFormData(),
       consolationData: this.consolationModalComponent?.getFormData(),
-      requestServiceData: this.requestModalComponent?.getFormData(),
+      // requestServiceData: this.requestModalComponent?.getFormData(),
     };
 
     this.formDataService.updateRequest(formData).subscribe(
