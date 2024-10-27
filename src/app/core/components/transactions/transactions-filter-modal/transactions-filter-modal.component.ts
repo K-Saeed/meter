@@ -33,10 +33,12 @@ export class TransactionsFilterModalComponent {
     event.stopPropagation();
     this.activeLinks = this.activeLinks.filter(l => l !== link);
   }
-
   isActiveLink(link: string): boolean {
-    return this.activeLinks.includes(link);
+    return this.activeStatus === link;
   }
+  // isActiveLink(link: string): boolean {
+  //   return this.activeLinks.includes(link);
+  // }
   ngAfterViewInit(): void {
     const minRange = this.minRangeRef.nativeElement;
     const maxRange = this.maxRangeRef.nativeElement;
@@ -71,7 +73,7 @@ export class TransactionsFilterModalComponent {
       updateLabelsAndHighlight();
     });
 
-    updateLabelsAndHighlight(); // التحديث الأولي للتسميات والخلفية
+    updateLabelsAndHighlight();
   }
 
   toggleStatus(status: string, event: Event): void {
