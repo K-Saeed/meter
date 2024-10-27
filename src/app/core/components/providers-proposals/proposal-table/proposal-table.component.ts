@@ -28,10 +28,9 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.statusSubscription = this.proposalService.status$.subscribe(status => {
-      this.getProposalList();
+    this.statusSubscription = this.proposalService.status$.subscribe((status: string | null) => {
+      this.loadProposals(status);
     });
-    this.getProposalList();
   }
 
   ngOnDestroy(): void {
@@ -68,18 +67,19 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
     this.currentPage = page;
     this.updatePagination();
   }
-  getProposalList() {
-    this.proposalService.getProposalList(this.status).subscribe(
-      (res) => {
+  loadProposals(status: string | null) {
+    this.proposalService.getProposals(status).subscribe(
+      (res: ProposalResponse[]) => {
         this.proposalList = res;
         this.updatePagination();
-        this.cdr.detectChanges(); 
+        this.cdr.detectChanges();
       },
-      (err) => {
-        console.log(err);
+      (err: any) => {
+        console.error("Error fetching proposals:", err);
       }
     );
   }
+
 
   updatePagination() {
     this.totalPages = Math.ceil(this.proposalList.length / this.itemsPerPage);

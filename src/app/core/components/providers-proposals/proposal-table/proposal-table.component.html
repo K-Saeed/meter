@@ -44,7 +44,7 @@
         </td>
         <td>
           <h4 [ngClass]="{
-              green: proposal.status === 'Approved',
+              green: proposal.status === 'Approved'|| 'completed',
               red: proposal.status === 'Rejected',
               orange: proposal.status === 'Pending'
             }" class="m-0">
