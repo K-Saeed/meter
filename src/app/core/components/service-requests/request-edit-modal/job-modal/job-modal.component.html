@@ -1,172 +1,96 @@
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form>
-        <div class="modal-dialog">
-            <div class="modal-content d-flex">
-                <div class="modal-header p-2 z-1">
-                    <h1 class="modal-title" id="exampleModalLabel">Edit Request</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex flex-wrap gap-3 mt-2">
-                    <div class="d-flex flex-column" style="gap: 2rem">
-                        <div class="position-relative input-container">
-                            <label for="Type" class="position-absolute label-style">Type of Activity</label>
-                            <input type="text" id="Type" disabled class="input-style" />
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="Certificate" class="position-absolute label-style">Certificate Type</label>
-                            <div class="input-style d-flex justify-content-between align-items-center text-black"
-                                (click)="toggleCertificateDropdown()">
-                                {{ selectedCertificate ? selectedCertificate : "Choose Certificate Type" }}
-                                <img src="../../../../../assets/img/arrow-down-o.svg" />
-                            </div>
+<!-- <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form [formGroup]="jobForm">
+    <div class="modal-dialog">
+      <div class="modal-content d-flex"> -->
+<div class="modal-body d-flex flex-wrap gap-3 mt-2">
+  <div class="d-flex flex-column" style="gap: 2rem">
+    <div class="position-relative input-container">
+      <label for="Certificate" class="position-absolute label-style">Certificate Type</label>
+      <div class="input-style d-flex justify-content-between align-items-center text-black"
+        (click)="toggleCertificateDropdown()">
+        {{ selectedCertificate ? selectedCertificate : "Choose Certificate Type" }}
+        <img src="../../../../../assets/img/arrow-down-o.svg" />
+      </div>
 
-                            <div *ngIf="certificateDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
-                                <div class="scrollable-container">
-                                    <label class="radio-container d-flex align-items-center gap-2 mx-1"
-                                        *ngFor="let certificate of certificateOptions">
-                                        <input type="radio" name="Certificate" [value]="certificate.name"
-                                            [(ngModel)]="selectedCertificate"
-                                            (change)="onCertificateSelected(certificate.name)" />
-                                        <span class="radio-label">{{ certificate.name }}</span>
-                                    </label>
-                                    <div *ngIf="selectedCertificate === 'Other'">
-                                        <input type="text" [(ngModel)]="otherCertificate"
-                                            placeholder="Enter other certificate" class="form-control" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="position-relative input-container">
-                            <label for="experiences" class="position-absolute label-style">Do You Have
-                                Experiences</label>
-                            <div class="input-style d-flex justify-content-between align-items-center text-black"
-                                (click)="toggleExperiencesDropdown()">
-                                {{ selectedExperiences ? selectedExperiences : "Choose Do You Have Experiences" }}
-                                <img src="../../../../../assets/img/arrow-down-o.svg" />
-                            </div>
-
-                            <div *ngIf="experiencesDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
-                                <div class="scrollable-container">
-                                    <label class="radio-container d-flex align-items-center gap-2 mx-1"
-                                        *ngFor="let experiences of experiencesOptions">
-                                        <input type="radio" name="experiences" [value]="experiences.name"
-                                            [(ngModel)]="selectedExperiences" (change)="onExperiencesSelected()" />
-                                        <span class="radio-label">{{ experiences.name }}</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="Region" class="position-absolute label-style">Region</label>
-                            <input type="text" id="Region" placeholder="Enter Region" class="input-style"
-                                formControlName="Region" />
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="Neighborhood" class="position-absolute label-style">Neighborhood</label>
-                            <input type="text" id="Neighborhood" placeholder="Enter Neighborhood" class="input-style"
-                                formControlName="Neighborhood" />
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="cityWork" class="position-absolute label-style">Preferred City Work in</label>
-                            <input type="text" id="cityWork" class="input-style"
-                                placeholder="Enter Preferred City Work in" />
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="Name" class="position-absolute label-style">Name</label>
-                            <input type="text" id="Name" class="input-style" placeholder="Enter Name" />
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column" style="gap: 2rem">
-                        <div class="position-relative input-container">
-                            <label for="title" class="position-absolute label-style">Request Title</label>
-                            <input type="text" id="title" class="input-style" placeholder="Enter Request Title" />
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="Specialization" class="position-absolute label-style">Specialization</label>
-                            <div class="input-style d-flex justify-content-between align-items-center text-black"
-                                (click)="toggleSpecializationDropdown()">
-                                {{ selectedSpecialization ? selectedSpecialization : "Choose Specialization" }}
-                                <img src="../../../../../assets/img/arrow-down-o.svg" />
-                            </div>
-
-                            <div *ngIf="specializationeDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
-                                <div class="scrollable-container">
-                                    <label class="radio-container d-flex align-items-center gap-2 mx-1"
-                                        *ngFor="let specialization of specializationOptions">
-                                        <input type="radio" name="specialization" [value]="specialization.name"
-                                            [(ngModel)]="selectedSpecialization"
-                                            (change)="onspecializationSelected()" />
-                                        <span class="radio-label">{{ specialization.name }}</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="City" class="position-absolute label-style">City</label>
-                            <input type="text" id="City" placeholder="Enter City" class="input-style"
-                                formControlName="City" />
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="Location" class="position-absolute label-style">Location</label>
-                            <img src="../../../../../../../assets/img/location.svg" alt="" srcset=""
-                                class="calendar-icon" />
-                            <input type="text" id="Location" placeholder="Enter City" class="input-style"
-                                style="padding-left: 40px" />
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
-                            <div class="input-wrapper">
-                                <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
-                                <input type="text" id="phone" class="input-style" [value]="phoneNumber"
-                                    (input)="onPhoneInput($event)" style="padding-left: 2.5rem" />
-                            </div>
-                        </div>
-                        <div class="position-relative input-container">
-                            <label for="email" class="position-absolute label-style">Email</label>
-                            <input type="email" id="email" class="input-style" placeholder="Enter Email" />
-                        </div>
-                    </div>
-                    <div class="position-relative input-container my-1">
-                        <label for="title" class="position-absolute label-style">Description of Services</label>
-                        <textarea type="text" id="title" placeholder="Enter Description of Services"
-                            class="input-style w-100 overflow-hidden" style="height: 85px"></textarea>
-                    </div>
-                    <div class="position-relative input-container my-1 boder-style d-flex flex-row gap-2">
-                        <div *ngIf="!uploadedFiles.length"
-                            class="upload-instructions d-flex flex-column justify-content-center align-items-center gap-2">
-                            <img src="../../../../../../../assets/img/document-upload.svg" alt="" class="w-25" />
-                            <h2 class="m-0">Click to Upload</h2>
-                            <h6 class="m-0">(Maximum file size: 25MB)</h6>
-                        </div>
-
-                        <input type="file" name="file" multiple (change)="onFilesSelected($event)" />
-
-                        <div *ngFor="let preview of filePreviews; let i = index"
-                            class="uploaded-file-preview d-flex align-items-center position-relative">
-                            <img *ngIf="isImageFile(uploadedFiles[i])" [src]="preview" alt="Uploaded Image"
-                                class="file-preview-image" />
-                            <!-- <img *ngIf="preview === 'assets/file-icon.png'" [src]="preview" alt="File Icon"
-                                class="file-preview-image" /> -->
-
-                            <p
-                                *ngIf="!isImageFile(uploadedFiles[i]) && preview !== 'assets/pdf-icon.png' && preview !== 'assets/file-icon.png'">
-                                {{ uploadedFiles[i].name }}
-                            </p>
-
-                            <button (click)="removeFile(i)" class="close-button position-absolute ">×</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
-                    <button type="button" class="reject-btn" data-bs-toggle="modal">
-                        Cancel
-                    </button>
-                    <button type="submit" class="approve-btn" data-bs-toggle="modal">
-                        Save
-                    </button>
-                </div>
-            </div>
+      <div *ngIf="certificateDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
+        <div class="scrollable-container">
+          <label class="radio-container d-flex align-items-center gap-2 mx-1"
+            *ngFor="let certificate of certificateOptions">
+            <input type="radio" name="Certificate" [value]="certificate.name" [(ngModel)]="selectedCertificate"
+              (change)="onCertificateSelected(certificate.name)" />
+            <span class="radio-label">{{ certificate.name }}</span>
+          </label>
+          <div *ngIf="selectedCertificate === 'Other'">
+            <input type="text" [(ngModel)]="otherCertificate" placeholder="Enter other certificate"
+              class="form-control" />
+          </div>
         </div>
-    </form>
+      </div>
+    </div>
+
+    <div class="position-relative input-container">
+      <label for="experiences" class="position-absolute label-style">Do You Have
+        Experiences</label>
+      <div class="input-style d-flex justify-content-between align-items-center text-black"
+        (click)="toggleExperiencesDropdown()">
+        {{ selectedExperiences ? selectedExperiences : "Choose Do You Have Experiences" }}
+        <img src="../../../../../assets/img/arrow-down-o.svg" />
+      </div>
+
+      <div *ngIf="experiencesDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
+        <div class="scrollable-container">
+          <label class="radio-container d-flex align-items-center gap-2 mx-1"
+            *ngFor="let experiences of experiencesOptions">
+            <input type="radio" name="experiences" [value]="experiences.name" [(ngModel)]="selectedExperiences"
+              (change)="onExperiencesSelected()" />
+            <span class="radio-label">{{ experiences.name }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="position-relative input-container">
+      <label for="email" class="position-absolute label-style">Email</label>
+      <input type="email" id="email" class="input-style" placeholder="Enter Email" />
+    </div>
+
+  </div>
+  <div class="d-flex flex-column" style="gap: 2rem">
+    <div class="position-relative input-container">
+      <label for="Specialization" class="position-absolute label-style">Specialization</label>
+      <div class="input-style d-flex justify-content-between align-items-center text-black"
+        (click)="toggleSpecializationDropdown()">
+        {{ selectedSpecialization ? selectedSpecialization : "Choose Specialization" }}
+        <img src="../../../../../assets/img/arrow-down-o.svg" />
+      </div>
+
+      <div *ngIf="specializationeDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
+        <div class="scrollable-container">
+          <label class="radio-container d-flex align-items-center gap-2 mx-1"
+            *ngFor="let specialization of specializationOptions">
+            <input type="radio" name="specialization" [value]="specialization.name" [(ngModel)]="selectedSpecialization"
+              (change)="onspecializationSelected()" />
+            <span class="radio-label">{{ specialization.name }}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="position-relative input-container">
+      <label for="cityWork" class="position-absolute label-style">Preferred City Work in</label>
+      <input type="text" id="cityWork" class="input-style" placeholder="Enter Preferred City Work in" />
+    </div>
+    <div class="position-relative input-container">
+      <label for="Name" class="position-absolute label-style">Name</label>
+      <input type="text" id="Name" class="input-style" placeholder="Enter Name" />
+    </div>
+  </div>
 </div>
+
+<!-- <div class="d-flex flex-column" style="gap: 2rem">
+  <button type="submit" class="approve-btn" (click)="saveData()">Save</button>
+</div> -->
+<!-- </div>
+      </div>
+    </div>
+  </form>
+</div> -->

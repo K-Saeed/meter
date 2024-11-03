@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { RequestResponseDto } from "../models/request-table.model";
 import { HttpClient } from "@angular/common/http";
 import { saveAs } from "file-saver";
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: "app-request-show-modal",
@@ -12,7 +13,9 @@ export class RequestShowModalComponent  implements OnInit{
   @Input() request?: RequestResponseDto;
   pricingPurpose: any;
   activeLink: string = "details";
-  constructor(private http: HttpClient) {}
+  showFilePopup: boolean = false;
+selectedFileUrl: SafeResourceUrl | null = null;
+  constructor(private http: HttpClient,private sanitizer: DomSanitizer) {}
 
 
   ngOnInit(): void {
@@ -32,6 +35,18 @@ export class RequestShowModalComponent  implements OnInit{
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+  closePopup() {
+    this.showFilePopup = false;
+    this.selectedFileUrl = null;
+  }
+  isImageFile: boolean = false;
+
+  openFileInPopup(file: any) {
+    const filePath = file.filePath;
+    this.isImageFile = /\.(png|jpg|jpeg)$/.test(filePath+ (this.isImageFile ? '' : '#toolbar=0'));
+    this.selectedFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(filePath + (this.isImageFile ? '' : '#toolbar=0'));
+    this.showFilePopup = true;
   }
 
 }
