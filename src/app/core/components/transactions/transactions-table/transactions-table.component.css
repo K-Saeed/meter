@@ -63,7 +63,7 @@ h4 {
   line-height: 18px;
 }
 .green {
-  width: 95px;
+  width: max-content;
   height: 33px;
   background-color: #099d4224;
   color: #099d42;

@@ -69,15 +69,9 @@
   color: #000;
 }
 
-.breadcrumb,
-.breadcrumbSpace {
-  /* padding: 7px 40px 7px 15px; */
+.breadcrumb.active {
   background-color: #f28f45;
   color: #fff;
-  width: 100%;
-}
-.breadcrumb {
-  position: relative;
 }
 
 .breadcrumb.active::after {
