@@ -1,4 +1,4 @@
-<div class="modal fade"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade"  id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="editForm">
     <div class="modal-dialog">
       <div class="modal-content d-flex gap-2 ">
@@ -21,9 +21,9 @@
 
           </div>
         </div>
-        <app-job-modal *ngIf="request?.type === 'Engineering Job'" [request]="request" ></app-job-modal>
-        <app-request-modal *ngIf="request?.type === 'Request Service'" [request]="request"></app-request-modal>
-        <app-consolation-modal *ngIf="request?.type === 'Consolation'" [request]="request"></app-consolation-modal>
+        <app-job-modal formGroupName="job" *ngIf="request?.type === 'Engineering Job'" [job]="request?.jobRequestDto" [form]="this.editForm"></app-job-modal>
+        <app-request-modal formGroupName="request" *ngIf="request?.type === 'Request Service'" [requestService]="request?.requestServiceDto" [form]="this.editForm"></app-request-modal>
+        <app-consolation-modal formGroupName="consolation" *ngIf="request?.type === 'Consolation'" [consolation]="request?.consultationRequestDto" [form]="this.editForm"></app-consolation-modal>
         <div class="d-flex my-2">
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
@@ -33,7 +33,7 @@
             </div>
             <div class="position-relative input-container">
               <label for="Region" class="position-absolute label-style">Region</label>
-              <input type="text" id="region" placeholder="Enter Region" class="input-style" formControlName="Region" />
+              <input type="text" id="region" placeholder="Enter Region" class="input-style" formControlName="region" />
             </div>
             <div class="position-relative input-container">
               <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
@@ -47,7 +47,7 @@
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
               <label for="City" class="position-absolute label-style">City</label>
-              <input formControlName="city" type="text" id="City" placeholder="Enter City" class="input-style" formControlName="City" />
+              <input formControlName="city" type="text" id="City" placeholder="Enter City" class="input-style" formControlName="city" />
             </div>
             <div class="position-relative input-container">
               <label for="Location" class="position-absolute label-style">Location</label>
