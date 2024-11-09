@@ -27,7 +27,6 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
       this.status = status!;
       this.getProductList();
     });
-    this.getProductList();
   }
 
   ngOnDestroy(): void {
