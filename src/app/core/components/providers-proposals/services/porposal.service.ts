@@ -39,6 +39,17 @@ export class ProposalService {
     );
   }
 
+  getProposalsByRequestId(requestId: string): Observable<ProposalResponse[]> {
+    const apiUrl = "/api/admin/proposal/";
+
+    return this.http.get<ProposalResponse[]>(`${apiUrl}${requestId}`).pipe(
+      tap((res) => {
+        this.proposalsSubject.next(res || []);
+        this.lastFetchTime = Date.now();
+      })
+    )
+  }
+
   getProposals(status: string | null): Observable<ProposalResponse[]> {
     const currentTime = Date.now();
 

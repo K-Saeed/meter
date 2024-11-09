@@ -137,6 +137,7 @@ import { RequestEditModalComponent } from './core/components/service-requests/re
 import { RequestModalComponent } from './core/components/service-requests/request-edit-modal/request-modal/request-modal.component';
 import { ConsolationModalComponent } from './core/components/service-requests/request-edit-modal/consolation-modal/consolation-modal.component';
 import { JobModalComponent } from './core/components/service-requests/request-edit-modal/job-modal/job-modal.component';
+import { ProposalShowDetailsModalWithoutRequestInfoComponent } from './core/components/providers-proposals/proposal-show-details-modal-without-request-info/proposal-show-details-modal-without-request-info.component';
 
 
 @NgModule({
@@ -268,6 +269,7 @@ import { JobModalComponent } from './core/components/service-requests/request-ed
     RequestModalComponent,
     ConsolationModalComponent,
     JobModalComponent,
+    ProposalShowDetailsModalWithoutRequestInfoComponent,
   ],
   imports: [
     BrowserModule,

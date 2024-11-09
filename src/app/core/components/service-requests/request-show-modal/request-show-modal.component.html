@@ -19,6 +19,12 @@
             }" (click)="setActiveLink('attachments', $event)">
             Attachments
           </a>
+          <a class="text-decoration-none" href="#" [ngClass]="{
+            breadcrumbSpace: activeLink === 'offers',
+            inActive: activeLink !== 'offers'
+          }" (click)="setActiveLink('offers', $event)">
+            Offers
+          </a>
         </div>
 
         <div *ngIf="activeLink === 'details'">
@@ -107,6 +113,16 @@
           </div>
         </div>
 
+        <div *ngIf="activeLink === 'offers'">
+          <div class="d-flex flex-column gap-5 mt-5">
+            <div class="d-flex flex-column justify-content-between gap-5">
+              <div *ngFor="let proposal of proposalList">
+                <app-proposal-show-details-modal-without-request-info  [proposal]="proposal"></app-proposal-show-details-modal-without-request-info >
+              </div>
+            </div>
+          </div>
+        </div>
+        
         <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
           <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
             Reject

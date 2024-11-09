@@ -1,30 +1,53 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, SimpleChanges } from "@angular/core";
 import { RequestResponseDto } from "../models/request-table.model";
 import { HttpClient } from "@angular/common/http";
 import { saveAs } from "file-saver";
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ProposalService } from "../../providers-proposals/services/porposal.service";
+import { ProposalResponse } from "../../providers-proposals/models/porposal-table.model";
 
 @Component({
   selector: "app-request-show-modal",
   templateUrl: "./request-show-modal.component.html",
   styleUrls: ["./request-show-modal.component.css"],
 })
-export class RequestShowModalComponent  implements OnInit{
+export class RequestShowModalComponent implements OnInit {
   @Input() request?: RequestResponseDto;
   pricingPurpose: any;
   activeLink: string = "details";
   showFilePopup: boolean = false;
-selectedFileUrl: SafeResourceUrl | null = null;
-  constructor(private http: HttpClient,private sanitizer: DomSanitizer) {}
+  proposalList: ProposalResponse[] = [];
+
+  selectedFileUrl: SafeResourceUrl | null = null;
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer, private proposalService: ProposalService) { }
 
 
   ngOnInit(): void {
 
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['request'] && this.request?.requestId) {
+      this.getProposalsByRequestId(this.request.requestId);
+    }
+  }
+
   setActiveLink(link: string, event: Event) {
     event.preventDefault();
     this.activeLink = link;
+  }
+
+  getProposalsByRequestId(requestId: string | undefined) {
+    if (requestId != undefined) {
+      this.proposalService.getProposalsByRequestId(requestId).subscribe({
+        next: (res: ProposalResponse[]) => {
+          this.proposalList = res;
+        },
+        error: (e) => {
+          console.log(e);
+        }
+      })
+    }
   }
 
   downloadFile(file: any): void {
@@ -44,7 +67,7 @@ selectedFileUrl: SafeResourceUrl | null = null;
 
   openFileInPopup(file: any) {
     const filePath = file.filePath;
-    this.isImageFile = /\.(png|jpg|jpeg)$/.test(filePath+ (this.isImageFile ? '' : '#toolbar=0'));
+    this.isImageFile = /\.(png|jpg|jpeg)$/.test(filePath + (this.isImageFile ? '' : '#toolbar=0'));
     this.selectedFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(filePath + (this.isImageFile ? '' : '#toolbar=0'));
     this.showFilePopup = true;
   }
