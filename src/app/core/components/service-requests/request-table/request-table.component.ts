@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { RequestService } from '../services/request.service';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { RequestResponseDto } from '../models/request-table.model';
 
 @Component({
@@ -19,8 +19,7 @@ export class RequestTableComponent implements OnInit, OnDestroy {
   requests: RequestResponseDto[] = [];
   startItemIndex: number = 1;
   endItemIndex: number = this.itemsPerPage;
-  private statusSubscription!: Subscription;
-  private typeSubscription!: Subscription;
+  private statusTypeSubscription!: Subscription;
   selectedRequestId: string | undefined;
   request?: RequestResponseDto;
 
@@ -28,27 +27,21 @@ export class RequestTableComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private cdr: ChangeDetectorRef
   ) {}
-
-  ngOnInit(): void {
-    this.statusSubscription = this.requestService.status$.subscribe(status => {
+ 
+  ngOnInit() {
+    this.statusTypeSubscription = combineLatest([
+      this.requestService.status$,
+      this.requestService.type$
+    ]).subscribe(([status, type]) => {
       this.status = status!;
-      this.getRequestList();
-    });
-
-    this.typeSubscription = this.requestService.type$.subscribe(type => {
       this.type = type!;
       this.getRequestList();
     });
-
-    this.getRequestList();
   }
 
   ngOnDestroy(): void {
-    if (this.statusSubscription) {
-      this.statusSubscription.unsubscribe();
-    }
-    if (this.typeSubscription) {
-      this.typeSubscription.unsubscribe();
+    if(this.statusTypeSubscription){
+      this.statusTypeSubscription.unsubscribe();
     }
   }
 
@@ -82,16 +75,16 @@ export class RequestTableComponent implements OnInit, OnDestroy {
   }
 
   getRequestList() {
-    this.requestService.getRequestsList(this.type, this.status).subscribe(
-      (res) => {
+    this.requestService.getRequestsList(this.type, this.status).subscribe({
+      next: (res) => {
         this.requests = res;
         this.updatePagination();
         this.cdr.detectChanges();
       },
-      (err) => {
-        console.log(err);
+      error: (e) => {
+        console.log(e);
       }
-    );
+    });
   }
 
   updatePagination() {
@@ -107,7 +100,7 @@ export class RequestTableComponent implements OnInit, OnDestroy {
 
   setRequest() {
     this.request = this.requests.find(request => request.requestId === this.selectedRequestId);
-  }
+      }
 
   getPagination(): number[] {
     const totalPages = this.totalPages;

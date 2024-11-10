@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { UserTableDto } from '../models/user-table.model';
 import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.service';
 
@@ -17,8 +17,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
   status!: string;
   role!: string;
   userList: UserTableDto[] = [];
-  private statusSubscription!: Subscription;
-  private roleSubscription!: Subscription;
+  private statusTypeSubscription!: Subscription;
   selectedUserId: string | undefined;
   user?: UserTableDto;
   message!: string;
@@ -30,26 +29,20 @@ export class UserTableComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.statusSubscription = this.userService.status$.subscribe(status => {
+  ngOnInit() {
+    this.statusTypeSubscription = combineLatest([
+      this.userService.status$,
+      this.userService.role$
+    ]).subscribe(([status, role]) => {
       this.status = status!;
-      this.getUserList();
-    });
-
-    this.roleSubscription = this.userService.role$.subscribe(role => {
       this.role = role!;
       this.getUserList();
     });
-
-    this.getUserList();
   }
 
   ngOnDestroy(): void {
-    if (this.statusSubscription) {
-      this.statusSubscription.unsubscribe();
-    }
-    if (this.roleSubscription) {
-      this.roleSubscription.unsubscribe();
+    if (this.statusTypeSubscription) {
+      this.statusTypeSubscription.unsubscribe();
     }
   }
 
@@ -137,7 +130,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
     const totalPages = Math.ceil(this.userList.length / this.itemsPerPage);
     const maxVisiblePages = 4;
     const pagination: number[] = [];
-  
+
     if (totalPages <= maxVisiblePages + 1) {
       for (let i = 1; i <= totalPages; i++) {
         pagination.push(i);
@@ -148,7 +141,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
           pagination.push(i);
         }
         if (totalPages > maxVisiblePages) {
-          pagination.push(-1); 
+          pagination.push(-1);
           pagination.push(totalPages);
         }
       } else if (this.currentPage > totalPages - 3) {
@@ -163,11 +156,11 @@ export class UserTableComponent implements OnInit, OnDestroy {
         pagination.push(this.currentPage - 1);
         pagination.push(this.currentPage);
         pagination.push(this.currentPage + 1);
-        pagination.push(-1); 
+        pagination.push(-1);
         pagination.push(totalPages);
       }
     }
     return pagination;
   }
-  
+
 }

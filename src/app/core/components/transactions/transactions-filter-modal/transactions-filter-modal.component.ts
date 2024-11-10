@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { TransactionService } from 'src/app/shared/service/transaction-call.service';
 
 @Component({
   selector: 'app-transactions-filter-modal',
@@ -8,11 +9,15 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 export class TransactionsFilterModalComponent {
   activeLink: string = '';
   activeLinks: string[] = [];
+  activeStatus: string | null = null;
+
   @ViewChild('minRange') minRangeRef!: ElementRef<HTMLInputElement>;
   @ViewChild('maxRange') maxRangeRef!: ElementRef<HTMLInputElement>;
   @ViewChild('sliderMinValue') minLabelRef!: ElementRef<HTMLElement>;
   @ViewChild('sliderMaxValue') maxLabelRef!: ElementRef<HTMLElement>;
   @ViewChild('rangeHighlight') rangeHighlightRef!: ElementRef<HTMLElement>;
+
+  constructor(private transactionService: TransactionService) {}
 
   toggleLink(link: string, event: Event): void {
     event.preventDefault();
@@ -28,10 +33,12 @@ export class TransactionsFilterModalComponent {
     event.stopPropagation();
     this.activeLinks = this.activeLinks.filter(l => l !== link);
   }
-
   isActiveLink(link: string): boolean {
-    return this.activeLinks.includes(link);
+    return this.activeStatus === link;
   }
+  // isActiveLink(link: string): boolean {
+  //   return this.activeLinks.includes(link);
+  // }
   ngAfterViewInit(): void {
     const minRange = this.minRangeRef.nativeElement;
     const maxRange = this.maxRangeRef.nativeElement;
@@ -66,6 +73,30 @@ export class TransactionsFilterModalComponent {
       updateLabelsAndHighlight();
     });
 
-    updateLabelsAndHighlight(); // التحديث الأولي للتسميات والخلفية
+    updateLabelsAndHighlight();
+  }
+
+  toggleStatus(status: string, event: Event): void {
+    event.preventDefault();
+    if (this.activeStatus === status) {
+      this.activeStatus = null;
+    } else {
+      this.activeStatus = status;
+    }
+  }
+
+
+  isActiveStatus(status: string): boolean {
+    return this.activeStatus === status;
+  }
+
+  filter(): void {
+    const status = this.activeStatus;
+
+    if (status) {
+      this.transactionService.setStatus(status);
+    } else {
+      this.transactionService.setStatus('');
+    }
   }
 }

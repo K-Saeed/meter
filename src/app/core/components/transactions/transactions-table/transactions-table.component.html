@@ -32,43 +32,43 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
+      <tr *ngFor="let transaction of transactions">
         <th scope="row">
-          <input type="checkbox" [(ngModel)]="user.selected" (change)="checkIfAllSelected()" />
+          <input type="checkbox" [(ngModel)]="transaction.selected" (change)="checkIfAllSelected()" />
         </th>
         <td>
-          <h4 class="m-0">{{ user.id }}</h4>
+          <h4 class="m-0">{{ transaction.id }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.providerName }}</h4>
+          <h4 class="m-0">{{ transaction.serviceProviderName }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.requestTitle }}</h4>
+          <h4 class="m-0">{{ transaction.title }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.providerName }}</h4>
+          <h4 class="m-0">{{ transaction.customerName }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.amount }}</h4>
+          <h4 class="m-0">{{ transaction.amount }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.dateSubmitted }}</h4>
+          <h4 class="m-0">{{ transaction.submittingDate }}</h4>
         </td>
 
         <td>
           <h4 [ngClass]="{
-              green: user.status === 'Completed',
-              red: user.status === 'Rejected' || user.status === 'Refund',
-              orange: user.status === 'Pending'
+              green: transaction.status === 'paid' || 'Approved',
+              red: transaction.status === 'Rejected' || transaction.status === 'Refund',
+              orange: transaction.status === 'Pending'
             }" class="m-0">
-            {{ user.status }}
+            {{ transaction.status }}
           </h4>
         </td>
         <td>
           <div class="">
             <!-- Actions Icons -->
             <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
-              src="../../../../assets/img/eye.svg" alt="View" />
+              src="../../../../assets/img/eye.svg" alt="View" (click)="setTransactionId(transaction.id)"/>
             <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
               src="../../../../../assets/img/Import_duotone_line.svg" alt="View" />
             <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
@@ -79,7 +79,7 @@
     </tbody>
   </table>
   <app-transactions-delete-modal></app-transactions-delete-modal>
-  <app-transactions-show-modal></app-transactions-show-modal>
+  <app-transactions-show-modal [transaction]="transactionResponse"></app-transactions-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4 pagination-space">
     <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>
     <nav aria-label="Page navigation example">
@@ -92,7 +92,7 @@
           </a>
         </li>
         <li class="page-item" *ngFor="
-            let page of [].constructor(Math.ceil(users.length / itemsPerPage));
+            let page of [].constructor(Math.ceil(transactions.length / itemsPerPage));
             let i = index
           " [class.active]="i + 1 === currentPage">
           <a class="page-link" href="#" (click)="setPage(i + 1, $event)">{{
@@ -100,7 +100,7 @@
             }}</a>
         </li>
         <li class="page-item" [class.disabled]="
-            currentPage === Math.ceil(users.length / itemsPerPage)
+            currentPage === Math.ceil(transactions.length / itemsPerPage)
           ">
           <a class="page-link next" href="#" aria-label="Next" (click)="setPage(currentPage + 1, $event)">
             <span aria-hidden="true">
