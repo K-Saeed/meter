@@ -34,7 +34,12 @@ export class WorkSubmissionTableComponent implements OnInit {
       this.status = status!;
       this.getWorkSubmissionsList();
     });
-    this.getWorkSubmissionsList();
+  }
+  
+  ngOnDestroy(): void {
+    if (this.statusSubscription) {
+      this.statusSubscription.unsubscribe();
+    }
   }
 
   getWorkSubmissionsList() {
