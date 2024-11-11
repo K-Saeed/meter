@@ -14,6 +14,9 @@ import { FormDataService } from "./form-data.service";
 import { JobModalComponent } from "./job-modal/job-modal.component";
 import { ConsolationModalComponent } from "./consolation-modal/consolation-modal.component";
 import { RequestModalComponent } from "./request-modal/request-modal.component";
+import { FileResponse } from "../models/file-response";
+import { RequestService } from "../services/request.service";
+import { UpdateServiceRequest } from "../models/update-request-service.model";
 
 declare var bootstrap: any;
 
@@ -36,12 +39,27 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
   @Input() request?: RequestResponseDto;
   editForm!: FormGroup;
 
+  requestFiles: FileResponse[] = [];
+  filesTobeDeleted: string[] = [];
+
+  private readonly typeMapping: { [key: string]: string } = {
+    'image/': 'image',
+    'application/octet-stream': 'image',
+    'application/pdf': 'pdf',
+    'text/': 'text',
+    'video/': 'video',
+    'audio/': 'audio',
+    'application/vnd': 'document'
+  };
+
+
   // @ViewChild('editModal') editModal!: ElementRef;
 
   constructor(
     private formDataService: FormDataService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private requestService: RequestService
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -132,6 +150,11 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
         this.editForm.controls["type"].enable();
       }
 
+      this.requestFiles = Array.from(this.request?.requestFiles || [])
+
+      this.filesTobeDeleted = [];
+      this.uploadedFiles = [];
+
       this.cdr.detectChanges();
     }
   }
@@ -186,6 +209,8 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
         } else {
           this.filePreviews.push(file.name);
         }
+        console.log(this.filePreviews);
+
       }
     }
   }
@@ -201,6 +226,14 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
     }
   }
 
+  removeFileFromRequestFiles(file: FileResponse) {
+    const index: number = this.requestFiles.indexOf(file);
+    if (index !== -1) {
+      this.requestFiles.splice(index, 1);
+      this.filesTobeDeleted.push(file.id)
+    }
+  }
+
   onPhoneInput(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.value.startsWith("+966")) {
@@ -211,5 +244,39 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
     }
     this.phoneNumber = input.value;
     this.editForm.controls["phoneNumber"].setValue(this.phoneNumber);
+  }
+
+
+  getFileType(mimeType: string): string {
+    for (const [key, value] of Object.entries(this.typeMapping)) {
+      if (mimeType.startsWith(key)) {
+        return value;
+      }
+    }
+    return 'unknown';
+  }
+
+  updateServiceRequst() {
+    console.log(this.uploadedFiles);
+    console.log(this.filesTobeDeleted);
+
+    const formData = new FormData();
+
+    const updatedRequest = new UpdateServiceRequest({
+      filesToBeDeletedIds: this.filesTobeDeleted
+    });
+
+    formData.append(
+      'updatedRequest',
+      new Blob([JSON.stringify(updatedRequest)], { type: 'application/json' })
+    );
+  
+    if (this.uploadedFiles && this.uploadedFiles.length > 0) {
+      this.uploadedFiles.forEach((file) => {
+        formData.append(`filesToBeUploaded`, file, file.name);
+      });
+    }
+    this.requestService.updateRequestService(this.request?.requestId ||"", formData)
+  
   }
 }

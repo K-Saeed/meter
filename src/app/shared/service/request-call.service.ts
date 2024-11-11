@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Product } from "src/app/core/components/products/models/product.model";
 import { RequestResponseDto } from "src/app/core/components/service-requests/models/request-table.model";
-import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -48,4 +47,9 @@ export class RquestCallService {
     return this.http.put<void>(url, null, { params: { status } });
   }
 
+  updateRequestService(id:string ,updatedRequest:FormData) {
+    const url = `/api/admin/request/${id}/update-service-request-with-files`;
+
+    return this.http.put<void>(url, updatedRequest);
+  }
 }
