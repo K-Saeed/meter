@@ -47,8 +47,8 @@ export class RquestCallService {
     return this.http.put<void>(url, null, { params: { status } });
   }
 
-  updateRequestService(id:string ,updatedRequest:FormData) {
-    const url = `/api/admin/request/${id}/update-service-request-with-files`;
+  updateRequest(id:string ,updatedRequest:FormData) {
+    const url = `/api/request/update/${id}`;
 
     return this.http.put<void>(url, updatedRequest);
   }

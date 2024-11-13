@@ -47,9 +47,9 @@ export class RequestService {
     }
   }
 
-  updateRequestService(id: string, updatedRequest:FormData) {
+  updateRequest(id: string, updatedRequest:FormData) {
     
-    this.requestCall.updateRequestService(id, updatedRequest).subscribe({
+    this.requestCall.updateRequest(id, updatedRequest).subscribe({
       next: (res) => {
         console.log(res);
       },

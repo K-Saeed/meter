@@ -16,7 +16,7 @@ import { ConsolationModalComponent } from "./consolation-modal/consolation-modal
 import { RequestModalComponent } from "./request-modal/request-modal.component";
 import { FileResponse } from "../models/file-response";
 import { RequestService } from "../services/request.service";
-import { UpdateServiceRequest } from "../models/update-request-service.model";
+import { UpdateConsultationRequestDto, UpdateJobRequestDto, UpdateRequestDto, UpdateRequestServiceDto } from "../models/update-request-dto.model";
 
 declare var bootstrap: any;
 
@@ -114,6 +114,9 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["request"] && this.request) {
+      console.log(this.request);
+      console.log(this.request?.type);
+      
       this.populateForm();
       this.openModal();
     }
@@ -159,6 +162,18 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
     }
   }
 
+  getGroup(groupName: string): FormGroup {
+    return this.editForm.get(groupName) as FormGroup;
+  }
+
+  getControl(controlName: string) {
+    return this.editForm.get(controlName);
+  }
+
+  getNestedControl(group: string, control: string) {
+    return this.getGroup(group).get(control);
+  }
+
   openModal() {
     // // const modalElement = new bootstrap.Modal(this.editModal.nativeElement);
     // modalElement.show();
@@ -170,22 +185,80 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    if (this.editForm.invalid) {
+
+    /*if (this.editForm.invalid) {
       alert("Please complete all required fields");
       return;
-    }
+    }*/
+    /*      const formData = {
+            ...this.editForm.value,
+            jobData: this.jobModalComponent?.getFormData(),
+            consolationData: this.consolationModalComponent?.getFormData(),
+            // requestServiceData: this.requestModalComponent?.getFormData(),
+          };
+      
+          this.formDataService.updateRequest(formData).subscribe(
+            (response) => console.log("Request updated successfully!", response),
+            (error) => console.error("Error updating request:", error)
+          );*/
 
-    const formData = {
-      ...this.editForm.value,
-      jobData: this.jobModalComponent?.getFormData(),
-      consolationData: this.consolationModalComponent?.getFormData(),
-      // requestServiceData: this.requestModalComponent?.getFormData(),
-    };
+    const formData = new FormData();
 
-    this.formDataService.updateRequest(formData).subscribe(
-      (response) => console.log("Request updated successfully!", response),
-      (error) => console.error("Error updating request:", error)
+    const updatedRequest = new UpdateRequestDto({
+      // requestType: this.getControl('type')?.value,
+      title: this.getControl('title')?.value,
+      description: this.getControl('description')?.value,
+      filesToBeDeletedIds: this.filesTobeDeleted,
+
+      consultationRequestDto: this.request?.type === 'Consolation'? new UpdateConsultationRequestDto({
+        type: this.getNestedControl('consolation', 'consolationType')?.value,
+        applicationName: this.getNestedControl('consolation', 'applicantName')?.value,
+        phoneNumber: this.getControl('phoneNumber')?.value,
+        city: this.getControl('city')?.value,
+        region:this.getControl('region')?.value,
+        neighborhood: this.getControl('neighborhood')?.value,
+      }):undefined,
+
+      jobRequestDto:this.request?.type === 'Engineering Job'? new UpdateJobRequestDto({
+        certificateType: this.getNestedControl('job', 'certificateType')?.value,
+        specialization: this.getNestedControl('job', 'specialization')?.value,
+        experienceYears: this.getNestedControl('job', 'experiences')?.value,
+        experienceDesc: this.getNestedControl('job', 'experiences')?.value,
+        workCity: this.getNestedControl('job', 'city')?.value,
+        email: this.getNestedControl('job', 'email')?.value,
+        name: this.getNestedControl('job', 'name')?.value,
+        phoneNumber: this.getControl('phoneNumber')?.value,
+      }):undefined,
+
+      requestServiceDto:this.request?.type === 'Request Service'? new UpdateRequestServiceDto({
+        pricingPurpose: this.getNestedControl('request', 'pricing')?.value,
+        certificateType: this.getNestedControl('request', 'certificateType')?.value,
+        surveyReportNum: this.getNestedControl('request', 'surveyReportNumber')?.value,
+        city: this.getNestedControl('request', 'city')?.value,
+        pieceNum: this.getNestedControl('request', 'pieceNumber')?.value,
+        chartNum: this.getNestedControl('request', 'chartNumber')?.value,
+        applicationName: this.getNestedControl('request', 'applicantName')?.value,
+        agencyNum: this.getNestedControl('request', 'agencyNumber')?.value,
+        idNumber: this.getNestedControl('request', 'id')?.value,
+        phoneNumber: this.getControl('phoneNumber')?.value,
+        region:this.getControl('region')?.value,
+      }):undefined,
+    });
+
+    console.log(updatedRequest);
+    
+
+    formData.append(
+      'updateRequestDto',
+      new Blob([JSON.stringify(updatedRequest)], { type: 'application/json' })
     );
+
+    if (this.uploadedFiles && this.uploadedFiles.length > 0) {
+      this.uploadedFiles.forEach((file) => {
+        formData.append(`request-files`, file, file.name);
+      });
+    }
+    this.requestService.updateRequest(this.request?.requestId || "", formData)
   }
 
   onFilesSelected(event: Event) {
@@ -256,27 +329,4 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
     return 'unknown';
   }
 
-  updateServiceRequst() {
-    console.log(this.uploadedFiles);
-    console.log(this.filesTobeDeleted);
-
-    const formData = new FormData();
-
-    const updatedRequest = new UpdateServiceRequest({
-      filesToBeDeletedIds: this.filesTobeDeleted
-    });
-
-    formData.append(
-      'updatedRequest',
-      new Blob([JSON.stringify(updatedRequest)], { type: 'application/json' })
-    );
-  
-    if (this.uploadedFiles && this.uploadedFiles.length > 0) {
-      this.uploadedFiles.forEach((file) => {
-        formData.append(`filesToBeUploaded`, file, file.name);
-      });
-    }
-    this.requestService.updateRequestService(this.request?.requestId ||"", formData)
-  
-  }
 }
