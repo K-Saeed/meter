@@ -1,3 +1,5 @@
+import { FileResponse } from "../../service-requests/models/file-response";
+
 export class SellerDetails {
   facilityActivity!: string;
   serviceDescription!: string;
@@ -13,4 +15,6 @@ export class SellerDetails {
   latitude!: string;
   longitude!: string;
   serviceProvider!: string;
+  userFiles: FileResponse[] = [];
+
 }
