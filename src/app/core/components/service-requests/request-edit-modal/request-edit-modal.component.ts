@@ -114,8 +114,10 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["request"] && this.request) {
-      console.log(this.request);
-      console.log(this.request?.type);
+      // console.log(this.uploadedFiles);
+      
+      // console.log(this.request);
+      // console.log(this.request?.type);
       
       this.populateForm();
       this.openModal();
@@ -157,6 +159,7 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
 
       this.filesTobeDeleted = [];
       this.uploadedFiles = [];
+      this.filePreviews = [];
 
       this.cdr.detectChanges();
     }
@@ -234,7 +237,7 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
         pricingPurpose: this.getNestedControl('request', 'pricing')?.value,
         certificateType: this.getNestedControl('request', 'certificateType')?.value,
         surveyReportNum: this.getNestedControl('request', 'surveyReportNumber')?.value,
-        city: this.getNestedControl('request', 'city')?.value,
+        city: this.getControl('city')?.value,
         pieceNum: this.getNestedControl('request', 'pieceNumber')?.value,
         chartNum: this.getNestedControl('request', 'chartNumber')?.value,
         applicationName: this.getNestedControl('request', 'applicantName')?.value,
@@ -245,7 +248,7 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
       }):undefined,
     });
 
-    console.log(updatedRequest);
+    // console.log(updatedRequest);
     
 
     formData.append(
@@ -282,7 +285,7 @@ export class RequestEditModalComponent implements OnInit, OnChanges {
         } else {
           this.filePreviews.push(file.name);
         }
-        console.log(this.filePreviews);
+        // console.log(this.filePreviews);
 
       }
     }
