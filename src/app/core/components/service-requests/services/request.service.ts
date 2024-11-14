@@ -18,7 +18,7 @@ export class RequestService {
   lastStatus!: string | null;
   lastType!: string | null;
 
-  constructor(private requestCall: RquestCallService) {}
+  constructor(private requestCall: RquestCallService) { }
 
   private retrieveRequestsList(type: string | null, status: string | null): Observable<RequestResponseDto[]> {
     return this.requestCall.getAllRequest(type, status).pipe(
@@ -45,6 +45,18 @@ export class RequestService {
     } else {
       return of(this.requestsSubject.value);
     }
+  }
+
+  updateRequest(id: string, updatedRequest:FormData) {
+    
+    this.requestCall.updateRequest(id, updatedRequest).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    })
   }
 
   setStatus(status: string | null): void {

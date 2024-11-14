@@ -1,11 +1,19 @@
 // form-data.service.ts
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormDataService {
+
+  constructor(private http: HttpClient) {}
+
+  updateRequest(data: any): Observable<any> {  // Add the Observable return type here
+    return this.http.post('/api/updateRequest', data); // Return the Observable
+  }
+
   private selectedFormType = new BehaviorSubject<string | null>(null);
   private formData = {
     form1: null,

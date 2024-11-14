@@ -1,17 +1,3 @@
-<!-- <div class="modal fade" #editModal id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <form [formGroup]="editForm">
-    <div class="modal-dialog">
-      <div class="modal-content d-flex">
-        <div class="modal-header p-2 z-1">
-          <h1 class="modal-title" id="exampleModalLabel">Edit Request</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body d-flex flex-wrap gap-3 mt-2">
-          <div class="d-flex flex-column" style="gap: 2rem">
-            <div class="position-relative input-container">
-              <label for="title" class="position-absolute label-style">Type of Activity</label>
-              <input formControlName="type" type="text" id="title" class="input-style" [disabled]="true" />
-            </div> -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form [formGroup]="editForm">
     <div class="modal-dialog">
@@ -24,50 +10,54 @@
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
               <label for="Type" class="position-absolute label-style">Type of Activity</label>
-              <input type="text" id="Type" disabled class="input-style" />
+              <input formControlName="type" type="text" id="Type" class="input-style" [attr.disabled]="true" />
             </div>
           </div>
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
               <label for="title" class="position-absolute label-style">Request Title</label>
-              <input type="text" id="title" class="input-style" placeholder="Enter Request Title" />
+              <input formControlName="title" type="text" id="title" class="input-style"
+                placeholder="Enter Request Title" />
             </div>
 
           </div>
         </div>
-        <!-- <div class="modal-body d-flex flex-wrap gap-3 mt-2"> -->
-        <app-job-modal *ngIf="request?.type === 'Engineering Job'" [request]="request"></app-job-modal>
-        <app-request-modal *ngIf="request?.type === 'Request Service'" [request]="request"></app-request-modal>
-        <app-consolation-modal *ngIf="request?.type === 'Consolation'" [request]="request"></app-consolation-modal>
+        <app-job-modal formGroupName="job" *ngIf="request?.type === 'Engineering Job'" [job]="request?.jobRequestDto"
+          [form]="this.editForm"></app-job-modal>
+        <app-request-modal formGroupName="request" *ngIf="request?.type === 'Request Service'"
+          [requestService]="request?.requestServiceDto" [form]="this.editForm"></app-request-modal>
+        <app-consolation-modal formGroupName="consolation" *ngIf="request?.type === 'Consolation'"
+          [consolation]="request?.consultationRequestDto" [form]="this.editForm"></app-consolation-modal>
         <div class="d-flex my-2">
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
               <label for="Neighborhood" class="position-absolute label-style">Neighborhood</label>
               <input type="text" id="Neighborhood" placeholder="Enter Neighborhood" class="input-style"
-                formControlName="Neighborhood" />
+                formControlName="neighborhood" />
             </div>
             <div class="position-relative input-container">
               <label for="Region" class="position-absolute label-style">Region</label>
-              <input type="text" id="Region" placeholder="Enter Region" class="input-style" formControlName="Region" />
+              <input type="text" id="region" placeholder="Enter Region" class="input-style" formControlName="region" />
             </div>
             <div class="position-relative input-container">
               <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
               <div class="input-wrapper">
                 <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
-                <input type="text" id="phone" class="input-style" [value]="phoneNumber" (input)="onPhoneInput($event)"
-                  style="padding-left: 2.5rem" />
+                <input formControlName="phoneNumber" type="text" id="phone" class="input-style" [value]="phoneNumber"
+                  (input)="onPhoneInput($event)" style="padding-left: 2.5rem" />
               </div>
             </div>
           </div>
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
               <label for="City" class="position-absolute label-style">City</label>
-              <input type="text" id="City" placeholder="Enter City" class="input-style" formControlName="City" />
+              <input formControlName="city" type="text" id="City" placeholder="Enter City" class="input-style"
+                formControlName="city" />
             </div>
             <div class="position-relative input-container">
               <label for="Location" class="position-absolute label-style">Location</label>
               <img src="../../../../../../../assets/img/location.svg" alt="" srcset="" class="calendar-icon" />
-              <input type="text" id="Location" placeholder="Enter City" class="input-style"
+              <input formControlName="location" type="text" id="Location" placeholder="Enter City" class="input-style"
                 style="padding-left: 40px" />
             </div>
 
@@ -75,11 +65,11 @@
         </div>
         <div class="position-relative input-container my-1 mx-2">
           <label for="title" class="position-absolute label-style">Description of Services</label>
-          <textarea type="text" id="title" placeholder="Enter Description of Services"
+          <textarea formControlName="description" type="text" id="title" placeholder="Enter Description of Services"
             class="input-style w-100 overflow-hidden" style="height: 85px"></textarea>
         </div>
         <div class="position-relative input-container my-1 boder-style d-flex flex-row gap-2 mx-2">
-          <div *ngIf="!uploadedFiles.length"
+          <div *ngIf="!uploadedFiles.length && !requestFiles.length"
             class="upload-instructions d-flex flex-column justify-content-center align-items-center gap-2">
             <img src="../../../../../../../assets/img/document-upload.svg" alt="" class="w-25" />
             <h2 class="m-0">Click to Upload</h2>
@@ -88,36 +78,38 @@
 
           <input type="file" name="file" multiple (change)="onFilesSelected($event)" />
 
+          <div class="file-container d-flex flex-wrap gap-2 p-2">
+            <div *ngFor="let file of requestFiles" class="file-item position-relative">
+              <button (click)="removeFileFromRequestFiles(file)" class="close-button position-absolute ">×</button>
+
+              <ng-container [ngSwitch]="getFileType(file.fileType)">
+                <img *ngSwitchCase="'image'" [src]="file.filePath" [alt]="file.fileName" class="file-preview-image" />
+                <img *ngSwitchCase="'pdf'" class="file-preview-image" src="/assets/img/pdf.svg">
+                <img *ngSwitchCase="'text'" class="file-preview-image" src="/assets/img/txt.svg">
+                <img *ngSwitchCase="'document'" class="file-preview-image" src="/assets/img/doc.svg">
+                <img *ngSwitchDefault class="file-preview-image" src="/assets/img/unknown.svg">
+              </ng-container>
+
+            </div>
+
+          </div>
+
           <div *ngFor="let preview of filePreviews; let i = index"
             class="uploaded-file-preview d-flex align-items-center position-relative">
-            <img *ngIf="isImageFile(uploadedFiles[i])" [src]="preview" alt="Uploaded Image"
-              class="file-preview-image" />
-            <!-- <img *ngIf="preview === 'assets/file-icon.png'" [src]="preview" alt="File Icon"
-                                  class="file-preview-image" /> -->
 
-            <p
-              *ngIf="!isImageFile(uploadedFiles[i]) && preview !== 'assets/pdf-icon.png' && preview !== 'assets/file-icon.png'">
-              {{ uploadedFiles[i].name }}
-              <button (click)="removeFile(i)" class="close-button position-absolute ">×</button>
+            <button (click)="removeFile(i)" class="close-button position-absolute ">×</button>
+
+            <img *ngIf="isImageFile(uploadedFiles[i])" [src]="preview" alt="Uploaded Image" class="file-preview-image" />
+
+            <img *ngIf="!isImageFile(uploadedFiles[i])" src="/assets/img/unknown.svg" class="file-preview-image">
           </div>
         </div>
-        <!-- </div> -->
-        <!-- </div>
 
-          <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
-            <button type="button" class="reject-btn" data-bs-toggle="modal">Cancel</button>
-            <button type="submit" class="approve-btn" data-bs-toggle="modal">Save</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
-</div> -->
         <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
           <button type="button" class="reject-btn" data-bs-toggle="modal">
             Cancel
           </button>
-          <button type="submit" class="approve-btn" data-bs-toggle="modal">
+          <button type="submit" class="approve-btn" data-bs-toggle="modal" (click)="onSubmit()">
             Save
           </button>
         </div>
