@@ -48,7 +48,7 @@ export class RquestCallService {
   }
 
   updateRequest(id:string ,updatedRequest:FormData) {
-    const url = `/api/request/update/${id}`;
+    const url = `/api/admin/request/update/${id}`;
 
     return this.http.put<void>(url, updatedRequest);
   }
