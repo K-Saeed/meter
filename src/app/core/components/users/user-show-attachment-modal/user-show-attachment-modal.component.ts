@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { UserTableDto } from '../models/user-table.model';
 
 @Component({
   selector: 'app-user-show-attachment-modal',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
 })
 // implements OnInit()
 export class UserShowAttachmentModalComponent {
+  @Input() user?: UserTableDto;
 
 }
