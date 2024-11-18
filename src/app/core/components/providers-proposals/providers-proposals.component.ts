@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./providers-proposals.component.css']
 })
 export class ProvidersProposalsComponent {
+  searchTerm: string = '';
 
+  handleSearch(term: string) {
+    this.searchTerm = term;
+  }
 }

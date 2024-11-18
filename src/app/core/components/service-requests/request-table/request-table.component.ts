@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { RequestService } from '../services/request.service';
 import { combineLatest, Subscription } from 'rxjs';
 import { RequestResponseDto } from '../models/request-table.model';
@@ -9,6 +9,9 @@ import { RequestResponseDto } from '../models/request-table.model';
   styleUrls: ['./request-table.component.css']
 })
 export class RequestTableComponent implements OnInit, OnDestroy {
+  @Input() searchTerm: string = '';
+  filteredRequests: RequestResponseDto[] = [];
+
   selectAll: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 4;
@@ -27,7 +30,7 @@ export class RequestTableComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private cdr: ChangeDetectorRef
   ) {}
- 
+
   ngOnInit() {
     this.statusTypeSubscription = combineLatest([
       this.requestService.status$,
@@ -39,15 +42,21 @@ export class RequestTableComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
+      this.filterRequests();
+    }
+  }
+
   ngOnDestroy(): void {
-    if(this.statusTypeSubscription){
+    if (this.statusTypeSubscription) {
       this.statusTypeSubscription.unsubscribe();
     }
   }
 
   toggleAll(event: Event) {
     event.preventDefault();
-    this.requests.forEach(request => request.selected = this.selectAll);
+    this.requests.forEach(request => (request.selected = this.selectAll));
   }
 
   checkIfAllSelected() {
@@ -59,10 +68,32 @@ export class RequestTableComponent implements OnInit, OnDestroy {
     this.checkIfAllSelected();
   }
 
-  get paginatedRequests() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return this.requests.slice(start, end);
+  getRequestList() {
+    this.requestService.getRequestsList(this.type, this.status).subscribe({
+      next: (res) => {
+        this.requests = res;
+        this.filterRequests();
+        this.updatePagination();
+        this.cdr.detectChanges();
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    });
+  }
+
+  filterRequests() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredRequests = this.requests.filter((request) =>
+      request.requestId.toLowerCase().includes(term)
+    );
+    this.updatePagination();
+  }
+
+  updatePagination() {
+    this.totalPages = Math.ceil(this.filteredRequests.length / this.itemsPerPage);
+    this.startItemIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
+    this.endItemIndex = Math.min(this.currentPage * this.itemsPerPage, this.filteredRequests.length);
   }
 
   setPage(page: number, event: Event) {
@@ -74,23 +105,10 @@ export class RequestTableComponent implements OnInit, OnDestroy {
     this.updatePagination();
   }
 
-  getRequestList() {
-    this.requestService.getRequestsList(this.type, this.status).subscribe({
-      next: (res) => {
-        this.requests = res;
-        this.updatePagination();
-        this.cdr.detectChanges();
-      },
-      error: (e) => {
-        console.log(e);
-      }
-    });
-  }
-
-  updatePagination() {
-    this.totalPages = Math.ceil(this.requests.length / this.itemsPerPage);
-    this.startItemIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
-    this.endItemIndex = Math.min(this.currentPage * this.itemsPerPage, this.requests.length);
+  get paginatedRequests() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredRequests.slice(start, end);
   }
 
   setRequestId(requestId: string | undefined) {
@@ -100,7 +118,7 @@ export class RequestTableComponent implements OnInit, OnDestroy {
 
   setRequest() {
     this.request = this.requests.find(request => request.requestId === this.selectedRequestId);
-      }
+  }
 
   getPagination(): number[] {
     const totalPages = this.totalPages;

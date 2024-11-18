@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-request-action',
@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./request-action.component.css']
 })
 export class RequestActionComponent {
+  searchTerm: string = '';
 
+  @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
+
+  applySearch() {
+    this.searchChanged.emit(this.searchTerm);
+  }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ProposalResponse } from '../models/porposal-table.model';
 import { ProposalService } from '../services/porposal.service';
@@ -9,6 +9,9 @@ import { ProposalService } from '../services/porposal.service';
   styleUrls: ['./proposal-table.component.css']
 })
 export class ProposalTableComponent implements OnInit, OnDestroy {
+  @Input() searchTerm: string = ''; // Input for the request ID to search
+
+  filteredProposals: ProposalResponse[] = []; // Store proposals filtered by requestId
   selectAll: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 4;
@@ -33,33 +36,39 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
+      this.filterProposals();
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.statusSubscription) {
       this.statusSubscription.unsubscribe();
     }
   }
 
-  toggleAll(event: Event) {
+  toggleAll(event: Event): void {
     event.preventDefault();
-    this.proposalList.forEach(proposal => proposal.selected = this.selectAll);
+    this.filteredProposals.forEach(proposal => (proposal.selected = this.selectAll));
   }
 
-  checkIfAllSelected() {
-    this.selectAll = this.proposalList.every(proposal => proposal.selected);
+  checkIfAllSelected(): void {
+    this.selectAll = this.filteredProposals.every(proposal => proposal.selected);
   }
 
-  toggleProposal(proposal: ProposalResponse) {
+  toggleProposal(proposal: ProposalResponse): void {
     proposal.selected = !proposal.selected;
     this.checkIfAllSelected();
   }
 
-  get paginatedProposals() {
+  get paginatedProposals(): ProposalResponse[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.proposalList.slice(start, end);
+    return this.filteredProposals.slice(start, end);
   }
 
-  setPage(page: number, event: Event) {
+  setPage(page: number, event: Event): void {
     event.preventDefault();
     if (page < 1 || page > this.totalPages) {
       return;
@@ -67,33 +76,41 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
     this.currentPage = page;
     this.updatePagination();
   }
-  loadProposals(status: string | null) {
+
+  loadProposals(status: string | null): void {
     this.proposalService.getProposals(status).subscribe(
       (res: ProposalResponse[]) => {
         this.proposalList = res;
+        console.log('Loaded Proposals:', this.proposalList);
+        this.filterProposals();
         this.updatePagination();
         this.cdr.detectChanges();
       },
       (err: any) => {
-        console.error("Error fetching proposals:", err);
+        console.error('Error fetching proposals:', err);
       }
     );
   }
 
-
-  updatePagination() {
-    this.totalPages = Math.ceil(this.proposalList.length / this.itemsPerPage);
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filteredProposals.length / this.itemsPerPage);
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = 1;
+    }
     this.startItemIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
-    this.endItemIndex = Math.min(this.currentPage * this.itemsPerPage, this.proposalList.length);
+    this.endItemIndex = Math.min(this.currentPage * this.itemsPerPage, this.filteredProposals.length);
+
+    this.cdr.detectChanges();
   }
 
-  setProposalId(proposalId: string | undefined) {
+
+  setProposalId(proposalId: string | undefined): void {
     this.selectedProposalId = proposalId;
     this.setProposal();
   }
 
-  setProposal() {
-    this.proposal = this.proposalList.find(proposal => proposal.id === this.selectedProposalId);
+  setProposal(): void {
+    this.proposal = this.filteredProposals.find(proposal => proposal.id === this.selectedProposalId);
   }
 
   getPagination(): number[] {
@@ -131,5 +148,18 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
       }
     }
     return pagination;
+  }
+
+  filterProposals(): void {
+    const term = this.searchTerm.trim();
+    console.log('Filtering proposals by requestId:', term);
+
+    this.filteredProposals = this.proposalList.filter(proposal =>
+      proposal.requestDetails?.requestId.includes(term)
+    );
+
+    console.log('Filtered Proposals:', this.filteredProposals);
+    this.updatePagination();
+    this.cdr.detectChanges();
   }
 }
