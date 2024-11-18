@@ -94,9 +94,15 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
 
   updatePagination(): void {
     this.totalPages = Math.ceil(this.filteredProposals.length / this.itemsPerPage);
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = 1;
+    }
     this.startItemIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
     this.endItemIndex = Math.min(this.currentPage * this.itemsPerPage, this.filteredProposals.length);
+
+    this.cdr.detectChanges();
   }
+
 
   setProposalId(proposalId: string | undefined): void {
     this.selectedProposalId = proposalId;
