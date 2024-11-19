@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ChatRoom } from '../models/conversation-table.model';
+import { Message } from '../models/message.model';
 
 @Component({
   selector: 'app-conversation-chat-modal',
@@ -6,6 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./conversation-chat-modal.component.css']
 })
 export class ConversationChatModalComponent {
+  @Input() chatRoom!:ChatRoom;
+  @Input() messages!:Message[];
+
   activeLinks: string[] = [];
 
   toggleLink(link: string, event: Event): void {
