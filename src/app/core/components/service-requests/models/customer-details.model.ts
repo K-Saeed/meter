@@ -3,4 +3,5 @@ export class RequestOwnerResponse {
   role!: string;
   name!: string;
   mobile!: string;
+
 }
