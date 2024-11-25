@@ -1,42 +1,34 @@
-<div class="d-flex flex-column gap-3 mx-2">
+<div *ngIf="chatRooms" class="d-flex flex-column gap-3 mx-2">
   <div class="d-flex flex-column">
     <div class="message-style d-flex align-items-center gap-3 border-bottom">
       <h3 class="m-0">Messages</h3>
-      <span>12</span>
+      <span>{{chatRooms.length}}</span>
+      <h3 class="m-0">|</h3>
+      <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#filterChatDialog">
+        <span class="m-0">Filter & Send</span>
+      </button>
     </div>
-    <div
-      class="search-container d-flex align-items-center position-relative my-3 mx-auto"
-    >
+    <app-send-message-to-all></app-send-message-to-all>
+    <div class="search-container d-flex align-items-center position-relative my-3 mx-auto">
       <span class="search-icon p-2">
-        <img
-          src="../../../../../assets/img/search-normal.svg"
-          alt="Search Icon"
-        />
+        <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
       </span>
-      <input
-        type="text"
-        class="form-control search-input"
-        placeholder="Search in employees"
-      />
+      <input type="text" class="form-control search-input" placeholder="Search in employees" />
     </div>
   </div>
-  <div
-    class="d-flex flex-column gap-4 scroll"
-    style="margin: 0px 20px; max-height: 455px; overflow: auto"
-  >
-    <div
-      class="profile-img d-flex justify-content-between"
-      *ngFor="let profile of profiles"
-    >
+  <div class="d-flex flex-column gap-4 scroll" style="margin: 0px 20px; max-height: 455px; overflow: auto">
+    <div class="profile-img d-flex justify-content-between" *ngFor="let chatRoom of chatRooms"
+      (click)="selectChatRoom(chatRoom)">
       <div class="d-flex gap-3">
-        <img [src]="profile.imageUrl" [alt]="profile.name" />
+        <img [src]="chatRoom.customerProfile.logoPath" [alt]="chatRoom.customerProfile.name"
+          onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';" />
         <div class="profile-info d-flex flex-column">
-          <h3 class="m-0">{{ profile.name }}</h3>
-          <p>{{ profile.message }}</p>
-          <span class="m-0">{{ profile.role }}</span>
+          <h3 class="m-0">{{ chatRoom.customerProfile.name }}</h3>
+          <p>{{ chatRoom.lastMessage }}</p>
+          <span class="m-0">{{ chatRoom.customerProfile.role }}</span>
         </div>
       </div>
-      <h4 class="m-0">{{ profile.time }}</h4>
+      <h4 class="m-0">{{ chatRoom.lastMessageTimestamp }}</h4>
     </div>
   </div>
 </div>

@@ -35,12 +35,21 @@ export class ConversationService {
     return this.http.get<[]>(apiUrl);
   }
 
-  getMessagesByChatId(id:string): Observable<Message[]> {
+  getMessagesByChatId(id: string): Observable<Message[]> {
     const encodedChatRoomId = encodeURIComponent(id);
     const apiUrl = `/api/chat/messages/${encodedChatRoomId}`;
     return this.http.get<Message[]>(apiUrl);
   }
 
+  getAdminChats(): Observable<ChatRoom[]> {
+    const apiUrl = `/api/admin/chat/all-chats`;
+    return this.http.get<ChatRoom[]>(apiUrl);
+  }
+
+  sendMessageToAll(message:FormData): Observable<[]> {
+    const apiUrl = `/api/admin/chat/send/message`;
+    return this.http.post<[]>(apiUrl, message);
+  }
 
 
 }

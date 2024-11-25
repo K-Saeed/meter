@@ -6,6 +6,6 @@ export interface Message {
     recipientEmail: string;
     messageType: string;
     content: string;
-    sentTime: Date;
+    sentTime: Date | null;
   }
   
