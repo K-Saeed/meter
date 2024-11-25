@@ -82,8 +82,7 @@
                             </li>
                         </ul>
                     </div>
-
-                    <div class="chat-bar">
+                    <div *ngIf="!isLoading" class="chat-bar">
                         <div class="input-group">
                             <input *ngIf="!fileToBeUploaded" type="text" class="form-control"
                                 placeholder="Type a message..." [(ngModel)]="message" />
@@ -98,6 +97,9 @@
                             <button class="btn" (click)="sendMessage()">Send</button>
                         </div>
                     </div>
+                    <div *ngIf="isLoading" class="spinner-container">
+                        <div class="spinner"></div>
+                      </div>
                 </div>
             </div>
         </div>

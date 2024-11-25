@@ -113,13 +113,18 @@ export class SendMessageToAllComponent {
     this.send(formData)
   }
 
+  isLoading = false;
+
   send(formData: FormData) {
+    this.isLoading = true;
     this.conversationService.sendMessageToAll(formData).subscribe({
       next: (n) => {
+        this.isLoading = false;
         this.reloadPage();
       },
       error: (e) => {
         console.log(e);
+        this.isLoading = false;
       }
     })
   }

@@ -23,7 +23,6 @@ export class ChatComponent {
   getAdminChats() {
     this.conversationService.getAdminChats().subscribe({
       next: (n) => {
-        console.log(n);
         this.chatRooms = n;
       },
       error: (e) => {
@@ -44,7 +43,6 @@ export class ChatComponent {
     this.selectedChatRoom = chatRoom;
     this.conversationService.getMessagesByChatId(chatRoom.id).subscribe({
       next:(n)=>{
-        console.log(n);
         this.messages = n;
       },
       error:(e)=>{
