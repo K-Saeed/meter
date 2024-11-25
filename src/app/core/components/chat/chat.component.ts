@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ConversationService } from 'src/app/shared/service/conversation.service';
+import { ChatRoom } from '../conversation/models/conversation-table.model';
+import { Message } from '../conversation/models/message.model';
 
 @Component({
   selector: 'app-chat',
@@ -7,4 +10,45 @@ import { Component } from '@angular/core';
 })
 export class ChatComponent {
 
+  chatRooms!: ChatRoom[];
+  selectedChatRoom!: ChatRoom;
+  messages!:Message[];
+
+  constructor(private conversationService: ConversationService) { }
+
+  ngOnInit(): void {
+    this.getAdminChats();
+  }
+
+  getAdminChats() {
+    this.conversationService.getAdminChats().subscribe({
+      next: (n) => {
+        this.chatRooms = n;
+      },
+      error: (e) => {
+        console.log(e);
+
+      }
+    })
+  }
+
+  onChatRoomSelected(chatRoom: ChatRoom): void {
+    if(chatRoom != this.selectedChatRoom){
+      this.selectedChatRoom = chatRoom;
+      this.getMessagesByChatId(chatRoom);
+    }
+  }
+
+  getMessagesByChatId(chatRoom: ChatRoom){    
+    this.selectedChatRoom = chatRoom;
+    this.conversationService.getMessagesByChatId(chatRoom.id).subscribe({
+      next:(n)=>{
+        this.messages = n;
+      },
+      error:(e)=>{
+        console.log(e);
+        
+      }
+    })
+  }
 }

@@ -1,4 +1,4 @@
 <div class="container">
-  <app-chat-lists class="lists border-end"></app-chat-lists>
-  <app-chat-msg class="messages"></app-chat-msg>
+  <app-chat-lists [chatRooms]="chatRooms" (chatRoomSelected)="onChatRoomSelected($event)" class="lists border-end"></app-chat-lists>
+  <app-chat-msg [chatRoom]="selectedChatRoom" [messages]="messages" class="messages"></app-chat-msg>
 </div>
