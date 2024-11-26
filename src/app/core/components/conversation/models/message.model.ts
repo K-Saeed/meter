@@ -5,7 +5,7 @@ export interface Message {
     longitude: number | null;
     recipientEmail: string;
     messageType: string;
-    content: string;
+    content: (string | ArrayBuffer | null);
     sentTime: Date | null;
   }
   

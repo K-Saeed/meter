@@ -14,7 +14,7 @@ export class ChatMsgComponent {
   @Input() chatRoom!: ChatRoom;
   @Input() messages!: Message[];
   message: string = '';
-  fileToBeUploaded!: File;
+  fileToBeUploaded!: File|null;
   filePreview!: (string | ArrayBuffer | null);
 
   maxFileSize = 25 * 1024 * 1024;
@@ -102,11 +102,13 @@ export class ChatMsgComponent {
       latitude: 37.7749,
       longitude: -122.4194,
       recipientEmail: 'recipient@example.com',
-      messageType: 'text',
-      content: this.message,
+      messageType: this.message === ''? 'image' :'text',
+      content: this.message === ''? this.filePreview :this.message,
       sentTime: null,
     };
     this.messages.push(newMessage);
-    this.message = '';
+    this.message='';
+    this.filePreview = null;
+    this.fileToBeUploaded = null;
   }
 }
