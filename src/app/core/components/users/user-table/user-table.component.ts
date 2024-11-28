@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { combineLatest, Subscription } from 'rxjs';
 import { UserTableDto } from '../models/user-table.model';
@@ -10,6 +10,9 @@ import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.s
   styleUrls: ['./user-table.component.css']
 })
 export class UserTableComponent implements OnInit, OnDestroy {
+  @Input() searchTerm: string = ''; // Input for search
+
+  filteredUsers: UserTableDto[] = []; // Filtered list to display
   selectAll: boolean = false;
   currentPage: number = 1;
   itemsPerPage: number = 4;
@@ -40,6 +43,12 @@ export class UserTableComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
+      this.filterUsers();
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.statusTypeSubscription) {
       this.statusTypeSubscription.unsubscribe();
@@ -62,12 +71,12 @@ export class UserTableComponent implements OnInit, OnDestroy {
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.userList.slice(start, end);
+    return this.filteredUsers.slice(start, end);
   }
 
   setPage(page: number, event: Event) {
     event.preventDefault();
-    const totalPages = Math.ceil(this.userList.length / this.itemsPerPage);
+    const totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
     if (page < 1 || page > totalPages) {
       return;
     }
@@ -78,12 +87,22 @@ export class UserTableComponent implements OnInit, OnDestroy {
     this.userService.getUsersList(this.role, this.status).subscribe(
       (res) => {
         this.userList = res;
+        this.filterUsers(); // Filter on load
         this.setPage(1, new Event(""));
         this.cdr.detectChanges(); // Manually trigger change detection
       },
       (err) => {
         console.log(err);
       }
+    );
+  }
+
+  filterUsers() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredUsers = this.userList.filter(user =>
+      user.name.toLowerCase().includes(term) || // Match by name
+      user.email.toLowerCase().includes(term) || // Match by email
+      user.mobile.toLowerCase().includes(term) // Match by phone
     );
   }
 
@@ -127,7 +146,7 @@ export class UserTableComponent implements OnInit, OnDestroy {
   }
 
   getPagination(): number[] {
-    const totalPages = Math.ceil(this.userList.length / this.itemsPerPage);
+    const totalPages = Math.ceil(this.filteredUsers.length / this.itemsPerPage);
     const maxVisiblePages = 4;
     const pagination: number[] = [];
 
@@ -162,5 +181,4 @@ export class UserTableComponent implements OnInit, OnDestroy {
     }
     return pagination;
   }
-
 }
