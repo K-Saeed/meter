@@ -1,4 +1,4 @@
-<div class="mx-3">
+<div *ngIf="notifications.length !=0" class="mx-3">
   <table class="table my-4">
     <thead class="table-light">
       <tr>
@@ -36,38 +36,38 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
+      <tr *ngFor="let notification of notifications">
         <th scope="row">
           <input
             type="checkbox"
-            [(ngModel)]="user.selected"
+
             (change)="checkIfAllSelected()"
           />
         </th>
         <td>
-          <h4 class="m-0">{{ user.id }}</h4>
+          <h4 class="m-0">"ID"</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.title }}</h4>
+          <h4 class="m-0">{{ notification.title }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.message }}</h4>
+          <h4 class="m-0">{{ notification.content }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.Recipients }}</h4>
+          <h4 class="m-0">{{ notification.receiverEmail }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.dateSent }}</h4>
+          <h4 class="m-0">"Date"</h4>
         </td>
         <td>
           <h4
             [ngClass]="{
-              green: user.status === 'Sent',
-              orange: user.status === 'Scheduled'
+              green: notification.status === 'sent',
+              orange: notification.status === 'Scheduled'
             }"
             class="m-0"
           >
-            {{ user.status }}
+            {{ notification.status }}
           </h4>
         </td>
         <td>

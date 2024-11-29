@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NotificationService } from 'src/app/shared/service/notification.service';
+import { NotificationDto } from '../models/notification.model';
 
 @Component({
   selector: 'app-notifications-table',
@@ -8,21 +10,45 @@ import { Component } from '@angular/core';
 export class NotificationsTableComponent {
   selectAll: boolean = false;
   users = [
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Consolation', status: 'Sent', selected: false },
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'MonGe Office', message: '"New features available..."',Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'MonGe Office', message: '"New features available..."',Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Consolation', status: 'Sent', selected: false },
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."',Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Consolation', status: 'Sent', selected: false },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'MonGe Office', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'MonGe Office', message: '"New features available..."', Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Consolation', status: 'Sent', selected: false },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
+    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
   ];
+
+  notifications: NotificationDto[] = [];
 
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
+
+  constructor(private notificationService: NotificationService) { }
+
+
+  ngOnInit(): void {
+    this.getAllNotifications();
+  }
+  getAllNotifications() {
+    this.notificationService.getAllNotifications().subscribe({
+      next: (n) => {
+        console.log(n);
+
+        this.notifications = n;
+        console.log(this.notifications);
+
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    })
+  }
+
 
   toggleAll(event: Event) {
     event.preventDefault();
