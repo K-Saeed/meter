@@ -24,7 +24,7 @@ export class NotificationsTableComponent {
   ];
 
   notifications: NotificationResponse[] = [];
-
+  selectedNotification!:NotificationResponse;
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
@@ -50,6 +50,9 @@ export class NotificationsTableComponent {
     })
   }
 
+  changeSelectedNotification(notification: NotificationResponse){
+    this.selectedNotification = notification;
+  }
 
   toggleAll(event: Event) {
     // event.preventDefault();

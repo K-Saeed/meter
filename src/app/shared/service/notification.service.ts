@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of, tap } from 'rxjs';
 import { NotificationResponse } from 'src/app/core/components/notifications/models/notification-response.model';
 import { NotificationDto } from 'src/app/core/components/notifications/models/notification.model';
 
@@ -8,6 +8,9 @@ import { NotificationDto } from 'src/app/core/components/notifications/models/no
   providedIn: 'root'
 })
 export class NotificationService {
+
+
+  private notificationCache: NotificationResponse[] | null = null;
 
   constructor(private http: HttpClient) { }
 
@@ -24,10 +27,13 @@ export class NotificationService {
     };
   }
 
-
   getAllNotifications(): Observable<NotificationResponse[]> {
-    const apiUrl = `/api/notification/all`;
-    return this.http.get<NotificationResponse[]>(apiUrl);
+    const apiUrl = `/api/notification/admin/all`;
+    if (this.notificationCache) {
+      return of(this.notificationCache);
+    }
+    return this.http.get<NotificationResponse[]>(apiUrl).pipe(
+      tap((response) => (this.notificationCache = response)))
   }
 
   sendNotificationToCategory(notification: NotificationDto, categories: string[]): Observable<[]> {

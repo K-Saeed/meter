@@ -54,7 +54,7 @@
           <h4 class="m-0">{{ notification.content }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ notification.receiverEmail }}</h4>
+          <h4 class="m-0">{{ notification.recipients }}</h4>
         </td>
         <td>
           <h4 class="m-0">{{notification.createdAt}}</h4>
@@ -79,6 +79,7 @@
               data-bs-target="#viewModal"
               src="../../../../assets/img/eye.svg"
               alt="View"
+              (click)="changeSelectedNotification(notification)"
             />
             <img
               class="cursor-pointer ps-2"
@@ -93,7 +94,7 @@
     </tbody>
   </table>
   <app-notifications-delete-modal></app-notifications-delete-modal>
-  <app-notifications-show-modal></app-notifications-show-modal>
+  <app-notifications-show-modal [notification]="selectedNotification"></app-notifications-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>
     <nav aria-label="Page navigation example">
