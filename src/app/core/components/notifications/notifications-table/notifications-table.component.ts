@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationService } from 'src/app/shared/service/notification.service';
 import { NotificationDto } from '../models/notification.model';
+import { NotificationResponse } from '../models/notification-response.model';
 
 @Component({
   selector: 'app-notifications-table',
@@ -22,7 +23,7 @@ export class NotificationsTableComponent {
     { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
   ];
 
-  notifications: NotificationDto[] = [];
+  notifications: NotificationResponse[] = [];
 
   currentPage: number = 1;
   itemsPerPage: number = 4;
@@ -51,18 +52,18 @@ export class NotificationsTableComponent {
 
 
   toggleAll(event: Event) {
-    event.preventDefault();
-    this.users.forEach(user => user.selected = this.selectAll);
+    // event.preventDefault();
+    // this.users.forEach(user => user.selected = this.selectAll);
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.users.every(user => user.selected);
+    // this.selectAll = this.users.every(user => user.selected);
   }
 
-  get paginatedUsers() {
+  get paginatedNotifications() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.users.slice(start, end);
+    return this.notifications.slice(start, end);
   }
 
   setPage(page: number, event: Event) {

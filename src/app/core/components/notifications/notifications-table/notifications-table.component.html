@@ -36,7 +36,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let notification of notifications">
+      <tr *ngFor="let notification of paginatedNotifications">
         <th scope="row">
           <input
             type="checkbox"
@@ -45,7 +45,7 @@
           />
         </th>
         <td>
-          <h4 class="m-0">"ID"</h4>
+          <h4 class="m-0">{{notification.id}}</h4>
         </td>
         <td>
           <h4 class="m-0">{{ notification.title }}</h4>
@@ -57,7 +57,7 @@
           <h4 class="m-0">{{ notification.receiverEmail }}</h4>
         </td>
         <td>
-          <h4 class="m-0">"Date"</h4>
+          <h4 class="m-0">{{notification.createdAt}}</h4>
         </td>
         <td>
           <h4
@@ -116,7 +116,7 @@
         <li
           class="page-item"
           *ngFor="
-            let page of [].constructor(Math.ceil(users.length / itemsPerPage));
+            let page of [].constructor(Math.ceil(notifications.length / itemsPerPage));
             let i = index
           "
           [class.active]="i + 1 === currentPage"
@@ -128,7 +128,7 @@
         <li
           class="page-item"
           [class.disabled]="
-            currentPage === Math.ceil(users.length / itemsPerPage)
+            currentPage === Math.ceil(notifications.length / itemsPerPage)
           "
         >
           <a

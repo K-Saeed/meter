@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { NotificationResponse } from 'src/app/core/components/notifications/models/notification-response.model';
 import { NotificationDto } from 'src/app/core/components/notifications/models/notification.model';
 
 @Injectable({
@@ -24,12 +25,12 @@ export class NotificationService {
   }
 
 
-  getAllNotifications(): Observable<NotificationDto[]> {
+  getAllNotifications(): Observable<NotificationResponse[]> {
     const apiUrl = `/api/notification/all`;
-    return this.http.get<NotificationDto[]>(apiUrl);
+    return this.http.get<NotificationResponse[]>(apiUrl);
   }
 
-  sendNotificationToCategory(notification: any, categories: string[]): Observable<[]> {
+  sendNotificationToCategory(notification: NotificationDto, categories: string[]): Observable<[]> {
     const apiUrl = `/api/notification/send-by-category`;
 
     const params = new HttpParams().set('categories', categories.join(','));
@@ -37,7 +38,7 @@ export class NotificationService {
     return this.http.post<[]>(apiUrl, notification, { params });
   }
 
-  sendNotificationToSpecificUsers(notification: any, emails: string[]): Observable<[]> {
+  sendNotificationToSpecificUsers(notification: NotificationDto, emails: string[]): Observable<[]> {
     const apiUrl = `/api/notification/send/users`;
 
     const params = new HttpParams().set('categories', emails.join(','));
