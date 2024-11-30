@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-customer',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-customer.component.css']
 })
 export class UserCustomerComponent {
+  @Input() parentForm!: FormGroup; // To extend the parent form
   dropdownOpen = false;
   selectedRole: string[] = [];
   phoneNumber: string = '+966';
@@ -19,6 +21,15 @@ export class UserCustomerComponent {
   ];
 
   selectedVisibility: string = '';
+
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
+    // Extend the parent form with customer-specific fields
+    this.parentForm.addControl('address', this.fb.control('', [Validators.required, Validators.minLength(5)]));
+    this.parentForm.addControl('city', this.fb.control('', Validators.required));
+    this.parentForm.addControl('neighborhood', this.fb.control('', Validators.required));
+  }
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;

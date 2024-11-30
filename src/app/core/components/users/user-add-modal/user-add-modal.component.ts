@@ -1,16 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-add-modal',
   templateUrl: './user-add-modal.component.html',
   styleUrls: ['./user-add-modal.component.css']
 })
-export class UserAddModalComponent {
+export class UserAddModalComponent implements OnInit {
   dropdownOpen = false;
-  selectedRole: string[] = [];
   phoneNumber: string = '+966';
   showPassword = false;
   showConfirmPassword = false;
+  userForm!: FormGroup;
+  selectedVisibility: string = '';
+  isOnNextStep: boolean = false; // Tracks whether we are on the next step for providers
 
   Role = [
     { name: 'Customer', selected: false },
@@ -18,33 +21,54 @@ export class UserAddModalComponent {
     { name: 'Merchant', selected: false },
   ];
 
-  selectedVisibility: string = '';
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.userForm = this.fb.group({
+      role: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      phone: [this.phoneNumber, [Validators.required, Validators.pattern(/^\+966\d{8,9}$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
+  }
 
   toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
 
-  updateSelectedRole() {
-    this.selectedRole = [this.selectedVisibility];
-    this.dropdownOpen = false; 
+  updateSelectedRole(role: string) {
+    this.selectedVisibility = role;
+    this.userForm.controls['role'].setValue(role);
+    this.dropdownOpen = false;
   }
 
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-
-  toggleConfirmPasswordVisibility() {
-    this.showConfirmPassword = !this.showConfirmPassword;
-  }
-
-  onPhoneInput(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (!input.value.startsWith('+966')) {
-      input.value = '+966';
+  goToNextStep() {
+    if (this.userForm.valid) {
+      this.isOnNextStep = true; // Move to the next step
+    } else {
+      const invalidFields = Object.keys(this.userForm.controls).filter(
+        field => this.userForm.controls[field].invalid
+      );
+      console.log('Invalid fields:', invalidFields); // Debugging
+      alert('Please fill out all required fields.');
     }
-    if (input.value.length > 13) {
-      input.value = input.value.slice(0, 13);
+  }
+
+
+  onSubmit() {
+    if (this.userForm.valid) {
+      console.log('Form Submitted:', this.userForm.value);
+      // Add your API call here to submit the data
+    } else {
+      console.log('Invalid Form');
     }
-    this.phoneNumber = input.value;
+  }
+
+  passwordMatchValidator(group: FormGroup): { mismatch: boolean } | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
   }
 }

@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, of } from "rxjs";
 import { tap } from "rxjs/operators";
 import { UserTableDto } from "../models/user-table.model";
 import { UserRquestCallService } from "src/app/shared/service/userRequest-call.service";
+import { SendOtp } from "../models/send-otp.model";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +18,7 @@ export class UserService {
   private usersSubject: BehaviorSubject<UserTableDto[]> = new BehaviorSubject<UserTableDto[]>([]);
   public users$: Observable<UserTableDto[]> = this.usersSubject.asObservable();
   private lastFetchTime?: number;
-
+  sendOtp!: SendOtp;
   constructor(private userRequest: UserRquestCallService) {}
 
   private retrieveUsersList(role: string | null, status: string | null): Observable<UserTableDto[]> {
@@ -58,4 +59,18 @@ export class UserService {
   getStatus(): string | null {
     return this.statusSubject.value;
   }
+
+
+  verifyPhoneNumber(mobile: string): void {
+    this.userRequest.sendOTP(mobile).subscribe({
+      next: (response: SendOtp) => {
+        this.sendOtp = response;
+        console.log('OTP sent successfully:', response);
+      },
+      error: (err) => {
+        console.error('Error sending OTP:', err);
+      },
+    });
+  }
+
 }

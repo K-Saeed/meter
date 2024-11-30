@@ -113,7 +113,7 @@ import { UserCustomerComponent } from './core/components/users/user-add-modal/us
 import { UserProviderComponent } from './core/components/users/user-add-modal/user-provider/user-provider.component';
 import { UserVerificationModalComponent } from './core/components/users/user-verification-modal/user-verification-modal.component';
 import { UserProviderModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-modal/user-provider-modal.component';
-import { UserProviderNextModalComponent } from './core/components/users/user-add-modal/user-provider-next-modal/user-provider-next-modal.component';
+import { UserProviderNextModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-next-modal/user-provider-next-modal.component';
 import { UserSellerNextModalComponent } from './core/components/users/user-add-modal/user-seller-next-modal/user-seller-next-modal.component';
 import { UserSellerModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-modal/user-seller-modal.component';
 import { UserSellerComponent } from './core/components/users/user-add-modal/user-seller/user-seller.component';
