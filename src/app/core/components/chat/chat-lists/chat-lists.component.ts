@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ConversationService } from 'src/app/shared/service/conversation.service';
+import { ChatRoom } from '../../conversation/models/conversation-table.model';
 
 @Component({
   selector: 'app-chat-lists',
@@ -6,62 +8,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./chat-lists.component.css']
 })
 export class ChatListsComponent {
-  profiles = [
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-    {
-      name: 'Mohamed MonGe',
-      message: 'Haha oh man 🔥',
-      role: 'Provider',
-      time: '12m',
-      imageUrl: '../../../../../assets/img/monge.png'
-    },
-  ];
+
+  @Input() chatRooms!:ChatRoom[];
+  @Output() chatRoomSelected = new EventEmitter<ChatRoom>();
+
+  selectChatRoom(chatRoom: ChatRoom) {
+    this.chatRoomSelected.emit(chatRoom);
+  }
+
 }

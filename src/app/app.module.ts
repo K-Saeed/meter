@@ -137,6 +137,7 @@ import { RequestEditModalComponent } from './core/components/service-requests/re
 import { RequestModalComponent } from './core/components/service-requests/request-edit-modal/request-modal/request-modal.component';
 import { ConsolationModalComponent } from './core/components/service-requests/request-edit-modal/consolation-modal/consolation-modal.component';
 import { JobModalComponent } from './core/components/service-requests/request-edit-modal/job-modal/job-modal.component';
+import { SendMessageToAllComponent } from './core/components/chat/send-message-to-all/send-message-to-all.component';
 
 
 @NgModule({
@@ -268,6 +269,7 @@ import { JobModalComponent } from './core/components/service-requests/request-ed
     RequestModalComponent,
     ConsolationModalComponent,
     JobModalComponent,
+    SendMessageToAllComponent,
   ],
   imports: [
     BrowserModule,

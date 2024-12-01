@@ -1,17 +1,17 @@
-<div class="mx-3">
+<div *ngIf="chatRooms" class="mx-3">
   <table class="table my-4">
     <thead class="table-light">
       <tr>
-        <th scope="col">
+        <!-- <th scope="col">
           <input
             type="checkbox"
             [(ngModel)]="selectAll"
             (change)="toggleAll($event)"
           />
-        </th>
-        <th scope="col" class="title-table">
+        </th> -->
+        <!-- <th scope="col" class="title-table">
           <p class="m-0">ID</p>
-        </th>
+        </th> -->
         <th scope="col" class="title-table">
           <p class="m-0">Service Provider Name</p>
         </th>
@@ -33,29 +33,31 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of paginatedUsers">
-        <th scope="row">
+      <tr *ngFor="let chatRoom of paginatedChatRooms">
+        <!-- <th scope="row">
           <input
             type="checkbox"
             [(ngModel)]="user.selected"
             (change)="checkIfAllSelected()"
           />
-        </th>
+        </th> -->
+        <!-- <td>
+          <h4 class="m-0">{{ chatroom.id }}</h4>
+        </td> -->
         <td>
-          <h4 class="m-0">{{ user.id }}</h4>
+          <h4 class="m-0">{{ chatRoom.providerProfile.name }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.customerName }}</h4>
+          <h4 class="m-0">{{ chatRoom.customerProfile.name }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ user.requestTitle }}</h4>
-        </td>
-        <td>
-          <h4 class="m-0">{{ user.dateSubmitted }}</h4>
+          <h4 class="m-0">{{ chatRoom.lastMessageTimestamp }}</h4>
         </td>
 
         <td>
-          <div class="">
+          <div class=""
+          (click)="getMessagesByChatId(chatRoom)"
+          >
             <!-- Actions Icons -->
             <img
               class="cursor-pointer pe-2"
@@ -69,7 +71,7 @@
       </tr>
     </tbody>
   </table>
-  <app-conversation-chat-modal></app-conversation-chat-modal>
+  <app-conversation-chat-modal [chatRoom]="selectedChatRoom" [messages]="messages"></app-conversation-chat-modal>
   <app-proposal-show-modal></app-proposal-show-modal>
   <div class="font d-flex align-items-center justify-content-between my-4">
     <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>
@@ -93,7 +95,7 @@
         <li
           class="page-item"
           *ngFor="
-            let page of [].constructor(Math.ceil(users.length / itemsPerPage));
+            let page of [].constructor(Math.ceil(chatRooms.length / itemsPerPage));
             let i = index
           "
           [class.active]="i + 1 === currentPage"
@@ -105,7 +107,7 @@
         <li
           class="page-item"
           [class.disabled]="
-            currentPage === Math.ceil(users.length / itemsPerPage)
+            currentPage === Math.ceil(chatRooms.length / itemsPerPage)
           "
         >
           <a
