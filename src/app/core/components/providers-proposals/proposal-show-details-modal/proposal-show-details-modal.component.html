@@ -6,15 +6,26 @@
       <span class="value">{{proposal?.providerName}}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Email:</span>
-      <span class="value">{{proposal?.providerEmail}}</span>
-    </h3>
-    <h3 class="d-flex justify-content-between m-0">
       <span class="label">Phone:</span>
       <span class="value">{{proposal?.providerPhone}}</span>
     </h3>
   </div>
 </div>
+
+<div class="title d-flex align-items-start gap-2 flex-column mt-4">
+  <h1>Customer Information:</h1>
+  <div class="info d-flex flex-column gap-3">
+    <h3 class="d-flex justify-content-between m-0">
+      <span class="label">Name:</span>
+      <span class="value">{{proposal?.requestDetails?.requestOwner?.name}}</span>
+    </h3>
+    <h3 class="d-flex justify-content-between m-0">
+      <span class="label">Phone:</span>
+      <span class="value">{{proposal?.requestDetails?.requestOwner?.phone}}</span>
+    </h3>
+  </div>
+</div>
+
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
   <h1>Proposal Information:</h1>
   <div class="info d-flex flex-column align-items-start gap-3">
