@@ -57,6 +57,19 @@ export class UserAddModalComponent implements OnInit {
   }
 
 
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+
+  onPhoneInput(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.value.startsWith('+966')) {
+      input.value = '+966';
+    }
+  }
+
+
   onSubmit() {
     if (this.userForm.valid) {
       console.log('Form Submitted:', this.userForm.value);

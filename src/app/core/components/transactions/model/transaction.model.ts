@@ -1,3 +1,5 @@
+import { RequestOwnerResponse } from "../../service-requests/models/customer-details.model";
+
 export interface TransactionResponse {
   id: string;
   serviceProviderName: string;
@@ -14,6 +16,8 @@ export interface TransactionResponse {
   invoiceCode: string;
   orderId: string;
   details: string;
+  requestOwner: RequestOwnerResponse;
+  requestId: string;
 
   selected: boolean;
 

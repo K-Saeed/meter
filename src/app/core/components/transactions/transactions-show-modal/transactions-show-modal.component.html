@@ -25,6 +25,10 @@
             <span class="value">{{transaction?.id}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
+            <span class="label">Request ID:</span>
+            <span class="value">{{transaction?.requestId}}</span>
+          </h3>
+          <h3 class="d-flex justify-content-between m-0">
             <span class="label">Title:</span>
             <span class="value">{{transaction?.title}}</span>
           </h3>
@@ -62,8 +66,16 @@
           <h1>Involved Parties:</h1>
           <div class="info d-flex flex-column align-items-start gap-3">
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Customer:</span>
-              <span class="value">{{transaction?.customerName}}</span>
+              <span class="label">Customer Name:</span>
+              <span class="value">{{transaction?.requestOwner?.name}}</span>
+            </h3>
+            <h3 class="d-flex justify-content-between m-0">
+              <span class="label">Customer Phone:</span>
+              <span class="value">{{transaction?.requestOwner?.mobile}}</span>
+            </h3>
+            <h3 class="d-flex justify-content-between m-0">
+              <span class="label">Customer Email:</span>
+              <span class="value">{{transaction?.requestOwner?.email}}</span>
             </h3>
           </div>
         </div>
