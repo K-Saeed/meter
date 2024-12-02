@@ -138,6 +138,10 @@ import { RequestModalComponent } from './core/components/service-requests/reques
 import { ConsolationModalComponent } from './core/components/service-requests/request-edit-modal/consolation-modal/consolation-modal.component';
 import { JobModalComponent } from './core/components/service-requests/request-edit-modal/job-modal/job-modal.component';
 import { SendMessageToAllComponent } from './core/components/chat/send-message-to-all/send-message-to-all.component';
+import { UserUnfinishedComponent } from './core/components/users/user-unfinished/user-unfinished.component';
+import { UserUnfinishedTitleComponent } from './core/components/users/user-unfinished/user-unfinished-title/user-unfinished-title.component';
+import { UserUnfinishedTableComponent } from './core/components/users/user-unfinished/user-unfinished-table/user-unfinished-table.component';
+import { UserUnfinishedActionComponent } from './core/components/users/user-unfinished/user-unfinished-action/user-unfinished-action.component';
 
 
 @NgModule({
@@ -270,6 +274,10 @@ import { SendMessageToAllComponent } from './core/components/chat/send-message-t
     ConsolationModalComponent,
     JobModalComponent,
     SendMessageToAllComponent,
+    UserUnfinishedComponent,
+    UserUnfinishedTitleComponent,
+    UserUnfinishedTableComponent,
+    UserUnfinishedActionComponent,
   ],
   imports: [
     BrowserModule,
