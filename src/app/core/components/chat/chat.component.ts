@@ -12,7 +12,7 @@ export class ChatComponent {
 
   chatRooms!: ChatRoom[];
   selectedChatRoom!: ChatRoom;
-  messages!:Message[];
+  messages!: Message[];
 
   constructor(private conversationService: ConversationService) { }
 
@@ -23,7 +23,7 @@ export class ChatComponent {
   getAdminChats() {
     this.conversationService.getAdminChats().subscribe({
       next: (n) => {
-        this.chatRooms = n;
+        this.chatRooms = this.sort(n);
       },
       error: (e) => {
         console.log(e);
@@ -32,22 +32,36 @@ export class ChatComponent {
     })
   }
 
+  sort(n:ChatRoom[]){
+   return n.sort((a, b) => {
+      const aTimestamp = a.lastMessageTimestamp instanceof Date 
+        ? a.lastMessageTimestamp.getTime() 
+        : new Date(a.lastMessageTimestamp).getTime();
+    
+      const bTimestamp = b.lastMessageTimestamp instanceof Date 
+        ? b.lastMessageTimestamp.getTime() 
+        : new Date(b.lastMessageTimestamp).getTime();
+    
+      return bTimestamp - aTimestamp;
+    });
+  }
+
   onChatRoomSelected(chatRoom: ChatRoom): void {
-    if(chatRoom != this.selectedChatRoom){
+    if (chatRoom != this.selectedChatRoom) {
       this.selectedChatRoom = chatRoom;
       this.getMessagesByChatId(chatRoom);
     }
   }
 
-  getMessagesByChatId(chatRoom: ChatRoom){    
+  getMessagesByChatId(chatRoom: ChatRoom) {
     this.selectedChatRoom = chatRoom;
     this.conversationService.getMessagesByChatId(chatRoom.id).subscribe({
-      next:(n)=>{
+      next: (n) => {
         this.messages = n;
       },
-      error:(e)=>{
+      error: (e) => {
         console.log(e);
-        
+
       }
     })
   }
