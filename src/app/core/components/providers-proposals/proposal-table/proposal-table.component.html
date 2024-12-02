@@ -15,6 +15,9 @@
           <p class="m-0">Request Title</p>
         </th>
         <th scope="col" class="title-table">
+          <p class="m-0">Customer Name</p>
+        </th>
+        <th scope="col" class="title-table">
           <p class="m-0">Date Submitted</p>
         </th>
         <th scope="col" class="title-table">
@@ -38,6 +41,9 @@
         </td>
         <td>
           <h4 class="m-0">{{ proposal.requestDetails.title }}</h4>
+        </td>
+        <td>
+          <h4 class="m-0">{{ proposal.requestDetails.requestOwner.name }}</h4>
         </td>
         <td>
           <h4 class="m-0">{{ proposal.offerDate }}</h4>

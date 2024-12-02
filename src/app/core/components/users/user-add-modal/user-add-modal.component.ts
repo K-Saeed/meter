@@ -26,12 +26,13 @@ export class UserAddModalComponent {
 
   updateSelectedRole() {
     this.selectedRole = [this.selectedVisibility];
-    this.dropdownOpen = false; 
+    this.dropdownOpen = false;
   }
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
 
   toggleConfirmPasswordVisibility() {
     this.showConfirmPassword = !this.showConfirmPassword;
