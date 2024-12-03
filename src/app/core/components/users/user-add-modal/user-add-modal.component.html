@@ -76,6 +76,11 @@
                 <label for="neighborhood" class="position-absolute z-1 label-style">Neighborhood</label>
                 <input type="text" id="neighborhood" class="input-style" formControlName="neighborhood" />
               </div>
+              <div class="position-relative input-container">
+                <label for="profilePic" class="position-absolute label-style">Profile Picture</label>
+                <input type="file" id="profilePic" class="input-style" (change)="onFilesSelected($event)" />
+                <img *ngIf="!filePreview" [src]="filePreview">
+              </div>
             </div>
           </div>
 
@@ -157,18 +162,11 @@
                   <input id="region" class="input-style" formControlName="region" type="text" />
                 </div>
               </div>
-              <!-- <button type="button" (click)="addFile()">Add File</button>
-            <div formArrayName="files">
-                <div *ngFor="let file of files.controls; let i = index">
-                    <input [formControlName]="i" type="text" placeholder="File URL" />
-                    <button type="button" (click)="removeFile(i)">Remove</button>
-                </div>
-            </div> -->
             </div>
 
           </div>
           <!-- <div>PROVIDERR</div> -->
-    
+
           <!-- <div>Merchant</div> -->
           <div *ngIf="form.get('role')?.value === 'Merchant'" formGroupName="merchant">
             <div *ngIf="merchantCurrentStep === 1">
@@ -241,20 +239,13 @@
                   <input id="region" class="input-style" formControlName="region" type="text" />
                 </div>
               </div>
-              <!-- <button type="button" (click)="addFile()">Add File</button>
-                      <div formArrayName="files">
-                          <div *ngFor="let file of files.controls; let i = index">
-                              <input [formControlName]="i" type="text" placeholder="File URL" />
-                              <button type="button" (click)="removeFile(i)">Remove</button>
-                          </div>
-                      </div> -->
             </div>
 
           </div>
           <!-- <div>Merchant</div> -->
 
         </div>
-{{form.value | json}}
+        <!-- {{form.value | json}} -->
         <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
           <button
             *ngIf="(form.get('role')?.value === 'Provider' && providerCurrentStep > 0) || (form.get('role')?.value === 'Merchant' && merchantCurrentStep > 0)"

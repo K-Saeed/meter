@@ -27,6 +27,9 @@ export class UserAddModalComponent implements OnInit {
   activities = ['Survey Office', 'Engineering Office', 'Design Office', 'Interior Design Office', "Engineering Consultation Company", "Safety Office", "Other"]
   providerCurrentStep = 0;
   merchantCurrentStep = 0;
+  maxFileSize = 25 * 1024 * 1024;
+  fileToBeUploaded!: File;
+  filePreview!: (string | ArrayBuffer | null);
 
   constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private userService: UserService) { }
 
@@ -196,6 +199,10 @@ export class UserAddModalComponent implements OnInit {
       new Blob([JSON.stringify(userToBeAdded)], { type: 'application/json' })
     );
 
+    if (this.fileToBeUploaded) {
+      formData.append(`logo-image`, this.fileToBeUploaded, this.fileToBeUploaded.name);
+    }
+
     this.addUser(formData);
   }
 
@@ -208,6 +215,30 @@ export class UserAddModalComponent implements OnInit {
         console.log(e);
       }
     })
+  }
+
+  onFilesSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      const file = input.files[0];
+      
+      if (file.size > this.maxFileSize) {
+        alert(`File ${file.name} exceeds the maximum file size of 25MB.`);
+      } else {
+        this.fileToBeUploaded = file;
+        this.imagePreview(file);
+      }
+    }
+  }
+
+  imagePreview(file: File){
+    const reader = new FileReader();
+    reader.onload = (e: ProgressEvent<FileReader>) => {
+      if (e.target && e.target.result) {
+        this.filePreview= e.target.result as string;
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
   nextStep() {
