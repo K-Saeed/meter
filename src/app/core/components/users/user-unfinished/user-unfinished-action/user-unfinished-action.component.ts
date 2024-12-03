@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./user-unfinished-action.component.css']
 })
 export class UserUnfinishedActionComponent {
-
+  
 }

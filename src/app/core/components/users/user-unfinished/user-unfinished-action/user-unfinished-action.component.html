@@ -1,4 +1,11 @@
-<button class="border bg-white btn-export d-flex align-items-center gap-2 ms-auto " [routerLink]="'/unfinisheduser'">
-    <img src="../../../../../../assets/img/export.svg" alt="" />
-    <span>Export</span>
-</button>
+<div class="dropdown">
+    <button class="border bg-white btn-export d-flex align-items-center gap-2 ms-auto" type="button"
+        id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="../../../../../../assets/img/export.svg" alt="" />
+        <span>Export</span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" href=""><img src="../../../../../../assets/img/pdf1.svg" alt=""> Pdf</a></li>
+        <li><a class="dropdown-item" href=""><img src="../../../../../../assets/img/excel.svg"> Excel</a></li>
+    </ul>
+</div>
