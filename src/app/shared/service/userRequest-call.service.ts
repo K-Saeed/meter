@@ -4,7 +4,6 @@ import { Observable } from "rxjs";
 import { Product } from "src/app/core/components/products/models/product.model";
 import { DraftUserDto } from "src/app/core/components/users/models/draft-user.model";
 import { UserTableDto } from "src/app/core/components/users/models/user-table.model";
-import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
