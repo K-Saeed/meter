@@ -54,4 +54,9 @@ export class UserRquestCallService {
     return this.http.post<SendOtp>(`/api/user/send-otp`, null, { params });
   }
 
+
+  addUser(formData:FormData){
+    const url = `/api/user/register`;
+    return this.http.post<void>(url, formData);
+  }
 }

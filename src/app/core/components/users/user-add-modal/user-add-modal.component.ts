@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomerDto, ProviderDto, SellerDto, UserDto } from 'src/app/core/models/user-to-be-added.model';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-add-modal',
@@ -21,17 +23,207 @@ export class UserAddModalComponent implements OnInit {
     { name: 'Merchant', selected: false },
   ];
 
-  constructor(private fb: FormBuilder) {}
+  form!: FormGroup;
+  activities = ['Survey Office', 'Engineering Office', 'Design Office', 'Interior Design Office', "Engineering Consultation Company", "Safety Office", "Other"]
+  providerCurrentStep = 0;
+  merchantCurrentStep = 0;
+
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userForm = this.fb.group({
-      role: ['', Validators.required],
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
+    this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      phone: [this.phoneNumber, [Validators.required, Validators.pattern(/^\+966\d{8,9}$/)]],
       email: ['', [Validators.required, Validators.email]],
+      phoneNumber: [this.phoneNumber, [Validators.required, Validators.pattern(/^\+966\d{8,9}$/)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      role: ['Customer', Validators.required],
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      neighborhood: ['', Validators.required],
+      provider: this.fb.group({
+        activityType: ['Survey Office', Validators.required],
+        serviceDescription: ['', Validators.required],
+        licenseNumber: ['', Validators.required],
+        commercialRegistration: ['', Validators.required],
+        commercialDate: ['', Validators.required],
+        ownerName: ['', Validators.required],
+        managerName: ['', Validators.required],
+        managerPhoneNumber: [this.phoneNumber, [Validators.required, Validators.pattern(/^\+966\d{8,9}$/)]],
+        region: ['', Validators.required],
+        latitude: [null, Validators.required],
+        longitude: [null, Validators.required],
+        serviceProvider: ['', Validators.required],
+        // files: this.fb.array([], Validators.required),
+      }),
+      merchant: this.fb.group({
+        facilityActivity: ['', Validators.required],
+        serviceDescription: ['', Validators.required],
+        licenseNumber: ['', Validators.required],
+        commercialRegistration: ['', Validators.required],
+        ownerName: ['', Validators.required],
+        managerName: ['', Validators.required],
+        managerPhoneNumber: [this.phoneNumber, [Validators.required, Validators.pattern(/^\+966\d{8,9}$/)]],
+        region: ['', Validators.required],
+        latitude: [null, Validators.required],
+        longitude: [null, Validators.required],
+        serviceProvider: ['', Validators.required],
+        // files: this.fb.array([], Validators.required),
+      }),
     }, { validators: this.passwordMatchValidator });
+  }
+
+  isFormValid(): boolean {
+
+    const commonFieldsValid =
+      this.form.get('name')?.valid &&
+      this.form.get('email')?.valid &&
+      this.form.get('phoneNumber')?.valid &&
+      this.form.get('password')?.valid &&
+      this.form.get('confirmPassword')?.valid &&
+      this.form.get('password')?.value === this.form.get('confirmPassword')?.value &&
+      this.form.get('address')?.valid &&
+      this.form.get('city')?.valid &&
+      this.form.get('neighborhood')?.valid;
+
+    if (!commonFieldsValid) {
+      return false;
+    }
+    const role = this.form.get('role')?.value;
+
+    if (role === 'Customer') {
+      return true;
+    } else if (role === 'Provider') {
+      return (this.form.get('provider') as FormGroup).valid;
+    } else if (role === 'Merchant') {
+      return (this.form.get('merchant') as FormGroup).valid;
+    }
+
+    return false;
+  }
+
+  getGroup(groupName: string): FormGroup {
+    return this.form.get(groupName) as FormGroup;
+  }
+
+  getControl(controlName: string) {
+    return this.form.get(controlName);
+  }
+
+  getNestedControl(group: string, control: string) {
+    return this.getGroup(group).get(control);
+  }
+
+  onSubmit(): void {
+
+    if (this.isFormValid()) {
+      this.prepareUserToBeAdded();
+    } else {
+      alert('Invalid Form')
+    }
+  }
+
+  prepareUserToBeAdded() {
+
+    let role;
+    if (this.getControl('role')?.value === 'Merchant') {
+      role = 'Seller'
+    } else {
+      role = this.getControl('role')?.value;
+    }
+
+    const formData = new FormData();
+
+    const userToBeAdded = new UserDto({
+      name: this.getControl('name')?.value,
+      email: this.getControl('email')?.value,
+      phoneNumber: this.getControl('phoneNumber')?.value,
+      password: this.getControl('password')?.value,
+      role: role,
+
+      customer: this.getControl('role')?.value === 'Customer' ? new CustomerDto({
+        address: this.getControl('address')?.value,
+        city: this.getControl('phoneNumber')?.value,
+        neighborhood: this.getControl('phoneNumber')?.value,
+      }) : undefined,
+
+      provider: this.getControl('role')?.value === 'Provider' ? new ProviderDto({
+        address: this.getControl('address')?.value,
+        city: this.getControl('phoneNumber')?.value,
+        neighborhood: this.getControl('phoneNumber')?.value,
+
+        activityType: this.getNestedControl('provider', 'activityType')?.value,
+        serviceDescription: this.getNestedControl('provider', 'serviceDescription')?.value,
+        licenseNumber: this.getNestedControl('provider', 'licenseNumber')?.value,
+        commercialRegistration: this.getNestedControl('provider', 'commercialRegistration')?.value,
+        commercialDate: this.getNestedControl('provider', 'commercialDate')?.value,
+        ownerName: this.getNestedControl('provider', 'ownerName')?.value,
+        managerName: this.getNestedControl('provider', 'managerName')?.value,
+        managerPhoneNumber: this.getNestedControl('provider', 'managerPhoneNumber')?.value,
+        region: this.getNestedControl('provider', 'region')?.value,
+        latitude: this.getNestedControl('provider', 'latitude')?.value,
+        longitude: this.getNestedControl('provider', 'longitude')?.value,
+        serviceProvider: this.getNestedControl('provider', 'serviceProvider')?.value,
+        // files: this.getNestedControl('provider', 'files')?.value,
+      }) : undefined,
+
+      seller: this.getControl('role')?.value === 'Merchant' ? new SellerDto({
+        address: this.getControl('address')?.value,
+        city: this.getControl('phoneNumber')?.value,
+        neighborhood: this.getControl('phoneNumber')?.value,
+
+        facilityActivity: this.getNestedControl('merchant', 'facilityActivity')?.value,
+        serviceDescription: this.getNestedControl('merchant', 'serviceDescription')?.value,
+        licenseNumber: this.getNestedControl('merchant', 'licenseNumber')?.value,
+        commercialRegistration: this.getNestedControl('merchant', 'commercialRegistration')?.value,
+        ownerName: this.getNestedControl('merchant', 'ownerName')?.value,
+        managerName: this.getNestedControl('merchant', 'managerName')?.value,
+        managerPhoneNumber: this.getNestedControl('merchant', 'managerPhoneNumber')?.value,
+        region: this.getNestedControl('merchant', 'region')?.value,
+        latitude: this.getNestedControl('merchant', 'latitude')?.value,
+        longitude: this.getNestedControl('merchant', 'longitude')?.value,
+        serviceProvider: this.getNestedControl('merchant', 'serviceProvider')?.value,
+        // files: this.getNestedControl('merchant', 'files')?.value,
+      }) : undefined
+    });
+
+    formData.append(
+      'userDto',
+      new Blob([JSON.stringify(userToBeAdded)], { type: 'application/json' })
+    );
+
+    this.addUser(formData);
+  }
+
+  addUser(formData: FormData) {
+    this.userService.addUser(formData).subscribe({
+      next: (n) => {
+        console.log(n);
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    })
+  }
+
+  nextStep() {
+    if (this.form.get('role')?.value === 'Provider')
+      this.providerCurrentStep++
+    else if (this.form.get('role')?.value === 'Merchant') {
+      this.merchantCurrentStep++
+    }
+  }
+
+  previousStep() {
+    if (this.form.get('role')?.value === 'Provider')
+      this.providerCurrentStep--
+    else if (this.form.get('role')?.value === 'Merchant') {
+      this.merchantCurrentStep--
+    }
   }
 
   toggleDropdown() {
@@ -40,7 +232,7 @@ export class UserAddModalComponent implements OnInit {
 
   updateSelectedRole(role: string) {
     this.selectedVisibility = role;
-    this.userForm.controls['role'].setValue(role);
+    this.form.controls['role'].setValue(role);
     this.dropdownOpen = false;
   }
 
@@ -54,6 +246,7 @@ export class UserAddModalComponent implements OnInit {
       console.log('Invalid fields:', invalidFields); // Debugging
       alert('Please fill out all required fields.');
     }
+    this.cdr.detectChanges();
   }
 
 
@@ -61,21 +254,10 @@ export class UserAddModalComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-
   onPhoneInput(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.value.startsWith('+966')) {
       input.value = '+966';
-    }
-  }
-
-
-  onSubmit() {
-    if (this.userForm.valid) {
-      console.log('Form Submitted:', this.userForm.value);
-      // Add your API call here to submit the data
-    } else {
-      console.log('Invalid Form');
     }
   }
 

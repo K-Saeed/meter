@@ -1,80 +1,272 @@
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="form">
       <div class="modal-content d-flex">
         <div class="modal-header p-2 z-1">
           <h1 class="modal-title" id="exampleModalLabel">Add New User</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body d-flex flex-column gap-3 mt-2">
-          <div class="d-flex my-1" style="gap: 1rem">
-            <div class="position-relative input-container">
-              <label for="Role" class="position-absolute label-style">Role</label>
-              <div class="input-style d-flex justify-content-between align-items-center text-black"
-                   (click)="toggleDropdown()">
-                {{ selectedVisibility ? selectedVisibility : "Choose Role" }}
-                <img src="../../../../../assets/img/arrow-down-o.svg" />
+          <div *ngIf="
+          (form.get('role')?.value === 'Customer')
+          ||(form.get('role')?.value === 'Provider' && providerCurrentStep === 0)
+          || (form.get('role')?.value === 'Merchant' && merchantCurrentStep === 0)
+          ">
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="Role" class="position-absolute label-style">Role</label>
+                <div class="input-style d-flex justify-content-between align-items-center text-black"
+                  (click)="toggleDropdown()">
+                  {{ selectedVisibility ? selectedVisibility : "Choose Role" }}
+                  <img src="../../../../../assets/img/arrow-down-o.svg" />
+                </div>
+                <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
+                  <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let role of Role">
+                    <input type="radio" name="flexRadioDefault" [value]="role.name"
+                      (change)="updateSelectedRole(role.name)" />
+                    {{ role.name }}
+                  </label>
+                </div>
               </div>
-              <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
-                <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let role of Role">
-                  <input type="radio" name="flexRadioDefault" [value]="role.name"
-                         (change)="updateSelectedRole(role.name)" />
-                  {{ role.name }}
-                </label>
+              <div class="position-relative input-container">
+                <label for="title" class="position-absolute label-style">Name</label>
+                <input type="text" id="title" placeholder="Enter Name" class="input-style" formControlName="name" />
               </div>
             </div>
-            <div class="position-relative input-container">
-              <label for="title" class="position-absolute label-style">Name</label>
-              <input type="text" id="title" placeholder="Enter Name" class="input-style" formControlName="name" />
+
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
+                <div class="input-wrapper">
+                  <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
+                  <input type="text" id="phone" class="input-style" formControlName="phoneNumber" />
+                </div>
+              </div>
+              <div class="position-relative input-container">
+                <label for="Email" class="position-absolute label-style">Email</label>
+                <input type="email" id="Email" placeholder="Enter Email" class="input-style" formControlName="email" />
+              </div>
+            </div>
+
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="Password" class="position-absolute label-style">Password</label>
+                <input type="{{ showPassword ? 'text' : 'password' }}" id="Password" placeholder="Enter Password"
+                  class="input-style" formControlName="password" />
+              </div>
+              <div class="position-relative input-container">
+                <label for="confirmPassword" class="position-absolute label-style">Confirm Password</label>
+                <input type="{{ showConfirmPassword ? 'text' : 'password' }}" id="confirmPassword"
+                  placeholder="Confirm Password" class="input-style" formControlName="confirmPassword" />
+              </div>
+            </div>
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="address" class="position-absolute z-1 label-style">Address</label>
+                <input type="text" id="address" class="input-style" formControlName="address" />
+              </div>
+              <div class="position-relative input-container">
+                <label for="city" class="position-absolute label-style">City</label>
+                <input type="text" id="city" placeholder="Enter City" class="input-style" formControlName="city" />
+              </div>
+            </div>
+
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="neighborhood" class="position-absolute z-1 label-style">Neighborhood</label>
+                <input type="text" id="neighborhood" class="input-style" formControlName="neighborhood" />
+              </div>
             </div>
           </div>
 
-          <div class="d-flex my-1" style="gap: 1rem">
-            <div class="position-relative input-container">
-              <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
-              <div class="input-wrapper">
-                <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
-                <input type="text" id="phone" class="input-style" formControlName="phone" />
+          <!-- <div>PROVIDERR</div> -->
+          <div *ngIf="form.get('role')?.value === 'Provider'" formGroupName="provider">
+            <div *ngIf="providerCurrentStep === 1">
+
+              <label for="activityType">Activity Type</label>
+              <select id="role" formControlName="activityType">
+                <option value="" disabled>Select Activity</option>
+                <option *ngFor="let activity of activities" [value]="activity">{{ activity }}</option>
+              </select>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="licenseNumber" class="position-absolute z-1 label-style">License Number</label>
+                  <input id="licenseNumber" class="input-style" formControlName="licenseNumber" type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="serviceDescription" class="position-absolute label-style">Service Description</label>
+                  <input id="serviceDescription" placeholder="Service Description" class="input-style"
+                    formControlName="serviceDescription" type="text" />
+                </div>
               </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="commercialRegistration" class="position-absolute z-1 label-style">Commercial
+                    Registration</label>
+                  <input id="commercialRegistration" class="input-style" formControlName="commercialRegistration"
+                    type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="commercialDate" class="position-absolute label-style">Commercial Date</label>
+                  <input id="commercialDate" class="input-style" formControlName="commercialDate" type="date" />
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="serviceProvider" class="position-absolute z-1 label-style">Service Provider</label>
+                  <input id="serviceProvider" class="input-style" formControlName="serviceProvider" type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
+                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="managerName" class="position-absolute z-1 label-style">Manager Name</label>
+                  <input id="managerName" class="input-style" formControlName="managerName" type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="managerPhoneNumber" class="position-absolute label-style">Manager PhoneNumber</label>
+                  <input id="managerPhoneNumber" class="input-style" formControlName="managerPhoneNumber" type="text" />
+                </div>
+              </div>
+
             </div>
-            <div class="position-relative input-container">
-              <label for="Email" class="position-absolute label-style">Email</label>
-              <input type="email" id="Email" placeholder="Enter Email" class="input-style" formControlName="email" />
+
+            <div *ngIf="providerCurrentStep === 2">
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="latitude" class="position-absolute z-1 label-style">Latitude</label>
+                  <input id="latitude" class="input-style" formControlName="latitude" type="number" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="longitude" class="position-absolute label-style">Longitude</label>
+                  <input id="longitude" class="input-style" formControlName="longitude" type="number" />
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="region" class="position-absolute z-1 label-style">Region</label>
+                  <input id="region" class="input-style" formControlName="region" type="text" />
+                </div>
+              </div>
+              <!-- <button type="button" (click)="addFile()">Add File</button>
+            <div formArrayName="files">
+                <div *ngFor="let file of files.controls; let i = index">
+                    <input [formControlName]="i" type="text" placeholder="File URL" />
+                    <button type="button" (click)="removeFile(i)">Remove</button>
+                </div>
+            </div> -->
             </div>
+
           </div>
+          <!-- <div>PROVIDERR</div> -->
+    
+          <!-- <div>Merchant</div> -->
+          <div *ngIf="form.get('role')?.value === 'Merchant'" formGroupName="merchant">
+            <div *ngIf="merchantCurrentStep === 1">
 
-          <div class="d-flex my-1" style="gap: 1rem">
-            <div class="position-relative input-container">
-              <label for="Password" class="position-absolute label-style">Password</label>
-              <input type="{{ showPassword ? 'text' : 'password' }}" id="Password"
-                     placeholder="Enter Password" class="input-style" formControlName="password" />
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="facilityActivity" class="position-absolute z-1 label-style">Facility Activity</label>
+                  <input id="facilityActivity" class="input-style" formControlName="facilityActivity" type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="commercialRegistration" class="position-absolute z-1 label-style">Commercial
+                    Registration</label>
+                  <input id="commercialRegistration" class="input-style" formControlName="commercialRegistration"
+                    type="text" />
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="licenseNumber" class="position-absolute z-1 label-style">License Number</label>
+                  <input id="licenseNumber" class="input-style" formControlName="licenseNumber" type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="serviceDescription" class="position-absolute label-style">Service Description</label>
+                  <input id="serviceDescription" placeholder="Service Description" class="input-style"
+                    formControlName="serviceDescription" type="text" />
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="serviceProvider" class="position-absolute z-1 label-style">Service Provider</label>
+                  <input id="serviceProvider" class="input-style" formControlName="serviceProvider" type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
+                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="managerName" class="position-absolute z-1 label-style">Manager Name</label>
+                  <input id="managerName" class="input-style" formControlName="managerName" type="text" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="managerPhoneNumber" class="position-absolute label-style">Manager PhoneNumber</label>
+                  <input id="managerPhoneNumber" class="input-style" formControlName="managerPhoneNumber" type="text" />
+                </div>
+              </div>
+
             </div>
-            <div class="position-relative input-container">
-              <label for="confirmPassword" class="position-absolute label-style">Confirm Password</label>
-              <input type="{{ showConfirmPassword ? 'text' : 'password' }}" id="confirmPassword"
-                     placeholder="Confirm Password" class="input-style" formControlName="confirmPassword" />
+
+            <div *ngIf=" merchantCurrentStep === 2">
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="latitude" class="position-absolute z-1 label-style">Latitude</label>
+                  <input id="latitude" class="input-style" formControlName="latitude" type="number" />
+                </div>
+                <div class="position-relative input-container">
+                  <label for="longitude" class="position-absolute label-style">Longitude</label>
+                  <input id="longitude" class="input-style" formControlName="longitude" type="number" />
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="region" class="position-absolute z-1 label-style">Region</label>
+                  <input id="region" class="input-style" formControlName="region" type="text" />
+                </div>
+              </div>
+              <!-- <button type="button" (click)="addFile()">Add File</button>
+                      <div formArrayName="files">
+                          <div *ngFor="let file of files.controls; let i = index">
+                              <input [formControlName]="i" type="text" placeholder="File URL" />
+                              <button type="button" (click)="removeFile(i)">Remove</button>
+                          </div>
+                      </div> -->
             </div>
+
           </div>
+          <!-- <div>Merchant</div> -->
 
-          <!-- Customer Role -->
-          <app-user-customer *ngIf="selectedVisibility === 'Customer'" [parentForm]="userForm"></app-user-customer>
-
-          <!-- Provider Role -->
-          <app-user-provider *ngIf="selectedVisibility === 'Provider'"
-                             [parentForm]="userForm"
-                             [openNextModal]="goToNextStep.bind(this)">
-          </app-user-provider>
-
-          <!-- Provider Next Modal -->
-          <app-user-provider-next-modal *ngIf="isOnNextStep"
-                                        [parentForm]="userForm">
-          </app-user-provider-next-modal>
         </div>
-
+{{form.value | json}}
         <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
-          <button type="button" class="reject-btn" data-bs-dismiss="modal" *ngIf="!isOnNextStep">Cancel</button>
-          <button type="button" class="approve-btn" (click)="goToNextStep()" *ngIf="!isOnNextStep">Next</button>
-          <button type="submit" class="approve-btn" [disabled]="userForm.invalid" *ngIf="isOnNextStep">Add</button>
+          <button
+            *ngIf="(form.get('role')?.value === 'Provider' && providerCurrentStep > 0) || (form.get('role')?.value === 'Merchant' && merchantCurrentStep > 0)"
+            type="button" class="approve-btn" type="button" (click)="previousStep()">Back</button>
+          <button
+            *ngIf="(form.get('role')?.value === 'Provider' && providerCurrentStep < 2) || (form.get('role')?.value === 'Merchant' && merchantCurrentStep < 2)"
+            type="button" class="approve-btn" type="button" (click)="nextStep()">Next</button>
+          <button *ngIf="
+          (form.get('role')?.value === 'Customer')
+          ||(form.get('role')?.value === 'Provider' && providerCurrentStep === 2)
+          || (form.get('role')?.value === 'Merchant' && merchantCurrentStep === 2)
+          " type="submit" class="approve-btn" (click)="onSubmit()">Add</button>
         </div>
       </div>
     </form>

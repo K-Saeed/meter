@@ -73,4 +73,7 @@ export class UserService {
     });
   }
 
+  addUser(formData: FormData) {
+   return this.userRequest.addUser(formData);
+  }
 }
