@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.service';
+import { DraftUserDto } from '../../models/draft-user.model';
 
 @Component({
   selector: 'app-user-unfinished-table',
@@ -7,37 +9,20 @@ import { Component } from '@angular/core';
 })
 export class UserUnfinishedTableComponent {
   selectAll: boolean = false;
-  users = [
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Customers', registered: 'September 21, 2013',address:'--', phonenumber: '(966) 555-0128',spent: '--',status: '--' },
-  ];
+  users: DraftUserDto[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
 
- 
+  constructor(private userService: UserRquestCallService) {}
+
+  ngOnInit(): void {
+    this.userService.getAllUnfinishedUsers().subscribe({
+      next: (data) => this.users = data,
+      error: (err) => console.error('Error fetching users:', err)
+    });
+  }
+
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;

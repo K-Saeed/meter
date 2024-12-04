@@ -4,7 +4,8 @@
       <span class="search-icon p-2">
         <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
       </span>
-      <input type="text" class="form-control search-input" placeholder="Search in customer" />
+      <input type="text" class="form-control search-input" placeholder="Search in customer" [(ngModel)]="searchTerm"
+        (input)="applySearch()" />
     </div>
     <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#userFilterModal">
       <img src="../../../../../assets/img/filter.svg" alt="" />
