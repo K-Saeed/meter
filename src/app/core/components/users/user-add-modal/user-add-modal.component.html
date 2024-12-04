@@ -1,97 +1,369 @@
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content d-flex">
-            <div class="modal-header p-2 z-1">
-                <h1 class="modal-title" id="exampleModalLabel">Add New User</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex flex-column gap-3 mt-2">
-                <div class="d-flex my-1" style="gap: 1rem">
-                    <div class="position-relative input-container">
-                        <label for="Role" class="position-absolute label-style">Role</label>
-                        <div class="input-style d-flex justify-content-between align-items-center text-black"
-                            (click)="toggleDropdown()">
-                            {{ selectedVisibility ? selectedVisibility : "Choose Role" }}
-                            <img src="../../../../../assets/img/arrow-down-o.svg" />
-                        </div>
-                        <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
-                            <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let role of Role">
-                                <input type="radio" name="flexRadioDefault" [value]="role.name"
-                                    [(ngModel)]="selectedVisibility" (change)="updateSelectedRole()" />
-                                {{ role.name }}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="position-relative input-container">
-                        <label for="title" class="position-absolute label-style">Name</label>
-                        <input type="text" id="title" placeholder="Enter Name" class="input-style" />
-                    </div>
-                </div>
-                <div class="d-flex my-1" style="gap: 1rem">
-                    <div class="position-relative input-container">
-                        <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
-                        <div class="input-wrapper">
-                            <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
-                            <input type="text" id="phone" class="input-style" [value]="phoneNumber"
-                                (input)="onPhoneInput($event)" style="padding-left: 2.5rem" />
-                            <div class="verify-text position-absolute pe-1" data-bs-toggle="modal"
-                                data-bs-target="#verifyModal">
-                                Verify
-                            </div>
-                        </div>
-                    </div>
-                    <div class="position-relative input-container">
-                        <label for="Email" class="position-absolute label-style">Email</label>
-                        <input type="email" id="Email" placeholder="Enter Email" class="input-style" />
-                    </div>
-                </div>
-                <div class="d-flex my-1" style="gap: 1rem">
-                    <div class="position-relative input-container">
-                        <label for="Password" class="position-absolute label-style">Password</label>
-                        <input type="{{ showPassword ? 'text' : 'password' }}" id="Password"
-                            placeholder="Enter Password" class="input-style" />
-                        <i class="fa-regular pe-1 {{
-                                  showPassword ? 'fa-eye-slash' : 'fa-eye'
-                                }} toggle-password-icon" (click)="togglePasswordVisibility()"></i>
-                    </div>
-
-                    <div class="position-relative input-container">
-                        <label for="confirmPassword" class="position-absolute label-style">Confirm Password</label>
-                        <input type="{{ showConfirmPassword ? 'text' : 'password' }}" id="confirmPassword"
-                            placeholder="Enter Password" class="input-style" />
-                        <i class="fa-regular pe-1 {{
-                                  showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'
-                                }} toggle-password-icon" (click)="toggleConfirmPasswordVisibility()"></i>
-                    </div>
-                </div>
-                <!-- Conditional Fields -->
-                <app-user-customer *ngIf="selectedVisibility === 'Customer'"></app-user-customer>
-                <app-user-provider *ngIf="selectedVisibility === 'Provider'"></app-user-provider>
-                <app-user-seller *ngIf="selectedVisibility === 'Merchant'"></app-user-seller>
-            </div>
-            <!-- Conditional Buttons -->
-            <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
-                <button type="button" class="reject-btn" data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <button *ngIf="selectedVisibility === 'Customer'" type="button" class="approve-btn"
-                    data-bs-dismiss="modal">
-                    Add
-                </button>
-                <button *ngIf="selectedVisibility === 'Provider'" type="button" class="approve-btn"
-                    data-bs-toggle="modal" data-bs-target="#nextPoviderModal">
-                    Next
-                </button>
-                <button *ngIf="selectedVisibility === 'Merchant'" type="button" class="approve-btn"
-                    data-bs-toggle="modal" data-bs-target="#nextSellerModal">
-                    Next
-                </button>
-            </div>
+  <div class="modal-dialog">
+    <form [formGroup]="form">
+      <div class="modal-content d-flex">
+        <div class="modal-header p-2 z-1">
+          <h1 class="modal-title" id="exampleModalLabel">Add New User</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-    </div>
+        <div class="modal-body d-flex flex-column gap-3 mt-2">
+          <div *ngIf="
+          (form.get('role')?.value === 'Customer')
+          ||(form.get('role')?.value === 'Provider' && providerCurrentStep === 0)
+          || (form.get('role')?.value === 'Merchant' && merchantCurrentStep === 0)
+          ">
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="Role" class="position-absolute label-style">Role</label>
+                <div class="input-style d-flex justify-content-between align-items-center text-black"
+                  (click)="toggleDropdown()">
+                  {{ selectedVisibility ? selectedVisibility : "Choose Role" }}
+                  <img src="../../../../../assets/img/arrow-down-o.svg" />
+                </div>
+                <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
+                  <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let role of Role">
+                    <input type="radio" name="flexRadioDefault" [value]="role.name"
+                      (change)="updateSelectedRole(role.name)" />
+                    {{ role.name }}
+                  </label>
+                </div>
+              </div>
+              <div class="position-relative input-container">
+                <label for="name" class="position-absolute label-style">Name</label>
+                <input type="text" id="title" placeholder="Enter Name" class="input-style" formControlName="name" />
+                <label class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">Invalid name</label>
+              </div>
+            </div>
 
+
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
+                <div class="input-wrapper">
+                  <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
+                  <input type="text" id="phone" class="input-style" formControlName="phoneNumber" />
+                </div>
+                <label class="error"
+                  *ngIf="form.get('phoneNumber')?.touched && form.get('phoneNumber')?.invalid">Invalid
+                  PhoneNumber</label>
+              </div>
+              <div class="position-relative input-container">
+                <label for="Email" class="position-absolute label-style">Email</label>
+                <input type="email" id="Email" placeholder="Enter Email" class="input-style" formControlName="email" />
+                <label class="error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">Invalid
+                  email</label>
+              </div>
+            </div>
+
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="Password" class="position-absolute label-style">Password</label>
+                <input type="{{ showPassword ? 'text' : 'password' }}" id="Password" placeholder="Enter Password"
+                  class="input-style" formControlName="password" />
+                <label class="error" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">Invalid
+                  password</label>
+              </div>
+              <div class="position-relative input-container">
+                <label for="confirmPassword" class="position-absolute label-style">Confirm Password</label>
+                <input type="{{ showConfirmPassword ? 'text' : 'password' }}" id="confirmPassword"
+                  placeholder="Confirm Password" class="input-style" formControlName="confirmPassword" />
+                <label class="error"
+                  *ngIf="form.get('confirmPassword')?.touched && (form.get('confirmPassword')?.invalid || form.get('password')?.value != form.get('confirmPassword')?.value)">Passwords
+                  aren't equal</label>
+
+              </div>
+            </div>
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="address" class="position-absolute z-1 label-style">Address</label>
+                <input type="text" id="address" class="input-style" formControlName="address" />
+                <label class="error" *ngIf="form.get('address')?.touched && form.get('address')?.invalid">Invalid
+                  address</label>
+              </div>
+              <div class="position-relative input-container">
+                <label for="city" class="position-absolute label-style">City</label>
+                <input type="text" id="city" placeholder="Enter City" class="input-style" formControlName="city" />
+                <label class="error" *ngIf="form.get('city')?.touched && form.get('city')?.invalid">Invalid city</label>
+              </div>
+            </div>
+
+            <div class="d-flex my-1" style="gap: 1rem">
+              <div class="position-relative input-container">
+                <label for="neighborhood" class="position-absolute z-1 label-style">Neighborhood</label>
+                <input type="text" id="neighborhood" class="input-style" formControlName="neighborhood" />
+                <label class="error"
+                  *ngIf="form.get('neighborhood')?.touched && form.get('neighborhood')?.invalid">Invalid
+                  neighborhood</label>
+              </div>
+              <div class="position-relative input-container">
+                <label for="profilePic" class="position-absolute label-style">Profile Picture</label>
+                <input type="file" id="profilePic" class="input-style" (change)="onFilesSelected($event)" />
+                <img *ngIf="!filePreview" [src]="filePreview">
+              </div>
+            </div>
+          </div>
+
+          <!-- <div>PROVIDERR</div> -->
+          <div *ngIf="form.get('role')?.value === 'Provider'" formGroupName="provider">
+            <div *ngIf="providerCurrentStep === 1">
+
+              <div class="d-flex my-1" style="gap: 1rem">
+
+                <div class="position-relative input-container">
+                  <label for="activityType" class="position-absolute label-style">Activity Type</label>
+                  <div class="input-style d-flex justify-content-between align-items-center text-black"
+                    (click)="toggleDropdown()">
+                    {{ selectedActivity ? selectedActivity : "Choose Activity" }}
+                    <img src="../../../../../assets/img/arrow-down-o.svg" />
+                  </div>
+                  <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
+                    <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let activity of ActivityType">
+                      <input type="radio" name="flexRadioDefault" [value]="activity.label"
+                        (change)="updateSelectedActivityType(activity)" />
+                      {{ activity.label }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
+                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('ownerName')?.touched && form.get('provider')?.get('ownerName')?.invalid">Invalid
+                    Owner Name</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="licenseNumber" class="position-absolute z-1 label-style">License Number</label>
+                  <input id="licenseNumber" class="input-style" formControlName="licenseNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('licenseNumber')?.touched && form.get('provider')?.get('licenseNumber')?.invalid">Invalid
+                    licenseNumber</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="serviceProvider" class="position-absolute z-1 label-style">Service Provider</label>
+                  <input id="serviceProvider" class="input-style" formControlName="serviceProvider" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('serviceProvider')?.touched && form.get('provider')?.get('serviceProvider')?.invalid">Invalid
+                    Service Provider</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="serviceDescription" class="position-absolute label-style">Service Description</label>
+                  <input id="serviceDescription" placeholder="Service Description" class="input-style"
+                    formControlName="serviceDescription" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('serviceDescription')?.touched && form.get('provider')?.get('serviceDescription')?.invalid">Invalid
+                    Service Description</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="commercialRegistration" class="position-absolute z-1 label-style">Commercial
+                    Registration</label>
+                  <input id="commercialRegistration" class="input-style" formControlName="commercialRegistration"
+                    type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('commercialRegistration')?.touched && form.get('provider')?.get('commercialRegistration')?.invalid">Invalid
+                    Commercial Registration</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="commercialDate" class="position-absolute label-style">Commercial Date</label>
+                  <input id="commercialDate" class="input-style" formControlName="commercialDate" type="date" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('commercialDate')?.touched && form.get('provider')?.get('commercialDate')?.invalid">Invalid
+                    Commercial Date</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="managerName" class="position-absolute z-1 label-style">Manager Name</label>
+                  <input id="managerName" class="input-style" formControlName="managerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('managerName')?.touched && form.get('provider')?.get('managerName')?.invalid">Invalid
+                    Manager Name</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="managerPhoneNumber" class="position-absolute label-style">Manager PhoneNumber</label>
+                  <input id="managerPhoneNumber" class="input-style" formControlName="managerPhoneNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('managerPhoneNumber')?.touched && form.get('provider')?.get('managerPhoneNumber')?.invalid">Invalid
+                    Manager PhoneNumber</label>
+
+                </div>
+              </div>
+
+            </div>
+
+            <div *ngIf="providerCurrentStep === 2">
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="latitude" class="position-absolute z-1 label-style">Latitude</label>
+                  <input id="latitude" class="input-style" formControlName="latitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('latitude')?.touched && form.get('provider')?.get('latitude')?.invalid">Invalid
+                    latitude</label>
+
+                </div>
+                <div class="position-relative input-container">
+                  <label for="longitude" class="position-absolute label-style">Longitude</label>
+                  <input id="longitude" class="input-style" formControlName="longitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('longitude')?.touched && form.get('provider')?.get('longitude')?.invalid">Invalid
+                    longitude</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="region" class="position-absolute z-1 label-style">Region</label>
+                  <input id="region" class="input-style" formControlName="region" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('region')?.touched && form.get('provider')?.get('region')?.invalid">Invalid
+                    region</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- <div>PROVIDERR</div> -->
+
+          <!-- <div>Merchant</div> -->
+          <div *ngIf="form.get('role')?.value === 'Merchant'" formGroupName="merchant">
+            <div *ngIf="merchantCurrentStep === 1">
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="facilityActivity" class="position-absolute z-1 label-style">Facility Activity</label>
+                  <input id="facilityActivity" class="input-style" formControlName="facilityActivity" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('facilityActivity')?.touched && form.get('merchant')?.get('facilityActivity')?.invalid">Invalid
+                    Facility Activity</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="commercialRegistration" class="position-absolute z-1 label-style">Commercial
+                    Registration</label>
+                  <input id="commercialRegistration" class="input-style" formControlName="commercialRegistration"
+                    type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('commercialRegistration')?.touched && form.get('merchant')?.get('commercialRegistration')?.invalid">Invalid
+                    Commercial Registration</label>
+
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
+                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('ownerName')?.touched && form.get('merchant')?.get('ownerName')?.invalid">Invalid
+                    Owner Name</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="licenseNumber" class="position-absolute z-1 label-style">License Number</label>
+                  <input id="licenseNumber" class="input-style" formControlName="licenseNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('licenseNumber')?.touched && form.get('merchant')?.get('licenseNumber')?.invalid">Invalid
+                    licenseNumber</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="serviceProvider" class="position-absolute z-1 label-style">Service Provider</label>
+                  <input id="serviceProvider" class="input-style" formControlName="serviceProvider" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('serviceProvider')?.touched && form.get('merchant')?.get('serviceProvider')?.invalid">Invalid
+                    Service Provider</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="serviceDescription" class="position-absolute label-style">Service Description</label>
+                  <input id="serviceDescription" placeholder="Service Description" class="input-style"
+                    formControlName="serviceDescription" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('serviceDescription')?.touched && form.get('merchant')?.get('serviceDescription')?.invalid">Invalid
+                    Service Description</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="managerName" class="position-absolute z-1 label-style">Manager Name</label>
+                  <input id="managerName" class="input-style" formControlName="managerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('managerName')?.touched && form.get('merchant')?.get('managerName')?.invalid">Invalid
+                    Manager Name</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="managerPhoneNumber" class="position-absolute label-style">Manager PhoneNumber</label>
+                  <input id="managerPhoneNumber" class="input-style" formControlName="managerPhoneNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('managerPhoneNumber')?.touched && form.get('merchant')?.get('managerPhoneNumber')?.invalid">Invalid
+                    Manager Phone Number</label>
+                </div>
+              </div>
+
+            </div>
+
+            <div *ngIf=" merchantCurrentStep === 2">
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="latitude" class="position-absolute z-1 label-style">Latitude</label>
+                  <input id="latitude" class="input-style" formControlName="latitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('latitude')?.touched && form.get('merchant')?.get('latitude')?.invalid">Invalid
+                    latitude</label>
+                </div>
+                <div class="position-relative input-container">
+                  <label for="longitude" class="position-absolute label-style">Longitude</label>
+                  <input id="longitude" class="input-style" formControlName="longitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('longitude')?.touched && form.get('merchant')?.get('longitude')?.invalid">Invalid
+                    longitude</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="region" class="position-absolute z-1 label-style">Region</label>
+                  <input id="region" class="input-style" formControlName="region" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('region')?.touched && form.get('merchant')?.get('region')?.invalid">Invalid
+                    region</label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!-- <div>Merchant</div> -->
+
+        </div>
+        <!-- {{form.value | json}} -->
+        <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
+          <button
+            *ngIf="(form.get('role')?.value === 'Provider' && providerCurrentStep > 0) || (form.get('role')?.value === 'Merchant' && merchantCurrentStep > 0)"
+            type="button" class="approve-btn" type="button" (click)="previousStep()">Back</button>
+          <button
+            *ngIf="(form.get('role')?.value === 'Provider' && providerCurrentStep < 2) || (form.get('role')?.value === 'Merchant' && merchantCurrentStep < 2)"
+            type="button" class="approve-btn" type="button" (click)="nextStep()">Next</button>
+          <button *ngIf="
+          (form.get('role')?.value === 'Customer')
+          ||(form.get('role')?.value === 'Provider' && providerCurrentStep === 2)
+          || (form.get('role')?.value === 'Merchant' && merchantCurrentStep === 2)
+          " type="submit" class="approve-btn" (click)="onSubmit()"
+          [disabled]="!isFormValid()"
+          data-bs-dismiss="modal"
+          >Add</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
-
-<app-user-verification-modal></app-user-verification-modal>
-<app-user-provider-next-modal></app-user-provider-next-modal>
-<app-user-seller-next-modal></app-user-seller-next-modal>
