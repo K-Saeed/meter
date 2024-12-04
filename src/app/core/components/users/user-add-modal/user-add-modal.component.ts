@@ -23,8 +23,17 @@ export class UserAddModalComponent implements OnInit {
     { name: 'Merchant', selected: false },
   ];
 
+  ActivityType = [
+    { id: "1", label: "Survey Office", arabicLabel: "مكتب مساحى" },
+    { id: "2", label: "Engineering Office", arabicLabel: "مكتب هندسي" },
+    { id: "3", label: "Design Office", arabicLabel: "مكتب تصميم" },
+    { id: "4", label: "Interior Design Office", arabicLabel: "مكتب تصميم داخلي" },
+    { id: "5", label: "Engineering Consultation Company", arabicLabel: "شركة استشارات هندسية" },
+    { id: "6", label: "Safety Office", arabicLabel: "مكتب سلامة" },
+    { id: "7", label: "Other", arabicLabel: "أخري" }
+  ];
+
   form!: FormGroup;
-  activities = ['Survey Office', 'Engineering Office', 'Design Office', 'Interior Design Office', "Engineering Consultation Company", "Safety Office", "Other"]
   providerCurrentStep = 0;
   merchantCurrentStep = 0;
   maxFileSize = 25 * 1024 * 1024;
@@ -49,7 +58,7 @@ export class UserAddModalComponent implements OnInit {
       city: ['', Validators.required],
       neighborhood: ['', Validators.required],
       provider: this.fb.group({
-        activityType: ['Survey Office', Validators.required],
+        activityType: ['1', Validators.required],
         serviceDescription: ['', Validators.required],
         licenseNumber: ['', Validators.required],
         commercialRegistration: ['', Validators.required],
@@ -221,7 +230,7 @@ export class UserAddModalComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const file = input.files[0];
-      
+
       if (file.size > this.maxFileSize) {
         alert(`File ${file.name} exceeds the maximum file size of 25MB.`);
       } else {
@@ -231,11 +240,11 @@ export class UserAddModalComponent implements OnInit {
     }
   }
 
-  imagePreview(file: File){
+  imagePreview(file: File) {
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (e.target && e.target.result) {
-        this.filePreview= e.target.result as string;
+        this.filePreview = e.target.result as string;
       }
     };
     reader.readAsDataURL(file);
@@ -265,6 +274,15 @@ export class UserAddModalComponent implements OnInit {
     this.selectedVisibility = role;
     this.form.controls['role'].setValue(role);
     this.dropdownOpen = false;
+  }
+
+  selectedActivity!:string;
+  updateSelectedActivityType(activity: any) {
+    this.selectedActivity = activity.label;
+    this.getGroup('provider').controls['activityType'].setValue(activity.id);
+    this.dropdownOpen = false;
+
+    console.log(this.getNestedControl('provider','activityType')?.value)
   }
 
   goToNextStep() {

@@ -29,10 +29,12 @@
                 </div>
               </div>
               <div class="position-relative input-container">
-                <label for="title" class="position-absolute label-style">Name</label>
+                <label for="name" class="position-absolute label-style">Name</label>
                 <input type="text" id="title" placeholder="Enter Name" class="input-style" formControlName="name" />
+                <label class="error" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">Invalid name</label>
               </div>
             </div>
+
 
             <div class="d-flex my-1" style="gap: 1rem">
               <div class="position-relative input-container">
@@ -41,10 +43,15 @@
                   <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
                   <input type="text" id="phone" class="input-style" formControlName="phoneNumber" />
                 </div>
+                <label class="error"
+                  *ngIf="form.get('phoneNumber')?.touched && form.get('phoneNumber')?.invalid">Invalid
+                  PhoneNumber</label>
               </div>
               <div class="position-relative input-container">
                 <label for="Email" class="position-absolute label-style">Email</label>
                 <input type="email" id="Email" placeholder="Enter Email" class="input-style" formControlName="email" />
+                <label class="error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">Invalid
+                  email</label>
               </div>
             </div>
 
@@ -53,21 +60,30 @@
                 <label for="Password" class="position-absolute label-style">Password</label>
                 <input type="{{ showPassword ? 'text' : 'password' }}" id="Password" placeholder="Enter Password"
                   class="input-style" formControlName="password" />
+                <label class="error" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">Invalid
+                  password</label>
               </div>
               <div class="position-relative input-container">
                 <label for="confirmPassword" class="position-absolute label-style">Confirm Password</label>
                 <input type="{{ showConfirmPassword ? 'text' : 'password' }}" id="confirmPassword"
                   placeholder="Confirm Password" class="input-style" formControlName="confirmPassword" />
+                <label class="error"
+                  *ngIf="form.get('confirmPassword')?.touched && (form.get('confirmPassword')?.invalid || form.get('password')?.value != form.get('confirmPassword')?.value)">Passwords
+                  aren't equal</label>
+
               </div>
             </div>
             <div class="d-flex my-1" style="gap: 1rem">
               <div class="position-relative input-container">
                 <label for="address" class="position-absolute z-1 label-style">Address</label>
                 <input type="text" id="address" class="input-style" formControlName="address" />
+                <label class="error" *ngIf="form.get('address')?.touched && form.get('address')?.invalid">Invalid
+                  address</label>
               </div>
               <div class="position-relative input-container">
                 <label for="city" class="position-absolute label-style">City</label>
                 <input type="text" id="city" placeholder="Enter City" class="input-style" formControlName="city" />
+                <label class="error" *ngIf="form.get('city')?.touched && form.get('city')?.invalid">Invalid city</label>
               </div>
             </div>
 
@@ -75,6 +91,9 @@
               <div class="position-relative input-container">
                 <label for="neighborhood" class="position-absolute z-1 label-style">Neighborhood</label>
                 <input type="text" id="neighborhood" class="input-style" formControlName="neighborhood" />
+                <label class="error"
+                  *ngIf="form.get('neighborhood')?.touched && form.get('neighborhood')?.invalid">Invalid
+                  neighborhood</label>
               </div>
               <div class="position-relative input-container">
                 <label for="profilePic" class="position-absolute label-style">Profile Picture</label>
@@ -88,21 +107,57 @@
           <div *ngIf="form.get('role')?.value === 'Provider'" formGroupName="provider">
             <div *ngIf="providerCurrentStep === 1">
 
-              <label for="activityType">Activity Type</label>
-              <select id="role" formControlName="activityType">
-                <option value="" disabled>Select Activity</option>
-                <option *ngFor="let activity of activities" [value]="activity">{{ activity }}</option>
-              </select>
+              <div class="d-flex my-1" style="gap: 1rem">
+
+                <div class="position-relative input-container">
+                  <label for="activityType" class="position-absolute label-style">Activity Type</label>
+                  <div class="input-style d-flex justify-content-between align-items-center text-black"
+                    (click)="toggleDropdown()">
+                    {{ selectedActivity ? selectedActivity : "Choose Activity" }}
+                    <img src="../../../../../assets/img/arrow-down-o.svg" />
+                  </div>
+                  <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
+                    <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let activity of ActivityType">
+                      <input type="radio" name="flexRadioDefault" [value]="activity.label"
+                        (change)="updateSelectedActivityType(activity)" />
+                      {{ activity.label }}
+                    </label>
+                  </div>
+                </div>
+              </div>
 
               <div class="d-flex my-1" style="gap: 1rem">
                 <div class="position-relative input-container">
+                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
+                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('ownerName')?.touched && form.get('provider')?.get('ownerName')?.invalid">Invalid
+                    Owner Name</label>
+                </div>
+                <div class="position-relative input-container">
                   <label for="licenseNumber" class="position-absolute z-1 label-style">License Number</label>
                   <input id="licenseNumber" class="input-style" formControlName="licenseNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('licenseNumber')?.touched && form.get('provider')?.get('licenseNumber')?.invalid">Invalid
+                    licenseNumber</label>
+                </div>
+              </div>
+
+              <div class="d-flex my-1" style="gap: 1rem">
+                <div class="position-relative input-container">
+                  <label for="serviceProvider" class="position-absolute z-1 label-style">Service Provider</label>
+                  <input id="serviceProvider" class="input-style" formControlName="serviceProvider" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('serviceProvider')?.touched && form.get('provider')?.get('serviceProvider')?.invalid">Invalid
+                    Service Provider</label>
                 </div>
                 <div class="position-relative input-container">
                   <label for="serviceDescription" class="position-absolute label-style">Service Description</label>
                   <input id="serviceDescription" placeholder="Service Description" class="input-style"
                     formControlName="serviceDescription" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('serviceDescription')?.touched && form.get('provider')?.get('serviceDescription')?.invalid">Invalid
+                    Service Description</label>
                 </div>
               </div>
 
@@ -112,21 +167,16 @@
                     Registration</label>
                   <input id="commercialRegistration" class="input-style" formControlName="commercialRegistration"
                     type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('commercialRegistration')?.touched && form.get('provider')?.get('commercialRegistration')?.invalid">Invalid
+                    Commercial Registration</label>
                 </div>
                 <div class="position-relative input-container">
                   <label for="commercialDate" class="position-absolute label-style">Commercial Date</label>
                   <input id="commercialDate" class="input-style" formControlName="commercialDate" type="date" />
-                </div>
-              </div>
-
-              <div class="d-flex my-1" style="gap: 1rem">
-                <div class="position-relative input-container">
-                  <label for="serviceProvider" class="position-absolute z-1 label-style">Service Provider</label>
-                  <input id="serviceProvider" class="input-style" formControlName="serviceProvider" type="text" />
-                </div>
-                <div class="position-relative input-container">
-                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
-                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('commercialDate')?.touched && form.get('provider')?.get('commercialDate')?.invalid">Invalid
+                    Commercial Date</label>
                 </div>
               </div>
 
@@ -134,10 +184,17 @@
                 <div class="position-relative input-container">
                   <label for="managerName" class="position-absolute z-1 label-style">Manager Name</label>
                   <input id="managerName" class="input-style" formControlName="managerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('managerName')?.touched && form.get('provider')?.get('managerName')?.invalid">Invalid
+                    Manager Name</label>
                 </div>
                 <div class="position-relative input-container">
                   <label for="managerPhoneNumber" class="position-absolute label-style">Manager PhoneNumber</label>
                   <input id="managerPhoneNumber" class="input-style" formControlName="managerPhoneNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('managerPhoneNumber')?.touched && form.get('provider')?.get('managerPhoneNumber')?.invalid">Invalid
+                    Manager PhoneNumber</label>
+
                 </div>
               </div>
 
@@ -149,10 +206,17 @@
                 <div class="position-relative input-container">
                   <label for="latitude" class="position-absolute z-1 label-style">Latitude</label>
                   <input id="latitude" class="input-style" formControlName="latitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('latitude')?.touched && form.get('provider')?.get('latitude')?.invalid">Invalid
+                    latitude</label>
+
                 </div>
                 <div class="position-relative input-container">
                   <label for="longitude" class="position-absolute label-style">Longitude</label>
                   <input id="longitude" class="input-style" formControlName="longitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('longitude')?.touched && form.get('provider')?.get('longitude')?.invalid">Invalid
+                    longitude</label>
                 </div>
               </div>
 
@@ -160,6 +224,9 @@
                 <div class="position-relative input-container">
                   <label for="region" class="position-absolute z-1 label-style">Region</label>
                   <input id="region" class="input-style" formControlName="region" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('provider')?.get('region')?.touched && form.get('provider')?.get('region')?.invalid">Invalid
+                    region</label>
                 </div>
               </div>
             </div>
@@ -175,24 +242,36 @@
                 <div class="position-relative input-container">
                   <label for="facilityActivity" class="position-absolute z-1 label-style">Facility Activity</label>
                   <input id="facilityActivity" class="input-style" formControlName="facilityActivity" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('facilityActivity')?.touched && form.get('merchant')?.get('facilityActivity')?.invalid">Invalid
+                    Facility Activity</label>
                 </div>
                 <div class="position-relative input-container">
                   <label for="commercialRegistration" class="position-absolute z-1 label-style">Commercial
                     Registration</label>
                   <input id="commercialRegistration" class="input-style" formControlName="commercialRegistration"
                     type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('commercialRegistration')?.touched && form.get('merchant')?.get('commercialRegistration')?.invalid">Invalid
+                    Commercial Registration</label>
+
                 </div>
               </div>
 
               <div class="d-flex my-1" style="gap: 1rem">
                 <div class="position-relative input-container">
-                  <label for="licenseNumber" class="position-absolute z-1 label-style">License Number</label>
-                  <input id="licenseNumber" class="input-style" formControlName="licenseNumber" type="text" />
+                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
+                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('ownerName')?.touched && form.get('merchant')?.get('ownerName')?.invalid">Invalid
+                    Owner Name</label>
                 </div>
                 <div class="position-relative input-container">
-                  <label for="serviceDescription" class="position-absolute label-style">Service Description</label>
-                  <input id="serviceDescription" placeholder="Service Description" class="input-style"
-                    formControlName="serviceDescription" type="text" />
+                  <label for="licenseNumber" class="position-absolute z-1 label-style">License Number</label>
+                  <input id="licenseNumber" class="input-style" formControlName="licenseNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('licenseNumber')?.touched && form.get('merchant')?.get('licenseNumber')?.invalid">Invalid
+                    licenseNumber</label>
                 </div>
               </div>
 
@@ -200,10 +279,17 @@
                 <div class="position-relative input-container">
                   <label for="serviceProvider" class="position-absolute z-1 label-style">Service Provider</label>
                   <input id="serviceProvider" class="input-style" formControlName="serviceProvider" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('serviceProvider')?.touched && form.get('merchant')?.get('serviceProvider')?.invalid">Invalid
+                    Service Provider</label>
                 </div>
                 <div class="position-relative input-container">
-                  <label for="ownerName" class="position-absolute label-style">Owner Name</label>
-                  <input id="ownerName" class="input-style" formControlName="ownerName" type="text" />
+                  <label for="serviceDescription" class="position-absolute label-style">Service Description</label>
+                  <input id="serviceDescription" placeholder="Service Description" class="input-style"
+                    formControlName="serviceDescription" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('serviceDescription')?.touched && form.get('merchant')?.get('serviceDescription')?.invalid">Invalid
+                    Service Description</label>
                 </div>
               </div>
 
@@ -211,10 +297,16 @@
                 <div class="position-relative input-container">
                   <label for="managerName" class="position-absolute z-1 label-style">Manager Name</label>
                   <input id="managerName" class="input-style" formControlName="managerName" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('managerName')?.touched && form.get('merchant')?.get('managerName')?.invalid">Invalid
+                    Manager Name</label>
                 </div>
                 <div class="position-relative input-container">
                   <label for="managerPhoneNumber" class="position-absolute label-style">Manager PhoneNumber</label>
                   <input id="managerPhoneNumber" class="input-style" formControlName="managerPhoneNumber" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('managerPhoneNumber')?.touched && form.get('merchant')?.get('managerPhoneNumber')?.invalid">Invalid
+                    Manager Phone Number</label>
                 </div>
               </div>
 
@@ -226,10 +318,16 @@
                 <div class="position-relative input-container">
                   <label for="latitude" class="position-absolute z-1 label-style">Latitude</label>
                   <input id="latitude" class="input-style" formControlName="latitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('latitude')?.touched && form.get('merchant')?.get('latitude')?.invalid">Invalid
+                    latitude</label>
                 </div>
                 <div class="position-relative input-container">
                   <label for="longitude" class="position-absolute label-style">Longitude</label>
                   <input id="longitude" class="input-style" formControlName="longitude" type="number" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('longitude')?.touched && form.get('merchant')?.get('longitude')?.invalid">Invalid
+                    longitude</label>
                 </div>
               </div>
 
@@ -237,6 +335,9 @@
                 <div class="position-relative input-container">
                   <label for="region" class="position-absolute z-1 label-style">Region</label>
                   <input id="region" class="input-style" formControlName="region" type="text" />
+                  <label class="error"
+                    *ngIf="form.get('merchant')?.get('region')?.touched && form.get('merchant')?.get('region')?.invalid">Invalid
+                    region</label>
                 </div>
               </div>
             </div>
@@ -257,7 +358,10 @@
           (form.get('role')?.value === 'Customer')
           ||(form.get('role')?.value === 'Provider' && providerCurrentStep === 2)
           || (form.get('role')?.value === 'Merchant' && merchantCurrentStep === 2)
-          " type="submit" class="approve-btn" (click)="onSubmit()">Add</button>
+          " type="submit" class="approve-btn" (click)="onSubmit()"
+          [disabled]="!isFormValid()"
+          data-bs-dismiss="modal"
+          >Add</button>
         </div>
       </div>
     </form>
