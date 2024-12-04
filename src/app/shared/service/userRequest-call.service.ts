@@ -2,11 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Product } from "src/app/core/components/products/models/product.model";
-<<<<<<< HEAD
 import { SendOtp } from "src/app/core/components/users/models/send-otp.model";
-=======
 import { DraftUserDto } from "src/app/core/components/users/models/draft-user.model";
->>>>>>> 121a744afd572de8b5ebf1174147f2b6e0e91c44
 import { UserTableDto } from "src/app/core/components/users/models/user-table.model";
 
 @Injectable({
@@ -51,7 +48,6 @@ export class UserRquestCallService {
     return this.http.delete<void>(apiUrl);
   }
 
-<<<<<<< HEAD
 
   sendOTP(phoneNumber: string): Observable<SendOtp> {
     const params = new HttpParams().set('phoneNumber', phoneNumber);
@@ -63,10 +59,8 @@ export class UserRquestCallService {
     const url = `/api/user/register`;
     return this.http.post<void>(url, formData);
   }
-=======
   getAllUnfinishedUsers(): Observable<DraftUserDto[]> {
     return this.http.get<DraftUserDto[]>(`/api/admin/user/get-users-unfinished`);
   }
 
->>>>>>> 121a744afd572de8b5ebf1174147f2b6e0e91c44
 }
