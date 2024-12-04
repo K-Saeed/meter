@@ -218,7 +218,7 @@ export class UserAddModalComponent implements OnInit {
   addUser(formData: FormData) {
     this.userService.addUser(formData).subscribe({
       next: (n) => {
-        console.log(n);
+        // console.log(n);
       },
       error: (e) => {
         console.log(e);
