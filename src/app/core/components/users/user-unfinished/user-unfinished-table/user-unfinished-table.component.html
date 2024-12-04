@@ -1,0 +1,104 @@
+<div class="mx-3">
+    <table class="table my-4">
+        <thead class="table-light">
+            <tr>
+                <th scope="col" class="title-table">
+                    <p class="m-0">ID</p>
+                </th>
+                <th scope="col" class="title-table">
+                    <p class="m-0">Name</p>
+                </th>
+                <th scope="col" class="title-table">
+                    <p class="m-0">Role</p>
+                </th>
+                <th scope="col" class="title-table">
+                    <p class="m-0">Registered</p>
+                </th>
+                <th scope="col" class="title-table">
+                    <p class="m-0">Address</p>
+                </th>
+                <th scope="col" class="title-table">
+                    <p class="m-0">Phone number</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of paginatedUsers">
+                <td>
+                    <h4 class="m-0">{{ user.id }}</h4>
+                </td>
+                <td>
+                    <div class="d-flex flex-column gap-1">
+                        <h3 class="m-0">{{ user.name }}</h3>
+                        <h5 class="m-0">{{ user.email }}</h5>
+                    </div>
+                </td>
+                <td>
+                    <h4 class="m-0">{{ user.role }}</h4>
+                </td>
+                <td>
+                    <h4 class="m-0">{{ user.creationDate }}</h4>
+                </td>
+                <td>
+                    <h4 class="m-0">{{ user.address }}</h4>
+                </td>
+                <td>
+                    <h4 class="m-0">{{ user.phoneNumber }}</h4>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="font d-flex align-items-center justify-content-between my-4 pagination-space">
+        <h5 class="left m-0">
+            Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+            {{ Math.min(currentPage * itemsPerPage, users.length) }}
+            of {{ users.length }} entries
+        </h5>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination gap-2 m-0 align-items-center">
+                <!-- Previous Button -->
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="page-link previous" href="#" aria-label="Previous"
+                        (click)="setPage(currentPage - 1, $event)">
+                        <span aria-hidden="true">
+                            <img src="../../../../../assets/img/arrow-left.svg" alt="Previous" />
+                        </span>
+                    </a>
+                </li>
+
+                <!-- Page Number Links -->
+                <li *ngFor="let page of getPagination()" class="page-item" [class.active]="page === currentPage"
+                    [class.disabled]="page === -1">
+                    <a class="page-link" href="#" *ngIf="page !== -1" (click)="setPage(page, $event)">
+                        {{ page }}
+                    </a>
+                    <span class="page-link" *ngIf="page === -1">...</span>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" [class.disabled]="currentPage === Math.ceil(users.length / itemsPerPage)">
+                    <a class="page-link next" href="#" aria-label="Next" (click)="setPage(currentPage + 1, $event)">
+                        <span aria-hidden="true">
+                            <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="font d-flex align-items-center">
+            <h5 class="m-0 me-2">Show</h5>
+
+            <div class="select-wrapper">
+                <select class="form-select mx-2 custom-select" [(ngModel)]="itemsPerPage" (change)="setPage(1, $event)">
+                    <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">
+                        {{ option }}
+                    </option>
+                </select>
+                <i class="fa-solid fa-chevron-down custom-select-icon"></i>
+            </div>
+            <h5 class="m-0 ms-2">entries</h5>
+        </div>
+    </div>
+
+</div>
