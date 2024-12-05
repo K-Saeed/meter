@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { UserService } from '../../users/services/user.service';
 import { UserTableDto } from '../../users/models/user-table.model';
 import { combineLatest, Subscription } from 'rxjs';
@@ -11,17 +11,18 @@ import { ConversationService } from 'src/app/shared/service/conversation.service
   styleUrls: ['./send-message-to-all.component.css']
 })
 export class SendMessageToAllComponent {
-
   activeRole: string | null = null;
   activeStatus: string | null = null;
   status!: string;
   role!: string;
   userList: UserTableDto[] = [];
+  filteredUsers: UserTableDto[] = [];
   selectedUsers: string[] = [];
   selectAllChecked = false;
   maxFileSize = 25 * 1024 * 1024;
   fileToBeUploaded!: File;
   filePreview!: (string | ArrayBuffer | null);
+  searchTerm: string = '';
 
   message: string = '';
 
@@ -39,6 +40,19 @@ export class SendMessageToAllComponent {
     });
   }
 
+  applySearch() {
+    this.filterUsers();
+  }
+
+  filterUsers() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredUsers = this.userList.filter(user =>
+      user.name.toLowerCase().includes(term) || // Match by name
+      user.email.toLowerCase().includes(term) || // Match by email
+      user.mobile?.toLowerCase().includes(term) // Match by phone (optional)
+    );
+  }
+
   ngOnDestroy(): void {
     if (this.statusTypeSubscription) {
       this.statusTypeSubscription.unsubscribe();
@@ -49,6 +63,7 @@ export class SendMessageToAllComponent {
     this.userService.getUsersList(this.role, this.status).subscribe(
       (res) => {
         this.userList = res;
+        this.filteredUsers = res;
         this.cdr.detectChanges();
       },
       (err) => {
@@ -62,7 +77,7 @@ export class SendMessageToAllComponent {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const file = input.files[0];
-      
+
       if (file.size > this.maxFileSize) {
         alert(`File ${file.name} exceeds the maximum file size of 25MB.`);
       } else {

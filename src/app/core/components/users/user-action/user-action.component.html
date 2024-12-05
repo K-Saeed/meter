@@ -12,9 +12,15 @@
       <span>Filter</span>
     </button>
   </div>
-  <button class="btn-orange d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
-    <img src="../../../../../assets/img/add.svg" alt="" />
-    <span>New User</span>
-  </button>
+  <div class="d-flex gap-2">
+    <button class="border bg-white btn-unfinished d-flex align-items-center gap-2 " [routerLink]="'/unfinisheduser'">
+      <img src="../../../../../assets/img/info-circle.svg" alt="" />
+      <span>Unfinished User</span>
+    </button>
+    <button class="btn-orange d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+      <img src="../../../../../assets/img/add.svg" alt="" />
+      <span>New User</span>
+    </button>
+  </div>
 </div>
 <app-user-add-modal></app-user-add-modal>
