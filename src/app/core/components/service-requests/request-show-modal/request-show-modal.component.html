@@ -19,8 +19,14 @@
             }" (click)="setActiveLink('attachments', $event)">
             Attachments
           </a>
+          <a class="text-decoration-none ms-3" href="#" [ngClass]="{
+            breadcrumbSpace: activeLink === 'offers',
+            inActive: activeLink !== 'offers'
+          }" (click)="setActiveLink('offers', $event)">
+            Offers
+          </a>
         </div>
-
+        <!-- tab details -->
         <div *ngIf="activeLink === 'details'">
           <div class="d-flex flex-column">
             <div class="title d-flex align-items-start gap-2 flex-column mt-4">
@@ -86,6 +92,7 @@
             </div>
           </div>
         </div>
+        <!-- tab attachments -->
         <div *ngIf="activeLink === 'attachments'">
           <div class="d-flex flex-column gap-5 mt-5">
             <div class="d-flex flex-column justify-content-between gap-5">
@@ -100,6 +107,125 @@
                     </div>
                     <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt=""
                       (click)="downloadFile(file)" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- tab offers -->
+        <div *ngIf="activeLink === 'offers'">
+          <div class="d-flex flex-column scrollable-container">
+            <div class="title d-flex align-items-start gap-2 flex-column mt-4 position-relative"
+              [ngClass]="{ 'open': selectedProposal === 'proposal1', 'closed': selectedProposal !== 'proposal1' }">
+              <div class="info d-flex flex-column gap-3">
+                <h3 class="d-flex justify-content-between m-0 cursor-pointer" (click)="showDetails('proposal1')">
+                  <span class="label">Proposal ID:</span>
+                  <span class="value">{{ request?.requestOwner?.name }}</span>
+                  <i class="fa" [class.fa-chevron-down]="selectedProposal !== 'proposal1'"
+                    [class.fa-chevron-up]="selectedProposal === 'proposal1'"></i>
+                </h3>
+                <div *ngIf="selectedProposal === 'proposal1'" class="info d-flex flex-column gap-3">
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Date Submitted:</span>
+                    <span class="value">{{ request?.requestOwner?.name }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Provider name:</span>
+                    <span class="value">{{ request?.requestOwner?.name }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Email:</span>
+                    <span class="value">{{ request?.requestOwner?.email }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Phone:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Office fees:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Service Fees:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Tax:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Total:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Description:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <div class="d-flex gap-3 justify-content-end buttons-container">
+                    <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                      Reject
+                    </button>
+                    <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
+                      Approve
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="title d-flex align-items-start gap-2 flex-column mt-4 position-relative"
+              [ngClass]="{ 'open': selectedProposal === 'proposal2', 'closed': selectedProposal !== 'proposal2' }">
+              <div class="info d-flex flex-column gap-3">
+                <h3 class="d-flex justify-content-between m-0 cursor-pointer" (click)="showDetails('proposal2')">
+                  <span class="label">Proposal ID:</span>
+                  <span class="value">{{ request?.requestOwner?.name }}</span>
+                  <i class="fa" [class.fa-chevron-down]="selectedProposal !== 'proposal2'"
+                    [class.fa-chevron-up]="selectedProposal === 'proposal2'"></i>
+                </h3>
+                <div *ngIf="selectedProposal === 'proposal2'" class="info d-flex flex-column gap-3">
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Date Submitted:</span>
+                    <span class="value">{{ request?.requestOwner?.name }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Provider name:</span>
+                    <span class="value">{{ request?.requestOwner?.name }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Email:</span>
+                    <span class="value">{{ request?.requestOwner?.email }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Phone:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Office fees:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Service Fees:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Tax:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Total:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Description:</span>
+                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                  </h3>
+                  <div class="d-flex gap-3 justify-content-end buttons-container">
+                    <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
+                      Reject
+                    </button>
+                    <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
+                      Approve
+                    </button>
                   </div>
                 </div>
               </div>

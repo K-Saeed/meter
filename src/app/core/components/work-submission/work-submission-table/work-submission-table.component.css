@@ -211,10 +211,10 @@ input:checked + .slider:before {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  padding-right: 2rem; /* Adjust padding to make space for the icon */
-  background: transparent; /* Make background transparent */
-  border: 1px solid #ced4da; /* Border similar to default Bootstrap */
-  font-size: 1rem; /* Ensure the font size matches Bootstrap */
+  padding-right: 2rem;
+  background: transparent;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
 }
 
 .custom-select-icon {
@@ -224,7 +224,7 @@ input:checked + .slider:before {
   right: 20px;
   pointer-events: none;
   transform: translateY(-50%);
-  color: #f28f45; /* Change this color to your desired arrow color */
+  color: #f28f45;
 }
 
 .select-wrapper::after {

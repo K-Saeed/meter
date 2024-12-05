@@ -10,6 +10,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   styleUrls: ["./request-show-modal.component.css"],
 })
 export class RequestShowModalComponent  implements OnInit{
+  selectedProposal: string | null = null;
   @Input() request?: RequestResponseDto;
   pricingPurpose: any;
   activeLink: string = "details";
@@ -48,5 +49,14 @@ selectedFileUrl: SafeResourceUrl | null = null;
     this.selectedFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(filePath + (this.isImageFile ? '' : '#toolbar=0'));
     this.showFilePopup = true;
   }
-
+  showDetails(proposalId: string): void {
+    if (this.selectedProposal === proposalId) {
+      this.selectedProposal = null;  
+    } else {
+      this.selectedProposal = proposalId; 
+    }
+  }
+  // showDetails(proposalId: string): void {
+  //   this.selectedProposal = this.selectedProposal === proposalId ? null : proposalId;
+  // }
 }

@@ -150,4 +150,48 @@ p {
   width: 16px;
   height: 16px;
 }
+.location-btn {
+  right: -100px;
+  bottom: 0px;
+}
+.position-relative {
+  position: relative;
+  padding-bottom: 60px;
+}
 
+.buttons-container {
+  position: absolute;
+  bottom: 0;
+  right: 5px;
+}
+.title {
+  transition: all 0.3s ease;
+}
+
+.title.closed {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.title.open {
+  padding-bottom: 60px;
+}
+.scrollable-container {
+  position: relative;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.scrollable-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: #f28f45;
+  border-radius: 10px;
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
