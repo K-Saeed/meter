@@ -1,1 +1,53 @@
-<app-user-provider-modal></app-user-provider-modal>
+<div class="d-flex flex-column gap-3 mt-2">
+  <div class="d-flex my-1" style="gap: 1rem">
+    <div class="position-relative input-container">
+      <label for="Provider" class="position-absolute label-style">Service Provider</label>
+      <div class="input-style d-flex justify-content-between align-items-center text-black"
+           (click)="toggleDropdown('provider')">
+        {{ parentForm.controls['providerType'].value || 'Choose Service Provider' }}
+        <img src="../../../../../assets/img/arrow-down-o.svg" />
+      </div>
+      <div *ngIf="dropdownOpen === 'provider'" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
+        <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let provider of Providers">
+          <input type="radio" name="providerRadio" (click)="updateProviderType(provider.name)" />
+          {{ provider.name }}
+        </label>
+      </div>
+    </div>
+
+    <div class="position-relative input-container">
+      <label for="facilityName" class="position-absolute label-style">Facility Name</label>
+      <input type="text" id="facilityName" placeholder="Enter Facility Name"
+             class="input-style" formControlName="facilityName" />
+    </div>
+  </div>
+
+  <div class="d-flex my-1" style="gap: 1rem">
+    <div class="position-relative input-container">
+      <label for="activityType" class="position-absolute label-style">Type of Activity</label>
+      <div class="input-style d-flex justify-content-between align-items-center text-black"
+           (click)="toggleDropdown('activity')">
+        {{ parentForm.controls['activityType'].value || 'Choose Type of Activity' }}
+        <img src="../../../../../assets/img/arrow-down-o.svg" />
+      </div>
+      <div *ngIf="dropdownOpen === 'activity'" id="dropdown" class="dropdown-content d-flex flex-column gap-1">
+        <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let activity of Activities">
+          <input type="radio" name="activityRadio" (click)="updateActivityType(activity.name)" />
+          {{ activity.name }}
+        </label>
+      </div>
+    </div>
+
+    <div class="position-relative input-container">
+      <label for="licenseNumber" class="position-absolute label-style">License Number</label>
+      <input type="text" id="licenseNumber" placeholder="Enter License Number"
+             class="input-style" formControlName="licenseNumber" />
+    </div>
+  </div>
+
+  <div class="position-relative input-container my-1">
+    <label for="serviceDescription" class="position-absolute label-style">Description of Services</label>
+    <textarea id="serviceDescription" placeholder="Enter Description of Services"
+              class="input-style w-100 overflow-hidden" formControlName="serviceDescription" style="height: 85px"></textarea>
+  </div>
+</div>
