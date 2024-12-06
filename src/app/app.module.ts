@@ -113,7 +113,7 @@ import { UserCustomerComponent } from './core/components/users/user-add-modal/us
 import { UserProviderComponent } from './core/components/users/user-add-modal/user-provider/user-provider.component';
 import { UserVerificationModalComponent } from './core/components/users/user-verification-modal/user-verification-modal.component';
 import { UserProviderModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-modal/user-provider-modal.component';
-import { UserProviderNextModalComponent } from './core/components/users/user-add-modal/user-provider-next-modal/user-provider-next-modal.component';
+import { UserProviderNextModalComponent } from './core/components/users/user-add-modal/user-provider/user-provider-next-modal/user-provider-next-modal.component';
 import { UserSellerNextModalComponent } from './core/components/users/user-add-modal/user-seller-next-modal/user-seller-next-modal.component';
 import { UserSellerModalComponent } from './core/components/users/user-add-modal/user-seller/user-seller-modal/user-seller-modal.component';
 import { UserSellerComponent } from './core/components/users/user-add-modal/user-seller/user-seller.component';
@@ -138,6 +138,10 @@ import { RequestModalComponent } from './core/components/service-requests/reques
 import { ConsolationModalComponent } from './core/components/service-requests/request-edit-modal/consolation-modal/consolation-modal.component';
 import { JobModalComponent } from './core/components/service-requests/request-edit-modal/job-modal/job-modal.component';
 import { SendMessageToAllComponent } from './core/components/chat/send-message-to-all/send-message-to-all.component';
+import { UserUnfinishedComponent } from './core/components/users/user-unfinished/user-unfinished.component';
+import { UserUnfinishedTitleComponent } from './core/components/users/user-unfinished/user-unfinished-title/user-unfinished-title.component';
+import { UserUnfinishedTableComponent } from './core/components/users/user-unfinished/user-unfinished-table/user-unfinished-table.component';
+import { UserUnfinishedActionComponent } from './core/components/users/user-unfinished/user-unfinished-action/user-unfinished-action.component';
 
 
 @NgModule({
@@ -270,6 +274,10 @@ import { SendMessageToAllComponent } from './core/components/chat/send-message-t
     ConsolationModalComponent,
     JobModalComponent,
     SendMessageToAllComponent,
+    UserUnfinishedComponent,
+    UserUnfinishedTitleComponent,
+    UserUnfinishedTableComponent,
+    UserUnfinishedActionComponent,
   ],
   imports: [
     BrowserModule,

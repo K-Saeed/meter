@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
 import { ChatRoom } from '../models/conversation-table.model';
 import { Message } from '../models/message.model';
 
@@ -7,9 +7,21 @@ import { Message } from '../models/message.model';
   templateUrl: './conversation-chat-modal.component.html',
   styleUrls: ['./conversation-chat-modal.component.css']
 })
-export class ConversationChatModalComponent {
-  @Input() chatRoom!:ChatRoom;
-  @Input() messages!:Message[];
+export class ConversationChatModalComponent implements AfterViewChecked {
+  @Input() chatRoom!: ChatRoom;
+  @Input() messages!: Message[];
+
+  @ViewChild('chatContainer') chatContainer!: ElementRef;
+
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    if (this.chatContainer) {
+      this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+    }
+  }
 
   activeLinks: string[] = [];
 

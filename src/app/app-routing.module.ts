@@ -15,6 +15,7 @@ import { ChatComponent } from './core/components/chat/chat.component';
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { AuthGuardService } from './shared/service/auth/auth-guard.service';
+import { UserUnfinishedComponent } from './core/components/users/user-unfinished/user-unfinished.component';
 
 const routes: Routes = [
   { path: 'signin', component: SignInComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'worksubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
   { path: 'WorkSubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
+  { path: 'unfinisheduser', component: UserUnfinishedComponent , canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // Default route
   { path: '**', redirectTo: '/signin' } // Wildcard route for a 404 page
 ];

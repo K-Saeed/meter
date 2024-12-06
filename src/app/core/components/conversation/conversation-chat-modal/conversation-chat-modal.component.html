@@ -1,50 +1,39 @@
-<div
-  class="modal fade"
-  id="chatModal"
-  tabindex="-1"
-  aria-labelledby="chatModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="chatModal" tabindex="-1" aria-labelledby="chatModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-body chat-container">
+      <div class="modal-header p-2 z-1">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body chat-container d-flex flex-column gap-4" #chatContainer>
         <div *ngFor="let message of messages" class="message-wrapper">
           <!-- Customer Message -->
-          <div
-            *ngIf="message.senderEmail === chatRoom.customerProfile.email"
-            class="message customer-message"
-          >
-            <img
-              class="profile-pic"
-              [src]="chatRoom.customerProfile.logoPath"
+          <div *ngIf="message.senderEmail === chatRoom.customerProfile.email" class="message customer-message">
+            <img class="profile-pic" [src]="chatRoom.customerProfile.logoPath"
               onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';"
-              alt="Customer Avatar"
-            />
-            <div class="message-content">
-              <div class="message-header">
-                <h6 class="name">{{ chatRoom.customerProfile.name }} | [Customer]</h6>
+              alt="Customer Avatar" />
+            <div class="d-flex flex-column">
+              <div class="message-header d-flex gap-4">
+                <h6 class="name">{{ chatRoom.customerProfile.name }} <span>[Customer]</span> </h6>
+                <small class="timestamp">{{ message.sentTime }}</small>
               </div>
-              <p class="message-text">{{ message.content }}</p>
-              <small class="timestamp">{{ message.sentTime }}</small>
+              <div class="message-content">
+                <p class="message-text">{{ message.content }}</p>
+              </div>
             </div>
           </div>
+
           <!-- Provider Message -->
-          <div
-            *ngIf="message.senderEmail === chatRoom.providerProfile.email"
-            class="message provider-message"
-          >
-            <div class="message-content">
-              <div class="message-header">
-                <h6 class="name">{{ chatRoom.providerProfile.name }} | [Provider]</h6>
+          <div *ngIf="message.senderEmail === chatRoom.providerProfile.email" class="message provider-message">
+            <img class="profile-pic" [src]="chatRoom.providerProfile.logoPath" alt="Provider Avatar" />
+            <div class="d-flex flex-column ms-5">
+              <div class="message-header d-flex gap-2">
+                <small class="timestamp">{{ message.sentTime }}</small>
+                <h6 class="name"><span>[Provider]</span> {{ chatRoom.providerProfile.name }} </h6>
               </div>
-              <p class="message-text">{{ message.content }}</p>
-              <small class="timestamp">{{ message.sentTime }}</small>
+              <div class="message-content">
+                <p class="message-text">{{ message.content }}</p>
+              </div>
             </div>
-            <img
-              class="profile-pic"
-              [src]="chatRoom.providerProfile.logoPath"
-              alt="Provider Avatar"
-            />
           </div>
         </div>
       </div>
