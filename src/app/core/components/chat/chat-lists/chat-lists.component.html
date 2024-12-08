@@ -24,11 +24,13 @@
           onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';" />
         <div class="profile-info d-flex flex-column">
           <h3 class="m-0">{{ chatRoom.customerProfile.name }}</h3>
-          <p>{{ chatRoom.lastMessage }}</p>
+          <!-- <p>{{ chatRoom.lastMessage.split(' ').slice(0, 4).join(' ') }}</p> -->
+          <p *ngIf="chatRoom.lastMessage">{{ getSafeMessage(chatRoom.lastMessage) }}</p>
+
           <span class="m-0">{{ chatRoom.customerProfile.role }}</span>
         </div>
       </div>
-      <h4 class="m-0">{{ chatRoom.lastMessageTimestamp }}</h4>
+      <h4 class="m-0" style="font-size: 10px;">{{ chatRoom.lastMessageTimestamp }}</h4>
     </div>
   </div>
 </div>

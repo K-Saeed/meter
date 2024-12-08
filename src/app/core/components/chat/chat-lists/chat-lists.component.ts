@@ -8,12 +8,19 @@ import { ChatRoom } from '../../conversation/models/conversation-table.model';
   styleUrls: ['./chat-lists.component.css']
 })
 export class ChatListsComponent {
-
-  @Input() chatRooms!:ChatRoom[];
+  @Input() chatRooms!: ChatRoom[];
   @Output() chatRoomSelected = new EventEmitter<ChatRoom>();
-
+  ngOnInit() {
+    console.log("hi" + this.chatRooms);
+    // console.log(chatRoom?.lastMessage);
+  }
   selectChatRoom(chatRoom: ChatRoom) {
     this.chatRoomSelected.emit(chatRoom);
+  }
+  getSafeMessage(msg: string | undefined): string {
+    console.log('Message to process:', msg);
+    return msg ? msg.split(' ').slice(0, 4).join(' ') : '';
+    // return (msg || '').split(' ').slice(0, 5).join(' ');
   }
 
 }

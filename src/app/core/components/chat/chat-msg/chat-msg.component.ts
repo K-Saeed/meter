@@ -15,7 +15,7 @@ export class ChatMsgComponent {
   @Input() messages!: Message[];
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   message: string = '';
-  fileToBeUploaded!: File|null;
+  fileToBeUploaded!: File | null;
   filePreview!: (string | ArrayBuffer | null);
 
   maxFileSize = 25 * 1024 * 1024;
@@ -27,18 +27,18 @@ export class ChatMsgComponent {
   }
   ngAfterViewChecked(): void {
     this.scrollToBottom();
-  } 
+  }
   scrollToBottom(): void {
     if (this.scrollContainer) {
       this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
     }
   }
- 
+
   onFilesSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {
       const file = input.files[0];
-      
+
       if (file.size > this.maxFileSize) {
         alert(`File ${file.name} exceeds the maximum file size of 25MB.`);
       } else {
@@ -48,11 +48,11 @@ export class ChatMsgComponent {
     }
   }
 
-  imagePreview(file: File){
+  imagePreview(file: File) {
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (e.target && e.target.result) {
-        this.filePreview= e.target.result as string;
+        this.filePreview = e.target.result as string;
       }
     };
     reader.readAsDataURL(file);
@@ -70,16 +70,16 @@ export class ChatMsgComponent {
   prepareMessageFormData() {
     const formData = new FormData();
     // if (this.message != '') {
-      const adminMessage = new AdminChatMessage({
-        recipientEmail: [this.chatRoom.customerProfile.email],
-        messageTitle: '',
-        content: this.fileToBeUploaded?'image': this.message,
-        messageType: this.fileToBeUploaded?'image':'text',
-      });
-      formData.append(
-        'chatMessageDto',
-        new Blob([JSON.stringify(adminMessage)], { type: 'application/json' })
-      );
+    const adminMessage = new AdminChatMessage({
+      recipientEmail: [this.chatRoom.customerProfile.email],
+      messageTitle: '',
+      content: this.fileToBeUploaded ? 'image' : this.message,
+      messageType: this.fileToBeUploaded ? 'image' : 'text',
+    });
+    formData.append(
+      'chatMessageDto',
+      new Blob([JSON.stringify(adminMessage)], { type: 'application/json' })
+    );
     // }
 
     if (this.fileToBeUploaded) {
@@ -110,12 +110,12 @@ export class ChatMsgComponent {
       latitude: 37.7749,
       longitude: -122.4194,
       recipientEmail: 'recipient@example.com',
-      messageType: this.message === ''? 'image' :'text',
-      content: this.message === ''? this.filePreview :this.message,
+      messageType: this.message === '' ? 'image' : 'text',
+      content: this.message === '' ? this.filePreview : this.message,
       sentTime: null,
     };
     this.messages.push(newMessage);
-    this.message='';
+    this.message = '';
     this.filePreview = null;
     this.fileToBeUploaded = null;
   }

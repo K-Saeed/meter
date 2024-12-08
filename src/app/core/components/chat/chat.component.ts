@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { ConversationService } from 'src/app/shared/service/conversation.service';
 import { ChatRoom } from '../conversation/models/conversation-table.model';
@@ -35,16 +36,16 @@ export class ChatComponent {
     })
   }
 
-  sort(n:ChatRoom[]){
-   return n.sort((a, b) => {
-      const aTimestamp = a.lastMessageTimestamp instanceof Date 
-        ? a.lastMessageTimestamp.getTime() 
+  sort(n: ChatRoom[]) {
+    return n.sort((a, b) => {
+      const aTimestamp = a.lastMessageTimestamp instanceof Date
+        ? a.lastMessageTimestamp.getTime()
         : new Date(a.lastMessageTimestamp).getTime();
-    
-      const bTimestamp = b.lastMessageTimestamp instanceof Date 
-        ? b.lastMessageTimestamp.getTime() 
+
+      const bTimestamp = b.lastMessageTimestamp instanceof Date
+        ? b.lastMessageTimestamp.getTime()
         : new Date(b.lastMessageTimestamp).getTime();
-    
+
       return bTimestamp - aTimestamp;
     });
   }
