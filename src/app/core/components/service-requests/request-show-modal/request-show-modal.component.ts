@@ -41,19 +41,13 @@ export class RequestShowModalComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['request'] && this.request?.requestId) {
-      this.activeLink = "details";
       this.loadProposals();
     }
   }
+
   setActiveLink(link: string, event: Event) {
     event.preventDefault();
-    if (this.activeLink !== link) {
-      if (link === 'offers' && this.offers.length === 0) {
-        // console.log("Waiting for offers to load...");
-        return;
-      }
-      this.activeLink = link;
-    }
+    this.activeLink = link;
   }
 
   downloadFile(file: any): void {
@@ -86,26 +80,14 @@ export class RequestShowModalComponent implements OnInit, OnChanges {
   }
 
   loadProposals(): void {
-    this.offers = []; // إعادة التهيئة في كل مرة يتم فيها تحميل البيانات
-    this.activeLink = "details"; // العودة إلى التبويب الأساسي
-
     this.proposalCallService
       .getAllPorposalsForRequest(this.request?.requestId)
       .subscribe({
         next: (proposals) => {
           this.offers = proposals;
-
-          // التأكد من أنه لا توجد عروض
-          if (this.offers.length > 0) {
-            this.activeLink = "offers"; // التبديل فقط عند توفر عروض
-          } else {
-            this.activeLink = "details";
-          }
         },
         error: (err) => {
           console.error("Failed to load proposals:", err);
-          this.offers = [];
-          this.activeLink = "details"; // إعادة التبويب الافتراضي عند حدوث خطأ
         },
       });
   }
