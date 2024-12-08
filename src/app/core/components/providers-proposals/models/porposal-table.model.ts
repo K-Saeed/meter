@@ -5,6 +5,10 @@ export interface ProposalResponse {
   title: string;
   details: string;
   price: string;
+  serviceFees: string;
+  officeFees: string;
+  taxes: string;
+
   status: string;
   offerDate: Date;
   internalStatus: string;
