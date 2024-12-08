@@ -1,15 +1,22 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { RequestService } from '../services/request.service';
-import { combineLatest, Subscription } from 'rxjs';
-import { RequestResponseDto } from '../models/request-table.model';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+} from "@angular/core";
+import { RequestService } from "../services/request.service";
+import { combineLatest, Subscription } from "rxjs";
+import { RequestResponseDto } from "../models/request-table.model";
 
 @Component({
-  selector: 'app-request-table',
-  templateUrl: './request-table.component.html',
-  styleUrls: ['./request-table.component.css']
+  selector: "app-request-table",
+  templateUrl: "./request-table.component.html",
+  styleUrls: ["./request-table.component.css"],
 })
 export class RequestTableComponent implements OnInit, OnDestroy {
-  @Input() searchTerm: string = '';
+  @Input() searchTerm: string = "";
   filteredRequests: RequestResponseDto[] = [];
 
   selectAll: boolean = false;
@@ -34,7 +41,7 @@ export class RequestTableComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.statusTypeSubscription = combineLatest([
       this.requestService.status$,
-      this.requestService.type$
+      this.requestService.type$,
     ]).subscribe(([status, type]) => {
       this.status = status!;
       this.type = type!;
@@ -43,7 +50,7 @@ export class RequestTableComponent implements OnInit, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
+    if (changes["searchTerm"] && !changes["searchTerm"].firstChange) {
       this.filterRequests();
     }
   }
@@ -56,11 +63,11 @@ export class RequestTableComponent implements OnInit, OnDestroy {
 
   toggleAll(event: Event) {
     event.preventDefault();
-    this.requests.forEach(request => (request.selected = this.selectAll));
+    this.requests.forEach((request) => (request.selected = this.selectAll));
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.requests.every(request => request.selected);
+    this.selectAll = this.requests.every((request) => request.selected);
   }
 
   toggleRequest(request: RequestResponseDto) {
@@ -78,22 +85,30 @@ export class RequestTableComponent implements OnInit, OnDestroy {
       },
       error: (e) => {
         console.log(e);
-      }
+      },
     });
   }
 
   filterRequests() {
     const term = this.searchTerm.toLowerCase();
-    this.filteredRequests = this.requests.filter((request) =>
-      request.requestId.toLowerCase().includes(term)
+    this.filteredRequests = this.requests.filter(
+      (request) =>
+        request.requestId.toLowerCase().includes(term) ||
+        request.requestOwner.name.toLowerCase().includes(term) ||
+        request.requestOwner.mobile.toLowerCase().includes(term)
     );
     this.updatePagination();
   }
 
   updatePagination() {
-    this.totalPages = Math.ceil(this.filteredRequests.length / this.itemsPerPage);
+    this.totalPages = Math.ceil(
+      this.filteredRequests.length / this.itemsPerPage
+    );
     this.startItemIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
-    this.endItemIndex = Math.min(this.currentPage * this.itemsPerPage, this.filteredRequests.length);
+    this.endItemIndex = Math.min(
+      this.currentPage * this.itemsPerPage,
+      this.filteredRequests.length
+    );
   }
 
   setPage(page: number, event: Event) {
@@ -117,7 +132,9 @@ export class RequestTableComponent implements OnInit, OnDestroy {
   }
 
   setRequest() {
-    this.request = this.requests.find(request => request.requestId === this.selectedRequestId);
+    this.request = this.requests.find(
+      (request) => request.requestId === this.selectedRequestId
+    );
   }
 
   getPagination(): number[] {
