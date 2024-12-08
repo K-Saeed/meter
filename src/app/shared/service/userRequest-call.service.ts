@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Product } from "src/app/core/components/products/models/product.model";
+import { SendOtp } from "src/app/core/components/users/models/send-otp.model";
 import { DraftUserDto } from "src/app/core/components/users/models/draft-user.model";
 import { UserTableDto } from "src/app/core/components/users/models/user-table.model";
-import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -48,6 +48,17 @@ export class UserRquestCallService {
     return this.http.delete<void>(apiUrl);
   }
 
+
+  sendOTP(phoneNumber: string): Observable<SendOtp> {
+    const params = new HttpParams().set('phoneNumber', phoneNumber);
+    return this.http.post<SendOtp>(`/api/user/send-otp`, null, { params });
+  }
+
+
+  addUser(formData:FormData){
+    const url = `/api/user/register`;
+    return this.http.post<void>(url, formData);
+  }
   getAllUnfinishedUsers(): Observable<DraftUserDto[]> {
     return this.http.get<DraftUserDto[]>(`/api/admin/user/get-users-unfinished`);
   }
