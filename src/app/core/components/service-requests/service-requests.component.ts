@@ -9,6 +9,6 @@ export class ServiceRequestsComponent {
   searchTerm: string = '';
 
   handleSearch(term: string) {
-    this.searchTerm = term; // Update the search term
+    this.searchTerm = term;
   }
 }

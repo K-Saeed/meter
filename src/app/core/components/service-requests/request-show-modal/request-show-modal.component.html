@@ -116,122 +116,73 @@
         <!-- tab offers -->
         <div *ngIf="activeLink === 'offers'">
           <div class="d-flex flex-column scrollable-container">
-            <div class="title d-flex align-items-start gap-2 flex-column mt-4 position-relative"
-              [ngClass]="{ 'open': selectedProposal === 'proposal1', 'closed': selectedProposal !== 'proposal1' }">
+            <!-- Loop through the offers list -->
+            <div
+              *ngFor="let offer of offers; let i = index"
+              class="title d-flex align-items-start gap-2 flex-column mt-4 position-relative"
+              [ngClass]="{ 'open': selectedProposal === 'proposal' + i, 'closed': selectedProposal !== 'proposal' + i }"
+            >
               <div class="info d-flex flex-column gap-3">
-                <h3 class="d-flex justify-content-between m-0 cursor-pointer" (click)="showDetails('proposal1')">
+                <!-- Proposal Header -->
+                <h3 class="d-flex justify-content-between m-0 cursor-pointer" (click)="showDetails('proposal' + i)">
                   <span class="label">Proposal ID:</span>
-                  <span class="value">{{ request?.requestOwner?.name }}</span>
-                  <i class="fa" [class.fa-chevron-down]="selectedProposal !== 'proposal1'"
-                    [class.fa-chevron-up]="selectedProposal === 'proposal1'"></i>
+                  <span class="value">{{ offer.id + " " + offer.providerName }}</span>
+                  <i
+                    class="fa"
+                    [class.fa-chevron-down]="selectedProposal !== 'proposal' + i"
+                    [class.fa-chevron-up]="selectedProposal === 'proposal' + i"
+                  ></i>
                 </h3>
-                <div *ngIf="selectedProposal === 'proposal1'" class="info d-flex flex-column gap-3">
+
+                <!-- Proposal Details -->
+                <div *ngIf="selectedProposal === 'proposal' + i" class="info d-flex flex-column gap-3">
                   <h3 class="d-flex justify-content-between m-0">
                     <span class="label">Date Submitted:</span>
-                    <span class="value">{{ request?.requestOwner?.name }}</span>
+                    <span class="value">{{ offer.offerDate }}</span>
                   </h3>
                   <h3 class="d-flex justify-content-between m-0">
                     <span class="label">Provider name:</span>
-                    <span class="value">{{ request?.requestOwner?.name }}</span>
+                    <span class="value">{{ offer.providerName }}</span>
                   </h3>
                   <h3 class="d-flex justify-content-between m-0">
                     <span class="label">Email:</span>
-                    <span class="value">{{ request?.requestOwner?.email }}</span>
+                    <span class="value">{{ offer.providerEmail }}</span>
                   </h3>
                   <h3 class="d-flex justify-content-between m-0">
                     <span class="label">Phone:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                    <span class="value">{{ offer.providerPhone }}</span>
+                  </h3>
+
+                  <h3 class="d-flex justify-content-between m-0">
+                    <span class="label">Customer Name:</span>
+                    <span class="value">{{ offer.requestDetails.requestOwner.name }}</span>
                   </h3>
                   <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Office fees:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                    <span class="label">Customer Phone:</span>
+                    <span class="value">{{ offer.requestDetails.requestOwner.mobile }}</span>
                   </h3>
                   <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Service Fees:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Tax:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Total:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                    <span class="label">Price:</span>
+                    <span class="value">{{ offer.price }}</span>
                   </h3>
                   <h3 class="d-flex justify-content-between m-0">
                     <span class="label">Description:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
+                    <span class="value">{{ offer.details }}</span>
                   </h3>
-                  <div class="d-flex gap-3 justify-content-end buttons-container">
+                  <!-- <div class="d-flex gap-3 justify-content-end buttons-container">
                     <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
                       Reject
                     </button>
                     <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
                       Approve
                     </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="title d-flex align-items-start gap-2 flex-column mt-4 position-relative"
-              [ngClass]="{ 'open': selectedProposal === 'proposal2', 'closed': selectedProposal !== 'proposal2' }">
-              <div class="info d-flex flex-column gap-3">
-                <h3 class="d-flex justify-content-between m-0 cursor-pointer" (click)="showDetails('proposal2')">
-                  <span class="label">Proposal ID:</span>
-                  <span class="value">{{ request?.requestOwner?.name }}</span>
-                  <i class="fa" [class.fa-chevron-down]="selectedProposal !== 'proposal2'"
-                    [class.fa-chevron-up]="selectedProposal === 'proposal2'"></i>
-                </h3>
-                <div *ngIf="selectedProposal === 'proposal2'" class="info d-flex flex-column gap-3">
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Date Submitted:</span>
-                    <span class="value">{{ request?.requestOwner?.name }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Provider name:</span>
-                    <span class="value">{{ request?.requestOwner?.name }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Email:</span>
-                    <span class="value">{{ request?.requestOwner?.email }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Phone:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Office fees:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Service Fees:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Tax:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Total:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <h3 class="d-flex justify-content-between m-0">
-                    <span class="label">Description:</span>
-                    <span class="value">{{ request?.requestOwner?.mobile }}</span>
-                  </h3>
-                  <div class="d-flex gap-3 justify-content-end buttons-container">
-                    <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
-                      Reject
-                    </button>
-                    <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
-                      Approve
-                    </button>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
           </div>
         </div>
+
 
         <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
           <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
