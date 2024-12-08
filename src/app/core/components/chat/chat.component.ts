@@ -24,6 +24,9 @@ export class ChatComponent {
     this.conversationService.getAdminChats().subscribe({
       next: (n) => {
         this.chatRooms = this.sort(n);
+        if (this.chatRooms.length > 0) {
+          this.onChatRoomSelected(this.chatRooms[0]);
+        }
       },
       error: (e) => {
         console.log(e);

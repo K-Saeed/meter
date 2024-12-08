@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { ChatRoom } from '../../conversation/models/conversation-table.model';
 import { Message } from '../../conversation/models/message.model';
 import { ConversationService } from 'src/app/shared/service/conversation.service';
@@ -13,6 +13,7 @@ export class ChatMsgComponent {
 
   @Input() chatRoom!: ChatRoom;
   @Input() messages!: Message[];
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   message: string = '';
   fileToBeUploaded!: File|null;
   filePreview!: (string | ArrayBuffer | null);
@@ -24,7 +25,14 @@ export class ChatMsgComponent {
   ngOnInit(): void {
 
   }
-
+  ngAfterViewChecked(): void {
+    this.scrollToBottom();
+  } 
+  scrollToBottom(): void {
+    if (this.scrollContainer) {
+      this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+    }
+  }
  
   onFilesSelected(event: Event) {
     const input = event.target as HTMLInputElement;
