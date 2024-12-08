@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NotificationResponse } from '../models/notification-response.model';
 
 @Component({
   selector: 'app-notifications-show-modal',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class NotificationsShowModalComponent {
 
+  @Input() notification!: NotificationResponse;
 }

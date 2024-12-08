@@ -49,14 +49,14 @@
           <app-user-show-attachment-modal [user]="user"></app-user-show-attachment-modal>
         </div>
 
-        <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="user?.status !== 'Approved'">
+        <div class="d-flex gap-3 mt-4 justify-content-end">
           <button
             type="button"
             class="reject-btn"
             data-bs-toggle="modal"
             data-bs-target="#rejectModal"
           >
-            Reject
+            Suspend
           </button>
           <button
             type="button"

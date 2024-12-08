@@ -45,7 +45,9 @@ export class ProposalCallService {
     return this.http.put<void>(url, null, { params: { status } });
   }
 
-
-
+  getAllPorposalsForRequest(requestId: string | undefined): Observable<ProposalResponse[]> {
+    const apiUrl = `/api/admin/proposal/all/request/${requestId}`;
+    return this.http.get<ProposalResponse[]>(apiUrl);
+  }
 
 }

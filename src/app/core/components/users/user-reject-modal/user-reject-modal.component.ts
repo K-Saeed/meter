@@ -9,7 +9,7 @@ import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.s
 export class UserRejectModalComponent {
   @Input () userId?: string;
   message!: string;
-  status: string = 'Rejected';
+  status: string = 'Pending';
 
   constructor(private userService: UserRquestCallService) {}
 

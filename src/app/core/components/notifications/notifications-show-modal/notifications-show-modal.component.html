@@ -16,37 +16,37 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="modal-body">
+      <div *ngIf="notification" class="modal-body">
         <!-- <div class="title d-flex align-items-start gap-2 flex-column mt-4"> -->
         <!-- <h1>Request Information:</h1> -->
         <div class="info d-flex flex-column align-items-start gap-3 mt-3">
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Notification ID:</span>
-            <span class="value">TX12345</span>
+            <span class="value">{{notification.id}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Title:</span>
-            <span class="value">Service Update</span>
+            <span class="value">{{notification.title}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Message:</span>
-            <span class="value">New features available...</span>
+            <span class="value">{{notification.content}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Recipients:</span>
-            <span class="value">All Users</span>
+            <span class="value">{{notification.recipients}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Date Sent:</span>
-            <span class="value">2024-06-26 10:30</span>
+            <span class="value">{{notification.createdAt}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Status:</span>
-            <span class="value">Sent</span>
+            <span class="value">{{notification.status}}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
             <span class="label">Delivery Status:</span>
-            <span class="value">Delivered to 95%, Failed to deliver to 5%</span>
+            <span class="value">Delivered to {{notification.success}}, Failed to deliver to {{notification.failure}}</span>
           </h3>
         </div>
       </div>
