@@ -17,9 +17,11 @@ export class TransactionsTableComponent implements OnInit {
 
   currentPage: number = 1;
   itemsPerPage: number = 4;
+  totalPages: number = 1;
+  pagination: number[] = [];
   Math = Math;
 
-  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) {}
+  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.statusSubscription = this.transactionService.status$
@@ -29,6 +31,7 @@ export class TransactionsTableComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.transactions = data;
+          this.updatePagination();
           this.cdr.detectChanges();
         },
         error: (err) => console.error('Error fetching transactions', err),
@@ -53,11 +56,17 @@ export class TransactionsTableComponent implements OnInit {
     const end = start + this.itemsPerPage;
     return this.transactions.slice(start, end);
   }
-
   setPage(page: number, event: Event) {
     event.preventDefault();
-    this.currentPage = page;
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.updatePagination();
+    }
   }
+  // setPage(page: number, event: Event) {
+  //   event.preventDefault();
+  //   this.currentPage = page;
+  // }
 
   setTransactionId(transactionId: string | undefined) {
     this.selectedTransactionId = transactionId;
@@ -72,5 +81,45 @@ export class TransactionsTableComponent implements OnInit {
     if (this.statusSubscription) {
       this.statusSubscription.unsubscribe();
     }
+  }
+  updatePagination() {
+    this.totalPages = Math.ceil(this.transactions.length / this.itemsPerPage);
+    this.pagination = this.getPagination();
+  }
+  getPagination(): number[] {
+    const totalPages = this.totalPages;
+    const maxVisiblePages = 4;
+    const pagination: number[] = [];
+
+    if (totalPages <= maxVisiblePages + 1) {
+      for (let i = 1; i <= totalPages; i++) {
+        pagination.push(i);
+      }
+    } else {
+      if (this.currentPage <= 3) {
+        for (let i = 1; i <= Math.min(maxVisiblePages, totalPages); i++) {
+          pagination.push(i);
+        }
+        if (totalPages > maxVisiblePages) {
+          pagination.push(-1);
+          pagination.push(totalPages);
+        }
+      } else if (this.currentPage > totalPages - 3) {
+        pagination.push(1);
+        pagination.push(-1);
+        for (let i = totalPages - maxVisiblePages + 1; i <= totalPages; i++) {
+          pagination.push(i);
+        }
+      } else {
+        pagination.push(1);
+        pagination.push(-1);
+        pagination.push(this.currentPage - 1);
+        pagination.push(this.currentPage);
+        pagination.push(this.currentPage + 1);
+        pagination.push(-1);
+        pagination.push(totalPages);
+      }
+    }
+    return pagination;
   }
 }
