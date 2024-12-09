@@ -41,6 +41,8 @@ export class RequestShowModalComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['request'] && this.request?.requestId) {
+      this.offers = [];
+      this.activeLink = 'details';
       this.loadProposals();
     }
   }
