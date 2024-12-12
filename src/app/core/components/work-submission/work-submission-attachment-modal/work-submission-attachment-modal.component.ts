@@ -13,7 +13,7 @@ export class WorkSubmissionAttachmentModalComponent {
   isImageFile: boolean = false;
   constructor(
     private sanitizer: DomSanitizer
-    ) {}
+  ) { }
 
   downloadFile(file: any): void {
     const link = document.createElement("a");
@@ -38,4 +38,27 @@ export class WorkSubmissionAttachmentModalComponent {
     );
     this.showFilePopup = true;
   }
+  // openFileInPopup(file: any) {
+  //   const filePath = file.filePath;
+  //   this.isImageFile = /\.(png|jpg|jpeg)$/.test(filePath);
+  //   this.selectedFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+  //     filePath + (this.isImageFile ? "" : "#toolbar=0")
+  //   );
+  //   this.showFilePopup = true;
+  // }
+
+  // closePopup() {
+  //   this.showFilePopup = false;
+  //   this.selectedFileUrl = null;
+  // }
+
+  // downloadFile(file: any): void {
+  //   const link = document.createElement("a");
+  //   link.href = file.filePath;
+  //   link.target = "_blank";
+  //   link.download = file.fileName || "default-filename";
+  //   document.body.appendChild(link);
+  //   link.click();
+  //   document.body.removeChild(link);
+  // }
 }
