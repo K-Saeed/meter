@@ -1,17 +1,13 @@
 <div class="d-flex flex-column gap-5 mt-5">
   <div class="d-flex justify-content-between">
-    <div class="d-flex align-items-center gap-3" *ngFor="let sub of submission.files">
+    <div class="d-flex align-items-center gap-3" *ngFor="let sub of submission.files" (click)="openFileInPopup(sub)">
       <img src="sub.filePath" alt="" srcset="" />
       <div class="d-flex flex-column">
         <h4 class="m-0">{{sub.fileName}}</h4>
         <p class="m-0">{{sub.uploadDate}}</p>
       </div>
+      <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt="" srcset=""
+        (click)="downloadFile(sub)" />
     </div>
-    <img
-      class="cursor-pointer"
-      src="../../../../../assets/img/fi_download.svg"
-      alt=""
-      srcset=""
-    />
   </div>
 </div>
