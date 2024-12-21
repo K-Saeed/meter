@@ -69,7 +69,7 @@
             <!-- Actions Icons -->
             <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
               src="../../../../assets/img/eye.svg" alt="View" (click)="setTransactionId(transaction.id)" />
-            <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
+            <img class="cursor-pointer pe-2" (click)="downloadInvoice(transaction.requestId)"
               src="../../../../../assets/img/Import_duotone_line.svg" alt="View" />
             <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
               src="../../../../../assets/img/trash.svg" alt="Delete" />

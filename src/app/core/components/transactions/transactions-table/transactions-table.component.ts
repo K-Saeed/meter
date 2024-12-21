@@ -38,6 +38,21 @@ export class TransactionsTableComponent implements OnInit {
       });
   }
 
+
+  downloadInvoice(requestId: string) {
+    this.transactionService.getInvoiceByRequestId(requestId).subscribe({
+      next:(n)=>{
+        // console.log(n);
+        if(n != null){          
+          window.open(n.filePath, '_blank');
+        }
+      },
+      error:(e)=>{
+        console.log(e);
+      }
+    })
+  }
+    
   applyFilter(status: string) {
     this.transactionService.setStatus(status);
   }
