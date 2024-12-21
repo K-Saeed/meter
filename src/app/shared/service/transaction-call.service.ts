@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of, tap } from "rxjs";
 import { TransactionResponse } from "src/app/core/components/transactions/model/transaction.model";
+import { FileResponse } from "src/app/core/components/work-submission/models/file-response";
 
 @Injectable({
   providedIn: "root",
@@ -63,4 +64,34 @@ export class TransactionService {
       })
     );
   }
+
+  getInvoiceByRequestId(requestId: string) {
+    const apiUrl = `/api/request/invoice`;
+    
+    const params = new HttpParams()
+    .set("requestId", requestId)
+
+    return this.http.get<FileResponse>(apiUrl,{ params });
+
+  }
+
+  getInvoicesByDate(type:string, startDate:Date, endDate:Date){
+    const apiUrl = `/api/request/invoices`;
+    
+    const params = new HttpParams()
+    .set("type", type)
+    .set("startDate",startDate.toString())
+    .set("endDate",endDate.toString());
+
+    return this.http.get<FileResponse>(apiUrl,{ params });
+
+  }
+
+
+  deleteTransactionById(transactionId: string) {
+    const apiUrl = `/api/admin/transaction/${transactionId}`;
+
+    return this.http.delete<void>(apiUrl);
+  }
+
 }

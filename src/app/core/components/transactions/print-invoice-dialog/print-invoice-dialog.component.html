@@ -1,0 +1,35 @@
+<div 
+  id="printInvoicesModal" 
+  class="modal fade" 
+  tabindex="-1" 
+  role="dialog" 
+  aria-labelledby="printInvoicesModalLabel" 
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="printInvoicesModalLabel">Print Invoices</h5>
+        <button 
+          type="button" 
+          class="btn-close" 
+          data-bs-dismiss="modal" 
+          aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <input type="date" class="form-control" [(ngModel)]="startDate" />
+        <input type="date" class="form-control" [(ngModel)]="endDate" />
+    
+        <div *ngIf="isEnabled()" class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
+            <button class="approve-btn" (click)="getInvoices('pdf')">
+                <img src="../../../../../../assets/img/pdf1.svg" alt="">
+                Pdf
+            </button>
+            <button class="approve-btn" (click)="getInvoices('excel')">
+                <img src="../../../../../../assets/img/excel.svg"  alt="">
+                Excel
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

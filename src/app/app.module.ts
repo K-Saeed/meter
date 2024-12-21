@@ -142,6 +142,7 @@ import { UserUnfinishedComponent } from './core/components/users/user-unfinished
 import { UserUnfinishedTitleComponent } from './core/components/users/user-unfinished/user-unfinished-title/user-unfinished-title.component';
 import { UserUnfinishedTableComponent } from './core/components/users/user-unfinished/user-unfinished-table/user-unfinished-table.component';
 import { UserUnfinishedActionComponent } from './core/components/users/user-unfinished/user-unfinished-action/user-unfinished-action.component';
+import { PrintInvoiceDialogComponent } from './core/components/transactions/print-invoice-dialog/print-invoice-dialog.component';
 
 
 @NgModule({
@@ -278,6 +279,7 @@ import { UserUnfinishedActionComponent } from './core/components/users/user-unfi
     UserUnfinishedTitleComponent,
     UserUnfinishedTableComponent,
     UserUnfinishedActionComponent,
+    PrintInvoiceDialogComponent,
   ],
   imports: [
     BrowserModule,

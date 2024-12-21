@@ -11,6 +11,7 @@ import { Subscription, switchMap } from 'rxjs';
 export class TransactionsTableComponent implements OnInit {
   selectAll: boolean = false;
   transactions: TransactionResponse[] = [];
+  transaction!:TransactionResponse;
   selectedTransactionId: string | undefined;
   transactionResponse?: TransactionResponse;
   private statusSubscription!: Subscription;
@@ -38,6 +39,25 @@ export class TransactionsTableComponent implements OnInit {
       });
   }
 
+
+  downloadInvoice(requestId: string) {
+    this.transactionService.getInvoiceByRequestId(requestId).subscribe({
+      next:(n)=>{
+        // console.log(n);
+        if(n != null){          
+          window.open(n.filePath, '_blank');
+        }
+      },
+      error:(e)=>{
+        console.log(e);
+      }
+    })
+  }
+
+  changeSelectedItem(transaction: TransactionResponse){
+    this.transaction = transaction;
+  }
+    
   applyFilter(status: string) {
     this.transactionService.setStatus(status);
   }
