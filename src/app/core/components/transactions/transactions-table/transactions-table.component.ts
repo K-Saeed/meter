@@ -11,6 +11,7 @@ import { Subscription, switchMap } from 'rxjs';
 export class TransactionsTableComponent implements OnInit {
   selectAll: boolean = false;
   transactions: TransactionResponse[] = [];
+  transaction!:TransactionResponse;
   selectedTransactionId: string | undefined;
   transactionResponse?: TransactionResponse;
   private statusSubscription!: Subscription;
@@ -51,6 +52,10 @@ export class TransactionsTableComponent implements OnInit {
         console.log(e);
       }
     })
+  }
+
+  changeSelectedItem(transaction: TransactionResponse){
+    this.transaction = transaction;
   }
     
   applyFilter(status: string) {

@@ -87,4 +87,11 @@ export class TransactionService {
 
   }
 
+
+  deleteTransactionById(transactionId: string) {
+    const apiUrl = `/api/admin/transaction/${transactionId}`;
+
+    return this.http.delete<void>(apiUrl);
+  }
+
 }
