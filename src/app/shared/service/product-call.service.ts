@@ -34,9 +34,15 @@ export class ProductCallService {
   }
 
 
-  deleteProduct(productId: number | undefined): Observable<void> {
+  deleteProduct(productId: string | undefined): Observable<void> {
     const apiUrl = `/api/dashboard/delete/product?productId=${productId}`;
     return this.http.delete<void>(apiUrl);
+  }
+
+
+  updateProductStatus(id: string, status: string): Observable<void> {
+    const url = `/api/product/${id}/update-status`;
+    return this.http.put<void>(url, null, { params: { status } });
   }
 
 

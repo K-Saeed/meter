@@ -18,7 +18,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   totalPages: number = 1;
   product?: Product;
   private statusSubscription!: Subscription;
-  selectedProductId: number | undefined;
+  selectedProductId: string | undefined;
 
   constructor(private productService: ProductService) {}
 
@@ -68,7 +68,7 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
     );
   }
 
-  setProductId(productId: number | undefined) {
+  setProductId(productId: string | undefined) {
     this.selectedProductId = productId;
     this.setProduct();
   }

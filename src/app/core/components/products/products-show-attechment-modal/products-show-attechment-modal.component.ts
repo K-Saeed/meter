@@ -12,9 +12,9 @@ export class ProductsShowAttechmentModalComponent {
   constructor() {}
 
   ngOnInit(): void {
-    if (this.product?.productImages) {
-      this.extractFileNames(this.product.productImages);
-    }
+    // if (this.product?.productImages) {
+    //   this.extractFileNames(this.product.productLogo?.filePath);
+    // }
   }
 
   extractFileNames(urls: string[]): void {

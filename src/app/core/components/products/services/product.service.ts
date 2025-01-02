@@ -59,7 +59,7 @@ export class ProductService {
     return this.statusSubject.value;
   }
 
-  onDeleteProduct(productId: number | undefined): void {
+  onDeleteProduct(productId: string | undefined): void {
     this.requestCall.deleteProduct(productId).subscribe(
       () => {
         console.log('Product deleted successfully');

@@ -15,7 +15,7 @@ export class ProductsDeleteModalComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  onDeleteProduct(productId: number | undefined): void {
+  onDeleteProduct(productId: string | undefined): void {
     this.productServce.onDeleteProduct(productId);
   }
 
