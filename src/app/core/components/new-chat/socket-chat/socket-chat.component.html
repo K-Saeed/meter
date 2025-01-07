@@ -1,0 +1,57 @@
+<div class="chat-container">
+    <!-- Left Side: Chat Rooms -->
+    <div class="chat-rooms">
+      <!-- <div class="login-section">
+        <h3>Login</h3>
+        <input type="email" [(ngModel)]="userEmail" placeholder="Enter your email" class="login-input" />
+        <button (click)="initializeUser()" class="login-button">Login</button>
+      </div> -->
+      <div class="new-chat-section">
+        <h4>To</h4>
+        <input type="email" [(ngModel)]="recieverEmail" placeholder="Enter recipient email" class="new-chat-input" />
+        <h4>Message</h4>
+        <input type="email" [(ngModel)]="message" placeholder="Enter a short message..." class="new-chat-input" />
+        <button (click)="send()" class="send-button">Send</button>
+      </div>
+      <div class="chat-room-list">
+        <h4>Your Chats</h4>
+        <div *ngFor="let chatRoom of chatRooms" class="chat-room" (click)="getMessagesByChatId(chatRoom)">
+          <div class="chat-room-info">
+            <div class="chat-room-email">{{ chatRoom.userProfile2?.email }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Right Side: Chat Messages -->
+    <div *ngIf="selectedChatRoom" class="chat-messages">
+      <div class="message-header">
+        <h3>{{ selectedChatRoom.userProfile2?.email || '...' }}</h3>
+      </div>
+  
+      <div class="message-list">
+        <div *ngFor="let message of messages" [class.chat-message]="true" [class.me]="message.senderEmail === userEmail" [class.him]="message.senderEmail !== userEmail">
+          <div [class.message-bubble]="true" [class.me]="message.senderEmail === userEmail" [class.him]="message.senderEmail !== userEmail">
+            <div *ngIf="message.contentType === 'TEXT'" class="message-text">
+              {{ message.content }}
+            </div>
+            <div *ngIf="message.contentType === 'MEDIA'" class="message-media">
+              <img [src]="message.content" alt="Media content" />
+            </div>
+          </div>
+          <!-- <div class="message-timestamp">{{ message.createdAt| date: 'shortTime' }}</div> -->
+        </div>
+      </div>
+      
+  
+      <div class="message-footer">
+        <input type="text" [(ngModel)]="message" placeholder="Enter your message" class="message-input" />
+        <button class="send-button" (click)="triggerFileInput()">
+          <input type="file" id="file-input" class="file-input" (change)="onFilesSelected($event)" />
+          <i class="material-icons">&#xe25c;</i>
+        </button>
+        <button (click)="send()" class="send-button">Send</button>
+        <button *ngIf="isAdmin()" (click)="sendGroupMessage()" class="send-button">SendToAll</button>
+      </div>
+    </div>
+  </div>
