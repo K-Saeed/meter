@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ChatRoom, Message } from './chat-classes';
+import { ChatRoom, Message, UserProfile } from './chat-classes';
 import { FileResponse } from '../service-requests/models/file-response';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
@@ -14,25 +15,37 @@ export class SocketChatService {
   get headers() {
     return new HttpHeaders({
       Authorization: this.getToken() ?? '',
+      s: this.getSecretId() ??''
     });
   }
 
   getUserChatsByEmail() {
-    return this.http.get<ChatRoom[]>(`api/socket/chat/chats`, { headers: this.headers });
+    return this.http.get<ChatRoom[]>(`/api/socket/chat/chats`, { headers: this.headers });
   }
 
   getMessagesByChatId(id: string) {
-    return this.http.get<Message[]>(`api/socket/chat/messages/${id}`, { headers: this.headers });
+    return this.http.get<Message[]>(`/api/socket/chat/messages/${id}`, { headers: this.headers });
   }
 
   sendFile(formData: FormData) {
-    return this.http.post<FileResponse>(`api/socket/chat/send-file`, formData, { headers: this.headers });
+    return this.http.post<FileResponse>(`/api/socket/chat/send-file`, formData, { headers: this.headers });
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('JWT_Token');
   }
 
+  getSecretId(): string | null {
+    return localStorage.getItem('s');
+  }
+
+  getUserProfile(): UserProfile | null {
+    const userProfileString = localStorage.getItem("user-profile");
+    if (userProfileString) {
+      return JSON.parse(userProfileString);
+    } 
+    return null;
+  }
 
   public encrypt(data: string, key: string): string {
     const keyBytes = CryptoJS.enc.Base64.parse(key);

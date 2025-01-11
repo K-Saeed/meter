@@ -10,13 +10,11 @@ import { SocketChatService } from '../socket-chat.service';
 })
 export class SocketChatComponent {
 
-  private readonly TOKEN_KEY = 'token';
-  private readonly EMAIL_KEY = 'email';
-  public baseUrl = 'http://localhost:8080/api'
   private socket!: Socket;
   key: string = '';
   public message: string = '';
   public userEmail: string = '';
+  public adminEmail: string = 'support@meter.com.sa';
   public recieverEmail: string | undefined = '';
   public chatRooms: ChatRoom[] = [];
   public selectedChatRoom!: ChatRoom;
@@ -30,7 +28,8 @@ export class SocketChatComponent {
   ngOnInit(): void {
     this.socket = io('http://localhost:8000', {
       query: {
-        token: this.getToken(),
+        token: this.socketChatService.getToken(),
+        s: this.socketChatService.getSecretId()
       },
     });
 
@@ -60,16 +59,9 @@ export class SocketChatComponent {
       this.key = parsedData;
     });
 
-    this.userEmail = this.getEmail() ?? '';
-  }
+    this.userEmail = this.socketChatService.getUserProfile()?.email ?? '';
+    }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.TOKEN_KEY);
-  }
-
-  getEmail(): string | null {
-    return localStorage.getItem(this.EMAIL_KEY);
-  }
 
   send() {
     if (this.fileToBeUploaded && this.fileToBeUploaded !== null) {
@@ -186,12 +178,6 @@ export class SocketChatComponent {
     reader.readAsDataURL(file);
   }
 
-
-  ////////////////////////////////////////////////////////////////////////////////
-  isAdmin() {
-    return this.userEmail === 'support@meter.com.sa'
-  }
-  ///////////////////////////////REST////////////////////////////////////////
 
   getUserChatsByEmail() {
     this.socketChatService.getUserChatsByEmail().subscribe({
