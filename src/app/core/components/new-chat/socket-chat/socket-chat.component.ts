@@ -22,14 +22,15 @@ export class SocketChatComponent {
   maxFileSize = 25 * 1024 * 1024;
   fileToBeUploaded!: File | null;
   filePreview!: (string | ArrayBuffer | null);
-
+  secretId: string = '';
   constructor(private socketChatService: SocketChatService) { }
 
   ngOnInit(): void {
+    this.secretId = this.socketChatService.getSecretId()??'';
     this.socket = io('http://localhost:8000', {
       query: {
         token: this.socketChatService.getToken(),
-        s: this.socketChatService.getSecretId()
+        s: this.secretId
       },
     });
 
@@ -60,7 +61,7 @@ export class SocketChatComponent {
     });
 
     this.userEmail = this.socketChatService.getUserProfile()?.email ?? '';
-    }
+  }
 
 
   send() {
@@ -76,11 +77,10 @@ export class SocketChatComponent {
       const message = new Message({
         content: content,
         contentType: contentType,
-        senderEmail: this.userEmail,
+        senderEmail: this.adminEmail,
         recipientEmail: this.recieverEmail,
       });
-      this.messages.push(message);
-
+      this.handleSendMessage(message);
       const encryptedMessage = new Message({
         content: this.socketChatService.encrypt(content, this.key),
         contentType: contentType,
@@ -93,40 +93,15 @@ export class SocketChatComponent {
     }
   }
 
-  sendGroupMessage(): void {
-    if (this.fileToBeUploaded && this.fileToBeUploaded !== null) {
-      const formData = new FormData();
-      formData.append(`messageFile`, this.fileToBeUploaded, this.fileToBeUploaded.name);
-
-      this.socketChatService.sendFile(formData).subscribe({
-        next: (n) => {
-          console.log(n);
-          const message = new Message({
-            content: n.filePath,
-            contentType: 'MEDIA',
-            senderEmail: 'support@meter.com.sa',
-            recipientEmails: ['amr@customer.coc', 'amr@seller.commm', 'amr@provider.coc', 'amr@gmail.com', 'amr@seller.com'],
-          });
-          this.messages.push(message);
-          this.socket.emit('sendMessageToGroup', message);
-          this.message = '';
-          this.fileToBeUploaded = null;
-
-        },
-        error: (e) => {
-          console.log(e);
-        }
-      })
-    } else if (this.message.trim()) {
-      const message = new Message({
-        content: this.message,
-        contentType: 'TEXT',
-        senderEmail: 'support@meter.com.sa',
-        recipientEmails: ['amr@customer.coc', 'amr@seller.commm', 'amr@provider.coc', 'amr@gmail.com', 'amr@seller.com'],
-      });
+  handleSendMessage(message: Message) {
+    if (this.selectedChatRoom !== undefined) {
+      if(message.contentType === 'MEDIA'){
+        this.selectedChatRoom.lastMessage = 'media'
+      }else{
+        this.selectedChatRoom.lastMessage = message.content
+      }
       this.messages.push(message);
-      this.socket.emit('sendMessageToGroup', message);
-      this.message = '';
+      this.chatRooms = [this.selectedChatRoom, ...this.chatRooms.filter(chatRoom => (chatRoom.id) !== this.selectedChatRoom.id)];
     }
   }
 
@@ -134,6 +109,8 @@ export class SocketChatComponent {
     message.content = this.socketChatService.decrypt(message.content ?? '', message.key ?? '');
     const existingChatRoom = this.chatRooms.find(chatRoom => (chatRoom.id) === message.chatId);
     if (existingChatRoom) {
+      existingChatRoom.lastMessage = message.contentType === 'TEXT'? message.content:'media';
+      
       this.chatRooms = [existingChatRoom, ...this.chatRooms.filter(chatRoom => (chatRoom.id) !== message.chatId)];
       if (this.selectedChatRoom !== undefined && this.selectedChatRoom.id === message.chatId) {
         this.messages.push(message);
@@ -141,6 +118,7 @@ export class SocketChatComponent {
     } else {
       const newChatRoom = new ChatRoom({
         id: message.chatId,
+        lastMessage:message.contentType === 'TEXT'? message.content:'media',
         userProfile2: new UserProfile({
           email: message.senderEmail
         })
@@ -193,10 +171,9 @@ export class SocketChatComponent {
 
   getMessagesByChatId(chatRoom: ChatRoom) {
     this.recieverEmail = chatRoom.userProfile2?.email;
-    this.socketChatService.getMessagesByChatId(chatRoom.id??'').subscribe({
+    this.socketChatService.getMessagesByChatId(chatRoom.id ?? '').subscribe({
       next: (n) => {
         console.log(n);
-        // this.messages = n;
         this.setMessages(n);
         this.selectedChatRoom = chatRoom;
       },

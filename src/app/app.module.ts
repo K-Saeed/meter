@@ -145,6 +145,7 @@ import { UserUnfinishedActionComponent } from './core/components/users/user-unfi
 import { PrintInvoiceDialogComponent } from './core/components/transactions/print-invoice-dialog/print-invoice-dialog.component';
 import { SocketChatComponent } from "./core/components/new-chat/socket-chat/socket-chat.component";
 import { SendToAllComponent } from './core/components/new-chat/send-to-all/send-to-all.component';
+import { SlicePipe } from './slice.pipe';
 
 
 @NgModule({
@@ -284,6 +285,7 @@ import { SendToAllComponent } from './core/components/new-chat/send-to-all/send-
     PrintInvoiceDialogComponent,
     SocketChatComponent,
     SendToAllComponent,
+    SlicePipe,
   ],
   imports: [
     BrowserModule,

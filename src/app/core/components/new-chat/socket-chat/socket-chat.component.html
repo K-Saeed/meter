@@ -1,28 +1,49 @@
 <div class="chat-container">
   <!-- Left Side: Chat Rooms -->
   <div class="chat-rooms">
-    <!-- <div class="login-section">
-        <h3>Login</h3>
-        <input type="email" [(ngModel)]="userEmail" placeholder="Enter your email" class="login-input" />
-        <button (click)="initializeUser()" class="login-button">Login</button>
-      </div> -->
-    <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#filterChatDialog">
-      <span class="m-0">Filter & Send</span>
-    </button>
-    <app-send-to-all [key]="key"></app-send-to-all>
-    <div class="new-chat-section">
-      <h4>To</h4>
-      <input type="email" [(ngModel)]="recieverEmail" placeholder="Enter recipient email" class="new-chat-input" />
-      <h4>Message</h4>
-      <input type="email" [(ngModel)]="message" placeholder="Enter a short message..." class="new-chat-input" />
-      <button (click)="send()" class="send-button">Send</button>
+
+    <div class="d-flex flex-column">
+      <div class="message-style d-flex align-items-center gap-3 border-bottom">
+        <h3 class="m-0">Messages</h3>
+        <span>{{chatRooms.length}}</span>
+        <h3 class="m-0">|</h3>
+        <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#filterChatDialog">
+          <span class="m-0">Filter & Send</span>
+        </button>
+      </div>
+      <app-send-to-all [key]="key"></app-send-to-all>
+      <div class="search-container d-flex align-items-center position-relative my-3 mx-auto">
+        <span class="search-icon p-2">
+          <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
+        </span>
+        <input type="text" class="form-control search-input" placeholder="Search in employees" />
+      </div>
     </div>
-    <div class="chat-room-list">
-      <h4>Your Chats</h4>
+
+    <!-- <div class="chat-room-list">
       <div *ngFor="let chatRoom of chatRooms" class="chat-room" (click)="getMessagesByChatId(chatRoom)">
         <div class="chat-room-info">
+          <img [src]="chatRoom.userProfile2?.logoPath" alt="">
           <div class="chat-room-email">{{ chatRoom.userProfile2?.email }}</div>
         </div>
+      </div>
+    </div> -->
+
+
+    <div class="d-flex flex-column gap-4 scroll" style="margin: 0px 20px; max-height: 455px; overflow: auto">
+      <div class="profile-img d-flex justify-content-between" *ngFor="let chatRoom of chatRooms"
+        (click)="getMessagesByChatId(chatRoom)">
+        <div class="d-flex gap-3">
+          <img [src]="chatRoom.userProfile2?.logoPath" [alt]="chatRoom.userProfile2?.name"
+            onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';" />
+          <div class="profile-info d-flex flex-column">
+            <h3 class="m-0">{{ chatRoom.userProfile2?.name }}</h3>
+            <p *ngIf="chatRoom.lastMessage">{{ chatRoom.lastMessage | shorten: 20 }}</p>
+
+            <span class="m-0">{{ chatRoom.userProfile2?.role }}</span>
+          </div>
+        </div>
+        <h4 class="m-0" style="font-size: 10px;">{{ chatRoom.lastMessageTimestamp }}</h4>
       </div>
     </div>
   </div>
@@ -30,7 +51,11 @@
   <!-- Right Side: Chat Messages -->
   <div *ngIf="selectedChatRoom" class="chat-messages">
     <div class="message-header">
-      <h3>{{ selectedChatRoom.userProfile2?.email || '...' }}</h3>
+      <div class="d-flex">
+        <img [src]="selectedChatRoom.userProfile2?.logoPath" [alt]="selectedChatRoom.userProfile2?.name"
+          class="chat-image" onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';" />
+        <h3>{{ selectedChatRoom.userProfile2?.email || '...' }}</h3>
+      </div>
     </div>
 
     <div class="message-list">
@@ -40,12 +65,12 @@
           [class.him]="message.senderEmail !== adminEmail">
           <div *ngIf="message.contentType === 'TEXT'" class="message-text">
             {{ message.content }}
+            <div class="message-timestamp">{{ message.createdAt| date: 'shortTime' }}</div>
           </div>
           <div *ngIf="message.contentType === 'MEDIA'" class="message-media">
             <img [src]="message.content" alt="Media content" />
           </div>
         </div>
-        <!-- <div class="message-timestamp">{{ message.createdAt| date: 'shortTime' }}</div> -->
       </div>
     </div>
 
@@ -54,10 +79,10 @@
       <input type="text" [(ngModel)]="message" placeholder="Enter your message" class="message-input" />
       <button class="send-button" (click)="triggerFileInput()">
         <input type="file" id="file-input" class="file-input" (change)="onFilesSelected($event)" />
-        <i class="material-icons">&#xe25c;</i>
+        <i class="fa fa-paperclip"></i>
       </button>
-      <button (click)="send()" class="send-button">Send</button>
-      <!-- <button *ngIf="isAdmin()" (click)="sendGroupMessage()" class="send-button">SendToAll</button> -->
+      <button (click)="send()" class="send-button">
+        <img src="../../../../../assets/img/Mail Send Email.svg" />
+      </button>
     </div>
   </div>
-</div>
