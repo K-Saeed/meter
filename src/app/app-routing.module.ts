@@ -32,8 +32,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuardService] },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuardService] },
   { path: 'worksubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
-  { path: 'new-chat', component: SocketChatComponent, canActivate: [AuthGuardService] },
+  // { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
+  { path: 'chat', component: SocketChatComponent, canActivate: [AuthGuardService] },
   { path: 'WorkSubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
   { path: 'unfinisheduser', component: UserUnfinishedComponent , canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // Default route

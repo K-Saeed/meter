@@ -31,6 +31,19 @@ export class SocketChatService {
     return this.http.post<FileResponse>(`/api/socket/chat/send-file`, formData, { headers: this.headers });
   }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  getAllChatsForAdmin() {
+    return this.http.get<ChatRoom[]>(`/api/socket/chat/admin/all-chats`, { headers: this.headers });
+  }
+
+  getMessagesByChatIdForAdmin(id: string) {
+    return this.http.get<Message[]>(`/api/socket/chat/admin/messages/${id}`, { headers: this.headers });
+  }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
   getToken(): string | null {
     return localStorage.getItem('JWT_Token');
   }
