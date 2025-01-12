@@ -129,7 +129,7 @@
   }
   
   .send-button:hover {
-    background-color: #075e54;
+    background-color: #f8a05c;
   }
   
   .chat-message {
@@ -275,3 +275,11 @@
     width: 50px;
     height: 50px;
   }
+
+  .file-preview-image {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+  
