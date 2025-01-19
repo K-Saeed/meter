@@ -73,6 +73,7 @@
         <td>
           <div class="">
             <!-- Actions Icons -->
+            <ng-container *appHasPermission="{ page: 'notifications', action: 'READ' }">
             <img
               class="cursor-pointer pe-2"
               data-bs-toggle="modal"
@@ -81,6 +82,9 @@
               alt="View"
               (click)="changeSelectedNotification(notification)"
             />
+            </ng-container>
+
+            <ng-container *appHasPermission="{ page: 'notifications', action: 'DELETE' }">
             <img
               class="cursor-pointer ps-2"
               data-bs-toggle="modal"
@@ -88,6 +92,7 @@
               src="../../../../assets/img/trash.svg"
               alt="Delete"
             />
+            </ng-container>
           </div>
         </td>
       </tr>
