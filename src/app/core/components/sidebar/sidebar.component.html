@@ -4,7 +4,7 @@
     <img class="img-fluid img-style" src="../../../../assets/img/logo.png" />
   </a>
   <div class="d-flex flex-column bottom list-group navbar-menu" id="list-tab" role="tablist">
-    <a class="nav-link  d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('dashboard','READ')" class="nav-link  d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       routerLinkActive="active" data-bs-toggle="list" (click)="setActive('dashboard')" [routerLink]="'/dashboard'"
       role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -13,7 +13,7 @@
       </div>
     </a>
 
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('requests','READ')" class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       data-bs-toggle="list" routerLinkActive="active" (click)="setActive('servicerequests')"
       [routerLink]="'/servicerequests'" role="tab" aria-controls="Service-Requests">
       <div class="d-flex gap-3 align-items-center">
@@ -24,7 +24,7 @@
         [ngClass]="{'number-active': isActive === 'servicerequests', 'number-inActive': isActive !== 'servicerequests'}">{{requests.length}}</span>
     </a>
 
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('proposals','READ')" class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       data-bs-toggle="list" routerLinkActive="active" (click)="setActive('providersproposal')"
       [routerLink]="'/providersproposal'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -32,7 +32,7 @@
         <div class="d-flex">Proposals</div>
       </div>
     </a>
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('users','READ')" class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('users')"
       [routerLink]="'/users'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -41,7 +41,7 @@
       </div>
 
     </a>
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('products','READ')" class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('products')"
       [routerLink]="'/products'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -49,7 +49,7 @@
         <div>Products</div>
       </div>
     </a>
-    <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
+    <a *ngIf="hasPermission('conversations','READ')" class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('conversations')" [routerLink]="'/conversations'" role="tab"
       aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -57,7 +57,7 @@
         <div>Conversations</div>
       </div>
     </a>
-    <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
+    <a *ngIf="hasPermission('transactions','READ')" class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('transactions')" [routerLink]="'/transactions'" role="tab"
       aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -65,7 +65,7 @@
         <div>Transactions</div>
       </div>
     </a>
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('work_submission','READ')" class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('WorkSubmission')"
       [routerLink]="'/WorkSubmission'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -73,7 +73,7 @@
         <div>Work Submission</div>
       </div>
     </a>
-    <a class="d-flex align-items-center gap-3 nav-link text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('work_submission','READ')" class="d-flex align-items-center gap-3 nav-link text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" [routerLink]="'/employees'" role="tab"
       aria-controls="list-home" (click)="handleClick('employees', 'WorkSubmission')">
       <img class="icon-style" src="../../../../assets/img/people.svg" alt="" />
@@ -90,7 +90,7 @@
           [routerLink]="'/roles'">Roles</a>
       </li>
     </ul>
-    <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
+    <a *ngIf="hasPermission('notifications','READ')" class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('notifications')" [routerLink]="'/notifications'" role="tab"
       aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
@@ -98,7 +98,7 @@
         <div>Notifications</div>
       </div>
     </a>
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+    <a *ngIf="hasPermission('chat','READ')" class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('chat')"
       [routerLink]="'/chat'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">

@@ -39,6 +39,8 @@ export class UserRquestCallService {
 
 
   updateUserStatus(id: string, status: string): Observable<void> {
+    console.log(status);
+    
     const url = `/api/user/admin/${id}/update-status`;
     return this.http.put<void>(url, null, { params: { status } });
   }

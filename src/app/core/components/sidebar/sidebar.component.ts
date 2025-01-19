@@ -14,7 +14,7 @@ export class SidebarComponent {
   status: string = 'Pending';
   type!: string;
   isSidebarOpen = false;
-
+  userPermissions:any;
 
   employees = 'Employees';
   projects = 'Projects';
@@ -25,6 +25,7 @@ export class SidebarComponent {
   constructor(private requestService: RequestService) {}
 
   ngOnInit(): void {
+    this.getUserPermissions()
     this.getRequestList();
   }
 
@@ -56,5 +57,23 @@ getRequestList() {
       console.log(err);
     }
   );
+}
+
+getUserPermissions(){
+  const userPermissions = localStorage.getItem("permissions");
+  console.log(userPermissions);
+  
+  if (userPermissions) {
+    this.userPermissions = JSON.parse(userPermissions);
+  } else {
+    this.userPermissions = null;
+  }
+}
+
+hasPermission(page: string, action: string): boolean {
+  if (!this.userPermissions || !this.userPermissions[page]) {
+    return false;
+  }
+  return this.userPermissions[page].includes(action);
 }
 }

@@ -26,7 +26,7 @@ export class LoginService {
       next: response => {
         localStorage.setItem("JWT_Token", response.token);
         localStorage.setItem("user-profile", JSON.stringify(response));
-        localStorage.setItem("permissions", JSON.stringify(response.role.pagePermission));
+        localStorage.setItem("permissions", JSON.stringify((response.permissions)));
         this.isLoggedIn = true;
         this.router.navigate(["/dashboard"]);
       },
@@ -63,6 +63,18 @@ export class LoginService {
     }
   }
 
+
+  // decryptPermissions(encryptedData: string): string {
+
+  //   const key = CryptoJS.enc.Utf8.parse('5r!vdqh*@T4cfR3gICbF+N2)yUSG9A6%');
+
+  //   const decrypted = CryptoJS.AES.decrypt(encryptedData, key, {
+  //     mode: CryptoJS.mode.CBC,
+  //     padding: CryptoJS.pad.Pkcs7,
+  //   });
+
+  //   return decrypted.toString(CryptoJS.enc.Utf8);
+  // }
 
 
 }
