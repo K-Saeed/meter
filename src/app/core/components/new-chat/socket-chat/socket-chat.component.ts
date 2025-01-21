@@ -10,7 +10,7 @@ import { SocketChatService } from '../socket-chat.service';
 })
 export class SocketChatComponent {
 
-  private socket!: Socket;
+  // private socket!: Socket;
   key: string = '';
   public message: string = '';
   public userEmail: string = '';
@@ -23,23 +23,24 @@ export class SocketChatComponent {
   fileToBeUploaded!: File | null;
   filePreview!: (string | ArrayBuffer | null);
   secretId: string = '';
-  constructor(private socketChatService: SocketChatService) { }
+  constructor(private socketChatService: SocketChatService) { 
+    // this.secretId = this.socketChatService.getSecretId()??'';
+    // this.socket = io({
+    //   query: {
+    //     token: this.socketChatService.getToken(),
+    //     s: this.secretId
+    //   },
+    // });
+  }
 
   ngOnInit(): void {
-    this.secretId = this.socketChatService.getSecretId()??'';
-    this.socket = io('http://localhost:8000', {
-      query: {
-        token: this.socketChatService.getToken(),
-        s: this.secretId
-      },
-    });
 
-    this.socket.on('connect', () => {
+    this.socketChatService.socket.on('connect', () => {
       console.log('Connected to WebSocket server');
       this.getUserChatsByEmail();
     });
 
-    this.socket.on('receiveMessage', (data: any) => {
+    this.socketChatService.socket.on('receiveMessage', (data: any) => {
       try {
         const parsedData = JSON.parse(data);
         console.log('Parsed received message:', parsedData);
@@ -54,7 +55,7 @@ export class SocketChatComponent {
       }
     });
 
-    this.socket.on('sendInfo', (data: any) => {
+    this.socketChatService.socket.on('sendInfo', (data: any) => {
       console.log('Received info:', data);
       const parsedData = JSON.parse(data);
       this.key = parsedData;
@@ -88,7 +89,7 @@ export class SocketChatComponent {
         senderEmail: this.userEmail,
         recipientEmail: this.recieverEmail,
       });
-      this.socket.emit('sendMessage', encryptedMessage);
+      this.socketChatService.socket.emit('sendMessage', encryptedMessage);
       this.message = '';
     }
   }

@@ -3,14 +3,27 @@ import { Injectable } from '@angular/core';
 import { ChatRoom, Message, UserProfile } from './chat-classes';
 import { FileResponse } from '../service-requests/models/file-response';
 import * as CryptoJS from 'crypto-js';
+import { io, Socket } from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SocketChatService {
 
-  constructor(private http: HttpClient) { }
+  private _socket!: Socket;
 
+  constructor(private http: HttpClient) {
+    this._socket = io({
+      query: {
+        token: this.getToken(),
+        s: this.getSecretId()??''
+      },
+    });
+   }
+
+   get socket(){
+    return this._socket;
+   }
 
   get headers() {
     return new HttpHeaders({

@@ -26,20 +26,16 @@ export class SendToAllComponent {
   fileToBeUploaded!: File | null;
   filePreview!: (string | ArrayBuffer | null);
   searchTerm: string = '';
-  private socket!: Socket;
+  // private socket!: Socket;
   userEmail: string = '';
   message: string = '';
 
   private statusTypeSubscription!: Subscription;
-  constructor(private userService: UserService, private cdr: ChangeDetectorRef, private socketChatService: SocketChatService) { }
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef, private socketChatService: SocketChatService) {
+
+   }
 
   ngOnInit() {
-    this.socket = io('http://localhost:8000', {
-      query: {
-        token: this.socketChatService.getToken(),
-        s: this.socketChatService.getSecretId()
-      },
-    });
     this.statusTypeSubscription = combineLatest([
       this.userService.status$,
       this.userService.role$
@@ -123,7 +119,7 @@ export class SendToAllComponent {
             senderEmail: this.userEmail,
             recipientEmails: this.selectedUsers,
           });
-          this.socket.emit('sendMessageToGroup', message);
+          this.socketChatService.socket.emit('sendMessageToGroup', message);
           this.message = '';
           this.fileToBeUploaded = null;
         },
@@ -139,7 +135,7 @@ export class SendToAllComponent {
         senderEmail: this.userEmail,
         recipientEmails: this.selectedUsers,
       });
-      this.socket.emit('sendMessageToGroup', message);
+      this.socketChatService.socket.emit('sendMessageToGroup', message);
       this.message = '';
     }
   }
