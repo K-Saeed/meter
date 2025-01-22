@@ -10,7 +10,7 @@ import { SocketChatService } from '../socket-chat.service';
 })
 export class SocketChatComponent {
 
-  // private socket!: Socket;
+  public socket!: Socket;
   key: string = '';
   public message: string = '';
   public userEmail: string = '';
@@ -23,24 +23,25 @@ export class SocketChatComponent {
   fileToBeUploaded!: File | null;
   filePreview!: (string | ArrayBuffer | null);
   secretId: string = '';
-  constructor(private socketChatService: SocketChatService) { 
-    // this.secretId = this.socketChatService.getSecretId()??'';
-    // this.socket = io({
-    //   query: {
-    //     token: this.socketChatService.getToken(),
-    //     s: this.secretId
-    //   },
-    // });
+  constructor(private socketChatService: SocketChatService) {
   }
 
   ngOnInit(): void {
 
-    this.socketChatService.socket.on('connect', () => {
+    this.secretId = this.socketChatService.getSecretId() ?? '';
+    this.socket = io({
+      query: {
+        token: this.socketChatService.getToken(),
+        s: this.secretId
+      },
+    });
+
+    this.socket.on('connect', () => {
       console.log('Connected to WebSocket server');
       this.getUserChatsByEmail();
     });
 
-    this.socketChatService.socket.on('receiveMessage', (data: any) => {
+    this.socket.on('receiveMessage', (data: any) => {
       try {
         const parsedData = JSON.parse(data);
         console.log('Parsed received message:', parsedData);
@@ -55,7 +56,7 @@ export class SocketChatComponent {
       }
     });
 
-    this.socketChatService.socket.on('sendInfo', (data: any) => {
+    this.socket.on('sendInfo', (data: any) => {
       console.log('Received info:', data);
       const parsedData = JSON.parse(data);
       this.key = parsedData;
@@ -64,6 +65,9 @@ export class SocketChatComponent {
     this.userEmail = this.socketChatService.getUserProfile()?.email ?? '';
   }
 
+  ngOnDestroy(): void {
+    this.socket.disconnect()
+  }
 
   send() {
     if (this.fileToBeUploaded && this.fileToBeUploaded !== null) {
@@ -89,16 +93,16 @@ export class SocketChatComponent {
         senderEmail: this.userEmail,
         recipientEmail: this.recieverEmail,
       });
-      this.socketChatService.socket.emit('sendMessage', encryptedMessage);
+      this.socket.emit('sendMessage', encryptedMessage);
       this.message = '';
     }
   }
 
   handleSendMessage(message: Message) {
     if (this.selectedChatRoom !== undefined) {
-      if(message.contentType === 'MEDIA'){
+      if (message.contentType === 'MEDIA') {
         this.selectedChatRoom.lastMessage = 'media'
-      }else{
+      } else {
         this.selectedChatRoom.lastMessage = message.content
       }
       this.messages.push(message);
@@ -110,8 +114,8 @@ export class SocketChatComponent {
     message.content = this.socketChatService.decrypt(message.content ?? '', message.key ?? '');
     const existingChatRoom = this.chatRooms.find(chatRoom => (chatRoom.id) === message.chatId);
     if (existingChatRoom) {
-      existingChatRoom.lastMessage = message.contentType === 'TEXT'? message.content:'media';
-      
+      existingChatRoom.lastMessage = message.contentType === 'TEXT' ? message.content : 'media';
+
       this.chatRooms = [existingChatRoom, ...this.chatRooms.filter(chatRoom => (chatRoom.id) !== message.chatId)];
       if (this.selectedChatRoom !== undefined && this.selectedChatRoom.id === message.chatId) {
         this.messages.push(message);
@@ -119,7 +123,7 @@ export class SocketChatComponent {
     } else {
       const newChatRoom = new ChatRoom({
         id: message.chatId,
-        lastMessage:message.contentType === 'TEXT'? message.content:'media',
+        lastMessage: message.contentType === 'TEXT' ? message.content : 'media',
         userProfile2: new UserProfile({
           email: message.senderEmail
         })

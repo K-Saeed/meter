@@ -14,6 +14,7 @@ import { io, Socket } from 'socket.io-client';
 export class SendToAllComponent {
 
   @Input() key:string ='';
+  @Input() socket!:Socket;
   activeRole: string | null = null;
   activeStatus: string | null = null;
   status!: string;
@@ -119,7 +120,7 @@ export class SendToAllComponent {
             senderEmail: this.userEmail,
             recipientEmails: this.selectedUsers,
           });
-          this.socketChatService.socket.emit('sendMessageToGroup', message);
+          this.socket.emit('sendMessageToGroup', message);
           this.message = '';
           this.fileToBeUploaded = null;
         },
@@ -135,7 +136,7 @@ export class SendToAllComponent {
         senderEmail: this.userEmail,
         recipientEmails: this.selectedUsers,
       });
-      this.socketChatService.socket.emit('sendMessageToGroup', message);
+      this.socket.emit('sendMessageToGroup', message);
       this.message = '';
     }
   }

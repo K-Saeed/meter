@@ -10,20 +10,8 @@ import { io, Socket } from 'socket.io-client';
 })
 export class SocketChatService {
 
-  private _socket!: Socket;
 
-  constructor(private http: HttpClient) {
-    this._socket = io({
-      query: {
-        token: this.getToken(),
-        s: this.getSecretId()??''
-      },
-    });
-   }
-
-   get socket(){
-    return this._socket;
-   }
+  constructor(private http: HttpClient) { }
 
   get headers() {
     return new HttpHeaders({
