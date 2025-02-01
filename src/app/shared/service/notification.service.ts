@@ -37,8 +37,7 @@ export class NotificationService {
   }
 
   sendNotificationToCategory(notification: NotificationDto, categories: string[]): Observable<[]> {
-    const apiUrl = `/api/notification/send-by-category`;
-
+    const apiUrl = `/api/notification/v2/send-by-category`;
     const params = new HttpParams().set('categories', categories.join(','));
 
     return this.http.post<[]>(apiUrl, notification, { params });
