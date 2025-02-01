@@ -31,7 +31,7 @@ export class LoginService {
       next: response => {
         localStorage.setItem("JWT_Token", response.token);
         localStorage.setItem("user-profile", JSON.stringify(response));
-        localStorage.setItem("permissions", JSON.stringify(response.permissions));
+        localStorage.setItem("permissions", response.permissions);
         localStorage.setItem("s", this.secretId);
 
         this.isLoggedIn = true;

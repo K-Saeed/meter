@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { AuthService } from "./auth.service";
+import { PermissionService } from "./permission.service";
 
 @Injectable({
   providedIn: "root"
@@ -28,18 +29,25 @@ export class AuthGuardService implements CanActivate {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private permissionService: PermissionService
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.isAuthenticated()) {
 
-      const userPermissions = JSON.parse(localStorage.getItem('permissions') || '{}');
+      // const encodedPermissions = localStorage.getItem('permissions');
+
+      // const decodedPermissions = atob(encodedPermissions??'{}');
+  
+      // const userPermissions = JSON.parse(decodedPermissions);
+
+      // const userPermissions = JSON.parse(localStorage.getItem('permissions') || '{}');
       const currentRoute = route.routeConfig?.path;
   
       const permissionKey = this.routePermissionMap[currentRoute || ''];
   
-      if (permissionKey && userPermissions[permissionKey]?.includes('READ')) {
+      if (permissionKey && this.permissionService.hasPermission(permissionKey,'READ')) {
         return true;
       }
       this.router.navigate(["/signin"]);

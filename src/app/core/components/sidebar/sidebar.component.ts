@@ -25,7 +25,6 @@ export class SidebarComponent {
   constructor(private requestService: RequestService) {}
 
   ngOnInit(): void {
-    this.getUserPermissions()
     this.getRequestList();
   }
 
@@ -57,17 +56,6 @@ getRequestList() {
       console.log(err);
     }
   );
-}
-
-getUserPermissions(){
-  const userPermissions = localStorage.getItem("permissions");
-  console.log(userPermissions);
-  
-  if (userPermissions) {
-    this.userPermissions = JSON.parse(userPermissions);
-  } else {
-    this.userPermissions = null;
-  }
 }
 
 hasPermission(page: string, action: string): boolean {

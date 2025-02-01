@@ -1,5 +1,6 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { AuthService } from './auth.service';
+import { PermissionService } from './permission.service';
 
 @Directive({
   selector: '[appHasPermission]'
@@ -8,7 +9,7 @@ export class HasPermissionDirective {
   private currentPermission: string = '';
 
   constructor(
-    private authService: AuthService,
+    private permissionService: PermissionService,
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef
   ) {}
@@ -34,19 +35,22 @@ export class HasPermissionDirective {
 
   
   hasPermission(page: string, action: string): boolean {
-    const userPermissions = localStorage.getItem('permissions');
+    return this.permissionService.hasPermission(page, action);
+
+    // const encodedPermissions = localStorage.getItem('permissions');
+   
+    // if (!encodedPermissions) {
+    //   return false;
+    // }
+    // const decodedPermissions = atob(encodedPermissions);
   
-    if (!userPermissions) {
-      return false;
-    }
+    // const permissions = JSON.parse(decodedPermissions);
+
+    // if (!permissions || !permissions[page]) {
+    //   return false;
+    // }
   
-    const permissions = JSON.parse(userPermissions);
-  
-    if (!permissions || !permissions[page]) {
-      return false;
-    }
-  
-    return permissions[page].includes(action);
+    // return permissions[page].includes(action);
   }
   
 }
