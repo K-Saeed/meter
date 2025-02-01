@@ -57,7 +57,7 @@
             {{ message.content }}
             <div class="message-timestamp">{{ message.createdAt| date: 'shortTime' }}</div>
           </div>
-          <div *ngIf="message.contentType === 'MEDIA'" class="message-media">
+          <div *ngIf="message.contentType === 'FILE'" class="message-media">
             <img [src]="message.content" alt="Media content" />
             <div class="message-timestamp">{{ message.createdAt| date: 'shortTime' }}</div>
           </div>

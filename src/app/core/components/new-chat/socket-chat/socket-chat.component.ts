@@ -100,8 +100,8 @@ export class SocketChatComponent {
 
   handleSendMessage(message: Message) {
     if (this.selectedChatRoom !== undefined) {
-      if (message.contentType === 'MEDIA') {
-        this.selectedChatRoom.lastMessage = 'media'
+      if (message.contentType === 'FILE') {
+        this.selectedChatRoom.lastMessage = 'file'
       } else {
         this.selectedChatRoom.lastMessage = message.content
       }
@@ -114,7 +114,7 @@ export class SocketChatComponent {
     message.content = this.socketChatService.decrypt(message.content ?? '', message.key ?? '');
     const existingChatRoom = this.chatRooms.find(chatRoom => (chatRoom.id) === message.chatId);
     if (existingChatRoom) {
-      existingChatRoom.lastMessage = message.contentType === 'TEXT' ? message.content : 'media';
+      existingChatRoom.lastMessage = message.contentType === 'TEXT' ? message.content : 'file';
 
       this.chatRooms = [existingChatRoom, ...this.chatRooms.filter(chatRoom => (chatRoom.id) !== message.chatId)];
       if (this.selectedChatRoom !== undefined && this.selectedChatRoom.id === message.chatId) {
@@ -123,7 +123,7 @@ export class SocketChatComponent {
     } else {
       const newChatRoom = new ChatRoom({
         id: message.chatId,
-        lastMessage: message.contentType === 'TEXT' ? message.content : 'media',
+        lastMessage: message.contentType === 'TEXT' ? message.content : 'file',
         userProfile2: new UserProfile({
           email: message.senderEmail
         })
@@ -204,7 +204,7 @@ export class SocketChatComponent {
       this.socketChatService.sendFile(formData).subscribe({
         next: (n) => {
           console.log(n);
-          this.sendMessage(n.filePath, 'MEDIA');
+          this.sendMessage(n.filePath, 'FILE');
           this.fileToBeUploaded = null;
         },
         error: (e) => {
