@@ -36,6 +36,7 @@ export class SocketChatComponent {
       },
     });
 
+
     this.socket.on('connect', () => {
       console.log('Connected to WebSocket server');
       this.getUserChatsByEmail();
