@@ -45,7 +45,7 @@ export class SocketChatComponent {
     this.socket.on('receiveMessage', (data: any) => {
       try {
         const parsedData = JSON.parse(data);
-        console.log('Parsed received message:', parsedData);
+        // console.log('Parsed received message:', parsedData);
 
         if (parsedData) {
           this.handleRecievedMessage(parsedData);
@@ -58,7 +58,7 @@ export class SocketChatComponent {
     });
 
     this.socket.on('sendInfo', (data: any) => {
-      console.log('Received info:', data);
+      // console.log('Received info:', data);
       const parsedData = JSON.parse(data);
       this.key = parsedData;
     });
@@ -166,7 +166,7 @@ export class SocketChatComponent {
   getUserChatsByEmail() {
     this.socketChatService.getUserChatsByEmail().subscribe({
       next: (n) => {
-        console.log(n);
+        // console.log(n);
         this.chatRooms = n;
       },
       error: (e) => {
@@ -179,7 +179,7 @@ export class SocketChatComponent {
     this.recieverEmail = chatRoom.userProfile2?.email;
     this.socketChatService.getMessagesByChatId(chatRoom.id ?? '').subscribe({
       next: (n) => {
-        console.log(n);
+        // console.log(n);
         this.setMessages(n);
         this.selectedChatRoom = chatRoom;
       },
@@ -204,7 +204,7 @@ export class SocketChatComponent {
 
       this.socketChatService.sendFile(formData).subscribe({
         next: (n) => {
-          console.log(n);
+          // console.log(n);
           this.sendMessage(n.filePath, 'FILE');
           this.fileToBeUploaded = null;
         },

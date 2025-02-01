@@ -38,10 +38,10 @@ export class NotificationsTableComponent {
   getAllNotifications() {
     this.notificationService.getAllNotifications().subscribe({
       next: (n) => {
-        console.log(n);
+        // console.log(n);
 
         this.notifications = n;
-        console.log(this.notifications);
+        // console.log(this.notifications);
 
       },
       error: (e) => {
