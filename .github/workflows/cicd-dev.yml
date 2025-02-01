@@ -90,17 +90,17 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Deploy to EC2
+    - name: Deploy to VM
       env:
-        PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
-        HOST: ${{ secrets.EC2_HOST }}
-        USER: ${{ secrets.EC2_USER }}
+        PRIVATE_KEY: ${{ secrets.VM_SSH_PRIVATE_KEY_DEV }}
+        HOST: ${{ secrets.VM_HOST_DEV }}
+        USER: ${{ secrets.VM_USER_DEV }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
-          cd /home/ubuntu/meter
+          cd /home/info/meter
           # Create or update .env file
               cat << EOF > .env
         GITHUB_REPOSITORY=$REPO_LOWER
