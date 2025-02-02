@@ -5,6 +5,8 @@ export class Message {
     senderEmail?: string;
     recipientEmail?: string;
     recipientEmails?: string[];
+    latitude?:number;
+    longitude?:number;
     content?: string;
     contentType?: string;
     key?: string;
@@ -14,8 +16,8 @@ export class Message {
       Object.assign(this, init);
     }
   }
-  
-  
+
+
   export class ChatRoom {
     id?: string;
     userProfile1?: UserProfile;

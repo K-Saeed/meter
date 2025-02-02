@@ -33,11 +33,14 @@
                 <small class="timestamp">{{ message.createdAt }}</small>
                 <h6 class="name"><span>[{{chatRoom.userProfile2?.role}}]</span> {{ chatRoom.userProfile2?.name }} </h6>
               </div>
-              <div *ngIf="message.contentType === 'TEXT'" class="message-content">
+              <div *ngIf="message.contentType === 'TEXT' || message.contentType === 'OFFER'" class="message-content">
                 <p class="message-text">{{ message.content }}</p>
               </div>
-              <div *ngIf="message.contentType === 'MEDIA'" class="message-media">
+              <div *ngIf="message.contentType === 'FILE'" class="message-media">
                 <img [src]="message.content" alt="Media content" />
+              </div>
+              <div *ngIf="message.contentType === 'LOCATION'" class="message-media">
+                <p class="message-text">lat:{{message.latitude}},long:{{message.longitude}}</p>
               </div>
             </div>
           </div>
