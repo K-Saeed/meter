@@ -19,7 +19,7 @@
               <div *ngIf="message.contentType === 'TEXT'" class="message-content">
                 <p class="message-text">{{ message.content }}</p>
               </div>
-              <div *ngIf="message.contentType === 'MEDIA'" class="message-media">
+              <div *ngIf="message.contentType === 'FILE'" class="message-media">
                 <img [src]="message.content" alt="Media content" />
               </div>
             </div>
