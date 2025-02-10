@@ -2,7 +2,7 @@ name: Production CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ gcp ]
 
 
 jobs:
@@ -91,17 +91,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Deploy to EC2
+    - name: Deploy to GCP VM
       env:
-        PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY_PROD }}
-        HOST: ${{ secrets.EC2_HOST_PROD }}
-        USER: ${{ secrets.EC2_USER_PROD }}
+        PRIVATE_KEY: ${{ secrets.VM_SSH_PRIVATE_KEY_PROD_GCP }}
+        HOST: ${{ secrets.VM_HOST_PROD_GCP }}
+        USER: ${{ secrets.VM_USER_PROD_GCP }}
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
-          cd /home/ubuntu/meter
+          cd /home/info/meter
+          git checkout gcp
+          git pull origin gcp
           # Create or update .env file
               cat << EOF > .env
         GITHUB_REPOSITORY=$REPO_LOWER
