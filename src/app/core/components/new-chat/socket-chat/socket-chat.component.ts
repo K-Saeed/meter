@@ -125,7 +125,7 @@ export class SocketChatComponent {
       const newChatRoom = new ChatRoom({
         id: message.chatId,
         lastMessage: message.contentType === 'TEXT' ? message.content : 'file',
-        userProfile2: new UserProfile({
+        recipientProfile: new UserProfile({
           email: message.senderEmail
         })
       });
@@ -176,7 +176,7 @@ export class SocketChatComponent {
   }
 
   getMessagesByChatId(chatRoom: ChatRoom) {
-    this.recieverEmail = chatRoom.userProfile2?.email;
+    this.recieverEmail = chatRoom.recipientProfile?.email;
     this.socketChatService.getMessagesByChatId(chatRoom.id ?? '').subscribe({
       next: (n) => {
         console.log(n);

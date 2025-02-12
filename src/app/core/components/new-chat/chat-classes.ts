@@ -11,7 +11,7 @@ export class Message {
     contentType?: string;
     key?: string;
     createdAt?: Date | null;
-  
+
     constructor(init?: Partial<Message>) {
       Object.assign(this, init);
     }
@@ -20,11 +20,11 @@ export class Message {
 
   export class ChatRoom {
     id?: string;
-    userProfile1?: UserProfile;
-    userProfile2?: UserProfile;
+    senderProfile?: UserProfile;
+    recipientProfile?: UserProfile;
     lastMessage?: string;
     lastMessageTimestamp?: Date;
-  
+
     constructor(init?: Partial<ChatRoom>) {
       Object.assign(this, init);
     }
@@ -45,9 +45,8 @@ export class Message {
     customerDetails?: CustomerDto;
     providerDetails?: ProviderDto;
     sellerDetails?: SellerDto;
-  
+
     constructor(init?: Partial<UserProfile>) {
       Object.assign(this, init);
     }
   }
-  
