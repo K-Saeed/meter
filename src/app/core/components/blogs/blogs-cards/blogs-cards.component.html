@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="row gap-4">
+    <div
+      class="card col-4 d-flex flex-column border gap-3"
+      *ngFor="let post of paginatedPosts"
+    >
+      <img class="img-fluid style-img-blog" [src]="post.imgSrc" alt="" />
+
+      <div class="d-flex align-items-center justify-content-end gap-2">
+        <!-- Actions Icons -->
+        <img
+          class="cursor-pointer"
+          src="../../../../assets/img/eye.svg"
+          alt="View"
+          data-bs-toggle="modal"
+          data-bs-target="#viewModal"
+        />
+        <img
+          class="cursor-pointer"
+          src="../../../../assets/img/edit-2.svg"
+          alt="Edit"
+        />
+
+        <!-- Toggle Switch -->
+        <label class="toggle">
+          <input type="checkbox" />
+          <span class="slider round"></span>
+        </label>
+
+        <img
+          class="cursor-pointer"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+          src="../../../../assets/img/trash.svg"
+          alt="Delete"
+        />
+      </div>
+
+      <p class="blog-title text-end">
+        {{ post.title }}
+      </p>
+    </div>
+  </div>
+</div>
+<div
+  class="font d-flex align-items-center justify-content-between my-4 pagination-space"
+>
+  <h5 class="left m-0">
+    Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
+    {{ Math.min(currentPage * itemsPerPage, blogPosts.length) }} of
+    {{ blogPosts.length }} entries
+  </h5>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination gap-2 m-0 align-items-center">
+      <!-- Previous Button -->
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a
+          class="page-link previous"
+          href="#"
+          aria-label="Previous"
+          (click)="setPage(currentPage - 1, $event)"
+        >
+          <span aria-hidden="true">
+            <img
+              src="../../../../../assets/img/arrow-left.svg"
+              alt="Previous"
+            />
+          </span>
+        </a>
+      </li>
+
+      <!-- Page Number Links -->
+      <li
+        *ngFor="let page of getPagination()"
+        class="page-item"
+        [class.active]="page === currentPage"
+        [class.disabled]="page === -1"
+      >
+        <a
+          class="page-link"
+          href="#"
+          *ngIf="page !== -1"
+          (click)="setPage(page, $event)"
+        >
+          {{ page }}
+        </a>
+        <span class="page-link" *ngIf="page === -1">...</span>
+      </li>
+
+      <!-- Next Button -->
+      <li
+        class="page-item"
+        [class.disabled]="
+          currentPage === Math.ceil(blogPosts.length / itemsPerPage)
+        "
+      >
+        <a
+          class="page-link next"
+          href="#"
+          aria-label="Next"
+          (click)="setPage(currentPage + 1, $event)"
+        >
+          <span aria-hidden="true">
+            <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="font d-flex align-items-center">
+    <h5 class="m-0 me-2">Show</h5>
+
+    <div class="select-wrapper">
+      <select
+        class="form-select mx-2 custom-select"
+        [(ngModel)]="itemsPerPage"
+        (change)="setPage(1, $event)"
+      >
+        <option *ngFor="let option of [8, 20, 25, 50, 100]" [value]="option">
+          {{ option }}
+        </option>
+      </select>
+      <i class="fa-solid fa-chevron-down custom-select-icon"></i>
+    </div>
+    <h5 class="m-0 ms-2">entries</h5>
+  </div>
+</div>

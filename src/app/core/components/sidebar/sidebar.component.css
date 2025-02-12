@@ -7,14 +7,24 @@
   font-weight: 500;
   line-height: 26px;
 }
-
 .side-bar {
   background-color: #314352;
   width: 255px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
+  overflow: hidden;
+}
+
+.side-bar-content {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #314352 transparent;
 }
 
 .img-style {
@@ -147,8 +157,6 @@
   }
   .hamburger {
     display: block;
-  }
-  .navbar-menu a .icon-style {
   }
 }
 @media (max-width: 768px) {

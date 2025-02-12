@@ -146,6 +146,11 @@ import { PrintInvoiceDialogComponent } from './core/components/transactions/prin
 import { SocketChatComponent } from "./core/components/new-chat/socket-chat/socket-chat.component";
 import { SendToAllComponent } from './core/components/new-chat/send-to-all/send-to-all.component';
 import { SlicePipe } from './slice.pipe';
+import { BlogsComponent } from './core/components/blogs/blogs.component';
+import { BlogsTitleComponent } from './core/components/blogs//blogs-title/blogs-title.component';
+import { BlogsActionComponent } from './core/components/blogs/blogs-action/blogs-action.component';
+import { BlogsCardsComponent } from './core/components/blogs/blogs-cards/blogs-cards.component';
+import { BlogsAddComponent } from './core/components/blogs/blogs-add/blogs-add.component';
 
 
 @NgModule({
@@ -286,6 +291,11 @@ import { SlicePipe } from './slice.pipe';
     SocketChatComponent,
     SendToAllComponent,
     SlicePipe,
+    BlogsComponent,
+    BlogsTitleComponent,
+    BlogsActionComponent,
+    BlogsCardsComponent,
+    BlogsAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -294,7 +304,8 @@ import { SlicePipe } from './slice.pipe';
     HttpClientModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+
   ],
   providers: [
     AuthGuardService,
@@ -303,4 +314,4 @@ import { SlicePipe } from './slice.pipe';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

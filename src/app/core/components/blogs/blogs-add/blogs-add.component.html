@@ -1,0 +1,187 @@
+<div class="user-style d-flex flex-column">
+  <div class="title-page d-flex flex-column">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb bg-transparent m-0 p-0">
+        <li class="breadcrumb-item">
+          <a href="#" class="text-decoration-none">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <a href="#" class="text-decoration-none">Blogs</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+          <a href="#" class="text-decoration-none">Add blog</a>
+        </li>
+      </ol>
+    </nav>
+    <h2 class="m-0">Add Blog</h2>
+  </div>
+  <div class="space d-flex gap-4">
+    <div class="d-flex flex-column gap-3">
+      <div class="position-relative input-container my-1">
+        <label for="title" class="position-absolute label-style">Title</label>
+        <input
+          type="text"
+          id="title"
+          placeholder="Enter title"
+          class="input-style w-100"
+          formControlName="title"
+        />
+      </div>
+      <div
+        class="position-relative input-container my-1 boder-style d-flex flex-row gap-2"
+      >
+        <div
+          *ngIf="!uploadedFiles.length && !requestFiles.length"
+          class="upload-instructions d-flex flex-column justify-content-center align-items-center gap-2"
+        >
+          <img
+            src="../../../../../../../assets/img/document-upload.svg"
+            alt=""
+            class="w-25"
+          />
+          <h2 class="m-0">Click to Upload</h2>
+          <h6 class="m-0">(Maximum file size: 25MB)</h6>
+        </div>
+
+        <input
+          type="file"
+          name="file"
+          multiple
+          (change)="onFilesSelected($event)"
+        />
+
+        <div class="file-container d-flex flex-wrap gap-2 p-2">
+          <div
+            *ngFor="let file of requestFiles"
+            class="file-item position-relative"
+          >
+            <button
+              (click)="removeFileFromRequestFiles(file)"
+              class="close-button position-absolute"
+            >
+              ×
+            </button>
+
+            <ng-container [ngSwitch]="getFileType(file.fileType)">
+              <img
+                *ngSwitchCase="'image'"
+                [src]="file.filePath"
+                [alt]="file.fileName"
+                class="file-preview-image"
+              />
+              <img
+                *ngSwitchCase="'pdf'"
+                class="file-preview-image"
+                src="/assets/img/pdf.svg"
+              />
+              <img
+                *ngSwitchCase="'text'"
+                class="file-preview-image"
+                src="/assets/img/txt.svg"
+              />
+              <img
+                *ngSwitchCase="'document'"
+                class="file-preview-image"
+                src="/assets/img/doc.svg"
+              />
+              <img
+                *ngSwitchDefault
+                class="file-preview-image"
+                src="/assets/img/unknown.svg"
+              />
+            </ng-container>
+          </div>
+        </div>
+
+        <div
+          *ngFor="let preview of filePreviews; let i = index"
+          class="uploaded-file-preview d-flex align-items-center position-relative"
+        >
+          <button
+            (click)="removeFile(i)"
+            class="close-button position-absolute"
+          >
+            ×
+          </button>
+
+          <img
+            *ngIf="isImageFile(uploadedFiles[i])"
+            [src]="preview"
+            alt="Uploaded Image"
+            class="file-preview-image"
+          />
+
+          <img
+            *ngIf="!isImageFile(uploadedFiles[i])"
+            src="/assets/img/unknown.svg"
+            class="file-preview-image"
+          />
+        </div>
+      </div>
+      <div class="d-flex flex-column gap-4">
+        <h1>Visibility</h1>
+        <div class="d-flex flex-column gap-2">
+          <div class="info d-flex align-items-center" style="gap: 12px">
+            <input
+              type="radio"
+              name="Visibility"
+              id="Published"
+              [(ngModel)]="selectedVisibility"
+              value="Published"
+              (change)="onRadioChange()"
+            />
+            <label for="Published">Published</label>
+          </div>
+          <div class="info d-flex align-items-center" style="gap: 12px">
+            <input
+              type="radio"
+              name="Visibility"
+              id="Scheduled"
+              [(ngModel)]="selectedVisibility"
+              value="Scheduled"
+              (change)="onRadioChange()"
+            />
+            <label for="Scheduled">Scheduled</label>
+          </div>
+
+          <div
+            class="position-relative input-container mt-2"
+            *ngIf="showDateInput"
+          >
+            <label for="Date" class="position-absolute label-style">Date</label>
+            <img
+              src="../../../../../assets/img/calendar.svg"
+              alt="Calendar Icon"
+              class="calendar-icon"
+            />
+            <input
+              type="date"
+              id="Date"
+              class="input-style"
+              style="width: 278px; padding-left: 40px"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="editor-container">
+      <div id="editor"></div>
+    </div>
+  </div>
+  <div
+    class="d-flex gap-3 justify-content-start"
+    style="margin: 50px 10px 20px 0px"
+  >
+    <button type="button" class="reject-btn" data-bs-toggle="modal">
+      Cancel
+    </button>
+    <button
+      (click)="saveContent()"
+      type="submit"
+      class="approve-btn"
+      data-bs-toggle="modal"
+    >
+      Save
+    </button>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="d-flex align-items-center justify-content-between">
+  <div class="search-container d-flex align-items-center position-relative">
+    <span class="search-icon p-2">
+      <img
+        src="../../../../../assets/img/search-normal.svg"
+        alt="Search Icon"
+      />
+    </span>
+    <input
+      type="text"
+      class="form-control search-input"
+      placeholder="Search in blog"
+    />
+  </div>
+  <a class="text-decoration-none" [routerLink]="'/addNew'">
+    <button class="btn-orange d-flex align-items-center gap-2">
+      <img src="../../../../../assets/img/add.svg" alt="" srcset="" />
+      <span>Add New Blog</span>
+    </button>
+  </a>
+</div>
+<app-employees-filter-modal></app-employees-filter-modal>
+<app-role-add-modal></app-role-add-modal>
