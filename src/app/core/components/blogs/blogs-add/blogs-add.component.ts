@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import Quill from 'quill';
 
 @Component({
@@ -7,6 +8,8 @@ import Quill from 'quill';
   styleUrls: ['./blogs-add.component.css']
 })
 export class BlogsAddComponent implements AfterViewInit {
+  keywordsControl = new FormControl(''); // إدخال المستخدم
+  keywords: string[] = [];
   filePreviews: (string | ArrayBuffer | null)[] = [];
   uploadedFiles: File[] = [];
   requestFiles: any[] = []; // Ensure requestFiles is declared
@@ -61,7 +64,20 @@ export class BlogsAddComponent implements AfterViewInit {
     'audio/': 'audio',
     'application/vnd': 'document'
   };
+  addKeyword(event: KeyboardEvent): void {
+    const input = (event.target as HTMLInputElement).value.trim();
+    if ((event.key === ',' || event.key === 'Enter') && input) {
+      if (!this.keywords.includes(input)) {
+        this.keywords.push(input);
+      }
+      this.keywordsControl.setValue('');
+      event.preventDefault();
+    }
+  }
 
+  removeKeyword(index: number): void {
+    this.keywords.splice(index, 1);
+  }
   onFilesSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files) {

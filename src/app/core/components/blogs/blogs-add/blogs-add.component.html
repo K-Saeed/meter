@@ -118,6 +118,41 @@
           />
         </div>
       </div>
+      <!-- meta keywords -->
+      <div class="keywords-container">
+        <span
+          *ngFor="let keyword of keywords; let i = index"
+          class="keyword-badge"
+        >
+          {{ keyword }}
+          <span (click)="removeKeyword(i)" class="remove-keyword">&times;</span>
+        </span>
+      </div>
+
+      <div class="position-relative input-container my-1">
+        <label for="keywords" class="position-absolute label-style">
+          Meta Tag Keywords
+        </label>
+        <input
+          type="text"
+          id="keywords"
+          class="input-style"
+          placeholder="Enter keywords and press Enter"
+          [formControl]="keywordsControl"
+          (keydown)="addKeyword($event)"
+        />
+      </div>
+      <div class="position-relative input-container my-1">
+        <label for="title" class="position-absolute label-style"
+          >Meta tag key description</label
+        >
+        <input
+          type="text"
+          id="description"
+          placeholder="Meta tag key description"
+          class="input-style w-100"
+        />
+      </div>
       <div class="d-flex flex-column gap-4">
         <h1>Visibility</h1>
         <div class="d-flex flex-column gap-2">
