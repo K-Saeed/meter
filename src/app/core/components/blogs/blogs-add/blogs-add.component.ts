@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import Quill from 'quill';
@@ -16,6 +17,8 @@ export class BlogsAddComponent implements AfterViewInit {
   maxFileSize = 25 * 1024 * 1024;
   quillEditor!: Quill;
   savedContent: string = '';
+
+  constructor(private http: HttpClient) {}
 
   ngAfterViewInit() {
     this.quillEditor = new Quill('#editor', {
@@ -52,9 +55,38 @@ export class BlogsAddComponent implements AfterViewInit {
     });
   }
 
+
   saveContent() {
-    console.log('the content', this.savedContent);
+    const blogData = {
+      title: (document.getElementById('title') as HTMLInputElement).value,
+      description: this.savedContent,
+      keywords: this.keywords,
+      visibility: this.selectedVisibility,
+      scheduleDate: this.showDateInput
+        ? (document.getElementById('Date') as HTMLInputElement).value
+        : null
+    };
+
+    const blogJsonBlob = new Blob([JSON.stringify(blogData)], { type: 'application/json' });
+
+    const formData = new FormData();
+    formData.append('blogsDto', blogJsonBlob);
+
+    this.uploadedFiles.forEach((file) => {
+      formData.append('request-files', file);
+    });
+
+    const headers = new HttpHeaders();
+    this.http.post('/api/dashboard/blogs/add', formData, { headers }).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
+
   private readonly typeMapping: { [key: string]: string } = {
     'image/': 'image',
     'application/octet-stream': 'image',
