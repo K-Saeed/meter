@@ -1,17 +1,39 @@
 <div class="d-flex flex-column gap-5 mt-5">
-  <ng-container *ngIf="(user?.providerDetails?.userFiles || user?.sellerDetails?.userFiles) as userFiles">
+  <ng-container *ngIf="(user?.providerDetails?.files || user?.sellerDetails?.files) as userFiles">
   <ng-container *ngFor="let file of userFiles">
     <div class="d-flex justify-content-between">
       <div class="d-flex align-items-center gap-3">
         <img src="file?.filePath" alt="" srcset="" />
         <div class="d-flex flex-column">
-          <h4 class="m-0">{{file?.fileName}}</h4>
+          <h4 class="m-0" (click)="openFileInPopup(file)">{{file?.fileName}}</h4>
           <p class="m-0">{{file.fileType}}, {{file.uploadDate}}</p>
         </div>
       </div>
-      <img class="cursor-pointer" src="file?.filePath" alt="" srcset="" />
-
+      <img class="cursor-pointer" src="file?.filePath" alt="" srcset="" (click)="openFileInPopup(file)"/>
+      <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt=""
+      (click)="downloadFile(file)" />
     </div>
   </ng-container>
   </ng-container>
 </div>
+
+  <!-- <div class="d-flex flex-column gap-5 mt-5">
+    <ng-container *ngIf="(user?.providerDetails?.files || user?.sellerDetails?.files) as userFiles">
+    <div class="d-flex flex-column justify-content-between gap-5">
+      <div *ngFor="let file of userFiles" (click)="openFileInPopup(file)"
+        class="d-flex flex-column justify-content-between gap-5">
+        <div class="d-flex align-items-center gap-3 cursor-pointer">
+          <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
+          <div class="d-flex align-items-center justify-content-between w-100 cursor-pointer">
+            <div class="attechment d-flex flex-column cursor-pointer">
+              <h4 class="m-0 cursor-pointer">{{ file.fileName }}</h4>
+              <p class="m-0 cursor-pointer">{{ file.uploadDate }}</p>
+            </div>
+            <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt=""
+              (click)="downloadFile(file)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  </div> -->

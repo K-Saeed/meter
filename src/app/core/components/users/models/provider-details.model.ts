@@ -16,6 +16,9 @@ export class ProviderDetails {
   latitude!: string;
   longitude!: string;
   serviceProvider!: string;
-  userFiles: FileResponse[] = [];
+  iban!: string
+  accountName!: string
+  bankName!: string
+  files: FileResponse[] = [];
 
 }
