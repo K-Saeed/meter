@@ -7,31 +7,40 @@
       <div class="modal-body chat-container d-flex flex-column gap-4" #chatContainer>
         <div *ngFor="let message of messages" class="message-wrapper">
           <!-- Customer Message -->
-          <div *ngIf="message.senderEmail === chatRoom.customerProfile.email" class="message customer-message">
-            <img class="profile-pic" [src]="chatRoom.customerProfile.logoPath"
+          <div *ngIf="message.senderEmail === chatRoom.senderProfile?.email" class="message customer-message">
+            <img class="profile-pic" [src]="chatRoom.senderProfile?.logoPath"
               onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';"
               alt="Customer Avatar" />
             <div class="d-flex flex-column">
               <div class="message-header d-flex gap-4">
-                <h6 class="name">{{ chatRoom.customerProfile.name }} <span>[Customer]</span> </h6>
-                <small class="timestamp">{{ message.sentTime }}</small>
+                <h6 class="name">{{ chatRoom.senderProfile?.name }} <span>[{{chatRoom.recipientProfile?.role}}]</span> </h6>
+                <small class="timestamp">{{ message.createdAt }}</small>
               </div>
-              <div class="message-content">
+              <div *ngIf="message.contentType === 'TEXT'" class="message-content">
                 <p class="message-text">{{ message.content }}</p>
+              </div>
+              <div *ngIf="message.contentType === 'FILE'" class="message-media">
+                <img [src]="message.content" alt="Media content" />
               </div>
             </div>
           </div>
 
           <!-- Provider Message -->
-          <div *ngIf="message.senderEmail === chatRoom.providerProfile.email" class="message provider-message">
-            <img class="profile-pic" [src]="chatRoom.providerProfile.logoPath" alt="Provider Avatar" />
+          <div *ngIf="message.senderEmail === chatRoom.recipientProfile?.email" class="message provider-message">
+            <img class="profile-pic" [src]="chatRoom.recipientProfile?.logoPath" alt="Provider Avatar" />
             <div class="d-flex flex-column ms-5">
               <div class="message-header d-flex gap-2">
-                <small class="timestamp">{{ message.sentTime }}</small>
-                <h6 class="name"><span>[Provider]</span> {{ chatRoom.providerProfile.name }} </h6>
+                <small class="timestamp">{{ message.createdAt }}</small>
+                <h6 class="name"><span>[{{chatRoom.recipientProfile?.role}}]</span> {{ chatRoom.recipientProfile?.name }} </h6>
               </div>
-              <div class="message-content">
+              <div *ngIf="message.contentType === 'TEXT' || message.contentType === 'OFFER'" class="message-content">
                 <p class="message-text">{{ message.content }}</p>
+              </div>
+              <div *ngIf="message.contentType === 'FILE'" class="message-media">
+                <img [src]="message.content" alt="Media content" />
+              </div>
+              <div *ngIf="message.contentType === 'LOCATION'" class="message-media">
+                <p class="message-text">lat:{{message.latitude}},long:{{message.longitude}}</p>
               </div>
             </div>
           </div>
