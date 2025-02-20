@@ -19,7 +19,28 @@ export class UserShowAttachmentModalComponent {
     private sanitizer: DomSanitizer,
   ) { }
 
+
+
+  closePopup() {
+    this.showFilePopup = false;
+    this.selectedFileUrl = null;
+  }
+
+  openFileInPopup(file: any) {
+    console.log("File clicked:", file);
+    const filePath = file.filePath;
+    this.isImageFile = /\.(png|jpg|jpeg)$/.test(filePath);
+    const safeUrl = filePath + (this.isImageFile ? "" : "#toolbar=0");
+    console.log("Safe URL:", safeUrl);
+    this.selectedFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(safeUrl);
+    this.showFilePopup = true;
+  }
+
+
+
+
   downloadFile(file: any): void {
+    console.log("Downloading file:", file);
     const link = document.createElement("a");
     link.href = file.filePath;
     link.target = "_blank";
@@ -29,13 +50,5 @@ export class UserShowAttachmentModalComponent {
     document.body.removeChild(link);
   }
 
-  openFileInPopup(file: any) {
-    const filePath = file.filePath;
-    this.isImageFile = /\.(png|jpg|jpeg)$/.test(filePath);
-    this.selectedFileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-      filePath + (this.isImageFile ? "" : "#toolbar=0")
-    );
-    this.showFilePopup = true;
-  }
 
 }
