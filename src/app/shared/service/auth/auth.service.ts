@@ -9,14 +9,16 @@ import { map } from "rxjs/operators";
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string, secretId: string): Observable<any> {
+    
     const apiUrl = `/api/dashboard/login`;
     const loginDto = { email, password };
     return this.http.post<any>(apiUrl, loginDto, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Access-Control-Allow-Headers': 'Content-Type'
+        'Access-Control-Allow-Headers': 'Content-Type',
+        's': secretId.toString()
       },
       withCredentials: true,
     });
@@ -26,6 +28,7 @@ export class AuthService {
     localStorage.removeItem("JWT_Token");
     localStorage.removeItem("user-profile");
     localStorage.removeItem("permissions");
+    localStorage.removeItem("s");
   }
 
   isAuthenticated(): boolean {

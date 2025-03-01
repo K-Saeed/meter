@@ -1,6 +1,5 @@
 import { Component, Input, AfterViewChecked, ViewChild, ElementRef } from '@angular/core';
-import { ChatRoom } from '../models/conversation-table.model';
-import { Message } from '../models/message.model';
+import { ChatRoom, Message } from '../../new-chat/chat-classes';
 
 @Component({
   selector: 'app-conversation-chat-modal',

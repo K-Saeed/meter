@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
-import { ChatRoom } from "../models/conversation-table.model";
-import { Message } from "../models/message.model";
-import { ConversationService } from "src/app/shared/service/conversation.service";
+import { SocketChatService } from "../../new-chat/socket-chat.service";
+import { ChatRoom, Message } from "../../new-chat/chat-classes";
 
 @Component({
   selector: "app-conversation-table",
@@ -20,7 +19,7 @@ export class ConversationTableComponent implements OnInit, OnDestroy {
   selectedChatRoom!:ChatRoom;
   private chatRoomsSubscription!: Subscription;
 
-  constructor(private conversationService: ConversationService) {}
+  constructor(private socketChatService:SocketChatService) {}
 
   ngOnInit(): void {
     this.getAllConversations();
@@ -33,7 +32,7 @@ export class ConversationTableComponent implements OnInit, OnDestroy {
   }
 
   getAllConversations() {
-    this.chatRoomsSubscription = this.conversationService.getAllConversations().subscribe({
+    this.chatRoomsSubscription = this.socketChatService.getAllChatsForAdmin().subscribe({
       next: (n) => {
         this.chatRooms = n;
         this.totalPages = Math.ceil(this.chatRooms.length / this.itemsPerPage);
@@ -47,15 +46,24 @@ export class ConversationTableComponent implements OnInit, OnDestroy {
 
   getMessagesByChatId(chatRoom: ChatRoom) {
     this.selectedChatRoom = chatRoom;
-    this.conversationService.getMessagesByChatId(chatRoom.id).subscribe({
+    this.socketChatService.getMessagesByChatIdForAdmin(chatRoom.id??'').subscribe({
       next: (n) => {
-        this.messages = n;
+        this.setMessages(n);
       },
       error: (e) => {
         console.log(e);
       }
     });
   }
+
+  setMessages(messages: Message[]) {
+    this.messages = [];
+    messages.forEach(message => {
+      message.content = this.socketChatService.decrypt(message.content ?? '', message.key ?? '');
+      this.messages.push(message);
+    });
+  }
+
 
   get paginatedChatRooms() {
     const start = (this.currentPage - 1) * this.itemsPerPage;

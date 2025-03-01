@@ -79,5 +79,18 @@
       <span class="label">Address: </span>
       <span class="value">{{user?.customerDetails?.address}}</span>
     </h3>
+
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.sellerDetails">
+      <span class="label">Account Name: </span>
+      <span class="value">{{user?.providerDetails?.accountName}}</span>
+    </h3>
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.sellerDetails">
+      <span class="label">Bank Name: </span>
+      <span class="value">{{user?.providerDetails?.bankName}}</span>
+    </h3>
+    <h3 class="d-flex justify-content-between m-0" *ngIf="user?.providerDetails || user?.sellerDetails">
+      <span class="label">Bank Name: </span>
+      <span class="value">{{user?.providerDetails?.iban}}</span>
+    </h3>
   </div>
 </div>
