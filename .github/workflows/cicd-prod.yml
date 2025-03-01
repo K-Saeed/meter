@@ -2,7 +2,7 @@ name: Production CI/CD Pipeline
 
 on:
   push:
-    branches: [ gcp ]
+    branches: [ main ]
 
 
 jobs:
@@ -102,8 +102,8 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
           cd /home/info/meter
-          git checkout gcp
-          git pull origin gcp
+          git checkout main
+          git pull origin main
           # Create or update .env file
               cat << EOF > .env
         GITHUB_REPOSITORY=$REPO_LOWER
