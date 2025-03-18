@@ -24,13 +24,13 @@
       <div class="profile-img d-flex justify-content-between" *ngFor="let chatRoom of chatRooms"
         (click)="getMessagesByChatId(chatRoom)">
         <div class="d-flex gap-3">
-          <img [src]="chatRoom.userProfile2?.logoPath" [alt]="chatRoom.userProfile2?.name"
+          <img [src]="chatRoom.recipientProfile?.logoPath" [alt]="chatRoom.recipientProfile?.name"
             onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';" />
           <div class="profile-info d-flex flex-column">
-            <h3 class="m-0">{{ chatRoom.userProfile2?.name }}</h3>
+            <h3 class="m-0">{{ chatRoom.recipientProfile?.name }}</h3>
             <p *ngIf="chatRoom.lastMessage">{{ chatRoom.lastMessage | shorten: 20 }}</p>
 
-            <span class="m-0">{{ chatRoom.userProfile2?.role }}</span>
+            <span class="m-0">{{ chatRoom.recipientProfile?.role }}</span>
           </div>
         </div>
         <h4 class="m-0" style="font-size: 10px;">{{ chatRoom.lastMessageTimestamp }}</h4>
@@ -42,9 +42,9 @@
   <div *ngIf="selectedChatRoom" class="chat-messages">
     <div class="message-header">
       <div class="d-flex">
-        <img [src]="selectedChatRoom.userProfile2?.logoPath" [alt]="selectedChatRoom.userProfile2?.name"
+        <img [src]="selectedChatRoom.recipientProfile?.logoPath" [alt]="selectedChatRoom.recipientProfile?.name"
           class="chat-image" onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';" />
-        <h3>{{ selectedChatRoom.userProfile2?.email || '...' }}</h3>
+        <h3>{{ selectedChatRoom.recipientProfile?.email || '...' }}</h3>
       </div>
     </div>
 
