@@ -15,6 +15,6 @@ export class SellerDetails {
   latitude!: string;
   longitude!: string;
   serviceProvider!: string;
-  userFiles: FileResponse[] = [];
+  files: FileResponse[] = [];
 
 }

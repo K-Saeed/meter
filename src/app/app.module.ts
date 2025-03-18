@@ -146,6 +146,7 @@ import { PrintInvoiceDialogComponent } from './core/components/transactions/prin
 import { SocketChatComponent } from "./core/components/new-chat/socket-chat/socket-chat.component";
 import { SendToAllComponent } from './core/components/new-chat/send-to-all/send-to-all.component';
 import { SlicePipe } from './slice.pipe';
+import { RequestPendingModalComponent } from "./core/components/service-requests/request-pending-modal/request-pending-modal.component";
 
 
 @NgModule({
@@ -286,6 +287,7 @@ import { SlicePipe } from './slice.pipe';
     SocketChatComponent,
     SendToAllComponent,
     SlicePipe,
+    RequestPendingModalComponent,
   ],
   imports: [
     BrowserModule,
