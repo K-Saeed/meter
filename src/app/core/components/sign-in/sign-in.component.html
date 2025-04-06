@@ -1,33 +1,68 @@
 <div class="d-flex">
   <div class="position-relative">
-    <img src="../../../../assets/img/man.png" class="full-width-image" alt="" srcset="" />
+    <img
+      src="../../../../assets/img/man.png"
+      class="full-width-image"
+      alt=""
+      srcset=""
+    />
     <div class="overlay-text">
       <h2 class="">Welcome in <span>Meter</span> Dashboard</h2>
       <p class="m-0">Are you ready to manage this amazing system</p>
     </div>
   </div>
   <div class="dropdown position-absolute end-0 my-5 mx-5">
-    <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown"
-      data-bs-toggle="dropdown" aria-expanded="false">
-      <img class="world" src="../../../../assets/img/en.png" alt="" style="margin-right: 8px" />
+    <button
+      class="btn btn-secondary dropdown-toggle d-flex align-items-center"
+      type="button"
+      id="languageDropdown"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+    >
+      <img
+        class="world"
+        src="../../../../assets/img/en.png"
+        alt=""
+        style="margin-right: 8px"
+      />
       <span class="d-flex gap-3 align-items-center">
         English
-        <img src="../../../../assets/img/arrow.svg" alt="" class="custom-arrow ms-auto" />
+        <img
+          src="../../../../assets/img/arrow.svg"
+          alt=""
+          class="custom-arrow ms-auto"
+        />
       </span>
     </button>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+    <ul
+      class="dropdown-menu dropdown-menu-end"
+      aria-labelledby="languageDropdown"
+    >
       <!-- <li><a class="d-flex dropdown-item" href="#">English</a></li> -->
       <li>
         <a class="dropdown-item d-flex align-items-center" href="#">
-          <img class="world" src="../../../../assets/img/ar.png" alt="" style="margin-right: 8px" />
-          Arabic</a>
+          <img
+            class="world"
+            src="../../../../assets/img/ar.png"
+            alt=""
+            style="margin-right: 8px"
+          />
+          Arabic</a
+        >
       </li>
     </ul>
   </div>
 
   <div
-    class="from-style d-flex flex-column align-items-center justify-content-center position-fixed end-0 top-50 translate-middle-x mx-auto gap-4">
-    <img src="../../../../assets/img/logo.png" alt="" srcset="" class="img-fluid" width="264.93" />
+    class="from-style d-flex flex-column align-items-center justify-content-center position-fixed end-0 top-50 translate-middle-x mx-auto gap-4"
+  >
+    <img
+      src="../../../../assets/img/logo.png"
+      alt=""
+      srcset=""
+      class="img-fluid"
+      width="264.93"
+    />
     <div class="d-flex flex-column text-center">
       <h5>Nice to see you again</h5>
       <h2 class="m-0">Sign In to your Account</h2>
@@ -38,32 +73,75 @@
           <div class="input-container">
             <label for="Email" class="label-style">Email</label>
             <br />
-            <input type="email" id="Email" placeholder="Enter Email" class="input-style"
-              [formControl]="emailAddressControl" type="email" />
-            <div *ngIf="emailAddressControl.invalid && (emailAddressControl.dirty || emailAddressControl.touched)">
-              <small class="text-danger" *ngIf="emailAddressControl.errors?.['required']">Email is required.</small>
-              <small class="text-danger" *ngIf="emailAddressControl.errors?.['email']">Invalid email address.</small>
+            <input
+              type="email"
+              id="Email"
+              placeholder="Enter Email"
+              class="input-style"
+              [formControl]="emailAddressControl"
+              type="email"
+            />
+            <div
+              *ngIf="
+                emailAddressControl.invalid &&
+                (emailAddressControl.dirty || emailAddressControl.touched)
+              "
+            >
+              <small
+                class="text-danger"
+                *ngIf="emailAddressControl.errors?.['required']"
+                >Email is required.</small
+              >
+              <small
+                class="text-danger"
+                *ngIf="emailAddressControl.errors?.['email']"
+                >Invalid email address.</small
+              >
             </div>
           </div>
         </div>
         <div class="input-container">
           <label for="Password" class="label-style">Password</label>
           <br />
-          <input type="{{ showPassword ? 'text' : 'password' }}" id="Password" placeholder="Enter Password"
-            class="input-style" [formControl]="passwordControl" />
-          <i class="fa-regular pe-1 {{
+          <input
+            type="{{ showPassword ? 'text' : 'password' }}"
+            id="Password"
+            placeholder="Enter Password"
+            class="input-style"
+            [formControl]="passwordControl"
+          />
+          <i
+            class="fa-regular pe-1 {{
               showPassword ? 'fa-eye-slash' : 'fa-eye'
-            }} toggle-password-icon" (click)="togglePasswordVisibility()"></i>
-          <div *ngIf="passwordControl.invalid && (passwordControl.dirty || passwordControl.touched)">
-            <small class="text-danger" *ngIf="passwordControl.errors?.['required']">Password is required.</small>
-            <small class="text-danger" *ngIf="passwordControl.errors?.['pattern']">Invalid password address.</small>
+            }} toggle-password-icon"
+            (click)="togglePasswordVisibility()"
+          ></i>
+          <div
+            *ngIf="
+              passwordControl.invalid &&
+              (passwordControl.dirty || passwordControl.touched)
+            "
+          >
+            <small
+              class="text-danger"
+              *ngIf="passwordControl.errors?.['required']"
+              >Password is required.</small
+            >
+            <small
+              class="text-danger"
+              *ngIf="passwordControl.errors?.['pattern']"
+              >Invalid password address.</small
+            >
           </div>
         </div>
         <h5 class="text-end text-decoration-underline fs-6 cursor-pointer">
           Forget Password?
         </h5>
       </div>
-      <button type="submit" class="btn-signin d-flex justify-content-center align-items-center text-center my-3">
+      <button
+        type="submit"
+        class="btn-signin d-flex justify-content-center align-items-center text-center my-3"
+      >
         Sing In
       </button>
     </form>
