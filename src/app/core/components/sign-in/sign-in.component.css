@@ -147,19 +147,6 @@
   height: 50px;
 }
 @media (max-width: 768px) {
-  /* .input-style,
-.input-style::placeholder,
-.dropdown-content {
-
-} */
-  /* .input-style {
-    font-size: 14px;
-    height: 45px;
-    padding: 10px 12px;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-  } */
   .full-width-image,
   .overlay-text {
     display: none !important;
