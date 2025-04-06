@@ -1,23 +1,42 @@
-<div class="d-flex align-items-center justify-content-between gap">
+<div class="btns d-flex align-items-center justify-content-between gap">
   <div class="d-flex align-items-center gap-2">
     <div class="search-container d-flex align-items-center position-relative">
       <span class="search-icon p-2">
-        <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
+        <img
+          src="../../../../../assets/img/search-normal.svg"
+          alt="Search Icon"
+        />
       </span>
-      <input type="text" class="form-control search-input" placeholder="Search in customer" [(ngModel)]="searchTerm"
-        (input)="applySearch()" />
+      <input
+        type="text"
+        class="form-control search-input"
+        placeholder="Search in customer"
+        [(ngModel)]="searchTerm"
+        (input)="applySearch()"
+      />
     </div>
-    <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#userFilterModal">
+    <button
+      class="btn d-flex align-items-center gap-2"
+      data-bs-toggle="modal"
+      data-bs-target="#userFilterModal"
+    >
       <img src="../../../../../assets/img/filter.svg" alt="" />
       <span>Filter</span>
     </button>
   </div>
   <div class="d-flex gap-2">
-    <button class="border bg-white btn-unfinished d-flex align-items-center gap-2 " [routerLink]="'/unfinisheduser'">
+    <button
+      class="border bg-white btn-unfinished d-flex align-items-center gap-2"
+      [routerLink]="'/unfinisheduser'"
+    >
       <img src="../../../../../assets/img/info-circle.svg" alt="" />
       <span>Unfinished User</span>
     </button>
-    <button class="btn-orange d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+    <button
+      class="btn-orange d-flex align-items-center gap-2"
+      data-bs-toggle="modal"
+      data-bs-target="#addUserModal"
+    >
       <img src="../../../../../assets/img/add.svg" alt="" />
       <span>New User</span>
     </button>

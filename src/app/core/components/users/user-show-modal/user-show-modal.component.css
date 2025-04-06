@@ -132,3 +132,74 @@
 .btn-close:focus {
   box-shadow: none;
 }
+@media (max-width: 768px) {
+  .modal-dialog {
+    width: 95% !important;
+    margin: 2rem auto;
+  }
+
+  .modal-content {
+    padding: 10px;
+    width: 100% !important;
+    height: auto;
+    border-radius: 8px;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  .breadcrumb,
+  .breadcrumbSpace,
+  .inActive {
+    width: auto;
+    height: 36px;
+    font-size: 13px;
+    padding: 0 10px;
+  }
+
+  .info h3 {
+    align-items: flex-start;
+  }
+
+  .info h3 .label,
+  .info h3 .value {
+    width: 100% !important;
+    font-size: 13px;
+    text-align: start;
+  }
+
+  .modal-header h1,
+  .modal-body h1 {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .attechment h4 {
+    font-size: 13px;
+  }
+
+  .attechment p {
+    font-size: 10px;
+  }
+
+  .approve-btn,
+  .reject-btn {
+    width: 100px;
+    height: 42px;
+    font-size: 14px;
+  }
+
+  .scrollable-container {
+    max-height: 300px;
+  }
+
+  .popup-dialog.modal-lg {
+    max-width: 100%;
+    margin: 1rem auto;
+  }
+
+  iframe {
+    height: 300px;
+  }
+}
