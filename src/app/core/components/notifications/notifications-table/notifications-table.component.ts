@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NotificationService } from 'src/app/shared/service/notification.service';
 import { NotificationDto } from '../models/notification.model';
 import { NotificationResponse } from '../models/notification-response.model';
@@ -23,36 +23,40 @@ export class NotificationsTableComponent {
     { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
   ];
 
-  notifications: NotificationResponse[] = [];
-  selectedNotification!:NotificationResponse;
+  // notifications: NotificationResponse[] = [];
+  // selectedNotification!: NotificationResponse;
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
+  @Input() notifications: NotificationResponse[] = [];
+  @Output() viewNotification = new EventEmitter<NotificationResponse>();
 
-  constructor(private notificationService: NotificationService) { }
+  // constructor(private notificationService: NotificationService) { }
 
 
-  ngOnInit(): void {
-    this.getAllNotifications();
+  // ngOnInit(): void {
+  //   this.getAllNotifications();
+  // }
+  // getAllNotifications() {
+  //   this.notificationService.getAllNotifications().subscribe({
+  //     next: (n) => {
+  //       console.log(n);
+
+  //       this.notifications = n;
+  //       console.log(this.notifications);
+
+  //     },
+  //     error: (e) => {
+  //       console.log(e);
+  //     }
+  //   })
+  // }
+  onViewClick(notification: NotificationResponse) {
+    this.viewNotification.emit(notification);
   }
-  getAllNotifications() {
-    this.notificationService.getAllNotifications().subscribe({
-      next: (n) => {
-        console.log(n);
-
-        this.notifications = n;
-        console.log(this.notifications);
-
-      },
-      error: (e) => {
-        console.log(e);
-      }
-    })
-  }
-
-  changeSelectedNotification(notification: NotificationResponse){
-    this.selectedNotification = notification;
-  }
+  // changeSelectedNotification(notification: NotificationResponse) {
+  //   this.selectedNotification = notification;
+  // }
 
   toggleAll(event: Event) {
     // event.preventDefault();

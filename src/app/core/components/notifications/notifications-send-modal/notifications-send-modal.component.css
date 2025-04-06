@@ -28,16 +28,6 @@
   font-size: 12px;
 }
 
-/* .info .label,
-.info .value {
-  font-weight: 400;
-  font-size: 12px;
-}
-
-.info .value {
-  font-weight: 500;
-} */
-
 .modal-header h1,
 .modal-body h1,
 .info h3 .label,
@@ -57,18 +47,6 @@
   line-height: 24px; */
   text-align: start;
 }
-
-/* .info h3 .label,
-.info h3 .value {
-  font-weight: 400;
-  font-size: 12px;
-  width: 165px;
-  text-align: start;
-}
-
-.info h3 .value {
-  font-weight: 500;
-} */
 .btn-close:focus {
   box-shadow: none;
 }
@@ -249,4 +227,89 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   left: 10px;
   top: 50%;
   transform: translateY(-50%);
+}
+@media (max-width: 576px) {
+  .modal-dialog {
+    width: 95% !important;
+    margin: 1.5rem auto;
+  }
+
+  .modal-content {
+    padding: 10px;
+    width: 100% !important;
+    height: auto;
+    border-radius: 10px;
+    flex-direction: column !important;
+  }
+
+  .modal-header h1,
+  .modal-body h1 {
+    font-size: 16px;
+    text-align: start;
+  }
+
+  .modal-body {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+
+  /* .input-style,
+  .dropdown-content,
+  .input-container input,
+  .input-container textarea {
+    width: 100% !important;
+    font-size: 13px;
+    height: auto;
+  } */
+
+  .calendar-icon {
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .label-style {
+    font-size: 11px;
+    left: 10px;
+  }
+
+  .dropdown-content {
+    max-height: 180px;
+    overflow-y: auto;
+  }
+
+  .reject-btn,
+  .approve-btn {
+    width: 100px;
+    height: 42px;
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .modal-body .d-flex.flex-column {
+    gap: 1.25rem !important;
+  }
+
+  .modal-body .mx-4 {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .modal-body .d-flex.flex-column.gap-3 {
+    gap: 1rem !important;
+  }
+
+  .modal-body .info {
+    flex-direction: row !important;
+  }
+
+  .modal-body .info label {
+    font-size: 13px;
+  }
+
+  .modal-footer,
+  .modal-body .d-flex.justify-content-end {
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

@@ -1,5 +1,13 @@
 <div class="user-style">
   <app-notifications-title></app-notifications-title>
   <app-notifications-action class="space"></app-notifications-action>
-  <app-notifications-table></app-notifications-table>
+  <!-- <app-notifications-table></app-notifications-table> -->
+  <app-notifications-table
+    [notifications]="notifications"
+    (viewNotification)="changeSelectedNotification($event)"
+  ></app-notifications-table>
 </div>
+<app-notifications-show-modal
+  [notification]="selectedNotification"
+></app-notifications-show-modal>
+<app-notifications-delete-modal></app-notifications-delete-modal>
