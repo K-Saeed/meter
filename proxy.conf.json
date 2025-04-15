@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://localhost:8080",
+    "target": "https://dashboard-dev.meter.com.sa",
     "secure": false,
     "logLevel": "debug",
     "headers": { "X-Forwarded-Prefix": "/api/" }
@@ -11,5 +11,5 @@
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true
-  }
+  } 
 }
