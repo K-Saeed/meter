@@ -22,6 +22,7 @@
       <span>Filter</span>
     </button>
   </div>
+  <ng-container *appHasPermission="{ page: 'notifications', action: 'WRITE' }">
   <button
     class="btn-orange d-flex align-items-center gap-2"
     data-bs-toggle="modal"
@@ -30,6 +31,7 @@
     <img src="../../../../../assets/img/add.svg" alt="" srcset="" />
     <span>send Notification</span>
   </button>
+  </ng-container>
 </div>
 <app-notifications-filter-modal></app-notifications-filter-modal>
 <app-notifications-send-modal></app-notifications-send-modal>

@@ -84,39 +84,33 @@
           </h4>
         </td>
         <td>
-          <!-- *appHasPermission="'edit'" -->
-          <ng-container *appHasPermission="'edit'">
-            <div class="d-flex align-items-center justify-content-between">
-              <!-- Actions Icons -->
-              <img
-                class="cursor-pointer"
-                src="../../../../../assets/img/eye.svg"
-                alt="View"
-                data-bs-toggle="modal"
-                data-bs-target="#viewModal"
-                (click)="setUserId(user.id)"
-              />
-              <img
-                class="cursor-pointer"
-                src="../../../../../assets/img/edit-2.svg"
-                alt="Edit"
-                (click)="setUserId(user.id)"
-              />
-              <!-- Toggle Switch -->
-              <label class="toggle">
-                <input type="checkbox" (change)="updateStatus(user.id)" />
-                <span class="slider round"></span>
-              </label>
-              <img
-                class="cursor-pointer"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                src="../../../../../assets/img/trash.svg"
-                alt="Delete"
-                (click)="setUserId(user.id)"
-              />
-            </div>
+          <!-- <ng-container *appHasPermission="{ page: 'users', action: 'EDIT' }"> -->
+
+          <div class="d-flex align-items-center justify-content-between">
+            <!-- Actions Icons -->
+            <ng-container *appHasPermission="{ page: 'users', action: 'READ' }">
+
+            <img class="cursor-pointer" src="../../../../assets/img/eye.svg" alt="View" data-bs-toggle="modal"
+              data-bs-target="#viewModal" (click)="setUserId(user.id)" />
+            </ng-container>
+            
+              <ng-container *appHasPermission="{ page: 'users', action: 'EDIT' }">
+              
+                <img class="cursor-pointer" src="../../../../assets/img/edit-2.svg" alt="Edit"
+              (click)="setUserId(user.id)" />
+            <!-- Toggle Switch -->
+            <label class="toggle">
+              <input type="checkbox" (change)="updateStatus(user.id)" />
+              <span class="slider round"></span>
+            </label>
           </ng-container>
+            <ng-container *appHasPermission="{ page: 'users', action: 'DELETE' }">
+            <img class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal"
+              src="../../../../assets/img/trash.svg" alt="Delete" (click)="setUserId(user.id)" />
+            </ng-container>
+
+          </div>
+        <!-- </ng-container> -->
         </td>
       </tr>
     </tbody>

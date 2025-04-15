@@ -16,6 +16,7 @@ import { SignInComponent } from './core/components/sign-in/sign-in.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { AuthGuardService } from './shared/service/auth/auth-guard.service';
 import { UserUnfinishedComponent } from './core/components/users/user-unfinished/user-unfinished.component';
+import { SocketChatComponent } from './core/components/new-chat/socket-chat/socket-chat.component';
 
 const routes: Routes = [
   { path: 'signin', component: SignInComponent },
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuardService] },
   { path: 'products', component: ProductsComponent, canActivate: [AuthGuardService] },
   { path: 'worksubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
+  // { path: 'chat', component: ChatComponent, canActivate: [AuthGuardService] },
+  { path: 'chat', component: SocketChatComponent, canActivate: [AuthGuardService] },
   { path: 'WorkSubmission', component: WorkSubmissionComponent, canActivate: [AuthGuardService] },
   { path: 'unfinisheduser', component: UserUnfinishedComponent, canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/signin', pathMatch: 'full' }, // Default route

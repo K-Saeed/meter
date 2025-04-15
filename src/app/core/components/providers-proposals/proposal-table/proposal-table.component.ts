@@ -81,7 +81,7 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
     this.proposalService.getProposals(status).subscribe(
       (res: ProposalResponse[]) => {
         this.proposalList = res;
-        console.log('Loaded Proposals:', this.proposalList);
+        // console.log('Loaded Proposals:', this.proposalList);
         this.filterProposals();
         this.updatePagination();
         this.cdr.detectChanges();
@@ -158,7 +158,7 @@ export class ProposalTableComponent implements OnInit, OnDestroy {
       proposal.requestDetails?.requestId.includes(term)
     );
 
-    console.log('Filtered Proposals:', this.filteredProposals);
+    // console.log('Filtered Proposals:', this.filteredProposals);
     this.updatePagination();
     this.cdr.detectChanges();
   }

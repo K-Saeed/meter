@@ -14,7 +14,7 @@ export class SidebarComponent {
   status: string = 'Pending';
   type!: string;
   isSidebarOpen = false;
-
+  userPermissions:any;
 
   employees = 'Employees';
   projects = 'Projects';
@@ -56,5 +56,12 @@ getRequestList() {
       console.log(err);
     }
   );
+}
+
+hasPermission(page: string, action: string): boolean {
+  if (!this.userPermissions || !this.userPermissions[page]) {
+    return false;
+  }
+  return this.userPermissions[page].includes(action);
 }
 }

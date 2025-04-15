@@ -4,6 +4,7 @@
     <img class="img-fluid img-style" src="../../../../assets/img/logo.png" />
   </a>
   <div class="d-flex flex-column bottom list-group navbar-menu" id="list-tab" role="tablist">
+    <ng-container *appHasPermission="{ page: 'dashboard', action: 'READ' }">
     <a class="nav-link  d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       routerLinkActive="active" data-bs-toggle="list" (click)="setActive('dashboard')" [routerLink]="'/dashboard'"
       role="tab" aria-controls="list-home">
@@ -12,7 +13,9 @@
         <div>Dashboard</div>
       </div>
     </a>
+    </ng-container>
 
+    <ng-container *appHasPermission="{ page: 'requests', action: 'READ' }">
     <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       data-bs-toggle="list" routerLinkActive="active" (click)="setActive('servicerequests')"
       [routerLink]="'/servicerequests'" role="tab" aria-controls="Service-Requests">
@@ -23,7 +26,9 @@
       <span *ngIf="requests.length > 0"
         [ngClass]="{'number-active': isActive === 'servicerequests', 'number-inActive': isActive !== 'servicerequests'}">{{requests.length}}</span>
     </a>
+    </ng-container>
 
+    <ng-container *appHasPermission="{ page: 'proposals', action: 'READ' }">
     <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       data-bs-toggle="list" routerLinkActive="active" (click)="setActive('providersproposal')"
       [routerLink]="'/providersproposal'" role="tab" aria-controls="list-home">
@@ -32,6 +37,9 @@
         <div class="d-flex">Proposals</div>
       </div>
     </a>
+  </ng-container>
+
+  <ng-container *appHasPermission="{ page: 'users', action: 'READ' }">
     <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('users')"
       [routerLink]="'/users'" role="tab" aria-controls="list-home">
@@ -39,8 +47,10 @@
         <img class="icon-style" src="../../../../assets/img/profile-2user.svg" alt="" />
         <div>Users</div>
       </div>
-
     </a>
+    </ng-container>
+
+    <ng-container *appHasPermission="{ page: 'products', action: 'READ' }">
     <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('products')"
       [routerLink]="'/products'" role="tab" aria-controls="list-home">
@@ -49,6 +59,9 @@
         <div>Products</div>
       </div>
     </a>
+    </ng-container>
+
+    <ng-container *appHasPermission="{ page: 'proposals', action: 'READ' }">
     <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('conversations')" [routerLink]="'/conversations'" role="tab"
       aria-controls="list-home">
@@ -57,6 +70,9 @@
         <div>Conversations</div>
       </div>
     </a>
+    </ng-container>
+
+    <ng-container *appHasPermission="{ page: 'transactions', action: 'READ' }">
     <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('transactions')" [routerLink]="'/transactions'" role="tab"
       aria-controls="list-home">
@@ -65,6 +81,9 @@
         <div>Transactions</div>
       </div>
     </a>
+    </ng-container>
+
+    <ng-container *appHasPermission="{ page: 'work_submission', action: 'READ' }">
     <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('WorkSubmission')"
       [routerLink]="'/WorkSubmission'" role="tab" aria-controls="list-home">
@@ -73,6 +92,9 @@
         <div>Work Submission</div>
       </div>
     </a>
+    </ng-container>
+
+    <ng-container *appHasPermission="{ page: 'employees', action: 'READ' }">
     <a class="d-flex align-items-center gap-3 nav-link text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" [routerLink]="'/employees'" role="tab"
       aria-controls="list-home" (click)="handleClick('employees', 'WorkSubmission')">
@@ -83,6 +105,7 @@
         <img *ngIf="isEmployeesOpen" class="icon-style" src="../../../../assets/img/arrow-up.svg" alt="" />
       </div>
     </a>
+    </ng-container>
 
     <ul class="submenu" *ngIf="isEmployeesOpen">
       <li class="">
@@ -90,6 +113,8 @@
           [routerLink]="'/roles'">Roles</a>
       </li>
     </ul>
+
+    <ng-container *appHasPermission="{ page: 'notifications', action: 'READ' }">
     <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('notifications')" [routerLink]="'/notifications'" role="tab"
       aria-controls="list-home">
@@ -98,6 +123,9 @@
         <div>Notifications</div>
       </div>
     </a>
+    </ng-container>
+
+    <ng-container *appHasPermission="{ page: 'chat', action: 'READ' }">
     <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
       id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('chat')"
       [routerLink]="'/chat'" role="tab" aria-controls="list-home">
@@ -106,6 +134,8 @@
         <div>Chat</div>
       </div>
     </a>
+    </ng-container>
+
     <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       (click)="setActive('settings')" routerLinkActive="active" [routerLink]="'/settings'" role="tab"
       aria-controls="list-home">

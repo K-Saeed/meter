@@ -34,7 +34,7 @@
           <h4 class="m-0">{{ product.productId }}</h4>
         </td>
         <td class="d-flex align-items-center product-container gap-2" style="height: 100%;">
-          <img class="product-img" [src]="product.productLogo" alt="Product Image" />
+          <img class="product-img" [src]="product.productLogo?.filePath" alt="Product Image" />
           <h4 class="m-0">{{ product.name }}</h4>
         </td>
 
@@ -56,10 +56,15 @@
         <td>
           <div class="">
             <!-- Actions Icons -->
+            <ng-container *appHasPermission="{ page: 'products', action: 'READ' }">
             <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
               src="../../../../assets/img/eye.svg" alt="View" (click)="setProductId(product.productId)" />
+          </ng-container>
+              <ng-container *appHasPermission="{ page: 'products', action: 'DELETE' }">
             <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
               src="../../../../assets/img/trash.svg" alt="Delete" (click)="setProductId(product.productId)" />
+              </ng-container>
+
           </div>
         </td>
       </tr>

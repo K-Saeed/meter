@@ -182,9 +182,12 @@
           </div>
         </ng-container>
 
-        <div class="d-flex gap-3 mt-4 justify-content-end" *ngIf="request?.internalStatus !== 'Approved'">
+        <div class="d-flex gap-3 mt-4 justify-content-end">
           <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
             Reject
+          </button>
+          <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#pendingModal">
+            Pending
           </button>
           <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
             Approve
@@ -197,3 +200,5 @@
 
 <app-request-reject-modal [requestId]="request?.requestId"></app-request-reject-modal>
 <app-request-approve-modal [requestId]="request?.requestId"></app-request-approve-modal>
+<app-request-pending-modal [requestId]="request?.requestId"></app-request-pending-modal>
+
