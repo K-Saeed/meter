@@ -1,0 +1,66 @@
+<div
+  class="modal fade"
+  id="viewModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content d-flex">
+      <div class="modal-header p-2 z-1">
+        <h1 class="modal-title" id="exampleModalLabel">
+          Provider Proposal Details
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex align-items-center my-2">
+          <a
+            class="text-decoration-none me-3"
+            href="#"
+            [ngClass]="{
+              breadcrumb: activeLink === 'details',
+              inActive: activeLink !== 'details'
+            }"
+            (click)="setActiveLink('details', $event)"
+          >
+            Details
+          </a>
+        </div>
+
+        <div *ngIf="activeLink === 'details'">
+          <app-devices-proposal-show-attechment-modal  [proposal]="proposal"></app-devices-proposal-show-attechment-modal>
+        </div>
+
+        <ng-container *appHasPermission="{ page: 'proposals', action: 'EDIT' }">
+        <div class="d-flex gap-3 mt-4 justify-content-end">
+          <button
+            type="button"
+            class="reject-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#rejectModal"
+          >
+            Reject
+          </button>
+          <button
+            type="button"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#approveModal"
+          >
+            Approve
+          </button>
+        </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-devices-proposal-reject-modal [proposal]="proposal"></app-devices-proposal-reject-modal>
+<app-devices-proposal-approve-modal [proposal]="proposal"></app-devices-proposal-approve-modal>

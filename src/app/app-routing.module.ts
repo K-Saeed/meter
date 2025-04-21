@@ -17,6 +17,7 @@ import { DashboardComponent } from './core/components/dashboard/dashboard.compon
 import { AuthGuardService } from './shared/service/auth/auth-guard.service';
 import { UserUnfinishedComponent } from './core/components/users/user-unfinished/user-unfinished.component';
 import { SocketChatComponent } from './core/components/new-chat/socket-chat/socket-chat.component';
+import { DevicesProposalsComponent } from './core/components/devices-proposals/devices-proposals.component';
 
 const routes: Routes = [
   { path: 'signin', component: SignInComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'servicerequests', component: ServiceRequestsComponent, canActivate: [AuthGuardService] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuardService] },
   { path: 'providersproposal', component: ProvidersProposalsComponent, canActivate: [AuthGuardService] },
+  { path: 'devicesproposal', component: DevicesProposalsComponent},
   { path: 'conversations', component: ConversationComponent, canActivate: [AuthGuardService] },
   { path: 'transactions', component: TransactionsComponent, canActivate: [AuthGuardService] },
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuardService] },

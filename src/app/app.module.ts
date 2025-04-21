@@ -6,8 +6,6 @@ import { HeaderComponent } from "./core/components/header/header.component";
 import { ServiceRequestsComponent } from "./core/components/service-requests/service-requests.component";
 import { SidebarComponent } from "./core/components/sidebar/sidebar.component";
 import { TopbarComponent } from "./core/components/topbar/topbar.component";
-// import { TableOfServiceComponent } from './core/components/service-requests/table/table.component';
-// import { FormsModule } from '@angular/forms';
 import { UsersComponent } from './core/components/users/users.component';
 import { RequestActionComponent } from './core/components/service-requests/request-action/request-action.component';
 import { RequestTableComponent } from './core/components/service-requests/request-table/request-table.component';
@@ -147,6 +145,17 @@ import { SocketChatComponent } from "./core/components/new-chat/socket-chat/sock
 import { SendToAllComponent } from './core/components/new-chat/send-to-all/send-to-all.component';
 import { SlicePipe } from './slice.pipe';
 import { RequestPendingModalComponent } from "./core/components/service-requests/request-pending-modal/request-pending-modal.component";
+import { DevicesProposalsComponent } from "./core/components/devices-proposals/devices-proposals.component";
+import { DevicesDevicesProposalDeleteModalComponent } from "./core/components/devices-proposals/devices-proposal-delete-modal/devices-proposal-delete-modal.component";
+import { DevicesProposalActionComponent } from "./core/components/devices-proposals/devices-proposal-action/devices-proposal-action.component";
+import { DevicesProposalApproveModalComponent } from "./core/components/devices-proposals/devices-proposal-approve-modal/devices-proposal-approve-modal.component";
+import { DevicesProposalFilterModalComponent } from "./core/components/devices-proposals/devices-proposal-filter-modal/devices-proposal-filter-modal.component";
+import { DevicesProposalRejectModalComponent } from "./core/components/devices-proposals/devices-proposal-reject-modal/devices-proposal-reject-modal.component";
+import { DevicesProposalShowAttechmentModalComponent } from "./core/components/devices-proposals/devices-proposal-show-attechment-modal/devices-proposal-show-attechment-modal.component";
+import { DevicesProposalShowDetailsModalComponent } from "./core/components/devices-proposals/devices-proposal-show-details-modal/devices-proposal-show-details-modal.component";
+import { DevicesProposalShowModalComponent } from "./core/components/devices-proposals/devices-proposal-show-modal/devices-proposal-show-modal.component";
+import { DevicesProposalTableComponent } from "./core/components/devices-proposals/devices-proposal-table/devices-proposal-table.component";
+import { DevicesProposalTitleComponent } from "./core/components/devices-proposals/devices-proposal-title/devices-proposal-title.component";
 
 
 @NgModule({
@@ -288,6 +297,17 @@ import { RequestPendingModalComponent } from "./core/components/service-requests
     SendToAllComponent,
     SlicePipe,
     RequestPendingModalComponent,
+    DevicesProposalsComponent,
+    DevicesDevicesProposalDeleteModalComponent,
+    DevicesProposalActionComponent,
+    DevicesProposalApproveModalComponent,
+    DevicesProposalFilterModalComponent,
+    DevicesProposalRejectModalComponent,
+    DevicesProposalShowAttechmentModalComponent,
+    DevicesProposalShowDetailsModalComponent,
+    DevicesProposalShowModalComponent,
+    DevicesProposalTableComponent,
+    DevicesProposalTitleComponent
   ],
   imports: [
     BrowserModule,
