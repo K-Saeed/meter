@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ProposalCallService } from 'src/app/shared/service/proposal-call.service';
 import { DevicesProposalResponse } from '../models/devices-porposal-table.model';
-import { ProposalService } from '../services/porposal.service';
+import { DevicesProposalService } from '../services/devices-porposal.service';
 
 @Component({
   selector: 'app-devices-proposal-reject-modal',
@@ -13,7 +12,7 @@ export class DevicesProposalRejectModalComponent {
   message!: string;
   status: string = 'Rejected';
 
-  constructor(private proposalCallService: ProposalService) {}
+  constructor(private proposalCallService: DevicesProposalService) {}
 
   ngOnInit(): void {}
   updateStatus() {
@@ -21,16 +20,16 @@ export class DevicesProposalRejectModalComponent {
       this.message = "Proposal ID is required";
       return;
     }
-    // this.proposalCallService.updatProposalStatus(this.proposal.id, this.status).subscribe(
-    //   () => {
-    //     this.message = "Status updated successfully";
-    //     window.location.reload();
-    //   },
-    //   (error) => {
-    //     this.message = "Error updating status";
-    //     window.location.reload();
-    //     console.error("Error:", error);
-    //   }
-    // );
+    this.proposalCallService.updatProposalStatus(this.proposal.id, this.status).subscribe(
+      () => {
+        this.message = "Status updated successfully";
+        window.location.reload();
+      },
+      (error) => {
+        this.message = "Error updating status";
+        window.location.reload();
+        console.error("Error:", error);
+      }
+    );
   }
 }

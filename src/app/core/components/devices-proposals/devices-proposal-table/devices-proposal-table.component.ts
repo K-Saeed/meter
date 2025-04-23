@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ProposalService } from '../services/porposal.service';
+import { DevicesProposalService } from '../services/devices-porposal.service';
 import { DevicesProposalResponse } from '../models/devices-porposal-table.model';
 
 @Component({
@@ -26,7 +26,7 @@ export class DevicesProposalTableComponent implements OnInit, OnDestroy {
   proposal?: DevicesProposalResponse;
 
   constructor(
-    private proposalService: ProposalService,
+    private proposalService: DevicesProposalService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -154,12 +154,12 @@ export class DevicesProposalTableComponent implements OnInit, OnDestroy {
     const term = this.searchTerm.trim();
     console.log('Filtering proposals by requestId:', term);
 
-    // this.filteredProposals = this.proposalList.filter(proposal =>
-    //   proposal.requestDetails?.requestId.includes(term)
-    // );
+    this.filteredProposals = this.proposalList.filter(proposal =>
+      proposal.productId.includes(term)
+    );
 
-    // console.log('Filtered Proposals:', this.filteredProposals);
-    // this.updatePagination();
-    // this.cdr.detectChanges();
+    console.log('Filtered Proposals:', this.filteredProposals);
+    this.updatePagination();
+    this.cdr.detectChanges();
   }
 }

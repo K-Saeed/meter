@@ -7,7 +7,7 @@ import { DevicesProposalResponse } from "../models/devices-porposal-table.model"
 @Injectable({
   providedIn: "root",
 })
-export class ProposalService {
+export class DevicesProposalService {
   private statusSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
   public status$: Observable<string | null> = this.statusSubject.asObservable();
 
@@ -61,4 +61,16 @@ export class ProposalService {
       this.statusSubject.next(status);
     }
   }
+
+
+  updatProposalStatus(id: string, status: string): Observable<void> {
+    const url = `/api/admin/proposal/${id}/update-status`;
+    return this.http.put<void>(url, null, { params: { status } });
+  }
+
+  deleteProposal(requestId: string | undefined): Observable<void> {
+    const apiUrl = `/api/admin/proposal/${requestId}`;
+    return this.http.delete<void>(apiUrl);
+  }
+
 }

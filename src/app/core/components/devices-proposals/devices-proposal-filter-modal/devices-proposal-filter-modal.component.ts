@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { ProposalService } from '../services/porposal.service';
+import { DevicesProposalService } from '../services/devices-porposal.service';
 
 @Component({
   selector: 'app-devices-proposal-filter-modal',
@@ -10,7 +10,7 @@ export class DevicesProposalFilterModalComponent {
   activeLinks: string[] = [];
   activeStatus: string | null = null;
   constructor(
-    private proposalService: ProposalService,
+    private proposalService: DevicesProposalService,
     private cdr: ChangeDetectorRef
   ) {}
 

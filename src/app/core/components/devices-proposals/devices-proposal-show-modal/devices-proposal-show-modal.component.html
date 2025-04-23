@@ -34,7 +34,8 @@
         </div>
 
         <div *ngIf="activeLink === 'details'">
-          <app-devices-proposal-show-attechment-modal  [proposal]="proposal"></app-devices-proposal-show-attechment-modal>
+          <!-- <app-devices-proposal-show-attechment-modal  [proposal]="proposal"></app-devices-proposal-show-attechment-modal> -->
+          <app-devices-proposal-show-details-modal  [proposal]="proposal"></app-devices-proposal-show-details-modal>
         </div>
 
         <ng-container *appHasPermission="{ page: 'proposals', action: 'EDIT' }">
