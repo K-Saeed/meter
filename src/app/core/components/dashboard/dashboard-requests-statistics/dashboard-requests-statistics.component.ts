@@ -1,5 +1,6 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, Input, SimpleChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { DashboardSummary } from '../dashboard-summary';
 
 @Component({
   selector: 'app-dashboard-requests-statistics',
@@ -10,12 +11,42 @@ export class DashboardRequestsStatisticsComponent implements AfterViewInit {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
   chart!: Chart;
 
+  @Input() dashboardSummary!: DashboardSummary;
+
+  servicesPercent = 60;
+  jobsPercent = 10;
+  consultationsPercent = 30;
+
   constructor() {
     Chart.register(...registerables);
   }
 
-  ngAfterViewInit(): void {
-    this.createChart();
+ 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dashboardSummary'] && this.dashboardSummary) {
+      this.calaculatePercentages();
+      this.createChart();
+    }
+  }
+  
+  ngAfterViewInit(): void {    
+    // this.createChart();
+  }
+
+  calaculatePercentages() {
+    console.log(this.dashboardSummary);
+    
+    if (this.dashboardSummary) {
+      const total = this.dashboardSummary.totalRequests;
+
+      this.servicesPercent = total ? Math.round((this.dashboardSummary.services ?? 0) / total * 100) : 0;
+      this.jobsPercent = total ? Math.round((this.dashboardSummary.jobs ?? 0) / total * 100) : 0;
+      this.consultationsPercent = total ? Math.round((this.dashboardSummary.consultations ?? 0) / total * 100) : 0;
+  
+      console.log('Services %:', this.servicesPercent);
+      console.log('Jobs %:', this.jobsPercent);
+      console.log('Consultations %:', this.consultationsPercent);
+    }
   }
 
   createChart(): void {
@@ -24,12 +55,14 @@ export class DashboardRequestsStatisticsComponent implements AfterViewInit {
       this.chart = new Chart(canvas, {
         type: 'bar',
         data: {
-          labels: ['Service', 'Job', 'Consultation', 'Proposal'],
+          labels: ['Service', 'Job', 'Consultation'
+            // , 'Proposal'
+          ],
           datasets: [{
             barThickness: 50,
             maxBarThickness: 100,
             minBarLength: 2,
-            data: [10, 20, 55, 40],
+            data: [this.servicesPercent, this.jobsPercent, this.consultationsPercent],
             backgroundColor: "#F28F45",
             borderWidth: 0,
             borderRadius: 8,
@@ -63,7 +96,7 @@ export class DashboardRequestsStatisticsComponent implements AfterViewInit {
               },
               ticks: {
                 callback: (value) => {
-                  const validTicks = [10, 20, 30, 40, 50, 60];
+                  const validTicks = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
                   const numValue = typeof value === 'number' ? value : parseFloat(value as string);
                   return validTicks.includes(numValue) ? `${numValue}%` : '';
                 },

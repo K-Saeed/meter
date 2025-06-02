@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DashboardSummary } from '../dashboard-summary';
 
 @Component({
   selector: 'app-dashboard-cards',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-cards.component.css']
 })
 export class DashboardCardsComponent {
+
+  @Input() dashboardSummary!: DashboardSummary;
 
 }

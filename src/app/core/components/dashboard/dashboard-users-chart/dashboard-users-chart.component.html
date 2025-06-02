@@ -1,7 +1,7 @@
-<div class="chart-container shadow-sm my-4">
+<div class="chart-container shadow-sm my-4" *ngIf="dashboardSummary">
   <div class="chart-info">
     <h3>Users</h3>
-    <h5>{{ totalUsers }} users</h5>
+    <h5>{{ dashboardSummary.totalUsers }} users</h5>
   </div>
   <canvas #chartCanvas></canvas>
 
@@ -11,7 +11,7 @@
         <img src="../../../../../assets/img/customer.svg" alt="">
         <div class="info-customer d-flex flex-column gap-1">
           <h3 class="m-0">Total Customers</h3>
-          <h3 class="fw-bold m-0">{{ totalCustomers }}</h3>
+          <h3 class="fw-bold m-0">{{ dashboardSummary.customers }}</h3>
         </div>
       </div>
       <div class="info-customer d-flex">
@@ -27,7 +27,7 @@
         <img src="../../../../../assets/img/provider.svg" alt="">
         <div class="info-customer d-flex flex-column gap-1">
           <h3 class="m-0">Total Providers</h3>
-          <h3 class="fw-bold m-0">{{ totalProviders }}</h3>
+          <h3 class="fw-bold m-0">{{ dashboardSummary.providers }}</h3>
         </div>
       </div>
       <div class="info-customer d-flex">
@@ -43,7 +43,7 @@
         <img src="../../../../../assets/img/seller.svg" alt="">
         <div class="info-customer d-flex flex-column gap-1">
           <h3 class="m-0">Total Sellers</h3>
-          <h3 class="fw-bold m-0">{{ totalSellers }}</h3>
+          <h3 class="fw-bold m-0">{{ dashboardSummary.sellers }}</h3>
         </div>
       </div>
       <div class="info-customer d-flex">

@@ -1,6 +1,7 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { DashboardUsersChartService } from '../services/dashboard-users-chart.service';
+import { DashboardSummary } from '../dashboard-summary';
 
 @Component({
   selector: 'app-dashboard-users-chart',
@@ -10,6 +11,8 @@ import { DashboardUsersChartService } from '../services/dashboard-users-chart.se
 export class DashboardUsersChartComponent implements AfterViewInit {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
   chart!: Chart;
+
+  @Input() dashboardSummary!: DashboardSummary;
 
   totalUsers: number = 0;
   totalCustomers: number = 0;
@@ -36,9 +39,9 @@ export class DashboardUsersChartComponent implements AfterViewInit {
 
   createChart(data: any): void {
     const months = Object.keys(data.monthlyData);
-    const customersData = months.map(month => data.monthlyData[month]?.customers || 0);
-    const providersData = months.map(month => data.monthlyData[month]?.providers || 0);
-    const sellersData = months.map(month => data.monthlyData[month]?.sellers || 0);
+    const customersData = months.map(month => this.dashboardSummary?.customers || 0);
+    const providersData = months.map(month => this.dashboardSummary?.providers || 0);
+    const sellersData = months.map(month => this.dashboardSummary?.sellers || 0);
 
     if (this.chartCanvas) {
       const canvas = this.chartCanvas.nativeElement;
@@ -140,9 +143,9 @@ export class DashboardUsersChartComponent implements AfterViewInit {
       const lastMonth = data.monthlyData[months[months.length - 1]];
       const previousMonth = data.monthlyData[months[months.length - 2]];
 
-      this.customerGrowth = this.calculatePercentageChange(lastMonth.customers, previousMonth.customers);
-      this.providerGrowth = this.calculatePercentageChange(lastMonth.providers, previousMonth.providers);
-      this.sellerGrowth = this.calculatePercentageChange(lastMonth.sellers, previousMonth.sellers);
+      this.customerGrowth = this.calculatePercentageChange(this.dashboardSummary?.customers??0, 0);
+      this.providerGrowth = this.calculatePercentageChange(this.dashboardSummary?.providers??0, 0);
+      this.sellerGrowth = this.calculatePercentageChange(this.dashboardSummary?.sellers??0, 0);
     }
   }
 
