@@ -1,12 +1,12 @@
 <div class="container p-0">
-    <div class="row justify-content-center my-4">
+    <div class="row justify-content-center my-4" *ngIf="dashboardSummary">
 
         <div class="col-12 col-sm-6 col-md-5 col-lg-3 mb-4 width">
             <div class="card-style d-flex flex-column justify-content-between shadow rounded-4">
                 <div class="d-flex justify-content-between align-items-start">
                     <div class="d-flex flex-column gap-4">
                         <h2 class="m-0">Total Users</h2>
-                        <h1 class="m-0">40,689</h1>
+                        <h1 class="m-0">{{dashboardSummary.totalUsers}}</h1>
                     </div>
                     <img class="img-fluid" src="../../../../../assets/img/users.svg" alt="Users Icon">
                 </div>
@@ -23,7 +23,7 @@
                 <div class="d-flex justify-content-between align-items-start">
                     <div class="d-flex flex-column gap-4">
                         <h2 class="m-0">Approved Devices</h2>
-                        <h1 class="m-0">40,689</h1>
+                        <h1 class="m-0">{{dashboardSummary.approvedProducts}}</h1>
                     </div>
                     <img class="img-fluid" src="../../../../../assets/img/device.svg" alt="Device Icon">
                 </div>
@@ -40,7 +40,7 @@
                 <div class="d-flex justify-content-between align-items-start">
                     <div class="d-flex flex-column gap-4">
                         <h2 class="m-0">Total Requests</h2>
-                        <h1 class="m-0">40,689</h1>
+                        <h1 class="m-0">{{dashboardSummary.totalRequests}}</h1>
                     </div>
                     <img class="img-fluid" src="../../../../../assets/img/requests.svg" alt="Requests Icon">
                 </div>
@@ -57,7 +57,7 @@
                 <div class="d-flex justify-content-between align-items-start">
                     <div class="d-flex flex-column gap-4">
                         <h2 class="m-0">Total Transactions</h2>
-                        <h1 class="m-0">40,689</h1>
+                        <h1 class="m-0">{{dashboardSummary.totalTransactions}}</h1>
                     </div>
                     <img class="img-fluid" src="../../../../../assets/img/transactions.svg" alt="Transactions Icon">
                 </div>
