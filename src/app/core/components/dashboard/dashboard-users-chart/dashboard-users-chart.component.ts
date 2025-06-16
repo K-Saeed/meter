@@ -38,11 +38,23 @@ export class DashboardUsersChartComponent implements AfterViewInit {
   }
 
   createChart(data: any): void {
-    const months = Object.keys(data.monthlyData);
-    const customersData = months.map(month => this.dashboardSummary?.customers || 0);
-    const providersData = months.map(month => this.dashboardSummary?.providers || 0);
-    const sellersData = months.map(month => this.dashboardSummary?.sellers || 0);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1); 
+  const usersData = this.dashboardSummary?.usersCountPerMonth || [];
 
+  const customersData = months.map(month => {
+    const data = usersData.find(item => item.month === month);
+    return data?.customers ?? 0;
+  });
+
+  const providersData = months.map(month => {
+    const data = usersData.find(item => item.month === month);
+    return data?.providers ?? 0;
+  });
+
+  const sellersData = months.map(month => {
+    const data = usersData.find(item => item.month === month);
+    return data?.sellers ?? 0;
+  });
     if (this.chartCanvas) {
       const canvas = this.chartCanvas.nativeElement;
       this.chart = new Chart(canvas, {

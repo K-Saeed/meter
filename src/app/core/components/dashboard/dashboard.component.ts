@@ -20,7 +20,7 @@ export class DashboardComponent {
   }
 
   getDashboardInfo(){
-    this.dashboardService.getDashboardInfo().subscribe({
+    this.dashboardService.getDashboardInfo(new Date().getFullYear()).subscribe({
       next:(n)=>{
         this.dashboardSummary = n;
     console.log(this.dashboardSummary);
