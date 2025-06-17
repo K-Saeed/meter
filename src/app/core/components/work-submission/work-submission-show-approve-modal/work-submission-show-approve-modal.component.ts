@@ -9,17 +9,20 @@ import { WorkSubmisionCallService } from 'src/app/shared/service/workSubimion-ca
 export class WorkSubmissionShowApproveModalComponent {
   @Input() submission!: any;
   constructor(private workSubmissionService: WorkSubmisionCallService) {}
+  message!: string;
 
   approveSubmission() {
-    this.workSubmissionService.updateWorkSubmissionStatus(this.submission.id, this.submission.submissionType, 'Approved').subscribe({
-      next: () => {
+    this.workSubmissionService.updateWorkSubmissionStatus(this.submission.id, this.submission.submissionType, 'Approved').subscribe(
+      () => {
+        this.message = "Status updated successfully";
         window.location.reload();
       },
-      error: (error) => {
-        console.error('Error approving submission:', error);
-        alert('Error approving submission');
+      (error) => {
+        this.message = "Error updating status";
+        window.location.reload();
+        console.error("Error:", error);
       }
-    });
+    );
   }
 
   closeModal() {
