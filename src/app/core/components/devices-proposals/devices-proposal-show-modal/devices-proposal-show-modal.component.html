@@ -9,7 +9,7 @@
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
         <h1 class="modal-title" id="exampleModalLabel">
-          Provider Proposal Details
+          Seller Proposal Details
         </h1>
         <button
           type="button"
@@ -35,10 +35,12 @@
 
         <div *ngIf="activeLink === 'details'">
           <!-- <app-devices-proposal-show-attechment-modal  [proposal]="proposal"></app-devices-proposal-show-attechment-modal> -->
-          <app-devices-proposal-show-details-modal  [proposal]="proposal"></app-devices-proposal-show-details-modal>
+          <app-devices-proposal-show-details-modal
+            [proposal]="proposal"
+          ></app-devices-proposal-show-details-modal>
         </div>
 
-        <ng-container *appHasPermission="{ page: 'proposals', action: 'EDIT' }">
+        <!-- <ng-container *appHasPermission="{ page: 'proposals', action: 'EDIT' }">
         <div class="d-flex gap-3 mt-4 justify-content-end">
           <button
             type="button"
@@ -57,11 +59,15 @@
             Approve
           </button>
         </div>
-        </ng-container>
+        </ng-container> -->
       </div>
     </div>
   </div>
 </div>
 
-<app-devices-proposal-reject-modal [proposal]="proposal"></app-devices-proposal-reject-modal>
-<app-devices-proposal-approve-modal [proposal]="proposal"></app-devices-proposal-approve-modal>
+<app-devices-proposal-reject-modal
+  [proposal]="proposal"
+></app-devices-proposal-reject-modal>
+<app-devices-proposal-approve-modal
+  [proposal]="proposal"
+></app-devices-proposal-approve-modal>

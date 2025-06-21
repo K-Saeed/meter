@@ -1,13 +1,13 @@
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Service Provider Information:</h1>
+  <h1>Seller Information:</h1>
   <div class="info d-flex flex-column gap-3">
     <h3 class="d-flex justify-content-between m-0">
       <span class="label">Name:</span>
-      <span class="value">{{proposal?.ownerName}}</span>
+      <span class="value">{{ proposal?.ownerName }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Phone:</span>
-      <span class="value">{{proposal?.ownerEmail}}</span>
+      <span class="label">Email:</span>
+      <span class="value">{{ proposal?.ownerEmail }}</span>
     </h3>
   </div>
 </div>
@@ -17,46 +17,97 @@
   <div class="info d-flex flex-column gap-3">
     <h3 class="d-flex justify-content-between m-0">
       <span class="label">Name:</span>
-      <span class="value">{{proposal?.customerName}}</span>
+      <span class="value">{{ proposal?.customerName }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Phone:</span>
-      <span class="value">{{proposal?.customerEmail}}</span>
+      <span class="label">Email:</span>
+      <span class="value">{{ proposal?.customerEmail }}</span>
     </h3>
   </div>
 </div>
-
+<div class="title d-flex align-items-start gap-2 flex-column mt-4">
+  <h1>Device Information:</h1>
+  <div class="info d-flex flex-column align-items-start gap-3">
+    <h3 class="d-flex justify-content-between m-0">
+      <span class="label">Device ID:</span>
+      <span class="value">{{ proposal?.productId }}</span>
+    </h3>
+    <h3 class="d-flex justify-content-between m-0">
+      <span class="label">Device Title:</span>
+      <span class="value">{{ proposal?.productName }}</span>
+    </h3>
+  </div>
+</div>
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
   <h1>Proposal Information:</h1>
   <div class="info d-flex flex-column align-items-start gap-3">
-    <h3 class="d-flex justify-content-between m-0">
+    <!-- <h3 class="d-flex justify-content-between m-0">
       <span class="label">Title:</span>
-      <span class="value">{{proposal?.title}}</span>
+      <span class="value">{{ proposal?.title }}</span>
+    </h3> -->
+    <h3 class="d-flex justify-content-between m-0">
+      <span class="label">Type of device:</span>
+      <span class="value">{{ proposal?.requestType }}</span>
+    </h3>
+    <h3
+      class="d-flex justify-content-between m-0"
+      *ngIf="proposal?.requestType === 'rent' && proposal?.endRentingDate"
+    >
+      <span class="label">End renting date:</span>
+      <span class="value">{{ proposal?.endRentingDate }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Description:</span>
-      <span class="value">{{proposal?.details}}</span>
+      <span class="label">With worker:</span>
+      <span class="value">{{ proposal?.deviceWithWorker }}</span>
+    </h3>
+    <h3
+      class="d-flex justify-content-between m-0"
+      *ngIf="proposal?.requestType === 'rent' && proposal?.rentDate"
+    >
+      <span class="label">Start renting date:</span>
+      <span class="value">{{ proposal?.rentDate }}</span>
+    </h3>
+
+    <h3
+      class="d-flex justify-content-between m-0"
+      *ngIf="proposal?.requestType === 'rent' && proposal?.rentHours"
+    >
+      <span class="label">Renting hours:</span>
+      <span class="value">{{ proposal?.rentHours }} hours</span>
+    </h3>
+    <h3
+      class="d-flex justify-content-between m-0"
+      *ngIf="proposal?.requestType === 'rent'"
+    >
+      <span class="label">Location:</span>
+      <a
+        class="value"
+        target="_blank"
+        [href]="
+          'https://www.google.com/maps?q=' +
+          proposal?.latitude +
+          ',' +
+          proposal?.longitude
+        "
+      >
+        Click location
+      </a>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Price:</span>
-      <span class="value">{{proposal?.price}}</span>
-    </h3>
-  </div>
-</div>
-<div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Request Information:</h1>
-  <div class="info d-flex flex-column align-items-start gap-3">
-    <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Request ID:</span>
-      <span class="value">{{proposal?.productId}}</span>
+      <span class="label">Seller fees:</span>
+      <!-- <span class="value">{{ proposal?.price }}</span> -->
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Request Title:</span>
-      <span class="value">{{proposal?.productName}}</span>
+      <span class="label">Taxs:</span>
+      <span class="value">{{ proposal?.taxes }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Request Description:</span>
-      <span class="value">{{proposal?.productDetails}}.</span>
+      <span class="label">Service fees:</span>
+      <span class="value">{{ proposal?.serviceFees }}</span>
+    </h3>
+    <h3 class="d-flex justify-content-between m-0">
+      <span class="label">Total:</span>
+      <span class="value">{{ proposal?.price }}</span>
     </h3>
   </div>
 </div>

@@ -3,6 +3,10 @@ canvas {
   height: 245px !important;
   padding: 0 15px 0 15px;
 }
+/* canvas {
+  width: 100% !important;
+  height: 300px !important;
+} */
 label {
   border-radius: 5px !important;
 }

@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
+import { Component, ElementRef, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { DashboardUsersChartService } from '../services/dashboard-users-chart.service';
 import { DashboardSummary } from '../dashboard-summary';
@@ -8,55 +8,54 @@ import { DashboardSummary } from '../dashboard-summary';
   templateUrl: './dashboard-users-chart.component.html',
   styleUrls: ['./dashboard-users-chart.component.css']
 })
-export class DashboardUsersChartComponent implements AfterViewInit {
+export class DashboardUsersChartComponent implements OnChanges {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
   chart!: Chart;
 
   @Input() dashboardSummary!: DashboardSummary;
 
-  totalUsers: number = 0;
-  totalCustomers: number = 0;
-  totalProviders: number = 0;
-  totalSellers: number = 0;
+  totalUsers = 0;
+  totalCustomers = 0;
+  totalProviders = 0;
+  totalSellers = 0;
 
-  customerGrowth: number = 0;
-  providerGrowth: number = 0;
-  sellerGrowth: number = 0;
+  customerGrowth = 0;
+  providerGrowth = 0;
+  sellerGrowth = 0;
 
   constructor(private dashboardUsersChartService: DashboardUsersChartService) {
     Chart.register(...registerables);
   }
 
-  ngAfterViewInit(): void {
-    const currentYear = new Date().getFullYear();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dashboardSummary'] && this.dashboardSummary) {
+      const currentYear = new Date().getFullYear();
 
-    this.dashboardUsersChartService.getUserDashboardData(currentYear).subscribe(data => {
-      this.createChart(data);
-      this.calculateTotalUsers(data);
-      this.calculateGrowthRates(data); // Calculate percentage change
-    });
+      this.dashboardUsersChartService.getUserDashboardData(currentYear).subscribe(data => {
+        setTimeout(() => {
+          this.createChart(data);
+          this.calculateTotalUsers(data);
+          this.calculateGrowthRates(data);
+        }, 0);
+      });
+    }
   }
 
   createChart(data: any): void {
-  const months = Array.from({ length: 12 }, (_, i) => i + 1); 
-  const usersData = this.dashboardSummary?.usersCountPerMonth || [];
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
+    const usersData = this.dashboardSummary?.usersCountPerMonth || [];
 
-  const customersData = months.map(month => {
-    const data = usersData.find(item => item.month === month);
-    return data?.customers ?? 0;
-  });
+    const customersData = months.map(month => usersData.find(item => item.month === month)?.customers ?? 0);
+    const providersData = months.map(month => usersData.find(item => item.month === month)?.providers ?? 0);
+    const sellersData = months.map(month => usersData.find(item => item.month === month)?.sellers ?? 0);
 
-  const providersData = months.map(month => {
-    const data = usersData.find(item => item.month === month);
-    return data?.providers ?? 0;
-  });
-
-  const sellersData = months.map(month => {
-    const data = usersData.find(item => item.month === month);
-    return data?.sellers ?? 0;
-  });
     if (this.chartCanvas) {
       const canvas = this.chartCanvas.nativeElement;
+
+      if (this.chart) {
+        this.chart.destroy(); 
+      }
+
       this.chart = new Chart(canvas, {
         type: 'bar',
         data: {
@@ -103,11 +102,9 @@ export class DashboardUsersChartComponent implements AfterViewInit {
               display: true,
               position: 'top',
               labels: {
-                padding:20,
-                // color: '#333',
+                padding: 20,
                 font: {
                   size: 12,
-                  weight: 400,
                 }
               }
             }
@@ -140,29 +137,34 @@ export class DashboardUsersChartComponent implements AfterViewInit {
 
   calculateTotalUsers(data: any): void {
     const months = Object.keys(data.monthlyData);
-    this.totalUsers = months.reduce((sum, month) => {
-      const { customers, providers, sellers } = data.monthlyData[month];
-      this.totalCustomers += customers || 0;
-      this.totalProviders += providers || 0;
-      this.totalSellers += sellers || 0;
-      return sum + customers + providers + sellers;
-    }, 0);
+    this.totalUsers = 0;
+    this.totalCustomers = 0;
+    this.totalProviders = 0;
+    this.totalSellers = 0;
+
+    for (let month of months) {
+      const { customers = 0, providers = 0, sellers = 0 } = data.monthlyData[month];
+      this.totalCustomers += customers;
+      this.totalProviders += providers;
+      this.totalSellers += sellers;
+      this.totalUsers += customers + providers + sellers;
+    }
   }
 
   calculateGrowthRates(data: any): void {
     const months = Object.keys(data.monthlyData);
     if (months.length > 1) {
       const lastMonth = data.monthlyData[months[months.length - 1]];
-      const previousMonth = data.monthlyData[months[months.length - 2]];
+      const prevMonth = data.monthlyData[months[months.length - 2]];
 
-      this.customerGrowth = this.calculatePercentageChange(this.dashboardSummary?.customers??0, 0);
-      this.providerGrowth = this.calculatePercentageChange(this.dashboardSummary?.providers??0, 0);
-      this.sellerGrowth = this.calculatePercentageChange(this.dashboardSummary?.sellers??0, 0);
+      this.customerGrowth = this.calculatePercentageChange(lastMonth.customers, prevMonth.customers);
+      this.providerGrowth = this.calculatePercentageChange(lastMonth.providers, prevMonth.providers);
+      this.sellerGrowth = this.calculatePercentageChange(lastMonth.sellers, prevMonth.sellers);
     }
   }
 
   calculatePercentageChange(current: number, previous: number): number {
-    if (previous === 0) return 100; // If no users previously, return 100% increase
-    return ((current - previous) / previous) * 100;
+    if (!previous || previous === 0) return 100;
+    return Math.round(((current - previous) / previous) * 100);
   }
 }
