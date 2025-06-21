@@ -39,9 +39,12 @@
   display: block;
   padding: 8px 12px;
   border-radius: 5px;
-  /* transition: background-color 0.3s; */
+  transition: background-color 0.3s;
 }
-
+.list-group-item-action:not(.active):hover,
+.list-group-item-action:not(.active):focus {
+  background-color: transparent;
+}
 .space-style {
   margin: 0;
   height: auto;
