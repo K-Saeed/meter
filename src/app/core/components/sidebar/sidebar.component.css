@@ -43,7 +43,7 @@
 }
 .list-group-item-action:not(.active):hover,
 .list-group-item-action:not(.active):focus {
-  background-color: transparent;
+  background-color: transparent !important;
 }
 .space-style {
   margin: 0;
