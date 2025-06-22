@@ -52,10 +52,11 @@
           <h4 [ngClass]="{
             green: request.internalStatus === 'Approved',
             red: request.internalStatus === 'Rejected',
-            orange: request.internalStatus === 'Pending'
+            orange: request.internalStatus === 'Pending',
+            blue: request.status === 'active'
           }" class="m-0">
-            {{ request.internalStatus }}
-          </h4>
+          {{ request.status === 'active' ? 'Paid' : request.internalStatus }}
+        </h4>
         </td>
         <td>
           <div class="img-space">
