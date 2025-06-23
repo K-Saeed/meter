@@ -1,27 +1,34 @@
 <div class="top-bar d-flex align-items-center border-3 border-bottom">
   <div class="d-flex gap-1 align-items-center">
-    <h2 class="text-style m-0">Hello,{{ getFirstName() }}</h2>
+    <h2 class="text-style m-0">{{'welcome' | translate}},{{ getFirstName() }}</h2>
     <img class="img-style" src="../../../assets/img/welcome.png" alt="" srcset="" />
   </div>
   <div class="left d-flex align-items-center ms-auto p-2">
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown"
         data-bs-toggle="dropdown" aria-expanded="false">
-        <img class="world" src="../../../../assets/img/en.png" alt="" style="margin-right: 8px" />
+        <img class="world" [src]="'../../../../assets/img/' + currentFlag" alt="" style="margin-right: 8px" />
         <span class="d-flex gap-3 align-items-center">
-          English
+          {{ currentLabel }}
           <img src="../../../../assets/img/arrow.svg" alt="" class="custom-arrow ms-auto" />
         </span>
       </button>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-        <!-- <li><a class="d-flex dropdown-item" href="#">English</a></li> -->
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="#">
+          <a class="dropdown-item d-flex align-items-center" (click)="switchLang('en')">
+            <img class="world" src="../../../../assets/img/en.png" alt="" style="margin-right: 8px" />
+            English
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item d-flex align-items-center" (click)="switchLang('ar')">
             <img class="world" src="../../../../assets/img/ar.png" alt="" style="margin-right: 8px" />
-            Arabic</a>
+            Arabic
+          </a>
         </li>
       </ul>
     </div>
+    
     <div class="img dropdown ">
       <img class="dropdown-toggle cursor-pointer" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"
         src="../../../../assets/img/notification-top.svg" alt="" />

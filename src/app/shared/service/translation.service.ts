@@ -1,0 +1,24 @@
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+
+@Injectable({ providedIn: 'root' })
+export class TranslationService {
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['en', 'ar']);
+    translate.setDefaultLang('en');
+
+    const browserLang = translate.getBrowserLang();
+    const lang = browserLang && ['en', 'ar'].includes(browserLang) ? browserLang : 'en';
+    this.setLanguage(lang);
+  }
+
+  setLanguage(lang: string) {
+    this.translate.use(lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }
+
+  get currentLang(): string {
+    return this.translate.currentLang;
+  }
+}
