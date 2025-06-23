@@ -1,18 +1,21 @@
-import { Component, ElementRef, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, ViewChild, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { DashboardUsersChartService } from '../services/dashboard-users-chart.service';
 import { DashboardSummary } from '../dashboard-summary';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard-users-chart',
   templateUrl: './dashboard-users-chart.component.html',
   styleUrls: ['./dashboard-users-chart.component.css']
 })
-export class DashboardUsersChartComponent implements OnChanges {
+export class DashboardUsersChartComponent implements OnInit, OnChanges {
   @ViewChild('chartCanvas') chartCanvas!: ElementRef;
   chart!: Chart;
 
   @Input() dashboardSummary!: DashboardSummary;
+
+  currentLang = 'en';
 
   totalUsers = 0;
   totalCustomers = 0;
@@ -23,14 +26,33 @@ export class DashboardUsersChartComponent implements OnChanges {
   providerGrowth = 0;
   sellerGrowth = 0;
 
-  constructor(private dashboardUsersChartService: DashboardUsersChartService) {
+  constructor(
+    private dashboardUsersChartService: DashboardUsersChartService,
+    private translateService: TranslateService
+  ) {
     Chart.register(...registerables);
+  }
+
+  ngOnInit(): void {
+    this.currentLang = this.translateService.currentLang;
+
+    this.translateService.onLangChange.subscribe(lang => {
+      this.currentLang = lang.lang;
+
+      if (this.dashboardSummary) {
+        const currentYear = new Date().getFullYear();
+        this.dashboardUsersChartService.getUserDashboardData(currentYear).subscribe(data => {
+          setTimeout(() => {
+            this.createChart(data);
+          }, 0);
+        });
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dashboardSummary'] && this.dashboardSummary) {
       const currentYear = new Date().getFullYear();
-
       this.dashboardUsersChartService.getUserDashboardData(currentYear).subscribe(data => {
         setTimeout(() => {
           this.createChart(data);
@@ -49,21 +71,32 @@ export class DashboardUsersChartComponent implements OnChanges {
     const providersData = months.map(month => usersData.find(item => item.month === month)?.providers ?? 0);
     const sellersData = months.map(month => usersData.find(item => item.month === month)?.sellers ?? 0);
 
+    const isArabic = this.currentLang === 'ar';
+
+    const monthLabels = isArabic
+      ? ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر']
+      : ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const labels = isArabic ? [...monthLabels].reverse() : monthLabels;
+    const customers = isArabic ? [...customersData].reverse() : customersData;
+    const providers = isArabic ? [...providersData].reverse() : providersData;
+    const sellers = isArabic ? [...sellersData].reverse() : sellersData;
+
     if (this.chartCanvas) {
       const canvas = this.chartCanvas.nativeElement;
 
       if (this.chart) {
-        this.chart.destroy(); 
+        this.chart.destroy();
       }
 
       this.chart = new Chart(canvas, {
         type: 'bar',
         data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          labels: labels,
           datasets: [
             {
-              label: 'Customers',
-              data: customersData,
+              label: this.translateService.instant('customers'),
+              data: customers,
               backgroundColor: '#FF7A00',
               borderWidth: 1,
               borderRadius: 4,
@@ -73,8 +106,8 @@ export class DashboardUsersChartComponent implements OnChanges {
               stack: 'stack1',
             },
             {
-              label: 'Providers',
-              data: providersData,
+              label: this.translateService.instant('providers'),
+              data: providers,
               backgroundColor: '#FFB703',
               borderWidth: 1,
               borderRadius: 4,
@@ -84,8 +117,8 @@ export class DashboardUsersChartComponent implements OnChanges {
               stack: 'stack2',
             },
             {
-              label: 'Sellers',
-              data: sellersData,
+              label: this.translateService.instant('sellers'),
+              data: sellers,
               backgroundColor: '#32383F',
               borderWidth: 1,
               borderRadius: 4,
@@ -93,7 +126,7 @@ export class DashboardUsersChartComponent implements OnChanges {
               categoryPercentage: 0.6,
               barPercentage: 0.8,
               stack: 'stack3',
-            },
+            }
           ]
         },
         options: {
@@ -104,17 +137,18 @@ export class DashboardUsersChartComponent implements OnChanges {
               labels: {
                 padding: 20,
                 font: {
-                  size: 12,
+                  size: 12
                 }
               }
             }
           },
           scales: {
             y: {
+              position: isArabic ? 'right' : 'left',
               beginAtZero: true,
               stacked: true,
               grid: {
-                color: '#E5E5E5',
+                color: '#E5E5E5'
               },
               ticks: {
                 display: false
@@ -122,11 +156,20 @@ export class DashboardUsersChartComponent implements OnChanges {
             },
             x: {
               stacked: false,
-              border: {
-                dash: [3],
-              },
               grid: {
                 color: '#E5E5E5',
+                drawOnChartArea: true,
+                drawTicks: true,
+                tickLength: 5,
+              },
+              ticks: {
+                color: '#000',
+                align: isArabic ? 'start' : 'center',
+                crossAlign: 'center',
+                font: {
+                  size: 12,
+                  weight: 'normal'
+                }
               }
             }
           }

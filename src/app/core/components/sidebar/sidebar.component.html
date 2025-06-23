@@ -3,156 +3,319 @@
   <a class="nav-link space-style mx-auto" aria-current="page" href="#">
     <img class="img-fluid img-style" src="../../../../assets/img/logo.png" />
   </a>
-  <div class="d-flex flex-column bottom list-group navbar-menu" id="list-tab" role="tablist">
+  <div
+    class="d-flex flex-column bottom list-group navbar-menu"
+    id="list-tab"
+    role="tablist"
+  >
     <ng-container *appHasPermission="{ page: 'dashboard', action: 'READ' }">
-    <a class="nav-link  d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-      routerLinkActive="active" data-bs-toggle="list" (click)="setActive('dashboard')" [routerLink]="'/dashboard'"
-      role="tab" aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/bar-chart-2.svg" alt="" />
-        <div>Dashboard</div>
-      </div>
-    </a>
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        routerLinkActive="active"
+        data-bs-toggle="list"
+        (click)="setActive('dashboard')"
+        [routerLink]="'/dashboard'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/bar-chart-2.svg"
+            alt=""
+          />
+          <div>{{ "dashboard" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
     <ng-container *appHasPermission="{ page: 'requests', action: 'READ' }">
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-      data-bs-toggle="list" routerLinkActive="active" (click)="setActive('servicerequests')"
-      [routerLink]="'/servicerequests'" role="tab" aria-controls="Service-Requests">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/category-2.svg" alt="" />
-        <div>Service Requests</div>
-      </div>
-      <span *ngIf="requests.length > 0"
-        [ngClass]="{'number-active': isActive === 'servicerequests', 'number-inActive': isActive !== 'servicerequests'}">{{requests.length}}</span>
-    </a>
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('servicerequests')"
+        [routerLink]="'/servicerequests'"
+        role="tab"
+        aria-controls="Service-Requests"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/category-2.svg"
+            alt=""
+          />
+          <div>{{ "service-requests" | translate }}</div>
+        </div>
+        <span
+          *ngIf="requests.length > 0"
+          [ngClass]="{
+            'number-active': isActive === 'servicerequests',
+            'number-inActive': isActive !== 'servicerequests'
+          }"
+          >{{ requests.length }}</span
+        >
+      </a>
     </ng-container>
 
     <ng-container *appHasPermission="{ page: 'proposals', action: 'READ' }">
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-      data-bs-toggle="list" routerLinkActive="active" (click)="setActive('providersproposal')"
-      [routerLink]="'/providersproposal'" role="tab" aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/Amount_Icon_UIA.svg" alt="" />
-        <div class="d-flex">Proposals</div>
-      </div>
-    </a>
-  </ng-container>
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('providersproposal')"
+        [routerLink]="'/providersproposal'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/Amount_Icon_UIA.svg"
+            alt=""
+          />
+          <div class="d-flex">{{ "proposals" | translate }}</div>
+        </div>
+      </a>
+    </ng-container>
 
-  <ng-container *appHasPermission="{ page: 'users', action: 'READ' }">
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-      id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('users')"
-      [routerLink]="'/users'" role="tab" aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/profile-2user.svg" alt="" />
-        <div>Users</div>
-      </div>
-    </a>
+    <ng-container *appHasPermission="{ page: 'users', action: 'READ' }">
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('users')"
+        [routerLink]="'/users'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/profile-2user.svg"
+            alt=""
+          />
+          <div>{{ "Users" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
     <ng-container *appHasPermission="{ page: 'products', action: 'READ' }">
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-      id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('products')"
-      [routerLink]="'/products'" role="tab" aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/box.svg" alt="" />
-        <div>Products</div>
-      </div>
-    </a>
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('products')"
+        [routerLink]="'/products'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img class="icon-style" src="../../../../assets/img/box.svg" alt="" />
+          <div>{{ "Products" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
     <ng-container>
-      <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-        data-bs-toggle="list" routerLinkActive="active" (click)="setActive('devicesproposal')"
-        [routerLink]="'/devicesproposal'" role="tab" aria-controls="list-home">
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('devicesproposal')"
+        [routerLink]="'/devicesproposal'"
+        role="tab"
+        aria-controls="list-home"
+      >
         <div class="d-flex gap-3 align-items-center">
-          <img class="icon-style" src="../../../../assets/img/Amount_Icon_UIA.svg" alt="" />
-          <div class="d-flex">Devices Proposal</div>
+          <img
+            class="icon-style"
+            src="../../../../assets/img/Amount_Icon_UIA.svg"
+            alt=""
+          />
+          <div class="d-flex">{{ "devices-proposal" | translate }}</div>
         </div>
       </a>
     </ng-container>
 
     <ng-container *appHasPermission="{ page: 'proposals', action: 'READ' }">
-    <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
-      routerLinkActive="active" (click)="setActive('conversations')" [routerLink]="'/conversations'" role="tab"
-      aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/messages.svg" alt="" />
-        <div>Conversations</div>
-      </div>
-    </a>
+      <a
+        class="nav-link text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('conversations')"
+        [routerLink]="'/conversations'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/messages.svg"
+            alt=""
+          />
+          <div>{{ "Conversations" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
     <ng-container *appHasPermission="{ page: 'transactions', action: 'READ' }">
-    <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
-      routerLinkActive="active" (click)="setActive('transactions')" [routerLink]="'/transactions'" role="tab"
-      aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/chart.svg" alt="" />
-        <div>Transactions</div>
-      </div>
-    </a>
+      <a
+        class="nav-link text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('transactions')"
+        [routerLink]="'/transactions'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/chart.svg"
+            alt=""
+          />
+          <div>{{ "Transactions" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
-    <ng-container *appHasPermission="{ page: 'work_submission', action: 'READ' }">
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-      id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('WorkSubmission')"
-      [routerLink]="'/WorkSubmission'" role="tab" aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/clipboard-tick.svg" alt="" />
-        <div>Work Submission</div>
-      </div>
-    </a>
+    <ng-container
+      *appHasPermission="{ page: 'work_submission', action: 'READ' }"
+    >
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('WorkSubmission')"
+        [routerLink]="'/WorkSubmission'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/clipboard-tick.svg"
+            alt=""
+          />
+          <div>{{ "work-submission" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
     <ng-container *appHasPermission="{ page: 'employees', action: 'READ' }">
-    <a class="d-flex align-items-center gap-3 nav-link text-style list-group-item list-group-item-action"
-      id="list-home-list" data-bs-toggle="list" routerLinkActive="active" [routerLink]="'/employees'" role="tab"
-      aria-controls="list-home" (click)="handleClick('employees', 'WorkSubmission')">
-      <img class="icon-style" src="../../../../assets/img/people.svg" alt="" />
-      <div class="d-flex align-items-center gap-5">
-        {{ employees }}
-        <img *ngIf="!isEmployeesOpen" class="icon-style" src="../../../../assets/img/arrow-down.svg" alt="" />
-        <img *ngIf="isEmployeesOpen" class="icon-style" src="../../../../assets/img/arrow-up.svg" alt="" />
-      </div>
-    </a>
+      <a
+        class="d-flex align-items-center gap-3 nav-link text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        [routerLink]="'/employees'"
+        role="tab"
+        aria-controls="list-home"
+        (click)="handleClick('employees', 'WorkSubmission')"
+      >
+        <img
+          class="icon-style"
+          src="../../../../assets/img/people.svg"
+          alt=""
+        />
+        <!-- {{ employees }} -->
+        <div class="d-flex align-items-center gap-5">
+          {{ "Employees" | translate }}
+          <img
+            *ngIf="!isEmployeesOpen"
+            class="icon-style"
+            src="../../../../assets/img/arrow-down.svg"
+            alt=""
+          />
+          <img
+            *ngIf="isEmployeesOpen"
+            class="icon-style"
+            src="../../../../assets/img/arrow-up.svg"
+            alt=""
+          />
+        </div>
+      </a>
     </ng-container>
 
     <ul class="submenu" *ngIf="isEmployeesOpen">
       <li class="">
-        <a class="nav-link text-style" (click)="setActive('roles')" routerLinkActive="active"
-          [routerLink]="'/roles'">Roles</a>
+        <a
+          class="nav-link text-style"
+          (click)="setActive('roles')"
+          routerLinkActive="active"
+          [routerLink]="'/roles'"
+          >{{ "Roles" | translate }}</a
+        >
       </li>
     </ul>
 
     <ng-container *appHasPermission="{ page: 'notifications', action: 'READ' }">
-    <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
-      routerLinkActive="active" (click)="setActive('notifications')" [routerLink]="'/notifications'" role="tab"
-      aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/notification.svg" alt="" />
-        <div>Notifications</div>
-      </div>
-    </a>
+      <a
+        class="nav-link text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('notifications')"
+        [routerLink]="'/notifications'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/notification.svg"
+            alt=""
+          />
+          <div>{{ "notifications" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
     <ng-container *appHasPermission="{ page: 'chat', action: 'READ' }">
-    <a class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
-      id="list-home-list" data-bs-toggle="list" routerLinkActive="active" (click)="setActive('chat')"
-      [routerLink]="'/chat'" role="tab" aria-controls="list-home">
-      <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/message-text.svg" alt="" />
-        <div>Chat</div>
-      </div>
-    </a>
+      <a
+        class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
+        id="list-home-list"
+        data-bs-toggle="list"
+        routerLinkActive="active"
+        (click)="setActive('chat')"
+        [routerLink]="'/chat'"
+        role="tab"
+        aria-controls="list-home"
+      >
+        <div class="d-flex gap-3 align-items-center">
+          <img
+            class="icon-style"
+            src="../../../../assets/img/message-text.svg"
+            alt=""
+          />
+          <div>{{ "Chat" | translate }}</div>
+        </div>
+      </a>
     </ng-container>
 
-    <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
-      (click)="setActive('settings')" routerLinkActive="active" [routerLink]="'/settings'" role="tab"
-      aria-controls="list-home">
+    <a
+      class="nav-link text-style list-group-item list-group-item-action"
+      id="list-home-list"
+      data-bs-toggle="list"
+      (click)="setActive('settings')"
+      routerLinkActive="active"
+      [routerLink]="'/settings'"
+      role="tab"
+      aria-controls="list-home"
+    >
       <div class="d-flex gap-3 align-items-center">
-        <img class="icon-style" src="../../../../assets/img/setting.svg" alt="" />
-        <div>Settings</div>
+        <img
+          class="icon-style"
+          src="../../../../assets/img/setting.svg"
+          alt=""
+        />
+        <div>{{ "setting" | translate }}</div>
       </div>
     </a>
   </div>

@@ -7,8 +7,15 @@ export class TranslationService {
     translate.addLangs(['en', 'ar']);
     translate.setDefaultLang('en');
 
+    const savedLang = localStorage.getItem('app_language');
     const browserLang = translate.getBrowserLang();
-    const lang = browserLang && ['en', 'ar'].includes(browserLang) ? browserLang : 'en';
+    const lang =
+      savedLang && ['en', 'ar'].includes(savedLang)
+        ? savedLang
+        : browserLang && ['en', 'ar'].includes(browserLang)
+          ? browserLang
+          : 'en';
+
     this.setLanguage(lang);
   }
 
@@ -16,6 +23,7 @@ export class TranslationService {
     this.translate.use(lang);
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    localStorage.setItem('app_language', lang); // localStorage
   }
 
   get currentLang(): string {
