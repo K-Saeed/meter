@@ -16,7 +16,7 @@ export class EmployeesVerificationModalComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['phoneNumber'] && this.phoneNumber) {
-      this.sendOtp();
+      // this.sendOtp();
     }
   }
 

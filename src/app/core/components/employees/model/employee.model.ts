@@ -1,6 +1,8 @@
 export class Employee {
-  firstName!: string;
+  id!:number;
+  name!: string;
   email!: string;
-  msisdn!: string;
+  phoneNumber!: string;
   password!: string;
+  roleName!: string;
 }
