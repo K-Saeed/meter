@@ -36,27 +36,58 @@ export class EmployeesEditModalComponent {
     });
   }
 
-    ngOnChanges(): void {
+  ngOnChanges(): void {
     if (this.employee) {
       this.selectedVisibility = this.employee.role
       this.initializeForm();
     }
   }
   private initializeForm(): void {
+
     this.form = new FormGroup({
       name: new FormControl(this.employee.name, [Validators.required]),
       email: new FormControl(this.employee.email, [Validators.required, Validators.pattern(Regex.EMAIL_REGEX)]),
       countryCode: new FormControl({ value: '+966', disabled: true }, [Validators.required]),
-      phoneNumber: new FormControl(this.employee.phoneNumber, [Validators.required, Validators.pattern(Regex.PHONE_REGEX)]),
-      theTwoPasswords: new FormGroup(
-        {
-          password: new FormControl('', [Validators.required, Validators.pattern(Regex.PASSWORD_REGEX)]),
-          confirmPassword: new FormControl('', [Validators.required]),
-        },
-        [EmployeesAddModalComponent.isPasswordsMatching()]
-      ),
+      phoneNumber: new FormControl(this.getPhoneNumberWithoutPrefix(this.employee.phoneNumber), [Validators.required, Validators.pattern(Regex.PHONE_REGEX)]),
+      theTwoPasswords: this.getTheTwoPasswords()
     });
   }
+
+  getTheTwoPasswords() {
+    
+    const passwordControl = new FormControl('');
+    const confirmPasswordControl = new FormControl('');
+
+    const theTwoPasswords = new FormGroup(
+      {
+        password: passwordControl,
+        confirmPassword: confirmPasswordControl,
+      },
+      [EmployeesAddModalComponent.isPasswordsMatching()]
+    );
+
+    passwordControl.valueChanges.subscribe((value) => {
+      if (value) {
+        passwordControl.setValidators([Validators.pattern(Regex.PASSWORD_REGEX)]);
+        confirmPasswordControl.setValidators([Validators.required]);
+      } else {
+        passwordControl.clearValidators();
+        confirmPasswordControl.clearValidators();
+      }
+
+      passwordControl.updateValueAndValidity({ emitEvent: false });
+      confirmPasswordControl.updateValueAndValidity({ emitEvent: false });
+    });
+
+    return theTwoPasswords;
+  }
+
+  getPhoneNumberWithoutPrefix(phoneNumber: string | undefined): string {
+    if (!phoneNumber) return '';
+    return phoneNumber.replace(/^(\+?966)/, '');
+  }
+
+
 
   submit(): void {
     this.submitClicked = true;

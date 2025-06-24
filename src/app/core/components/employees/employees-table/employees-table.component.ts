@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
 import { EmployeeResponse } from '../model/employee-response.model';
 
@@ -8,12 +8,15 @@ import { EmployeeResponse } from '../model/employee-response.model';
   styleUrls: ['./employees-table.component.css']
 })
 export class EmployeesTableComponent {
+
+  @Input() searchTerm: string = '';
+  filteredUsers: EmployeeResponse[] = [];
   selectAll: boolean = false;
-  users: EmployeeResponse[] =[];
+  users: EmployeeResponse[] = [];
 
   selectedEmployee: EmployeeResponse = new EmployeeResponse();
 
-  constructor( private employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService) { }
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
@@ -21,6 +24,23 @@ export class EmployeesTableComponent {
   ngOnInit(): void {
     this.getAllEmployees()
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
+      this.filterUsers();
+    }
+  }
+
+
+  filterUsers() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredUsers = this.users.filter(user =>
+      user.name.toLowerCase().includes(term) ||
+      user.email.toLowerCase().includes(term) ||
+      user.phoneNumber.toLowerCase().includes(term)
+    );
+  }
+
   toggleAll(event: Event) {
     event.preventDefault();
     this.users.forEach(user => user.selected = this.selectAll);
@@ -30,19 +50,22 @@ export class EmployeesTableComponent {
     this.selectAll = this.users.every(user => user.selected);
   }
 
-  selectEmployee(employee: EmployeeResponse){
+  selectEmployee(employee: EmployeeResponse) {
+    console.log(employee);
+
     this.selectedEmployee = employee;
   }
 
-  getAllEmployees(){
+  getAllEmployees() {
     this.employeeService.getAllEmployees().subscribe({
-      next:(n)=>{
+      next: (n) => {
         console.log(n);
-        if(n){
+        if (n) {
           this.users = n;
+          this.filteredUsers = this.users;
         }
       },
-      error:(e)=>{
+      error: (e) => {
         console.log(e);
       }
     })
@@ -50,7 +73,7 @@ export class EmployeesTableComponent {
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.users.slice(start, end);
+    return this.filteredUsers.slice(start, end);
   }
 
   setPage(page: number, event: Event) {
