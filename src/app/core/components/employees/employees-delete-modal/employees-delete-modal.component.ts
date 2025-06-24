@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { EmployeeResponse } from '../model/employee-response.model';
 
 @Component({
   selector: 'app-employees-delete-modal',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class EmployeesDeleteModalComponent {
 
+  @Input() employee!: EmployeeResponse;
 }

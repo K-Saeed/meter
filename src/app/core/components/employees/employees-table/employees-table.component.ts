@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { EmployeeService } from 'src/app/shared/service/employee.service';
+import { EmployeeResponse } from '../model/employee-response.model';
 
 @Component({
   selector: 'app-employees-table',
@@ -7,25 +9,18 @@ import { Component } from '@angular/core';
 })
 export class EmployeesTableComponent {
   selectAll: boolean = false;
-  users = [
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-  ];
+  users: EmployeeResponse[] =[];
 
+  selectedEmployee: EmployeeResponse = new EmployeeResponse();
+
+  constructor( private employeeService: EmployeeService) {}
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
 
+  ngOnInit(): void {
+    this.getAllEmployees()
+  }
   toggleAll(event: Event) {
     event.preventDefault();
     this.users.forEach(user => user.selected = this.selectAll);
@@ -35,6 +30,23 @@ export class EmployeesTableComponent {
     this.selectAll = this.users.every(user => user.selected);
   }
 
+  selectEmployee(employee: EmployeeResponse){
+    this.selectedEmployee = employee;
+  }
+
+  getAllEmployees(){
+    this.employeeService.getAllEmployees().subscribe({
+      next:(n)=>{
+        console.log(n);
+        if(n){
+          this.users = n;
+        }
+      },
+      error:(e)=>{
+        console.log(e);
+      }
+    })
+  }
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;

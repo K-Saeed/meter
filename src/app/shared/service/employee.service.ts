@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from 'src/app/core/components/employees/model/employee.model';
+import { EmployeeResponse } from 'src/app/core/components/employees/model/employee-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,36 @@ export class EmployeeService {
     }
 
     return this.http.post<any>(apiUrl, formData);
+  }
+
+    getAllEmployees(): Observable<EmployeeResponse[]> {
+    const apiUrl = '/api/admin/user/get-all-employees';
+    return this.http.get<EmployeeResponse[]>(apiUrl);
+  }
+
+  
+  editEmployee(employeeDto: Employee
+    // , logoImage?: File
+
+  ): Observable<any> {
+    const apiUrl = '/api/admin/user/edit-employee';
+    const formData: FormData = new FormData();
+    formData.append(
+      'employeeDto',
+       new Blob([JSON.stringify(employeeDto)],
+        { type: 'application/json' })
+      );
+    // if (logoImage) {
+    //   formData.append('logo-image', logoImage);
+    // }
+
+    return this.http.put<any>(apiUrl, formData);
+  }
+
+  deleteEmployee(id:number){
+    const apiUrl = '/api/admin/user/delete-employee';
+
+    return this.http.delete<any>(`${apiUrl}/${id}`);
   }
 
   sendOtp(phoneNumber: string): Observable<any> {
