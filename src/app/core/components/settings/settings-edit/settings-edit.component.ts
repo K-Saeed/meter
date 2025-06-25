@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-settings-edit',
@@ -10,7 +11,12 @@ export class SettingsEditComponent implements OnInit {
   showPassword = false;
   showNewPassword = false;
   showConfirmPassword = false;
+  currentLang = this.translateService.currentLang;
 
+  constructor(
+    public translateService: TranslateService
+
+  ) { }
   ngOnInit() {
     const fileInput = document.getElementById('fileInput') as HTMLInputElement;
     const profilePic = document.getElementById('profilePic') as HTMLImageElement;

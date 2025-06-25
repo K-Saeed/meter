@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ProposalResponse } from '../models/porposal-table.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-proposal-show-modal',
@@ -12,7 +13,10 @@ export class ProposalShowModalComponent {
   activeLink: string = 'details';
   @Input() proposal?: ProposalResponse;
 
-  constructor() {}
+  constructor(
+    public translateService: TranslateService
+
+  ) { }
 
   ngOnInit(): void {
 
