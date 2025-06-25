@@ -165,5 +165,21 @@
   "type_message": "اكتب رسالة...",
   "send": "إرسال",
   "search_in_notifications": "ابحث في الإشعارات",
-  "send_notification": "إرسال إشعار"
+  "send_notification": "إرسال إشعار",
+  "sent": "تم الإرسال",
+  "scheduled": "مجدولة",
+  "notification_details": "تفاصيل الإشعار",
+  "notification_id": "رقم الإشعار",
+  "message": "الرسالة",
+  "recipients": "المستلمون",
+  "date_sent": "تاريخ الإرسال",
+  "delivery_status": "حالة التسليم",
+  "delivered_to": "تم التسليم إلى ",
+  "date": "التاريخ",
+  "visibility": "الظهور",
+  "published": "منشور",
+  "choose_recipients": "اختر المستلمين",
+  "enter_message": "أدخل الرسالة",
+  "enter_title": "أدخل العنوان",
+  "failed_to_deliver_to": "فشل التسليم إلى "
 }

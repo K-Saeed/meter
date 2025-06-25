@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NotificationResponse } from '../models/notification-response.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notifications-show-modal',
@@ -9,4 +10,8 @@ import { NotificationResponse } from '../models/notification-response.model';
 export class NotificationsShowModalComponent {
 
   @Input() notification!: NotificationResponse;
+  constructor(
+    public translateService: TranslateService
+
+  ) { }
 }

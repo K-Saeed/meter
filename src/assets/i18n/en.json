@@ -165,5 +165,21 @@
   "type_message": "Type a message...",
   "send": "Send",
   "search_in_notifications": "Search in notifications",
-  "send_notification": "Send Notification"
+  "send_notification": "Send Notification",
+  "sent": "Sent",
+  "scheduled": "Scheduled",
+  "notification_details": "Notification Details",
+  "notification_id": "Notification ID",
+  "message": "Message",
+  "recipients": "Recipients",
+  "date_sent": "Date Sent",
+  "delivery_status": "Delivery Status",
+  "delivered_to": "Delivered to ",
+  "failed_to_deliver_to": "Failed to deliver to ",
+  "enter_title": "Enter Title",
+  "visibility": "Visibility",
+  "published": "Published",
+  "choose_recipients": "Choose Recipients",
+   "date": "Date",
+  "enter_message": "Enter Message"
 }
