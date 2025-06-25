@@ -1,13 +1,16 @@
 <div class="d-flex align-items-center justify-content-between">
   <div class="d-flex align-items-center gap-2">
     <div class="search-container d-flex align-items-center position-relative">
-      <span class="search-icon p-2">
-        <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
+      <span class="search-icon p-2" [ngClass]="currentLang === 'ar' ? 'icon-rtl' : 'icon-ltr'">
+        <img
+          src="../../../../../assets/img/search-normal.svg"
+          alt="Search Icon"
+        />
       </span>
       <input
         type="text"
         class="form-control search-input"
-        placeholder="Search by Request ID"
+        [placeholder]="'search_by_request_id' | translate"
         [(ngModel)]="searchTerm"
         (input)="applySearch()"
       />
@@ -18,7 +21,7 @@
       data-bs-target="#filterModal"
     >
       <img src="../../../../../assets/img/filter.svg" alt="" />
-      <span>Filter</span>
+      <span>{{ "filter" | translate }}</span>
     </button>
   </div>
 </div>

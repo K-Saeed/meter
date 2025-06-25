@@ -1,116 +1,316 @@
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="editModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <form [formGroup]="editForm">
     <div class="modal-dialog">
-      <div class="modal-content d-flex gap-2 ">
+      <div class="modal-content d-flex gap-2">
         <div class="modal-header p-2 z-1">
-          <h1 class="modal-title" id="exampleModalLabel">Edit Request</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title" id="exampleModalLabel">
+            {{ "edit_request" | translate }}
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            [ngClass]="
+              translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+            "
+          ></button>
         </div>
         <div class="d-flex">
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
-              <label for="Type" class="position-absolute label-style">Type of Activity</label>
-              <input formControlName="type" type="text" id="Type" class="input-style" [attr.disabled]="true" />
+              <label
+                for="Type"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "type_of_activity" | translate }}</label
+              >
+              <input
+                formControlName="type"
+                type="text"
+                id="Type"
+                class="input-style"
+                [attr.disabled]="true"
+              />
             </div>
           </div>
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
-              <label for="title" class="position-absolute label-style">Request Title</label>
-              <input formControlName="title" type="text" id="title" class="input-style"
-                placeholder="Enter Request Title" />
+              <label
+                for="title"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "request_title" | translate }}</label
+              >
+              <input
+                formControlName="title"
+                type="text"
+                id="title"
+                class="input-style"
+                placeholder="{{ 'enter_request_title' | translate }}"
+              />
             </div>
-
           </div>
         </div>
-        <app-job-modal formGroupName="job" *ngIf="request?.type === 'Engineering Job'" [job]="request?.jobRequestDto"
-          [form]="this.editForm"></app-job-modal>
-        <app-request-modal formGroupName="request" *ngIf="request?.type === 'Request Service'"
-          [requestService]="request?.requestServiceDto" [form]="this.editForm"></app-request-modal>
-        <app-consolation-modal formGroupName="consolation" *ngIf="request?.type === 'Consolation'"
-          [consolation]="request?.consultationRequestDto" [form]="this.editForm"></app-consolation-modal>
+        <app-job-modal
+          formGroupName="job"
+          *ngIf="request?.type === 'Engineering Job'"
+          [job]="request?.jobRequestDto"
+          [form]="this.editForm"
+        ></app-job-modal>
+        <app-request-modal
+          formGroupName="request"
+          *ngIf="request?.type === 'Request Service'"
+          [requestService]="request?.requestServiceDto"
+          [form]="this.editForm"
+        ></app-request-modal>
+        <app-consolation-modal
+          formGroupName="consolation"
+          *ngIf="request?.type === 'Consolation'"
+          [consolation]="request?.consultationRequestDto"
+          [form]="this.editForm"
+        ></app-consolation-modal>
         <div class="d-flex my-2">
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
-              <label for="Neighborhood" class="position-absolute label-style">Neighborhood</label>
-              <input type="text" id="Neighborhood" placeholder="Enter Neighborhood" class="input-style"
-                formControlName="neighborhood" />
+              <label
+                for="Neighborhood"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "neighborhood" | translate }}</label
+              >
+              <input
+                type="text"
+                id="Neighborhood"
+                placeholder="{{ 'enter_neighborhood' | translate }}"
+                class="input-style"
+                formControlName="neighborhood"
+              />
             </div>
             <div class="position-relative input-container">
-              <label for="Region" class="position-absolute label-style">Region</label>
-              <input type="text" id="region" placeholder="Enter Region" class="input-style" formControlName="region" />
+              <label
+                for="Region"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "region" | translate }}</label
+              >
+              <input
+                type="text"
+                id="region"
+                placeholder="{{ 'enter_region' | translate }}"
+                class="input-style"
+                formControlName="region"
+              />
             </div>
             <div class="position-relative input-container">
-              <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
+              <label
+                for="phone"
+                class="position-absolute z-1 label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "phone_number" | translate }}</label
+              >
               <div class="input-wrapper">
-                <img src="../../../../../assets/img/SA.svg" class="flag-icon ps-1 position-absolute" />
-                <input formControlName="phoneNumber" type="text" id="phone" class="input-style" [value]="phoneNumber"
-                  (input)="onPhoneInput($event)" style="padding-left: 2.5rem" />
+                <img
+                  src="../../../../../assets/img/SA.svg"
+                  class="flag-icon ps-1 position-absolute"
+                />
+                <input
+                  formControlName="phoneNumber"
+                  type="text"
+                  id="phone"
+                  class="input-style"
+                  [value]="phoneNumber"
+                  (input)="onPhoneInput($event)"
+                  style="padding-left: 2.5rem"
+                />
               </div>
             </div>
           </div>
           <div class="d-flex flex-column mx-2" style="gap: 2rem">
             <div class="position-relative input-container">
-              <label for="City" class="position-absolute label-style">City</label>
-              <input formControlName="city" type="text" id="City" placeholder="Enter City" class="input-style"
-                formControlName="city" />
+              <label
+                for="City"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "city" | translate }}</label
+              >
+              <input
+                formControlName="city"
+                type="text"
+                id="City"
+                placeholder="{{ 'enter_city' | translate }}"
+                class="input-style"
+                formControlName="city"
+              />
             </div>
             <div class="position-relative input-container">
-              <label for="Location" class="position-absolute label-style">Location</label>
-              <img src="../../../../../../../assets/img/location.svg" alt="" srcset="" class="calendar-icon" />
-              <input formControlName="location" type="text" id="Location" placeholder="Enter City" class="input-style"
-                style="padding-left: 40px" />
+              <label
+                for="Location"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "location" | translate }}</label
+              >
+              <img
+                src="../../../../../../../assets/img/location.svg"
+                alt=""
+                srcset=""
+                class="calendar-icon"
+              />
+              <input
+                formControlName="location"
+                type="text"
+                id="Location"
+                placeholder="{{ 'enter_location' | translate }}"
+                class="input-style"
+                style="padding-left: 40px"
+              />
             </div>
-
           </div>
         </div>
         <div class="position-relative input-container my-1 mx-2">
-          <label for="title" class="position-absolute label-style">Description of Services</label>
-          <textarea formControlName="description" type="text" id="title" placeholder="Enter Description of Services"
-            class="input-style w-100 overflow-hidden" style="height: 85px"></textarea>
+          <label
+            for="title"
+            class="position-absolute label-style"
+            [ngClass]="
+              currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+            "
+            >{{ "description_of_services" | translate }}</label
+          >
+          <textarea
+            formControlName="description"
+            type="text"
+            id="title"
+            placeholder="{{ 'enter_description_of_services' | translate }}"
+            class="input-style w-100 overflow-hidden"
+            style="height: 85px"
+          ></textarea>
         </div>
-        <div class="position-relative input-container my-1 boder-style d-flex flex-row gap-2 mx-2">
-          <div *ngIf="!uploadedFiles.length && !requestFiles.length"
-            class="upload-instructions d-flex flex-column justify-content-center align-items-center gap-2">
-            <img src="../../../../../../../assets/img/document-upload.svg" alt="" class="w-25" />
-            <h2 class="m-0">Click to Upload</h2>
-            <h6 class="m-0">(Maximum file size: 25MB)</h6>
+        <div
+          class="position-relative input-container my-1 boder-style d-flex flex-row gap-2 mx-2"
+        >
+          <div
+            *ngIf="!uploadedFiles.length && !requestFiles.length"
+            class="upload-instructions d-flex flex-column justify-content-center align-items-center gap-2"
+          >
+            <img
+              src="../../../../../../../assets/img/document-upload.svg"
+              alt=""
+              class="w-25"
+            />
+            <h2 class="m-0">{{ "click_to_upload" | translate }}</h2>
+            <h6 class="m-0">{{ "max_file_size" | translate }}</h6>
           </div>
 
-          <input type="file" name="file" multiple (change)="onFilesSelected($event)" />
+          <input
+            type="file"
+            name="file"
+            multiple
+            (change)="onFilesSelected($event)"
+          />
 
           <div class="file-container d-flex flex-wrap gap-2 p-2">
-            <div *ngFor="let file of requestFiles" class="file-item position-relative">
-              <button (click)="removeFileFromRequestFiles(file)" class="close-button position-absolute ">×</button>
+            <div
+              *ngFor="let file of requestFiles"
+              class="file-item position-relative"
+            >
+              <button
+                (click)="removeFileFromRequestFiles(file)"
+                class="close-button position-absolute"
+              >
+                ×
+              </button>
 
               <ng-container [ngSwitch]="getFileType(file.fileType)">
-                <img *ngSwitchCase="'image'" [src]="file.filePath" [alt]="file.fileName" class="file-preview-image" />
-                <img *ngSwitchCase="'pdf'" class="file-preview-image" src="/assets/img/pdf.svg">
-                <img *ngSwitchCase="'text'" class="file-preview-image" src="/assets/img/txt.svg">
-                <img *ngSwitchCase="'document'" class="file-preview-image" src="/assets/img/doc.svg">
-                <img *ngSwitchDefault class="file-preview-image" src="/assets/img/unknown.svg">
+                <img
+                  *ngSwitchCase="'image'"
+                  [src]="file.filePath"
+                  [alt]="file.fileName"
+                  class="file-preview-image"
+                />
+                <img
+                  *ngSwitchCase="'pdf'"
+                  class="file-preview-image"
+                  src="/assets/img/pdf.svg"
+                />
+                <img
+                  *ngSwitchCase="'text'"
+                  class="file-preview-image"
+                  src="/assets/img/txt.svg"
+                />
+                <img
+                  *ngSwitchCase="'document'"
+                  class="file-preview-image"
+                  src="/assets/img/doc.svg"
+                />
+                <img
+                  *ngSwitchDefault
+                  class="file-preview-image"
+                  src="/assets/img/unknown.svg"
+                />
               </ng-container>
-
             </div>
-
           </div>
 
-          <div *ngFor="let preview of filePreviews; let i = index"
-            class="uploaded-file-preview d-flex align-items-center position-relative">
+          <div
+            *ngFor="let preview of filePreviews; let i = index"
+            class="uploaded-file-preview d-flex align-items-center position-relative"
+          >
+            <button
+              (click)="removeFile(i)"
+              class="close-button position-absolute"
+            >
+              ×
+            </button>
 
-            <button (click)="removeFile(i)" class="close-button position-absolute ">×</button>
+            <img
+              *ngIf="isImageFile(uploadedFiles[i])"
+              [src]="preview"
+              alt="Uploaded Image"
+              class="file-preview-image"
+            />
 
-            <img *ngIf="isImageFile(uploadedFiles[i])" [src]="preview" alt="Uploaded Image" class="file-preview-image" />
-
-            <img *ngIf="!isImageFile(uploadedFiles[i])" src="/assets/img/unknown.svg" class="file-preview-image">
+            <img
+              *ngIf="!isImageFile(uploadedFiles[i])"
+              src="/assets/img/unknown.svg"
+              class="file-preview-image"
+            />
           </div>
         </div>
 
-        <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
+        <div
+          class="d-flex gap-3 justify-content-end"
+          style="margin: 20px 10px 20px 0px"
+        >
           <button type="button" class="reject-btn" data-bs-toggle="modal">
-            Cancel
+            {{ "cancel" | translate }}
           </button>
-          <button type="submit" class="approve-btn" data-bs-toggle="modal" (click)="onSubmit()">
-            Save
+          <button
+            type="submit"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            (click)="onSubmit()"
+          >
+            {{ "save" | translate }}
           </button>
         </div>
       </div>

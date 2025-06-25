@@ -80,7 +80,7 @@
 .label-style {
   position: absolute;
   top: 0;
-  left: 10px;
+  /* left: 10px; */
   transform: translateY(-50%);
   background-color: white;
   padding: 0 5px;
@@ -89,6 +89,12 @@
   font-weight: 400;
   font-family: Inter;
   line-height: 14.52px;
+}
+.label-style-rtl {
+  right: 10px;
+}
+.label-style-ltr {
+  left: 10px;
 }
 
 .input-style,

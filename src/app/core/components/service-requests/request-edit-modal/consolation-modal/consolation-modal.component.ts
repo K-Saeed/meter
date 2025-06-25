@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ConsultationRequestDto } from "../../models/request-consultion-dto";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-consolation-modal",
@@ -11,6 +12,7 @@ export class ConsolationModalComponent implements OnInit {
   @Input() consolation?: ConsultationRequestDto;
   @Input() form?: FormGroup;
   consolationForm!: FormGroup;
+  currentLang = this.translateService.currentLang;
 
   consultationDropdownOpen = false;
   selectedConsultation: string = "";
@@ -23,7 +25,10 @@ export class ConsolationModalComponent implements OnInit {
     { name: "Real Estate", selected: false },
     { name: "Engineering", selected: false },
   ];
+  constructor(
+    public translateService: TranslateService
 
+  ) { }
   ngOnInit(): void {
     this.selectedConsultation = this.consolation?.type || '';
 

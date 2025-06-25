@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FormDataService } from "../form-data.service";
 import { JobRequestDto } from "../../models/job-request.model";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-job-modal",
@@ -16,8 +17,12 @@ export class JobModalComponent implements OnInit {
 
   jobForm!: FormGroup;
   @Input() form?: FormGroup;
+  currentLang = this.translateService.currentLang;
 
-  constructor(private formDataService: FormDataService) {}
+  constructor(private formDataService: FormDataService,
+    public translateService: TranslateService
+
+  ) { }
 
   ngOnInit(): void {
     this.selectedCertificate = this.job?.certificateType || '';
