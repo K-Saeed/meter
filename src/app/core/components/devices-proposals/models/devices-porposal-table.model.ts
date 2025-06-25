@@ -7,6 +7,7 @@ export interface DevicesProposalResponse {
   productName: string;
   customerEmail: string;
   customerName: string;
+  customerMobile: string;
   customerRole: string;
   customerImage: string;
   requestType: string;
@@ -21,6 +22,7 @@ export interface DevicesProposalResponse {
   rentHours: string;
   ownerEmail: string;
   ownerName: string;
+  ownerMobile: string;
   latitude: string;
   longitude: string;
   deviceWithWorker: string;
