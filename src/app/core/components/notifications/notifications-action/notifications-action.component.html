@@ -1,7 +1,10 @@
 <div class="d-flex align-items-center justify-content-between">
   <div class="d-flex align-items-center gap-2">
     <div class="search-container d-flex align-items-center position-relative">
-      <span class="search-icon p-2">
+      <span
+        class="search-icon p-2"
+        [ngClass]="currentLang === 'ar' ? 'icon-rtl' : 'icon-ltr'"
+      >
         <img
           src="../../../../../assets/img/search-normal.svg"
           alt="Search Icon"
@@ -10,7 +13,7 @@
       <input
         type="text"
         class="form-control search-input"
-        placeholder="Search in notifications"
+        [placeholder]="'search_in_notifications' | translate"
       />
     </div>
     <button
@@ -19,19 +22,24 @@
       data-bs-target="#proposalFilterModal"
     >
       <img src="../../../../../assets/img/filter.svg" alt="" />
-      <span>Filter</span>
+      <span>{{ "filter" | translate }}</span>
     </button>
   </div>
+
   <ng-container *appHasPermission="{ page: 'notifications', action: 'WRITE' }">
-  <button
-    class="btn-orange d-flex align-items-center gap-2"
-    data-bs-toggle="modal"
-    data-bs-target="#sendModal"
-  >
-    <img src="../../../../../assets/img/add.svg" alt="" srcset="" />
-    <span>send Notification</span>
-  </button>
+    <button
+      class="btn-orange d-flex align-items-center gap-2"
+      data-bs-toggle="modal"
+      data-bs-target="#sendModal"
+      [ngStyle]="{
+        width: currentLang === 'ar' ? '115px' : '152px'
+      }"
+    >
+      <img src="../../../../../assets/img/add.svg" alt="" />
+      <span>{{ "send_notification" | translate }}</span>
+    </button>
   </ng-container>
 </div>
+
 <app-notifications-filter-modal></app-notifications-filter-modal>
 <app-notifications-send-modal></app-notifications-send-modal>

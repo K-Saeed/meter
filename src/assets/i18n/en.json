@@ -163,5 +163,7 @@
   "merchants": "Merchants",
   "filtered_list": "Filtered List",
   "type_message": "Type a message...",
-  "send": "Send"
+  "send": "Send",
+  "search_in_notifications": "Search in notifications",
+  "send_notification": "Send Notification"
 }

@@ -163,5 +163,7 @@
   "merchants": "البائعون",
   "filtered_list": "القائمة المصفاة",
   "type_message": "اكتب رسالة...",
-  "send": "إرسال"
+  "send": "إرسال",
+  "search_in_notifications": "ابحث في الإشعارات",
+  "send_notification": "إرسال إشعار"
 }

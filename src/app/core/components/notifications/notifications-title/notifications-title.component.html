@@ -1,13 +1,20 @@
 <div class="title-page d-flex flex-column">
   <nav aria-label="breadcrumb">
-    <ol class="breadcrumb bg-transparent m-0 p-0">
+    <ol
+      class="breadcrumb bg-transparent m-0 p-0"
+      [ngClass]="currentLang === 'ar' ? 'breadcrumb-rtl' : 'breadcrumb-ltr'"
+    >
       <li class="breadcrumb-item">
-        <a href="#" class="text-decoration-none">Dashboard</a>
+        <a href="#" class="text-decoration-none">{{
+          "dashboard" | translate
+        }}</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        <a href="#" class="text-decoration-none">Notifications</a>
+        <a href="#" class="text-decoration-none">{{
+          "notifications" | translate
+        }}</a>
       </li>
     </ol>
   </nav>
-  <h2 class="m-0">Notifications</h2>
+  <h2 class="m-0">{{ "notifications" | translate }}</h2>
 </div>
