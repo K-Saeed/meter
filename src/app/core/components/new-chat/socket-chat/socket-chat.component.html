@@ -4,11 +4,11 @@
 
     <div class="d-flex flex-column">
       <div class="message-style d-flex align-items-center gap-3 border-bottom">
-        <h3 class="m-0">Messages</h3>
+        <h3 class="m-0">{{ "messages" | translate }}</h3>
         <span>{{chatRooms.length}}</span>
         <h3 class="m-0">|</h3>
         <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#filterChatDialog">
-          <span class="m-0">Filter & Send</span>
+          <span class="m-0">{{ "filter_send" | translate }}</span>
         </button>
       </div>
       <app-send-to-all [key]="key" [socket]="socket"></app-send-to-all>
@@ -16,7 +16,8 @@
         <span class="search-icon p-2">
           <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
         </span>
-        <input type="text" class="form-control search-input" placeholder="Search in employees" />
+        <input type="text" class="form-control search-input" [placeholder]="'search_in_clients' | translate"
+        />
       </div>
     </div>
 
