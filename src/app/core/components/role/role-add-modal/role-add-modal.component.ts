@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RoleService } from '../service/role.service';
+import { EmployeeService } from 'src/app/shared/service/employee.service';
 
 @Component({
   selector: 'app-role-add-modal',
@@ -11,8 +11,8 @@ export class RoleAddModalComponent implements OnInit {
   pages: any[] = [];
   roleName: string = '';
   constructor(
-    private roleService: RoleService
-  ) {}
+    private employeeService: EmployeeService
+  ) { }
 
   ngOnInit() {
     this.loadPages();
@@ -31,23 +31,41 @@ export class RoleAddModalComponent implements OnInit {
       { id: 8, name: 'Notifications', view: false, edit: false, delete: false, add: false },
       { id: 9, name: 'Employees', view: false, edit: false, delete: false, add: false },
       { id: 10, name: 'Roles', view: false, edit: false, delete: false, add: false },
+      { id: 11, name: 'Conversations', view: false, edit: false, delete: false, add: false },
+      { id: 12, name: 'Chat', view: false, edit: false, delete: false, add: false },
     ];
   }
 
 
   saveRole() {
+    const permissions: { [key: string]: string[] } = {};
+
+    this.pages.forEach(page => {
+      const perms: string[] = [];
+      if (page.view) perms.push('READ');
+      if (page.edit) perms.push('EDIT');
+      if (page.delete) perms.push('DELETE');
+      if (page.add) perms.push('WRITE');
+
+      if (perms.length > 0) {
+        permissions[page.name.toLowerCase().replace(/\s/g, '_')] = perms;
+      }
+    });
+
     const roleDto = {
       name: this.roleName,
-      pagePermission: this.pages.map(page => ({
-        id: page.id,
-        name: page.name,
-        permissions: ['view', 'edit', 'delete', 'add'].filter(perm => page[perm])
-      }))
+      permissions: permissions
     };
 
-    this.roleService.addRole(roleDto).subscribe({
-      next: () => alert('Role added successfully!'),
-      error: (error) => alert('Error adding role: ' + error.message)
+    console.log(roleDto);
+
+    this.employeeService.addRole(roleDto).subscribe({
+      next:(n)=>{
+        console.log(n)
+      },
+      error:(e)=>{
+        console.log(e)
+      }
     });
   }
 
