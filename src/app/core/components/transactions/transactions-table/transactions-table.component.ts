@@ -3,6 +3,7 @@ import { TransactionResponse } from '../model/transaction.model';
 import { TransactionService } from 'src/app/shared/service/transaction-call.service';
 import { Subscription, switchMap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-transactions-table',
   templateUrl: './transactions-table.component.html',
@@ -25,7 +26,8 @@ export class TransactionsTableComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private cdr: ChangeDetectorRef,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    
   ) {
     this.currentLang = this.translateService.currentLang;
     this.translateService.onLangChange.subscribe((lang) => {

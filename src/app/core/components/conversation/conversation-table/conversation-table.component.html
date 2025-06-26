@@ -2,48 +2,22 @@
   <table class="table my-4">
     <thead class="table-light">
       <tr>
-        <!-- <th scope="col">
-          <input
-            type="checkbox"
-            [(ngModel)]="selectAll"
-            (change)="toggleAll($event)"
-          />
-        </th> -->
-        <!-- <th scope="col" class="title-table">
-          <p class="m-0">ID</p>
-        </th> -->
         <th scope="col" class="title-table">
-          <p class="m-0">Service Provider Name</p>
+          <p class="m-0">{{ "service_provider_name" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Customer Name</p>
+          <p class="m-0">{{ "customer_name" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Date Submitted</p>
+          <p class="m-0">{{ "date_submitted" | translate }}</p>
         </th>
-        <!-- <th scope="col" class="title-table">
-            <p class="m-0">Type of Service</p>
-          </th> -->
-        <!-- <th scope="col" class="title-table">
-          <p class="m-0">Status</p>
-        </th> -->
         <th scope="col" class="title-table">
-          <p class="m-0">Actions</p>
+          <p class="m-0">{{ "actions" | translate }}</p>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let chatRoom of paginatedChatRooms">
-        <!-- <th scope="row">
-          <input
-            type="checkbox"
-            [(ngModel)]="user.selected"
-            (change)="checkIfAllSelected()"
-          />
-        </th> -->
-        <!-- <td>
-          <h4 class="m-0">{{ chatroom.id }}</h4>
-        </td> -->
         <td>
           <h4 class="m-0">{{ chatRoom.senderProfile?.name }}</h4>
         </td>
@@ -53,66 +27,123 @@
         <td>
           <h4 class="m-0">{{ chatRoom.lastMessageTimestamp }}</h4>
         </td>
-
         <td>
-          <div class="" (click)="getMessagesByChatId(chatRoom)">
-            <!-- Actions Icons -->
-            <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#chatModal"
-              src="../../../../../assets/img/message-add.svg" alt="chat" />
+          <div (click)="getMessagesByChatId(chatRoom)">
+            <img
+              class="cursor-pointer pe-2"
+              data-bs-toggle="modal"
+              data-bs-target="#chatModal"
+              src="../../../../../assets/img/message-add.svg"
+              alt="{{ 'chat' | translate }}"
+            />
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <app-conversation-chat-modal [chatRoom]="selectedChatRoom" [messages]="messages"></app-conversation-chat-modal>
+
+  <app-conversation-chat-modal
+    [chatRoom]="selectedChatRoom"
+    [messages]="messages"
+  ></app-conversation-chat-modal>
   <app-proposal-show-modal></app-proposal-show-modal>
-  <div class="font d-flex align-items-center justify-content-between my-4 pagination-space">
+
+  <div
+    class="font d-flex align-items-center justify-content-between my-4 pagination-space"
+  >
     <h5 class="left m-0">
-      Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{
-      Math.min(currentPage * itemsPerPage, chatRooms.length)
-      }} of {{ chatRooms.length }} entries
+      {{ "showing" | translate }}
+      {{ (currentPage - 1) * itemsPerPage + 1 }}
+      {{ "to" | translate }}
+      {{ Math.min(currentPage * itemsPerPage, chatRooms.length) }}
+      {{ "of" | translate }}
+      {{ chatRooms.length }}
+      {{ "entries" | translate }}
     </h5>
+
+    <!-- Pagination -->
     <nav aria-label="Page navigation example">
       <ul class="pagination gap-2 m-0 align-items-center">
-        <!-- Previous Button -->
         <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link previous" href="#" aria-label="Previous" (click)="setPage(currentPage - 1, $event)">
-            <span aria-hidden="true">
-              <img src="../../../../../assets/img/arrow-left.svg" alt="Previous" />
+          <a
+            class="page-link previous"
+            href="#"
+            aria-label="Previous"
+            (click)="setPage(currentPage - 1, $event)"
+          >
+            <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-left.svg"
+                alt="Previous"
+              />
+            </span>
+            <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-right.svg"
+                alt="السابق"
+              />
             </span>
           </a>
         </li>
 
-        <!-- Page Number Links -->
-        <li *ngFor="let page of getPagination()" class="page-item" [class.active]="page === currentPage"
-          [class.disabled]="page === -1">
-          <a class="page-link" href="#" *ngIf="page !== -1" (click)="setPage(page, $event)">
+        <li
+          *ngFor="let page of getPagination()"
+          class="page-item"
+          [class.active]="page === currentPage"
+          [class.disabled]="page === -1"
+        >
+          <a
+            class="page-link"
+            href="#"
+            *ngIf="page !== -1"
+            (click)="setPage(page, $event)"
+          >
             {{ page }}
           </a>
           <span class="page-link" *ngIf="page === -1">...</span>
         </li>
-
-        <!-- Next Button -->
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link next" href="#" aria-label="Next" (click)="setPage(currentPage + 1, $event)">
-            <span aria-hidden="true">
+        <li
+          class="page-item"
+          [class.disabled]="
+            currentPage === Math.ceil(chatRooms.length / itemsPerPage)
+          "
+        >
+          <a
+            class="page-link next"
+            href="#"
+            aria-label="Next"
+            (click)="setPage(currentPage + 1, $event)"
+          >
+            <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
               <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
+            </span>
+            <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-left.svg"
+                alt="التالي"
+              />
             </span>
           </a>
         </li>
       </ul>
     </nav>
 
+    <!-- Page Size Selector -->
     <div class="font d-flex align-items-center">
-      <h5 class="m-0 me-2">Show</h5>
+      <h5 class="m-0 me-2">{{ "show" | translate }}</h5>
       <div class="select-wrapper">
-        <select class="form-select mx-2 custom-select" [(ngModel)]="itemsPerPage" (change)="setPage(1, $event)">
-          <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">{{ option }}</option>
+        <select
+          class="form-select mx-2 custom-select"
+          [(ngModel)]="itemsPerPage"
+          (change)="setPage(1, $event)"
+        >
+          <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">
+            {{ option }}
+          </option>
         </select>
         <i class="fa-solid fa-chevron-down custom-select-icon"></i>
       </div>
-      <h5 class="m-0 ms-2">entries</h5>
+      <h5 class="m-0 ms-2">{{ "entries" | translate }}</h5>
     </div>
   </div>
-
 </div>

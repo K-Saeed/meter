@@ -200,5 +200,9 @@
   "payment_method": "Payment Method",
   "transaction_notes": "Transaction Notes",
   "involved_parties": "Involved Parties",
-  "breakdown_of_charges": "Breakdown of Charges"
+  "breakdown_of_charges": "Breakdown of Charges",
+  "conversations": "Conversations",
+  "search_icon": "Search Icon",
+  "search_in_conversations": "Search in conversations",
+  "sync": "Sync"
 }

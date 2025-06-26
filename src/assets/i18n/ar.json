@@ -200,5 +200,9 @@
   "payment_method": "طريقة الدفع",
   "transaction_notes": "ملاحظات المعاملة",
   "involved_parties": "الأطراف المعنية",
-  "breakdown_of_charges": "تفاصيل الرسوم"
+  "breakdown_of_charges": "تفاصيل الرسوم",
+  "conversations": "المحادثات",
+  "search_icon": "أيقونة البحث",
+  "search_in_conversations": "البحث في المحادثات",
+  "sync": "مزامنة"
 }

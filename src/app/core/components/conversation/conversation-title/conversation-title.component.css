@@ -11,10 +11,24 @@
   color: #1c1c1c80;
 }
 .breadcrumb-item + .breadcrumb-item::before {
-  float: left;
   padding-right: var(--bs-breadcrumb-item-padding-x);
   color: #1c1c1c80;
   content: var(--bs-breadcrumb-divider, "/");
+}
+/* Left-to-right breadcrumb */
+.breadcrumb-ltr .breadcrumb-item + .breadcrumb-item::before {
+  float: left;
+  padding-right: 0.5rem;
+  padding-left: 0;
+  content: "/";
+}
+
+/* Right-to-left breadcrumb */
+.breadcrumb-rtl .breadcrumb-item + .breadcrumb-item::before {
+  float: right;
+  padding-left: 0.5rem;
+  padding-right: 0;
+  content: "/";
 }
 .title-page h2 {
   font-size: 24px;
