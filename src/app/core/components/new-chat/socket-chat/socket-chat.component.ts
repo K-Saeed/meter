@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { ChatRoom, Message, UserProfile } from '../chat-classes';
 import { SocketChatService } from '../socket-chat.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-socket-chat',
@@ -9,7 +10,7 @@ import { SocketChatService } from '../socket-chat.service';
   styleUrls: ['./socket-chat.component.css']
 })
 export class SocketChatComponent {
-
+  currentLang: string = 'en';
   public socket!: Socket;
   key: string = '';
   public message: string = '';
@@ -23,7 +24,9 @@ export class SocketChatComponent {
   fileToBeUploaded!: File | null;
   filePreview!: (string | ArrayBuffer | null);
   secretId: string = '';
-  constructor(private socketChatService: SocketChatService) {
+  constructor(private socketChatService: SocketChatService, private translateService: TranslateService) {
+    this.currentLang = this.translateService.currentLang;
+
   }
 
   ngOnInit(): void {

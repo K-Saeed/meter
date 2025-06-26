@@ -180,6 +180,12 @@
   "visibility": "Visibility",
   "published": "Published",
   "choose_recipients": "Choose Recipients",
-   "date": "Date",
-  "enter_message": "Enter Message"
+  "date": "Date",
+  "enter_message": "Enter Message",
+  "work_submission": "Work Submission",
+  "work_submission_details": "Work Submission Details",
+  "search_in_work_submission": "Search in work submission",
+  "are_you_sure_reject_submission": "Are you sure you want to reject this submission?",
+  "are_you_sure_approve_submission": "Are you sure you want to approve this submission?",
+  "no_data_available": "No data available"
 }

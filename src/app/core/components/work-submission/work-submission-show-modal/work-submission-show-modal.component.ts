@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-work-submission-show-modal',
@@ -10,7 +11,9 @@ export class WorkSubmissionShowModalComponent {
   activeLink: string = 'details';
   selectedSubmissionId!: string;
   selectedSubmissionType!: string;
-
+  constructor(
+    public translateService: TranslateService
+  ) { }
   setActiveLink(link: string, event: Event) {
     event.preventDefault();
     this.activeLink = link;

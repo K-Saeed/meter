@@ -16,6 +16,9 @@
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
         ></button>
       </div>
       <div class="modal-body">

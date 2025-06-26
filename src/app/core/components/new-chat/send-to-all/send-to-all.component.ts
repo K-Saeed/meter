@@ -5,6 +5,7 @@ import { UserService } from '../../users/services/user.service';
 import { Message } from '../chat-classes';
 import { SocketChatService } from '../socket-chat.service';
 import { io, Socket } from 'socket.io-client';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-send-to-all',
@@ -13,8 +14,8 @@ import { io, Socket } from 'socket.io-client';
 })
 export class SendToAllComponent {
 
-  @Input() key:string ='';
-  @Input() socket!:Socket;
+  @Input() key: string = '';
+  @Input() socket!: Socket;
   activeRole: string | null = null;
   activeStatus: string | null = null;
   status!: string;
@@ -32,9 +33,10 @@ export class SendToAllComponent {
   message: string = '';
 
   private statusTypeSubscription!: Subscription;
-  constructor(private userService: UserService, private cdr: ChangeDetectorRef, private socketChatService: SocketChatService) {
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef, private socketChatService: SocketChatService,
+    public translateService: TranslateService) {
 
-   }
+  }
 
   ngOnInit() {
     this.statusTypeSubscription = combineLatest([

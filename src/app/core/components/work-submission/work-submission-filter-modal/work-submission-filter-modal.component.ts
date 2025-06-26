@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-work-submission-filter-modal',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
 })
 export class WorkSubmissionFilterModalComponent {
   activeLinks: string[] = [];
-
+  constructor(
+    public translateService: TranslateService
+  ) { }
   toggleLink(link: string, event: Event): void {
     event.preventDefault();
     if (this.activeLinks.includes(link)) {

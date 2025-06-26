@@ -4,6 +4,8 @@ import { UserTableDto } from '../../users/models/user-table.model';
 import { combineLatest, Subscription } from 'rxjs';
 import { AdminChatMessage } from '../models/admin-chat-message.model';
 import { ConversationService } from 'src/app/shared/service/conversation.service';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-send-message-to-all',
@@ -27,7 +29,11 @@ export class SendMessageToAllComponent {
   message: string = '';
 
   private statusTypeSubscription!: Subscription;
-  constructor(private userService: UserService, private cdr: ChangeDetectorRef, private conversationService: ConversationService) { }
+  constructor(private userService: UserService, private cdr: ChangeDetectorRef, private conversationService: ConversationService,
+    public translateService: TranslateService
+
+  ) { }
+
 
   ngOnInit() {
     this.statusTypeSubscription = combineLatest([
@@ -87,11 +93,11 @@ export class SendMessageToAllComponent {
     }
   }
 
-  imagePreview(file: File){
+  imagePreview(file: File) {
     const reader = new FileReader();
     reader.onload = (e: ProgressEvent<FileReader>) => {
       if (e.target && e.target.result) {
-        this.filePreview= e.target.result as string;
+        this.filePreview = e.target.result as string;
       }
     };
     reader.readAsDataURL(file);
@@ -108,16 +114,16 @@ export class SendMessageToAllComponent {
   prepareMessageFormData() {
     const formData = new FormData();
     // if (this.message != '') {
-      const adminMessage = new AdminChatMessage({
-        recipientEmail: this.selectedUsers,
-        messageTitle: '',
-        content: this.fileToBeUploaded?'image': this.message,
-        messageType: this.fileToBeUploaded?'image':'text',
-      });
-      formData.append(
-        'chatMessageDto',
-        new Blob([JSON.stringify(adminMessage)], { type: 'application/json' })
-      );
+    const adminMessage = new AdminChatMessage({
+      recipientEmail: this.selectedUsers,
+      messageTitle: '',
+      content: this.fileToBeUploaded ? 'image' : this.message,
+      messageType: this.fileToBeUploaded ? 'image' : 'text',
+    });
+    formData.append(
+      'chatMessageDto',
+      new Blob([JSON.stringify(adminMessage)], { type: 'application/json' })
+    );
     // }
 
     if (this.fileToBeUploaded) {

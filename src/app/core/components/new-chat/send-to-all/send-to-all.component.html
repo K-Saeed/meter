@@ -1,117 +1,204 @@
-<div class="modal fade" id="filterChatDialog" tabindex="-1" aria-labelledby="filterChatDialogLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="filterChatDialogLabel">{{ "filter_and_chat" | translate }}
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-              <div class="search-container d-flex align-items-center ">
-                <!-- <span class="search-icon p-2">
+<div
+  class="modal fade"
+  id="filterChatDialog"
+  tabindex="-1"
+  aria-labelledby="filterChatDialogLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filterChatDialogLabel">
+          {{ "filter_and_chat" | translate }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="search-container d-flex align-items-center">
+          <!-- <span class="search-icon p-2">
                   <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
                 </span> -->
-                <input type="text" class="form-control search-input" [placeholder]="'search_in_users' | translate" [(ngModel)]="searchTerm"
-                  (input)="applySearch()" />
-              </div>
-
-                <!-- Filter Section -->
-                <div class="filter-section mb-4">
-                    <h6>{{ "filter" | translate }}</h6>
-                    <div class="modal-body">
-                        <div class="info d-flex flex-column gap-1">
-                            <h3>{{ "role" | translate }}</h3>
-                            <div class="d-flex align-items-center mb-4 gap-2">
-                                <a class="text-decoration-none d-flex align-items-center" href="#" [ngClass]="{
-                      breadcrumb: isActiveRole('Customer'),
-                      active: isActiveRole('Customer'),
-                      inActive: !isActiveRole('Customer')
-                    }" (click)="toggleRole('Customer', $event)">
-                    {{ "customers" | translate }}
-                </a>
-                                <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                      breadcrumb: isActiveRole('Provider'),
-                      active: isActiveRole('Provider'),
-                      inActive: !isActiveRole('Provider')
-                    }" (click)="toggleRole('Provider', $event)">
-                    {{ "providers" | translate }}
-                </a>
-                                <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                      breadcrumb: isActiveRole('Seller'),
-                      active: isActiveRole('Seller'),
-                      inActive: !isActiveRole('Seller')
-                    }" (click)="toggleRole('Seller', $event)">
-                    {{ "merchants" | translate }}
-                </a>
-                            </div>
-                        </div>
-                        <div class="info d-flex flex-column gap-1">
-                            <h3>{{ "status" | translate }}</h3>
-                            <div class="d-flex align-items-center mb-4 gap-2">
-                                <a class="text-decoration-none d-flex align-items-center" href="#" [ngClass]="{
-                      breadcrumb: isActiveStatus('approved'),
-                      active: isActiveStatus('approved'),
-                      inActive: !isActiveStatus('approved')
-                    }" (click)="toggleStatus('approved', $event)">
-                    {{ "approved" | translate }}
-                </a>
-                                <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                      breadcrumb: isActiveStatus('rejected'),
-                      active: isActiveStatus('rejected'),
-                      inActive: !isActiveStatus('rejected')
-                    }" (click)="toggleStatus('rejected', $event)">
-                    {{ "rejected" | translate }}
-                </a>
-                                <a class="text-decoration-none d-flex align-items-center gap-1" href="#" [ngClass]="{
-                      breadcrumb: isActiveStatus('pending'),
-                      active: isActiveStatus('pending'),
-                      inActive: !isActiveStatus('pending')
-                    }" (click)="toggleStatus('pending', $event)">
-                    {{ "pending" | translate }}
-                </a>
-                            </div>
-                        </div>
-                        <button type="button" class="filter-btn m-auto d-block" (click)="filter()">              {{ "filter" | translate }}
-                        </button>
-                    </div>
-
-                    <div class="list-section mb-4">
-                        <h6>{{ "filtered_list" | translate }}</h6>
-
-                        <div class="form-check mb-2" style="text-align: right;">
-                            <input type="checkbox" id="selectAll" [(ngModel)]="selectAllChecked"
-                                (change)="toggleSelectAll(selectAllChecked)" />
-                        </div>
-
-                        <ul class="list-group">
-                            <li *ngFor="let user of filteredUsers"
-                                class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>{{ user.name }}</span>
-                                <input type="checkbox" [(ngModel)]="user.selected"
-                                    (change)="updateSelectedUser(user)" />
-                            </li>
-                        </ul>
-                    </div>
-                    <div *ngIf="!isLoading" class="chat-bar">
-                        <div class="input-group">
-                            <input *ngIf="!fileToBeUploaded" type="text" class="form-control"
-                            [placeholder]="'type_message' | translate" [(ngModel)]="message" />
-
-                                <img *ngIf="fileToBeUploaded" [src]="filePreview" alt="Uploaded Image"
-                                class="file-preview-image" />
-
-                            <button class="btn" title="Attach File">
-                                <input type="file" name="file" class="file-input" (change)="onFilesSelected($event)" />
-                                <i class="fa fa-paperclip"></i>
-                            </button>
-                            <button class="btn" (click)="sendMessage()"> {{ "send" | translate }}  </button>
-                        </div>
-                    </div>
-                    <div *ngIf="isLoading" class="spinner-container">
-                        <div class="spinner"></div>
-                      </div>
-                </div>
-            </div>
+          <input
+            type="text"
+            class="form-control search-input"
+            [placeholder]="'search_in_users' | translate"
+            [(ngModel)]="searchTerm"
+            (input)="applySearch()"
+          />
         </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section mb-4">
+          <h6>{{ "filter" | translate }}</h6>
+          <div class="modal-body">
+            <div class="info d-flex flex-column gap-1">
+              <h3>{{ "role" | translate }}</h3>
+              <div class="d-flex align-items-center mb-4 gap-2">
+                <a
+                  class="text-decoration-none d-flex align-items-center"
+                  href="#"
+                  [ngClass]="{
+                    breadcrumb: isActiveRole('Customer'),
+                    active: isActiveRole('Customer'),
+                    inActive: !isActiveRole('Customer')
+                  }"
+                  (click)="toggleRole('Customer', $event)"
+                >
+                  {{ "customers" | translate }}
+                </a>
+                <a
+                  class="text-decoration-none d-flex align-items-center gap-1"
+                  href="#"
+                  [ngClass]="{
+                    breadcrumb: isActiveRole('Provider'),
+                    active: isActiveRole('Provider'),
+                    inActive: !isActiveRole('Provider')
+                  }"
+                  (click)="toggleRole('Provider', $event)"
+                >
+                  {{ "providers" | translate }}
+                </a>
+                <a
+                  class="text-decoration-none d-flex align-items-center gap-1"
+                  href="#"
+                  [ngClass]="{
+                    breadcrumb: isActiveRole('Seller'),
+                    active: isActiveRole('Seller'),
+                    inActive: !isActiveRole('Seller')
+                  }"
+                  (click)="toggleRole('Seller', $event)"
+                >
+                  {{ "merchants" | translate }}
+                </a>
+              </div>
+            </div>
+            <div class="info d-flex flex-column gap-1">
+              <h3>{{ "status" | translate }}</h3>
+              <div class="d-flex align-items-center mb-4 gap-2">
+                <a
+                  class="text-decoration-none d-flex align-items-center"
+                  href="#"
+                  [ngClass]="{
+                    breadcrumb: isActiveStatus('approved'),
+                    active: isActiveStatus('approved'),
+                    inActive: !isActiveStatus('approved')
+                  }"
+                  (click)="toggleStatus('approved', $event)"
+                >
+                  {{ "approved" | translate }}
+                </a>
+                <a
+                  class="text-decoration-none d-flex align-items-center gap-1"
+                  href="#"
+                  [ngClass]="{
+                    breadcrumb: isActiveStatus('rejected'),
+                    active: isActiveStatus('rejected'),
+                    inActive: !isActiveStatus('rejected')
+                  }"
+                  (click)="toggleStatus('rejected', $event)"
+                >
+                  {{ "rejected" | translate }}
+                </a>
+                <a
+                  class="text-decoration-none d-flex align-items-center gap-1"
+                  href="#"
+                  [ngClass]="{
+                    breadcrumb: isActiveStatus('pending'),
+                    active: isActiveStatus('pending'),
+                    inActive: !isActiveStatus('pending')
+                  }"
+                  (click)="toggleStatus('pending', $event)"
+                >
+                  {{ "pending" | translate }}
+                </a>
+              </div>
+            </div>
+            <button
+              type="button"
+              class="filter-btn m-auto d-block"
+              (click)="filter()"
+            >
+              {{ "filter" | translate }}
+            </button>
+          </div>
+
+          <div class="list-section mb-4">
+            <h6>{{ "filtered_list" | translate }}</h6>
+
+            <div class="form-check mb-2" style="text-align: right">
+              <input
+                type="checkbox"
+                id="selectAll"
+                [(ngModel)]="selectAllChecked"
+                (change)="toggleSelectAll(selectAllChecked)"
+              />
+            </div>
+
+            <ul class="list-group">
+              <li
+                *ngFor="let user of filteredUsers"
+                class="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <span>{{ user.name }}</span>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="user.selected"
+                  (change)="updateSelectedUser(user)"
+                />
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="!isLoading" class="chat-bar">
+            <div
+              class="input-group"
+              [ngClass]="
+                translateService.currentLang === 'ar'
+                  ? 'input-group-rtl'
+                  : 'input-group-ltr'
+              "
+            >
+              <input
+                *ngIf="!fileToBeUploaded"
+                type="text"
+                class="form-control"
+                [placeholder]="'type_message' | translate"
+                [(ngModel)]="message"
+              />
+
+              <img
+                *ngIf="fileToBeUploaded"
+                [src]="filePreview"
+                alt="Uploaded Image"
+                class="file-preview-image"
+              />
+
+              <button class="btn" title="Attach File">
+                <input
+                  type="file"
+                  name="file"
+                  class="file-input"
+                  (change)="onFilesSelected($event)"
+                />
+                <i class="fa fa-paperclip"></i>
+              </button>
+              <button class="btn" (click)="sendMessage()">
+                {{ "send" | translate }}
+              </button>
+            </div>
+          </div>
+          <div *ngIf="isLoading" class="spinner-container">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+</div>

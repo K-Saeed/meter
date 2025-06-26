@@ -155,9 +155,9 @@
   "confirm_password": "تأكيد كلمة المرور",
   "enter_confirm_password": "أدخل تأكيد كلمة المرور",
   "messages": "الرسائل",
-  "filter_send": "تصفية وإرسال",
+  "filter_send": "تصنيف وإرسال",
   "search_in_clients": "ابحث في العملاء",
-  "filter_and_chat": "تصفية ومراسلة",
+  "filter_and_chat": "تصنيف ومراسلة",
   "search_in_users": "ابحث في المستخدمين",
   "role": "الدور",
   "merchants": "البائعون",
@@ -181,5 +181,11 @@
   "choose_recipients": "اختر المستلمين",
   "enter_message": "أدخل الرسالة",
   "enter_title": "أدخل العنوان",
-  "failed_to_deliver_to": "فشل التسليم إلى "
+  "failed_to_deliver_to": "فشل التسليم إلى ",
+  "search_in_work_submission": "ابحث في تسليم العمل",
+  "work_submission": "تسليم العمل",
+  "work_submission_details": "تفاصيل تسليم العمل",
+  "are_you_sure_reject_submission": "هل أنت متأكد أنك تريد رفض هذا التسليم؟",
+  "are_you_sure_approve_submission": "هل أنت متأكد أنك تريد الموافقة على هذا التسليم؟",
+  "no_data_available": "لا توجد بيانات"
 }
