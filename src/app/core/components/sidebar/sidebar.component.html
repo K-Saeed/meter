@@ -118,13 +118,14 @@
     </a>
     </ng-container>
 
+    <ng-container *appHasPermission="{ page: 'roles', action: 'READ' }">
     <ul class="submenu" *ngIf="isEmployeesOpen">
       <li class="">
         <a class="nav-link text-style" (click)="setActive('roles')" routerLinkActive="active"
           [routerLink]="'/roles'">Roles</a>
       </li>
     </ul>
-
+</ng-container>
     <ng-container *appHasPermission="{ page: 'notifications', action: 'READ' }">
     <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('notifications')" [routerLink]="'/notifications'" role="tab"

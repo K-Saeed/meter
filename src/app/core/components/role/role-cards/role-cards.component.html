@@ -16,18 +16,22 @@
             </div>
           </div>
           <div class="button-container d-flex align-items-center justify-content-between">
-            <button class="btn delete-btn d-flex gap-2 align-items-center" data-bs-toggle="modal"
-              (click)="selectRole(role)" data-bs-target="#deleteModal">
-              <img src="../.././../../../assets/img/trash-b.svg" alt="Trash Icon" class="icon" />
-              Delete
-            </button>
+            <ng-container *appHasPermission="{ page: 'roles', action: 'DELETE' }">
+              <button class="btn delete-btn d-flex gap-2 align-items-center" data-bs-toggle="modal"
+                (click)="selectRole(role)" data-bs-target="#deleteModal">
+                <img src="../.././../../../assets/img/trash-b.svg" alt="Trash Icon" class="icon" />
+                Delete
+              </button>
+            </ng-container>
 
             <div class="h-75 border-end"></div>
-            <button class="btn edit-btn d-flex gap-2 align-items-center" data-bs-toggle="modal"
-              (click)="selectRole(role)" data-bs-target="#editModal">
-              <img src="../../../../../assets/img/edit-card.svg" alt="Edit Icon" class="icon" />
-              Edit
-            </button>
+            <ng-container *appHasPermission="{ page: 'roles', action: 'EDIT' }">
+              <button class="btn edit-btn d-flex gap-2 align-items-center" data-bs-toggle="modal"
+                (click)="selectRole(role)" data-bs-target="#editModal">
+                <img src="../../../../../assets/img/edit-card.svg" alt="Edit Icon" class="icon" />
+                Edit
+              </button>
+            </ng-container>
           </div>
         </div>
       </div>
