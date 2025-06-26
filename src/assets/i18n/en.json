@@ -187,5 +187,18 @@
   "search_in_work_submission": "Search in work submission",
   "are_you_sure_reject_submission": "Are you sure you want to reject this submission?",
   "are_you_sure_approve_submission": "Are you sure you want to approve this submission?",
-  "no_data_available": "No data available"
+  "no_data_available": "No data available",
+  "search_in_transactions": "Search in transactions",
+  "refund": "Refund",
+  "amount": "Amount",
+  "are_you_sure_refund": "Are you sure you want to refund this transaction?",
+  "transaction_details": "Transaction Details",
+  "transaction_id": "Transaction ID",
+  "request_id": "Request ID",
+  "customer_phone": "Customer Phone",
+  "customer_email": "Customer Email",
+  "payment_method": "Payment Method",
+  "transaction_notes": "Transaction Notes",
+  "involved_parties": "Involved Parties",
+  "breakdown_of_charges": "Breakdown of Charges"
 }

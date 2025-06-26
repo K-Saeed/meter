@@ -8,94 +8,97 @@
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">Transaction Details</h1>
+        <h1 class="modal-title" id="exampleModalLabel">
+          {{ "transaction_details" | translate }}
+        </h1>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
         ></button>
       </div>
       <div class="modal-body">
-        <!-- <div class="title d-flex align-items-start gap-2 flex-column mt-4"> -->
-        <!-- <h1>Request Information:</h1> -->
         <div class="info d-flex flex-column align-items-start gap-3 mt-3">
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Transaction ID:</span>
-            <span class="value">{{transaction?.id}}</span>
+            <span class="label">{{ "transaction_id" | translate }}:</span>
+            <span class="value">{{ transaction?.id }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Request ID:</span>
-            <span class="value">{{transaction?.requestId}}</span>
+            <span class="label">{{ "request_id" | translate }}:</span>
+            <span class="value">{{ transaction?.requestId }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Title:</span>
-            <span class="value">{{transaction?.title}}</span>
+            <span class="label">{{ "title" | translate }}:</span>
+            <span class="value">{{ transaction?.title }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Customer Name:</span>
-            <span class="value">{{transaction?.customerName}}</span>
+            <span class="label">{{ "customer_name" | translate }}:</span>
+            <span class="value">{{ transaction?.customerName }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Service Provider Name:</span>
-            <span class="value">{{transaction?.serviceProviderName}}</span>
+            <span class="label"
+              >{{ "service_provider_name" | translate }}:</span
+            >
+            <span class="value">{{ transaction?.serviceProviderName }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Amount:</span>
-            <span class="value">{{transaction?.amount}}</span>
+            <span class="label">{{ "amount" | translate }}:</span>
+            <span class="value">{{ transaction?.amount }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Date:</span>
-            <span class="value">{{transaction?.submittingDate}}</span>
+            <span class="label">{{ "date" | translate }}:</span>
+            <span class="value">{{ transaction?.submittingDate }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Status:</span>
-            <span class="value">{{transaction?.status}}</span>
+            <span class="label">{{ "status" | translate }}:</span>
+            <span class="value">{{ transaction?.status }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Payment Method:</span>
-            <span class="value">{{transaction?.paymentType}}</span>
+            <span class="label">{{ "payment_method" | translate }}:</span>
+            <span class="value">{{ transaction?.paymentType }}</span>
           </h3>
           <h3 class="d-flex justify-content-between m-0">
-            <span class="label">Transaction Notes:</span>
-            <span class="value">{{transaction?.details}}</span>
+            <span class="label">{{ "transaction_notes" | translate }}:</span>
+            <span class="value">{{ transaction?.details }}</span>
           </h3>
-          <!-- </div> -->
         </div>
+
         <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-          <h1>Involved Parties:</h1>
+          <h1>{{ "involved_parties" | translate }}</h1>
           <div class="info d-flex flex-column align-items-start gap-3">
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Customer Name:</span>
-              <span class="value">{{transaction?.requestOwner?.name}}</span>
+              <span class="label">{{ "customer_name" | translate }}:</span>
+              <span class="value">{{ transaction?.requestOwner?.name }}</span>
             </h3>
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Customer Phone:</span>
-              <span class="value">{{transaction?.requestOwner?.mobile}}</span>
+              <span class="label">{{ "customer_phone" | translate }}:</span>
+              <span class="value">{{ transaction?.requestOwner?.mobile }}</span>
             </h3>
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Customer Email:</span>
-              <span class="value">{{transaction?.requestOwner?.email}}</span>
+              <span class="label">{{ "customer_email" | translate }}:</span>
+              <span class="value">{{ transaction?.requestOwner?.email }}</span>
             </h3>
           </div>
         </div>
+
         <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-          <h1>Breakdown of Charges:</h1>
+          <h1>{{ "breakdown_of_charges" | translate }}</h1>
           <div class="info d-flex flex-column align-items-start gap-3">
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Service Fee:</span>
-              <span class="value">{{transaction?.serviceFees}}</span>
+              <span class="label">{{ "service_fees" | translate }}:</span>
+              <span class="value">{{ transaction?.serviceFees }}</span>
             </h3>
             <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Taxes:</span>
-              <span class="value">{{transaction?.taxes}}</span>
+              <span class="label">{{ "taxes" | translate }}:</span>
+              <span class="value">{{ transaction?.taxes }}</span>
             </h3>
-            <!-- <h3 class="d-flex justify-content-between m-0">
-              <span class="label">Consolation Fee:</span>
-              <span class="value">35 SAR</span>
-            </h3> -->
           </div>
         </div>
+
         <div class="d-flex justify-content-between mt-4">
           <button
             type="button"
@@ -103,7 +106,7 @@
             data-bs-toggle="modal"
             data-bs-target="#rejectModal"
           >
-            Reject
+            {{ "reject" | translate }}
           </button>
           <button
             type="button"
@@ -111,7 +114,7 @@
             data-bs-toggle="modal"
             data-bs-target="#refundModal"
           >
-            Refund
+            {{ "refund" | translate }}
           </button>
           <button
             type="button"
@@ -119,7 +122,7 @@
             data-bs-toggle="modal"
             data-bs-target="#approveModal"
           >
-          Approved
+            {{ "approve" | translate }}
           </button>
         </div>
       </div>
@@ -127,6 +130,12 @@
   </div>
 </div>
 
-<app-transactions-reject-modal  [transactionId] = "transaction?.id"></app-transactions-reject-modal>
-<app-transactions-approve-modal [transactionId] = "transaction?.id"></app-transactions-approve-modal>
-<app-transactions-refund-modal  [transactionId] = "transaction?.id"></app-transactions-refund-modal>
+<app-transactions-reject-modal
+  [transactionId]="transaction?.id"
+></app-transactions-reject-modal>
+<app-transactions-approve-modal
+  [transactionId]="transaction?.id"
+></app-transactions-approve-modal>
+<app-transactions-refund-modal
+  [transactionId]="transaction?.id"
+></app-transactions-refund-modal>

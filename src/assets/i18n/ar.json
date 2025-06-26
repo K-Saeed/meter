@@ -187,5 +187,18 @@
   "work_submission_details": "تفاصيل تسليم العمل",
   "are_you_sure_reject_submission": "هل أنت متأكد أنك تريد رفض هذا التسليم؟",
   "are_you_sure_approve_submission": "هل أنت متأكد أنك تريد الموافقة على هذا التسليم؟",
-  "no_data_available": "لا توجد بيانات"
+  "no_data_available": "لا توجد بيانات",
+  "search_in_transactions": "البحث في المعاملات",
+  "refund": "مسترجع",
+  "amount": "المبلغ",
+  "are_you_sure_refund": "هل أنت متأكد أنك تريد استرجاع هذا المبلغ؟",
+  "transaction_details": "تفاصيل المعاملة",
+  "transaction_id": "رقم المعاملة",
+  "request_id": "رقم الطلب",
+  "customer_phone": "رقم جوال العميل",
+  "customer_email": "البريد الإلكتروني للعميل",
+  "payment_method": "طريقة الدفع",
+  "transaction_notes": "ملاحظات المعاملة",
+  "involved_parties": "الأطراف المعنية",
+  "breakdown_of_charges": "تفاصيل الرسوم"
 }

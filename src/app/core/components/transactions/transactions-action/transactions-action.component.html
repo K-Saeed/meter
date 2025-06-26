@@ -1,22 +1,39 @@
 <div class="d-flex align-items-center justify-content-between gap">
   <div class="d-flex align-items-center gap-2">
     <div class="search-container d-flex align-items-center position-relative">
-      <span class="search-icon p-2">
-        <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
+      <span
+        class="search-icon p-2"
+        [ngClass]="currentLang === 'ar' ? 'icon-rtl' : 'icon-ltr'"
+      >
+        <img
+          src="../../../../../assets/img/search-normal.svg"
+          alt="Search Icon"
+        />
       </span>
-      <input type="text" class="form-control search-input" placeholder="Search in transactions" />
+      <input
+        type="text"
+        class="form-control search-input"
+        [placeholder]="'search_in_transactions' | translate"
+      />
     </div>
-    <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal"
-      data-bs-target="#transactionsFilterModal">
+    <button
+      class="btn d-flex align-items-center gap-2"
+      data-bs-toggle="modal"
+      data-bs-target="#transactionsFilterModal"
+    >
       <img src="../../../../../assets/img/filter.svg" alt="" />
-      <span>Filter</span>
+      <span>{{ "filter" | translate }}</span>
     </button>
   </div>
-  <button class="btn-orange d-flex align-items-center gap-2" data-bs-toggle="modal"
-  data-bs-target="#printInvoicesModal">
+  <button
+    class="btn-orange d-flex align-items-center gap-2"
+    data-bs-toggle="modal"
+    data-bs-target="#printInvoicesModal"
+  >
     <img src="../../../../../assets/img/printer.svg" alt="" />
-    <span>Print</span>
+    <span>{{ "print" | translate }}</span>
   </button>
 </div>
+
 <app-print-invoice-dialog></app-print-invoice-dialog>
 <app-transactions-filter-modal></app-transactions-filter-modal>

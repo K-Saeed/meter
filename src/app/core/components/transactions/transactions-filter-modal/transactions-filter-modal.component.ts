@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { TransactionService } from 'src/app/shared/service/transaction-call.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transactions-filter-modal',
@@ -16,8 +17,13 @@ export class TransactionsFilterModalComponent {
   @ViewChild('sliderMinValue') minLabelRef!: ElementRef<HTMLElement>;
   @ViewChild('sliderMaxValue') maxLabelRef!: ElementRef<HTMLElement>;
   @ViewChild('rangeHighlight') rangeHighlightRef!: ElementRef<HTMLElement>;
-
-  constructor(private transactionService: TransactionService) {}
+  currentLang: string = 'en';
+  // constructor(private translateService: TranslateService) {
+  //   this.currentLang = this.translateService.currentLang;
+  // }
+  constructor(private transactionService: TransactionService,
+    public translateService: TranslateService
+  ) { }
 
   toggleLink(link: string, event: Event): void {
     event.preventDefault();
