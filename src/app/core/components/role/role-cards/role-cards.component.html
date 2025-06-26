@@ -1,10 +1,10 @@
-<div class="container">
+<div *ngIf="roles" class="container">
   <div class="row">
-    <div class="col-sm-4 mb-3">
+    <div *ngFor="let role of roles" class="col-sm-4 mb-3">
       <div class="card">
         <div class="card-body d-flex flex-column gap-4">
           <div class="d-flex flex-column gap-3">
-            <h5 class="card-title m-0">Admin</h5>
+            <h5 class="card-title m-0">{{role.roleName}}</h5>
             <div class="number-style d-flex gap-2 align-items-center">
               <div class="avatars-container">
                 <span class="img-style one">KJ</span>
@@ -15,129 +15,17 @@
               <h3 class="m-0">(29)</h3>
             </div>
           </div>
-          <div
-            class="button-container d-flex align-items-center justify-content-between"
-          >
-            <button
-              class="btn delete-btn d-flex gap-2 align-items-center"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteModal"
-            >
-              <img
-                src="../.././../../../assets/img/trash-b.svg"
-                alt="Trash Icon"
-                class="icon"
-              />
+          <div class="button-container d-flex align-items-center justify-content-between">
+            <button class="btn delete-btn d-flex gap-2 align-items-center" data-bs-toggle="modal"
+              (click)="selectRole(role)" data-bs-target="#deleteModal">
+              <img src="../.././../../../assets/img/trash-b.svg" alt="Trash Icon" class="icon" />
               Delete
             </button>
 
             <div class="h-75 border-end"></div>
-            <button
-              class="btn edit-btn d-flex gap-2 align-items-center"
-              data-bs-toggle="modal"
-              data-bs-target="#editModal"
-            >
-              <img
-                src="../../../../../assets/img/edit-card.svg"
-                alt="Edit Icon"
-                class="icon"
-              />
-              Edit
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 mb-3">
-      <div class="card">
-        <div class="card-body d-flex flex-column gap-4">
-          <div class="d-flex flex-column gap-3">
-            <h5 class="card-title m-0">Admin</h5>
-            <div class="number-style d-flex gap-2 align-items-center">
-              <div class="avatars-container">
-                <span class="img-style one">KJ</span>
-                <span class="img-style bg-danger-subtle">ND</span>
-                <span class="img-style bg-black">AG</span>
-                <span class="img-style bg-info">MH</span>
-              </div>
-              <h3 class="m-0">(29)</h3>
-            </div>
-          </div>
-          <div
-            class="button-container d-flex align-items-center justify-content-between"
-          >
-            <button
-              class="btn delete-btn d-flex gap-2 align-items-center"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteModal"
-            >
-              <img
-                src="../.././../../../assets/img/trash-b.svg"
-                alt="Trash Icon"
-                class="icon"
-              />
-              Delete
-            </button>
-
-            <div class="h-75 border-end"></div>
-            <button
-              class="btn edit-btn d-flex gap-2 align-items-center"
-              data-bs-toggle="modal"
-              data-bs-target="#editModal"
-            >
-              <img
-                src="../../../../../assets/img/edit-card.svg"
-                alt="Edit Icon"
-                class="icon"
-              />
-              Edit
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4 mb-3">
-      <div class="card">
-        <div class="card-body d-flex flex-column gap-4">
-          <div class="d-flex flex-column gap-3">
-            <h5 class="card-title m-0">Admin</h5>
-            <div class="number-style d-flex gap-2 align-items-center">
-              <div class="avatars-container">
-                <span class="img-style one">KJ</span>
-                <span class="img-style bg-danger-subtle">ND</span>
-                <span class="img-style bg-black">AG</span>
-                <span class="img-style bg-info">MH</span>
-              </div>
-              <h3 class="m-0">(29)</h3>
-            </div>
-          </div>
-          <div
-            class="button-container d-flex align-items-center justify-content-between"
-          >
-            <button
-              class="btn delete-btn d-flex gap-2 align-items-center"
-              data-bs-toggle="modal"
-              data-bs-target="#deleteModal"
-            >
-              <img
-                src="../.././../../../assets/img/trash-b.svg"
-                alt="Trash Icon"
-                class="icon"
-              />
-              Delete
-            </button>
-
-            <div class="h-75 border-end"></div>
-            <button
-              class="btn edit-btn d-flex gap-2 align-items-center"
-              data-bs-toggle="modal"
-              data-bs-target="#editModal"
-            >
-              <img
-                src="../../../../../assets/img/edit-card.svg"
-                alt="Edit Icon"
-                class="icon"
-              />
+            <button class="btn edit-btn d-flex gap-2 align-items-center" data-bs-toggle="modal"
+              (click)="selectRole(role)" data-bs-target="#editModal">
+              <img src="../../../../../assets/img/edit-card.svg" alt="Edit Icon" class="icon" />
               Edit
             </button>
           </div>
@@ -146,5 +34,5 @@
     </div>
   </div>
 </div>
-<app-role-delete-modal></app-role-delete-modal>
-<app-role-edit-modal></app-role-edit-modal>
+<app-role-delete-modal [role]="selectedRolePermissons"></app-role-delete-modal>
+<app-role-edit-modal [role]="selectedRolePermissons"></app-role-edit-modal>
