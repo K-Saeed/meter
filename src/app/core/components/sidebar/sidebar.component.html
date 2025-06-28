@@ -10,7 +10,8 @@
       role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/bar-chart-2.svg" alt="" />
-        <div>Dashboard</div>
+        <div>{{ 'DASHBOARD' | translate }}</div>
+
       </div>
     </a>
     </ng-container>
@@ -21,7 +22,7 @@
       [routerLink]="'/servicerequests'" role="tab" aria-controls="Service-Requests">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/category-2.svg" alt="" />
-        <div>Service Requests</div>
+        <div>{{ 'SERVICE_REQUESTS' | translate }}</div>
       </div>
       <span *ngIf="requests.length > 0"
         [ngClass]="{'number-active': isActive === 'servicerequests', 'number-inActive': isActive !== 'servicerequests'}">{{requests.length}}</span>
@@ -34,7 +35,7 @@
       [routerLink]="'/providersproposal'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/Amount_Icon_UIA.svg" alt="" />
-        <div class="d-flex">Proposals</div>
+        <div class="d-flex">{{ 'PROPOSALS' | translate }}</div>
       </div>
     </a>
   </ng-container>
@@ -45,7 +46,7 @@
       [routerLink]="'/users'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/profile-2user.svg" alt="" />
-        <div>Users</div>
+        <div>{{ 'USERS' | translate }}</div>
       </div>
     </a>
     </ng-container>
@@ -56,7 +57,7 @@
       [routerLink]="'/products'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/box.svg" alt="" />
-        <div>Products</div>
+        <div>{{ 'PRODUCTS' | translate }}</div>
       </div>
     </a>
     </ng-container>
@@ -67,18 +68,18 @@
         [routerLink]="'/devicesproposal'" role="tab" aria-controls="list-home">
         <div class="d-flex gap-3 align-items-center">
           <img class="icon-style" src="../../../../assets/img/Amount_Icon_UIA.svg" alt="" />
-          <div class="d-flex">Devices Proposal</div>
+          <div class="d-flex">{{ 'DEVICES_PROPOSAL' | translate }}</div>
         </div>
       </a>
     </ng-container>
 
-    <ng-container *appHasPermission="{ page: 'proposals', action: 'READ' }">
+    <ng-container *appHasPermission="{ page: 'conversations', action: 'READ' }">
     <a class="nav-link text-style list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
       routerLinkActive="active" (click)="setActive('conversations')" [routerLink]="'/conversations'" role="tab"
       aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/messages.svg" alt="" />
-        <div>Conversations</div>
+        <div>{{ 'CONVERSATIONS' | translate }}</div>
       </div>
     </a>
     </ng-container>
@@ -89,7 +90,7 @@
       aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/chart.svg" alt="" />
-        <div>Transactions</div>
+        <div>{{ 'TRANSACTIONS' | translate }}</div>
       </div>
     </a>
     </ng-container>
@@ -100,7 +101,7 @@
       [routerLink]="'/WorkSubmission'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/clipboard-tick.svg" alt="" />
-        <div>Work Submission</div>
+        <div>{{ 'WORK_SUBMISSION' | translate }}</div>
       </div>
     </a>
     </ng-container>
@@ -111,7 +112,7 @@
       aria-controls="list-home" (click)="handleClick('employees', 'WorkSubmission')">
       <img class="icon-style" src="../../../../assets/img/people.svg" alt="" />
       <div class="d-flex align-items-center gap-5">
-        {{ employees }}
+        {{ 'EMPLOYEES' | translate }}
         <img *ngIf="!isEmployeesOpen" class="icon-style" src="../../../../assets/img/arrow-down.svg" alt="" />
         <img *ngIf="isEmployeesOpen" class="icon-style" src="../../../../assets/img/arrow-up.svg" alt="" />
       </div>
@@ -122,7 +123,7 @@
     <ul class="submenu" *ngIf="isEmployeesOpen">
       <li class="">
         <a class="nav-link text-style" (click)="setActive('roles')" routerLinkActive="active"
-          [routerLink]="'/roles'">Roles</a>
+          [routerLink]="'/roles'">{{ 'ROLES' | translate }}</a>
       </li>
     </ul>
 </ng-container>
@@ -132,7 +133,7 @@
       aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/notification.svg" alt="" />
-        <div>Notifications</div>
+        <div>{{ 'NOTIFICATIONS' | translate }}</div>
       </div>
     </a>
     </ng-container>
@@ -143,7 +144,7 @@
       [routerLink]="'/chat'" role="tab" aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/message-text.svg" alt="" />
-        <div>Chat</div>
+        <div>{{ 'CHAT' | translate }}</div>
       </div>
     </a>
     </ng-container>
@@ -153,7 +154,7 @@
       aria-controls="list-home">
       <div class="d-flex gap-3 align-items-center">
         <img class="icon-style" src="../../../../assets/img/setting.svg" alt="" />
-        <div>Settings</div>
+        <div>{{ 'SETTINGS' | translate }}</div>
       </div>
     </a>
   </div>
