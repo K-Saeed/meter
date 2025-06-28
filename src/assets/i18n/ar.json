@@ -204,5 +204,18 @@
   "conversations": "المحادثات",
   "search_icon": "أيقونة البحث",
   "search_in_conversations": "البحث في المحادثات",
-  "sync": "مزامنة"
+  "sync": "مزامنة",
+  "devices_proposals": "عروض الأجهزة",
+  "search_in_devices_proposals": "ابحث في عروض الأجهزة",
+  "seller_proposal_details": "تفاصيل عرض البائع",
+  "device_information": "معلومات الجهاز",
+  "type_of_device": "نوع الجهاز",
+  "end_renting_date": "تاريخ نهاية الإيجار",
+  "with_worker": "مع عامل",
+  "start_renting_date": "تاريخ بدء الإيجار",
+  "renting_hours": "ساعات الإيجار",
+  "seller_fees": "رسوم البائع",
+  "device_id": "معرّف الجهاز",
+  "device_title": "عنوان الجهاز",
+  "seller_name": "اسم البائع"
 }

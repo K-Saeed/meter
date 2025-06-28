@@ -204,5 +204,18 @@
   "conversations": "Conversations",
   "search_icon": "Search Icon",
   "search_in_conversations": "Search in conversations",
-  "sync": "Sync"
+  "sync": "Sync",
+  "devices_proposals": "Devices Proposals",
+  "search_in_devices_proposals": "Search in Devices proposals",
+  "seller_proposal_details": "Seller Proposal Details",
+  "device_information": "Device Information",
+  "type_of_device": "Type of Device",
+  "end_renting_date": "End Renting Date",
+  "with_worker": "With Worker",
+  "start_renting_date": "Start Renting Date",
+  "renting_hours": "Renting Hours",
+  "seller_fees": "Seller Fees",
+  "device_id": "Device ID",
+  "device_title": "Device Title",
+  "seller_name": "Seller Name"
 }
