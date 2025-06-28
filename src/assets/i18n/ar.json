@@ -217,5 +217,14 @@
   "seller_fees": "رسوم البائع",
   "device_id": "معرّف الجهاز",
   "device_title": "عنوان الجهاز",
-  "seller_name": "اسم البائع"
+  "seller_name": "اسم البائع",
+  "search_in_products": "البحث في الأجهزة",
+  "new_product": "إضافة جهاز جديد",
+  "are_you_sure_approve_product": "هل أنت متأكد من الموافقة على هذا الجهاز؟",
+  "product_details": "تفاصيل الجهاز",
+  "product_name": "اسم الجهاز",
+  "model": "الموديل",
+  "manufacturing_year": "سنة التصنيع",
+  "merchant_name": "اسم التاجر",
+  "product": "الجهاز"
 }

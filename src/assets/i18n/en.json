@@ -217,5 +217,14 @@
   "seller_fees": "Seller Fees",
   "device_id": "Device ID",
   "device_title": "Device Title",
-  "seller_name": "Seller Name"
+  "seller_name": "Seller Name",
+  "search_in_products": "Search in Devices",
+  "new_product": "New Device",
+  "are_you_sure_approve_product": "Are you sure you want to approve this Device?",
+  "product_details": "Device Details",
+  "product_name": "Device Name",
+  "model": "Model",
+  "manufacturing_year": "Manufacturing Year",
+  "merchant_name": "Merchant Name",
+  "product": "Device"
 }

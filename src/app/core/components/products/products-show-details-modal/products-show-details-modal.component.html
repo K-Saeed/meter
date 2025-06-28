@@ -2,41 +2,42 @@
   <div class="title d-flex align-items-start gap-2 flex-column mt-4">
     <div class="info d-flex flex-column gap-3">
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Product Name:</span>
-        <span class="value">{{product?.name}}</span>
+        <span class="label">{{ "product_name" | translate }}:</span>
+        <span class="value">{{ product?.name }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Model:</span>
-        <span class="value">{{product?.model}}</span>
+        <span class="label">{{ "model" | translate }}:</span>
+        <span class="value">{{ product?.model }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Manufacturing Year:</span>
-        <span class="value">{{product?.manufacturingYear}}</span>
+        <span class="label">{{ "manufacturing_year" | translate }}:</span>
+        <span class="value">{{ product?.manufacturingYear }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Status:</span>
-        <span class="value">{{product?.status}}</span>
+        <span class="label">{{ "status" | translate }}:</span>
+        <span class="value">{{ product?.status }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Type of device:</span>
-        <span class="value">{{product?.requestType}}</span>
+        <span class="label">{{ "type_of_device" | translate }}:</span>
+        <span class="value">{{ product?.requestType }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Product Details:</span>
-        <span class="value">{{product?.description}}</span>
+        <span class="label">{{ "product_details" | translate }}:</span>
+        <span class="value">{{ product?.description }}</span>
       </h3>
     </div>
   </div>
+
   <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-    <h1>Seller Info:</h1>
+    <h1>{{ "seller_info" | translate }}:</h1>
     <div class="info d-flex flex-column align-items-start gap-3">
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Merchant Name:</span>
-        <span class="value">{{product?.ownerName}}</span>
+        <span class="label">{{ "merchant_name" | translate }}:</span>
+        <span class="value">{{ product?.ownerName }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Phonr Number:</span>
-        <span class="value">{{product?.typeOfService}}</span>
+        <span class="label">{{ "phone_number" | translate }}:</span>
+        <span class="value">{{ product?.typeOfService }}</span>
       </h3>
     </div>
   </div>
