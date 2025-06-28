@@ -11,6 +11,7 @@ import { catchError, throwError } from "rxjs";
 import { Regex } from "src/app/shared/constant/regex";
 import { AuthService } from "src/app/shared/service/auth/auth.service";
 import { LoginService } from "src/app/shared/service/auth/logIn.service";
+import { TranslationService } from "src/app/shared/service/translation.service";
 
 @Component({
   selector: "app-sign-in",
@@ -26,11 +27,14 @@ export class SignInComponent implements OnInit {
   signInForm!: FormGroup;
   public errorMessage!: string;
   public showError: boolean = false;
+  currentLang = 'en';
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-  constructor(private fb: FormBuilder, private loginService: LoginService) {}
+  constructor(private fb: FormBuilder, private loginService: LoginService, private translationService: TranslationService) { }
   ngOnInit(): void {
+    this.currentLang = this.translationService.getCurrentLanguage();
     this.initializeForm();
     this.signInForm.reset();
   }
@@ -62,5 +66,10 @@ export class SignInComponent implements OnInit {
     } else {
       this.signInForm.markAllAsTouched();
     }
+  }
+
+  switchLanguage(lang: string) {
+    this.currentLang = lang;
+    this.translationService.checkLanguage(lang);
   }
 }

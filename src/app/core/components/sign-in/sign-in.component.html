@@ -7,51 +7,64 @@
       srcset=""
     />
     <div class="overlay-text">
-      <h2 class="">Welcome in <span>Meter</span> Dashboard</h2>
-      <p class="m-0">Are you ready to manage this amazing system</p>
+      <h2 class="">{{ 'WELCOME' | translate }} <span>{{ 'METER' | translate }} </span>{{ 'DASHBOARD' | translate }}</h2>
+      <p class="m-0">{{ 'READY' | translate }}</p>
     </div>
   </div>
-  <div class="dropdown position-absolute end-0 my-5 mx-5">
-    <button
-      class="btn btn-secondary dropdown-toggle d-flex align-items-center"
-      type="button"
-      id="languageDropdown"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
+<div class="dropdown position-absolute end-0 my-5 mx-5">
+  <button
+    class="btn btn-secondary dropdown-toggle d-flex align-items-center"
+    type="button"
+    id="languageDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <img
+      class="world"
+      [src]="currentLang === 'en' ? 'assets/img/en.png' : 'assets/img/ar.png'"
+      alt="language"
+      style="margin-right: 8px"
+    />
+    <span class="d-flex gap-3 align-items-center">
+      {{ currentLang === 'en' ? 'English' : 'العربية' }}
       <img
-        class="world"
-        src="../../../../assets/img/en.png"
-        alt=""
-        style="margin-right: 8px"
+        src="assets/img/arrow.svg"
+        alt="arrow"
+        class="custom-arrow ms-auto"
       />
-      <span class="d-flex gap-3 align-items-center">
-        English
+    </span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+    <li>
+      <a
+        class="dropdown-item d-flex align-items-center"
+        (click)="switchLanguage('en')"
+      >
         <img
-          src="../../../../assets/img/arrow.svg"
-          alt=""
-          class="custom-arrow ms-auto"
+          class="world"
+          src="assets/img/en.png"
+          alt="English"
+          style="margin-right: 8px"
         />
-      </span>
-    </button>
-    <ul
-      class="dropdown-menu dropdown-menu-end"
-      aria-labelledby="languageDropdown"
-    >
-      <!-- <li><a class="d-flex dropdown-item" href="#">English</a></li> -->
-      <li>
-        <a class="dropdown-item d-flex align-items-center" href="#">
-          <img
-            class="world"
-            src="../../../../assets/img/ar.png"
-            alt=""
-            style="margin-right: 8px"
-          />
-          Arabic</a
-        >
-      </li>
-    </ul>
-  </div>
+        English
+      </a>
+    </li>
+    <li>
+      <a
+        class="dropdown-item d-flex align-items-center"
+        (click)="switchLanguage('ar')"
+      >
+        <img
+          class="world"
+          src="assets/img/ar.png"
+          alt="Arabic"
+          style="margin-right: 8px"
+        />
+        العربية
+      </a>
+    </li>
+  </ul>
+</div>
 
   <div
     class="from-style d-flex flex-column align-items-center justify-content-center position-fixed end-0 top-50 translate-middle-x mx-auto gap-4"
@@ -64,14 +77,14 @@
       width="264.93"
     />
     <div class="d-flex flex-column text-center">
-      <h5>Nice to see you again</h5>
-      <h2 class="m-0">Sign In to your Account</h2>
+      <h5>{{ 'NICE' | translate }}</h5>
+      <h2 class="m-0">{{ 'SIGN' | translate }}</h2>
     </div>
     <form [formGroup]="signInForm" (ngSubmit)="submit()" class="" action="">
       <div class="d-flex flex-column gap-2">
         <div class="form-group">
           <div class="input-container">
-            <label for="Email" class="label-style">Email</label>
+            <label for="Email" class="label-style">{{ 'EMAIL' | translate }}</label>
             <br />
             <input
               type="email"
@@ -101,7 +114,7 @@
           </div>
         </div>
         <div class="input-container">
-          <label for="Password" class="label-style">Password</label>
+          <label for="Password" class="label-style">{{ 'PASSWORD' | translate }}</label>
           <br />
           <input
             type="{{ showPassword ? 'text' : 'password' }}"
@@ -135,14 +148,14 @@
           </div>
         </div>
         <h5 class="text-end text-decoration-underline fs-6 cursor-pointer">
-          Forget Password?
+          {{ 'FPASSWORD' | translate }}
         </h5>
       </div>
       <button
         type="submit"
         class="btn-signin d-flex justify-content-center align-items-center text-center my-3"
       >
-        Sing In
+        {{ 'SIGNIN' | translate }}
       </button>
     </form>
   </div>

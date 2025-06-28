@@ -7,21 +7,29 @@
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown"
         data-bs-toggle="dropdown" aria-expanded="false">
-        <img class="world" src="../../../../assets/img/en.png" alt="" style="margin-right: 8px" />
+        <img class="world" [src]="currentLang === 'en' ? 'assets/img/en.png' : 'assets/img/ar.png'" alt="language"
+          style="margin-right: 8px" />
         <span class="d-flex gap-3 align-items-center">
-          English
-          <img src="../../../../assets/img/arrow.svg" alt="" class="custom-arrow ms-auto" />
+          {{ currentLang === 'en' ? 'English' : 'العربية' }}
+          <img src="assets/img/arrow.svg" alt="arrow" class="custom-arrow ms-auto" />
         </span>
       </button>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-        <!-- <li><a class="d-flex dropdown-item" href="#">English</a></li> -->
         <li>
-          <a class="dropdown-item d-flex align-items-center" href="#">
-            <img class="world" src="../../../../assets/img/ar.png" alt="" style="margin-right: 8px" />
-            Arabic</a>
+          <a class="dropdown-item d-flex align-items-center" (click)="switchLanguage('en')">
+            <img class="world" src="assets/img/en.png" alt="English" style="margin-right: 8px" />
+            English
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item d-flex align-items-center"  (click)="switchLanguage('ar')">
+            <img class="world" src="assets/img/ar.png" alt="Arabic" style="margin-right: 8px" />
+            العربية
+          </a>
         </li>
       </ul>
     </div>
+
     <div class="img dropdown ">
       <img class="dropdown-toggle cursor-pointer" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false"
         src="../../../../assets/img/notification-top.svg" alt="" />
