@@ -17,7 +17,10 @@
 .dropdown-item:hover {
   background-color: #f8f9fa;
 }
-
+.dropdown-item.active,
+.dropdown-item:active {
+  color: #000;
+}
 /* .btn-unfinished {
   color: #1c1c1c80;
   width: 150px;

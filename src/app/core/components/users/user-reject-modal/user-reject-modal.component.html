@@ -19,24 +19,25 @@
         <div
           class="d-flex flex-column justify-content-center align-items-center gap-3"
         >
-          <img src="../../../../../assets/img/reject.svg" alt="reject Icon" />
+          <img src="../../../../../assets/img/reject.svg" alt="reject icon" />
           <div
             class="delete d-flex flex-column justify-content-center align-items-center"
           >
-            <h2>Reject</h2>
+            <h2>{{ "reject" | translate }}</h2>
             <p class="px-5 text-center">
-              Are you sure you want to reject these items?
+              {{ "are_you_sure_reject" | translate }}
             </p>
           </div>
           <div class="d-flex justify-content-between gap-3 mt-3">
             <button type="button" class="close-btn" data-bs-dismiss="modal">
-              Close
+              {{ "close" | translate }}
             </button>
-            <button type="button" class="delete-btn" (click)="updateStatus()">Reject</button>
+            <button type="button" class="delete-btn" (click)="updateStatus()">
+              {{ "reject" | translate }}
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

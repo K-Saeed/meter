@@ -10,28 +10,28 @@
           />
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Name</p>
+          <p class="m-0">{{ "name" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Role</p>
+          <p class="m-0">{{ "role" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Registered</p>
+          <p class="m-0">{{ "registered" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Address</p>
+          <p class="m-0">{{ "address" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Phone number</p>
+          <p class="m-0">{{ "phone_number" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Spent</p>
+          <p class="m-0">{{ "spent" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Status</p>
+          <p class="m-0">{{ "status" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Actions</p>
+          <p class="m-0">{{ "actions" | translate }}</p>
         </th>
       </tr>
     </thead>
@@ -78,114 +78,159 @@
               red: user.status === 'Rejected',
               orange: user.status === 'Pending'
             }"
+            [ngStyle]="
+              user.status === 'Approved'
+                ? {
+                    padding:
+                      currentLang === 'ar'
+                        ? '8px 25px 6px 25px'
+                        : '8px 4px 6px 7px'
+                  }
+                : user.status === 'Pending'
+                ? {
+                    padding:
+                      currentLang === 'ar'
+                        ? '8px 15px 6px 13px'
+                        : '8px 4px 6px 12px'
+                  }
+                : {}
+            "
             class="m-0"
           >
-            {{ user.status }}
+            {{ user.status.toLowerCase() | translate }}
           </h4>
         </td>
         <td>
-          <!-- <ng-container *appHasPermission="{ page: 'users', action: 'EDIT' }"> -->
-
           <div class="d-flex align-items-center justify-content-between">
-            <!-- Actions Icons -->
             <ng-container *appHasPermission="{ page: 'users', action: 'READ' }">
-
-            <img class="cursor-pointer" src="../../../../assets/img/eye.svg" alt="View" data-bs-toggle="modal"
-              data-bs-target="#viewModal" (click)="setUserId(user.id)" />
-            </ng-container>
-            
-              <ng-container *appHasPermission="{ page: 'users', action: 'EDIT' }">
-              
-                <img class="cursor-pointer" src="../../../../assets/img/edit-2.svg" alt="Edit"
-              (click)="setUserId(user.id)" />
-            <!-- Toggle Switch -->
-            <label class="toggle">
-              <input type="checkbox" (change)="updateStatus(user.id)" />
-              <span class="slider round"></span>
-            </label>
-          </ng-container>
-            <ng-container *appHasPermission="{ page: 'users', action: 'DELETE' }">
-            <img class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg" alt="Delete" (click)="setUserId(user.id)" />
+              <img
+                class="cursor-pointer"
+                src="../../../../assets/img/eye.svg"
+                alt="View"
+                data-bs-toggle="modal"
+                data-bs-target="#viewModal"
+                (click)="setUserId(user.id)"
+              />
             </ng-container>
 
+            <ng-container *appHasPermission="{ page: 'users', action: 'EDIT' }">
+              <img
+                class="cursor-pointer"
+                src="../../../../assets/img/edit-2.svg"
+                alt="Edit"
+                (click)="setUserId(user.id)"
+              />
+              <label class="toggle">
+                <input type="checkbox" (change)="updateStatus(user.id)" />
+                <span class="slider round"></span>
+              </label>
+            </ng-container>
+
+            <ng-container
+              *appHasPermission="{ page: 'users', action: 'DELETE' }"
+            >
+              <img
+                class="cursor-pointer"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                src="../../../../assets/img/trash.svg"
+                alt="Delete"
+                (click)="setUserId(user.id)"
+              />
+            </ng-container>
           </div>
-        <!-- </ng-container> -->
         </td>
       </tr>
     </tbody>
   </table>
+
   <app-user-filter-modal></app-user-filter-modal>
   <app-user-delete-modal [userId]="user?.id"></app-user-delete-modal>
   <app-user-show-modal [user]="user"></app-user-show-modal>
+
   <div
     class="font d-flex align-items-center justify-content-between my-4 pagination-space"
   >
     <h5 class="left m-0">
-      Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to
-      {{ Math.min(currentPage * itemsPerPage, userList.length) }} of
-      {{ userList.length }} entries
+      {{ "showing" | translate }} {{ (currentPage - 1) * itemsPerPage + 1 }}
+      {{ "to" | translate }}
+      {{ Math.min(currentPage * itemsPerPage, userList.length) }}
+      {{ "of" | translate }} {{ userList.length }} {{ "entries" | translate }}
     </h5>
     <nav aria-label="Page navigation example">
-      <ul class="pagination gap-2 m-0 align-items-center">
-        <!-- Previous Button -->
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a
-            class="page-link previous"
-            href="#"
-            aria-label="Previous"
-            (click)="setPage(currentPage - 1, $event)"
+      <nav aria-label="Page navigation example">
+        <ul class="pagination gap-2 m-0 align-items-center">
+          <!-- Previous -->
+          <li class="page-item" [class.disabled]="currentPage === 1">
+            <a
+              class="page-link previous"
+              href="#"
+              aria-label="Previous"
+              (click)="setPage(currentPage - 1, $event)"
+            >
+              <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
+                <img
+                  src="../../../../../assets/img/arrow-left.svg"
+                  alt="Previous"
+                />
+              </span>
+              <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+                <img
+                  src="../../../../../assets/img/arrow-right.svg"
+                  alt="السابق"
+                />
+              </span>
+            </a>
+          </li>
+          <!-- Page Number Links -->
+          <li
+            *ngFor="let page of getPagination()"
+            class="page-item"
+            [class.active]="page === currentPage"
+            [class.disabled]="page === -1"
           >
-            <span aria-hidden="true">
-              <img
-                src="../../../../../assets/img/arrow-left.svg"
-                alt="Previous"
-              />
-            </span>
-          </a>
-        </li>
-
-        <!-- Page Number Links -->
-        <li
-          *ngFor="let page of getPagination()"
-          class="page-item"
-          [class.active]="page === currentPage"
-          [class.disabled]="page === -1"
-        >
-          <a
-            class="page-link"
-            href="#"
-            *ngIf="page !== -1"
-            (click)="setPage(page, $event)"
+            <a
+              class="page-link"
+              href="#"
+              *ngIf="page !== -1"
+              (click)="setPage(page, $event)"
+            >
+              {{ page }}
+            </a>
+            <span class="page-link" *ngIf="page === -1">...</span>
+          </li>
+          <li
+            class="page-item"
+            [class.disabled]="
+              currentPage === Math.ceil(userList.length / itemsPerPage)
+            "
           >
-            {{ page }}
-          </a>
-          <span class="page-link" *ngIf="page === -1">...</span>
-        </li>
-
-        <!-- Next Button -->
-        <li
-          class="page-item"
-          [class.disabled]="
-            currentPage === Math.ceil(userList.length / itemsPerPage)
-          "
-        >
-          <a
-            class="page-link next"
-            href="#"
-            aria-label="Next"
-            (click)="setPage(currentPage + 1, $event)"
-          >
-            <span aria-hidden="true">
-              <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
-            </span>
-          </a>
-        </li>
-      </ul>
+            <a
+              class="page-link next"
+              href="#"
+              aria-label="Next"
+              (click)="setPage(currentPage + 1, $event)"
+            >
+              <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
+                <img
+                  src="../../../../../assets/img/arrow-right.svg"
+                  alt="Next"
+                />
+              </span>
+              <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+                <img
+                  src="../../../../../assets/img/arrow-left.svg"
+                  alt="التالي"
+                />
+              </span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </nav>
 
     <div class="font d-flex align-items-center">
-      <h5 class="m-0 me-2">Show</h5>
+      <h5 class="m-0 me-2">{{ "show" | translate }}</h5>
 
       <div class="select-wrapper">
         <select
@@ -199,7 +244,7 @@
         </select>
         <i class="fa-solid fa-chevron-down custom-select-icon"></i>
       </div>
-      <h5 class="m-0 ms-2">entries</h5>
+      <h5 class="m-0 ms-2">{{ "entries" | translate }}</h5>
     </div>
   </div>
 </div>
