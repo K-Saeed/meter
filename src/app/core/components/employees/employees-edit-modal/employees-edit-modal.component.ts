@@ -101,6 +101,9 @@ export class EmployeesEditModalComponent {
         },
         error: (e) => {
           console.log(e);
+        },
+        complete:()=>{
+          window.location.reload();
         }
       });
     } else {
