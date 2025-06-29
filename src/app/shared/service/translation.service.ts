@@ -29,4 +29,36 @@ export class TranslationService {
   get currentLang(): string {
     return this.translate.currentLang;
   }
+
+  supportedLanguages: string[] = ['en', 'ar'];
+
+
+  setDefaultLanguage() {
+    const currentLang = this.getCurrentLanguage();
+    this.translate.setDefaultLang(currentLang)
+  }
+  checkLanguage(language: string) {
+    if (this.supportedLanguages.includes(language)) {
+      this.switchLanguage(language);
+    } else {
+      this.setDefaultLanguage();
+    }
+  }
+  translateKey(key: string) {
+    return this.translate.instant(key);
+  }
+
+  getTranslatedKey(key: string) {
+    return this.translate.get(key);
+  }
+
+  switchLanguage(language: string) {
+    localStorage.setItem('lang', language);
+    return this.translate.use(language);
+  }
+  getCurrentLanguage() {
+    const savedLang = localStorage.getItem('lang') || 'en';
+    return savedLang;
+  }
+
 }

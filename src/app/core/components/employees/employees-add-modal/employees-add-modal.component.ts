@@ -77,16 +77,17 @@ export class EmployeesAddModalComponent implements OnInit {
   submit(): void {
     this.submitClicked = true;
     console.log(this.form);
-    if (this.form.valid && this.isVerified) {
+    if (this.form.valid) {
       const employee = this.fillUserFormForm();
-      this.employeeService.addEmployee(employee, this.logoImage).subscribe(
-        () => {
-          // Handle successful registration
+      console.log(employee)
+      this.employeeService.addEmployee(employee, this.logoImage).subscribe({
+        next:(n)=>{
+          console.log(n);
         },
-        (error) => {
-          console.log(error);
+        error:(e)=>{
+          console.log(e);
         }
-      );
+      });
     } else {
       this.form.markAllAsTouched();
     }
@@ -94,10 +95,11 @@ export class EmployeesAddModalComponent implements OnInit {
 
   fillUserFormForm(): Employee {
     const employee = new Employee();
-    employee.firstName = this.form.get('name')?.value.trim();
+    employee.name = this.form.get('name')?.value.trim();
     employee.email = this.form.get('email')?.value.trim().toLowerCase();
-    employee.msisdn = this.form.get('countryCode')?.value + this.form.get('phoneNumber')?.value;
+    employee.phoneNumber = this.form.get('countryCode')?.value + this.form.get('phoneNumber')?.value;
     employee.password = this.form.get('theTwoPasswords.password')?.value;
+    employee.roleName = this.selectedVisibility;
     return employee;
   }
 

@@ -2,34 +2,25 @@
   <div class="d-flex align-items-center gap-2">
     <div class="search-container d-flex align-items-center position-relative">
       <span class="search-icon p-2">
-        <img
-          src="../../../../../assets/img/search-normal.svg"
-          alt="Search Icon"
-        />
+        <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
       </span>
-      <input
-        type="text"
-        class="form-control search-input"
-        placeholder="Search in employees"
+      <input type="text" class="form-control search-input" placeholder="Search in employees"
+              [(ngModel)]="searchTerm"
+        (input)="applySearch()"
       />
     </div>
-    <button
-      class="btn d-flex align-items-center gap-2"
-      data-bs-toggle="modal"
-      data-bs-target="#proposalFilterModal"
-    >
+    <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#proposalFilterModal">
       <img src="../../../../../assets/img/filter.svg" alt="" />
       <span>Filter</span>
     </button>
   </div>
-  <button
-    class="btn-orange d-flex align-items-center gap-2"
-    data-bs-toggle="modal"
-    data-bs-target="#addModal"
-  >
-    <img src="../../../../../assets/img/add.svg" alt="" srcset="" />
-    <span>Add Employee</span>
-  </button>
+  <ng-container *appHasPermission="{ page: 'employees', action: 'WRITE' }">
+
+    <button class="btn-orange d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addModal">
+      <img src="../../../../../assets/img/add.svg" alt="" srcset="" />
+      <span>Add Employee</span>
+    </button>
+  </ng-container>
 </div>
 <app-employees-filter-modal></app-employees-filter-modal>
 <app-employees-add-modal></app-employees-add-modal>

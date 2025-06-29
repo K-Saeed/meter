@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { EmployeeService } from 'src/app/shared/service/employee.service';
+import { EmployeeResponse } from '../model/employee-response.model';
 
 @Component({
   selector: 'app-employees-table',
@@ -6,25 +8,38 @@ import { Component } from '@angular/core';
   styleUrls: ['./employees-table.component.css']
 })
 export class EmployeesTableComponent {
-  selectAll: boolean = false;
-  users = [
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Approved', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Rejected', selected: false },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Modrtetor', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-    { id: '20', name: 'Mohamede MonGe',email: 'monge7@mail.com', role: 'Admin', registered: 'September 21, 2013', phonenumber: '(966) 555-0128', status: 'Pending', selected: true },
-  ];
 
+  @Input() searchTerm: string = '';
+  filteredUsers: EmployeeResponse[] = [];
+  selectAll: boolean = false;
+  users: EmployeeResponse[] = [];
+
+  selectedEmployee: EmployeeResponse = new EmployeeResponse();
+
+  constructor(private employeeService: EmployeeService) { }
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
+
+  ngOnInit(): void {
+    this.getAllEmployees()
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
+      this.filterUsers();
+    }
+  }
+
+
+  filterUsers() {
+    const term = this.searchTerm.toLowerCase();
+    this.filteredUsers = this.users.filter(user =>
+      user.name.toLowerCase().includes(term) ||
+      user.email.toLowerCase().includes(term) ||
+      user.phoneNumber.toLowerCase().includes(term)
+    );
+  }
 
   toggleAll(event: Event) {
     event.preventDefault();
@@ -35,10 +50,30 @@ export class EmployeesTableComponent {
     this.selectAll = this.users.every(user => user.selected);
   }
 
+  selectEmployee(employee: EmployeeResponse) {
+    console.log(employee);
+
+    this.selectedEmployee = employee;
+  }
+
+  getAllEmployees() {
+    this.employeeService.getAllEmployees().subscribe({
+      next: (n) => {
+        console.log(n);
+        if (n) {
+          this.users = n;
+          this.filteredUsers = this.users;
+        }
+      },
+      error: (e) => {
+        console.log(e);
+      }
+    })
+  }
   get paginatedUsers() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    return this.users.slice(start, end);
+    return this.filteredUsers.slice(start, end);
   }
 
   setPage(page: number, event: Event) {

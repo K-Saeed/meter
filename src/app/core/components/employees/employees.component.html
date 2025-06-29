@@ -1,5 +1,7 @@
 <div class="user-style">
-  <app-employees-title></app-employees-title>
-  <app-employees-action class="space"></app-employees-action>
-  <app-employees-table></app-employees-table>
+  <ng-container *appHasPermission="{ page: 'employees', action: 'READ' }">
+    <app-employees-title></app-employees-title>
+    <app-employees-action class="space" (searchChanged)="handleSearch($event)"></app-employees-action>
+    <app-employees-table [searchTerm]="searchTerm"></app-employees-table>
+  </ng-container>
 </div>

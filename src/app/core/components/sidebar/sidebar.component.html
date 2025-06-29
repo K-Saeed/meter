@@ -243,6 +243,7 @@
       </a>
     </ng-container>
 
+    <ng-container *appHasPermission="{ page: 'roles', action: 'READ' }">
     <ul class="submenu" *ngIf="isEmployeesOpen">
       <li class="">
         <a
@@ -254,7 +255,7 @@
         >
       </li>
     </ul>
-
+</ng-container>
     <ng-container *appHasPermission="{ page: 'notifications', action: 'READ' }">
       <a
         class="nav-link text-style list-group-item list-group-item-action"

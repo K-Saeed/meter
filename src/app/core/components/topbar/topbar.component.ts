@@ -1,3 +1,4 @@
+import { transition } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -10,10 +11,10 @@ import { TranslationService } from 'src/app/shared/service/translation.service';
   styleUrls: ['./topbar.component.css']
 })
 export class TopbarComponent implements OnInit {
+  currentLang = 'en';
   selectedOption: string = 'all';
   userProfile: any;
   imagPath:string = '';
-  currentLang = 'en';
 
   constructor(
     private authService: AuthService,
@@ -24,6 +25,7 @@ export class TopbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentLang = this.translationService.getCurrentLanguage();
     const userProfileString = localStorage.getItem("user-profile");
     if (userProfileString) {
       this.userProfile = JSON.parse(userProfileString);

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { RolePermissionsDTO } from '../model/rolePermissions.model';
+import { EmployeeService } from 'src/app/shared/service/employee.service';
 
 @Component({
   selector: 'app-role-delete-modal',
@@ -7,4 +9,22 @@ import { Component } from '@angular/core';
 })
 export class RoleDeleteModalComponent {
 
+  @Input() role!: RolePermissionsDTO;
+
+  constructor(private employeeService: EmployeeService) { }
+
+
+  deleteRole() {
+    if (this.role && this.role.id) {
+      this.employeeService.deleteRoleById(this.role.id).subscribe({
+        next: (n) => {
+          console.log(n);
+        },
+        error: (e) => {
+          console.log(e);
+        }
+      })
+    }
+
+  }
 }

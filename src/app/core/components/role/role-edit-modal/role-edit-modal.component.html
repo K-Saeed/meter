@@ -8,7 +8,7 @@
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">Add New Role</h1>
+        <h1 class="modal-title" id="exampleModalLabel">{{role.roleName}}</h1>
         <button
           type="button"
           class="btn-close"
@@ -17,22 +17,7 @@
         ></button>
       </div>
       <div class="modal-body d-flex flex-column gap-3 mt-2">
-        <div class="d-flex flex-column" style="gap: 0.5rem">
-          <div class="info d-flex flex-column gap-1 mt-2">
-            <h1>Role</h1>
-            <p style="padding-right: 9rem">
-              A role provided access to predefined menus and features so that
-              depending on assigned role an administrator can have access to
-              what he need
-            </p>
-          </div>
-          <input
-            type="text"
-            id="title"
-            placeholder="Role Name"
-            class="input-style"
-          />
-        </div>
+
         <table class="table my-4">
           <thead class="table-light">
             <tr>
@@ -97,7 +82,7 @@
           <button type="button" class="reject-btn" data-bs-toggle="modal">
             Cancel
           </button>
-          <button type="button" class="approve-btn" data-bs-toggle="modal">
+          <button (click)="editRoles()" type="button" class="approve-btn" data-bs-toggle="modal">
             Save
           </button>
         </div>
