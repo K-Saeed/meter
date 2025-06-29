@@ -65,7 +65,10 @@ export class RoleAddModalComponent implements OnInit {
       },
       error:(e)=>{
         console.log(e)
-      }
+      },
+        complete:()=>{
+          window.location.reload();
+        }
     });
   }
 
