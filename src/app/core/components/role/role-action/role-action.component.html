@@ -1,15 +1,28 @@
 <ng-container *appHasPermission="{ page: 'roles', action: 'WRITE' }">
-
   <div class="d-flex align-items-center justify-content-between">
     <div class="search-container d-flex align-items-center position-relative">
-      <span class="search-icon p-2">
-        <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
+      <span
+        class="search-icon p-2"
+        [ngClass]="currentLang === 'ar' ? 'icon-rtl' : 'icon-ltr'"
+      >
+        <img
+          src="../../../../../assets/img/search-normal.svg"
+          alt="Search Icon"
+        />
       </span>
-      <input type="text" class="form-control search-input" placeholder="Search in roles" />
+      <input
+        type="text"
+        class="form-control search-input"
+        [placeholder]="'search_in_roles' | translate"
+      />
     </div>
-    <button class="btn-orange d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addModal">
+    <button
+      class="btn-orange d-flex align-items-center gap-2"
+      data-bs-toggle="modal"
+      data-bs-target="#addModal"
+    >
       <img src="../../../../../assets/img/add.svg" alt="" srcset="" />
-      <span>Add Role</span>
+      <span>{{ "add_role" | translate }}</span>
     </button>
   </div>
 </ng-container>

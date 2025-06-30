@@ -14,13 +14,13 @@ export class TopbarComponent implements OnInit {
   currentLang = 'en';
   selectedOption: string = 'all';
   userProfile: any;
-  imagPath:string = '';
+  imagPath: string = '';
 
   constructor(
     private authService: AuthService,
     private router: Router,
     public translationService: TranslationService
-  ){
+  ) {
     this.currentLang = translationService.currentLang;
   }
 
@@ -59,7 +59,7 @@ export class TopbarComponent implements OnInit {
   }
 
   get currentLabel(): string {
-    return this.currentLang === 'ar' ? 'Arabic' : 'English';
+    return this.currentLang === 'ar' ? 'العربية' : 'English';
   }
 
 }

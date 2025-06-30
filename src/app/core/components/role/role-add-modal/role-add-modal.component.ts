@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-role-add-modal',
@@ -11,7 +12,7 @@ export class RoleAddModalComponent implements OnInit {
   pages: any[] = [];
   roleName: string = '';
   constructor(
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService, public translateService: TranslateService
   ) { }
 
   ngOnInit() {
@@ -60,10 +61,10 @@ export class RoleAddModalComponent implements OnInit {
     console.log(roleDto);
 
     this.employeeService.addRole(roleDto).subscribe({
-      next:(n)=>{
+      next: (n) => {
         console.log(n)
       },
-      error:(e)=>{
+      error: (e) => {
         console.log(e)
       }
     });

@@ -1,118 +1,315 @@
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="addModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div class="modal-dialog">
       <div class="modal-content d-flex">
         <div class="modal-header p-2 z-1">
-          <h1 class="modal-title" id="exampleModalLabel">Add Employees</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title" id="exampleModalLabel">
+            {{ "add_employees" | translate }}
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            [ngClass]="
+              translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+            "
+          ></button>
         </div>
+
         <div class="modal-body d-flex gap-3 mt-2">
           <div class="d-flex flex-column" style="gap: 2rem">
+            <!-- Logo -->
             <div class="position-relative input-container">
-              <label for="logoImage" class="position-absolute label-style">Logo Image</label>
-              <input type="file" id="logoImage" (change)="onFileChange($event)" class="input-style" />
+              <label
+                for="logoImage"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+              >
+                {{ "logo_image" | translate }}
+              </label>
+              <input
+                type="file"
+                id="logoImage"
+                (change)="onFileChange($event)"
+                class="input-style"
+              />
             </div>
+
+            <!-- Name -->
             <div class="position-relative input-container">
-              <label for="title" class="position-absolute label-style">Name</label>
-              <input type="text" id="title" placeholder="Enter Name" class="input-style" formControlName="name" />
-              <div *ngIf="form.get('name')?.invalid && (form.get('name')?.touched || submitClicked)" class="text-danger"
-                style="font-size: 12px;">
-                Name is required.
+              <label for="title" class="position-absolute label-style">{{
+                "name" | translate
+              }}</label>
+              <input
+                type="text"
+                id="title"
+                placeholder="{{ 'enter_name' | translate }}"
+                class="input-style"
+                formControlName="name"
+              />
+              <div
+                *ngIf="
+                  form.get('name')?.invalid &&
+                  (form.get('name')?.touched || submitClicked)
+                "
+                class="text-danger"
+                style="font-size: 12px"
+              >
+                {{ "name_required" | translate }}
               </div>
             </div>
+
+            <!-- Role -->
             <div class="position-relative input-container">
-              <label for="Role" class="position-absolute label-style">Role</label>
-              <div class="input-style d-flex justify-content-between align-items-center text-black"
-                (click)="toggleDropdown()">
-                {{ selectedVisibility ? selectedVisibility : "Choose Role" }}
+              <label for="Role" class="position-absolute label-style">{{
+                "role" | translate
+              }}</label>
+              <div
+                class="input-style d-flex justify-content-between align-items-center text-black"
+                (click)="toggleDropdown()"
+              >
+                {{
+                  selectedVisibility
+                    ? selectedVisibility
+                    : ("choose_role" | translate)
+                }}
                 <img src="../../../../../assets/img/arrow-down-o.svg" />
               </div>
-              <div *ngIf="dropdownOpen" id="dropdown" class="dropdown-content d-flex flex-column">
-                <label class="d-flex align-items-center gap-2 mx-1" *ngFor="let role of roles">
-                  <input type="radio" name="flexRadioDefault" [value]="role.roleName"
-                    (change)="updateSelectedRole(role.roleName)" />
+              <div
+                *ngIf="dropdownOpen"
+                id="dropdown"
+                class="dropdown-content d-flex flex-column"
+              >
+                <label
+                  class="d-flex align-items-center gap-2 mx-1"
+                  *ngFor="let role of roles"
+                >
+                  <input
+                    type="radio"
+                    name="flexRadioDefault"
+                    [value]="role.roleName"
+                    (change)="updateSelectedRole(role.roleName)"
+                  />
                   {{ role.roleName }}
                 </label>
               </div>
             </div>
+
+            <!-- Password -->
             <div class="password">
-              <div class="position-relative input-container" formGroupName="theTwoPasswords">
-                <label for="Password" class="position-absolute label-style">Password</label>
-                <input type="{{ showPassword ? 'text' : 'password' }}" id="Password" placeholder="Enter Password"
-                  class="input-style" formControlName="password" />
-                <i class="fa-regular pe-1 {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }} toggle-password-icon"
-                  (click)="togglePasswordVisibility()"></i>
+              <div
+                class="position-relative input-container"
+                formGroupName="theTwoPasswords"
+              >
+                <label for="Password" class="position-absolute label-style">{{
+                  "password" | translate
+                }}</label>
+                <input
+                  type="{{ showPassword ? 'text' : 'password' }}"
+                  id="Password"
+                  placeholder="{{ 'enter_password' | translate }}"
+                  class="input-style"
+                  formControlName="password"
+                />
+                <i
+                  class="fa-regular pe-1 {{
+                    showPassword ? 'fa-eye-slash' : 'fa-eye'
+                  }} toggle-password-icon"
+                  (click)="togglePasswordVisibility()"
+                ></i>
               </div>
               <div
-                *ngIf="form.get('theTwoPasswords.password')?.invalid && (form.get('theTwoPasswords.password')?.touched || submitClicked)"
-                class="text-danger" style="font-size: 12px;">
-                <div *ngIf="form.get('theTwoPasswords.password')?.errors?.['required']">Password is required.</div>
-                <div *ngIf="form.get('theTwoPasswords.password')?.errors?.['pattern']">
-                  Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase
-                  letter, one number, and one special character.
+                *ngIf="
+                  form.get('theTwoPasswords.password')?.invalid &&
+                  (form.get('theTwoPasswords.password')?.touched ||
+                    submitClicked)
+                "
+                class="text-danger"
+                style="font-size: 12px"
+              >
+                <div
+                  *ngIf="form.get('theTwoPasswords.password')?.errors?.['required']"
+                >
+                  {{ "password_required" | translate }}
+                </div>
+                <div
+                  *ngIf="form.get('theTwoPasswords.password')?.errors?.['pattern']"
+                >
+                  {{ "invalid_password" | translate }}
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Right Column -->
           <div class="d-flex flex-column" style="gap: 2rem">
+            <!-- Email -->
             <div class="position-relative input-container">
-              <label for="Email" class="position-absolute label-style">Email</label>
-              <input type="email" id="Email" placeholder="Enter Email" class="input-style" formControlName="email" />
-              <div *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || submitClicked)"
-                class="text-danger" style="font-size: 12px;">
-                <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
-                <div *ngIf="form.get('email')?.errors?.['pattern']">Invalid email format.</div>
+              <label for="Email" class="position-absolute label-style">{{
+                "email" | translate
+              }}</label>
+              <input
+                type="email"
+                id="Email"
+                placeholder="{{ 'enter_email' | translate }}"
+                class="input-style"
+                formControlName="email"
+              />
+              <div
+                *ngIf="
+                  form.get('email')?.invalid &&
+                  (form.get('email')?.touched || submitClicked)
+                "
+                class="text-danger"
+                style="font-size: 12px"
+              >
+                <div *ngIf="form.get('email')?.errors?.['required']">
+                  {{ "email_required" | translate }}
+                </div>
+                <div *ngIf="form.get('email')?.errors?.['pattern']">
+                  {{ "invalid_email" | translate }}
+                </div>
               </div>
             </div>
+
+            <!-- Phone -->
             <div class="position-relative input-container">
-              <label for="phone" class="position-absolute z-1 label-style">Phone Number</label>
-              <div class="input-wrapper d-flex align-items-center position-relative">
-                <img src="../../../../../assets/img/SA.svg" class="flag-icon" alt="Country Flag"
-                  style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%);" />
-                <input type="text" id="countryCode" class="input-style country-code" formControlName="countryCode"
-                  value="+966" style="padding-left: 40px;border: none;" />
-                <input type="text" id="phoneNumber" class="input-style phone-number " formControlName="phoneNumber"
-                  placeholder="Enter phone number" />
-                <div class="verify-text" data-bs-toggle="modal" data-bs-target="#verifyModal"
-                  style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
-                  Verify
+              <label for="phone" class="position-absolute z-1 label-style">{{
+                "phone_number" | translate
+              }}</label>
+              <div
+                class="input-wrapper d-flex align-items-center position-relative"
+              >
+                <img
+                  src="../../../../../assets/img/SA.svg"
+                  class="flag-icon"
+                  alt="Country Flag"
+                  style="
+                    position: absolute;
+                    left: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                  "
+                />
+                <input
+                  type="text"
+                  id="countryCode"
+                  class="input-style country-code"
+                  formControlName="countryCode"
+                  value="+966"
+                  style="padding-left: 40px; border: none"
+                />
+                <input
+                  type="text"
+                  id="phoneNumber"
+                  class="input-style phone-number"
+                  formControlName="phoneNumber"
+                  placeholder="{{ 'enter_phone_number' | translate }}"
+                />
+                <div
+                  class="verify-text"
+                  data-bs-toggle="modal"
+                  data-bs-target="#verifyModal"
+                  style="
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                  "
+                >
+                  {{ "verify" | translate }}
                 </div>
               </div>
 
-              <div *ngIf="form.get('phoneNumber')?.invalid && (form.get('phoneNumber')?.touched || submitClicked)"
-                class="text-danger " style="font-size: 12px;">
-                <div *ngIf="form.get('phoneNumber')?.errors?.['required']">Phone number is required.</div>
-                <div *ngIf="form.get('phoneNumber')?.errors?.['pattern']">Invalid phone number format.</div>
+              <div
+                *ngIf="
+                  form.get('phoneNumber')?.invalid &&
+                  (form.get('phoneNumber')?.touched || submitClicked)
+                "
+                class="text-danger"
+                style="font-size: 12px"
+              >
+                <div *ngIf="form.get('phoneNumber')?.errors?.['required']">
+                  {{ "phone_required" | translate }}
+                </div>
+                <div *ngIf="form.get('phoneNumber')?.errors?.['pattern']">
+                  {{ "invalid_phone" | translate }}
+                </div>
               </div>
             </div>
+
+            <!-- Confirm Password -->
             <div class="confirm">
-              <div class="position-relative input-container" formGroupName="theTwoPasswords">
-                <label for="confirmPassword" class="position-absolute label-style">Confirm Password</label>
-                <input type="{{ showConfirmPassword ? 'text' : 'password' }}" id="confirmPassword"
-                  placeholder="Enter Password" class="input-style" formControlName="confirmPassword" />
-                <i class="fa-regular pe-1 {{ showConfirmPassword ? 'fa-eye-slash' : 'fa-eye' }} toggle-password-icon"
-                  (click)="toggleConfirmPasswordVisibility()"></i>
+              <div
+                class="position-relative input-container"
+                formGroupName="theTwoPasswords"
+              >
+                <label
+                  for="confirmPassword"
+                  class="position-absolute label-style"
+                >
+                  {{ "confirm_password" | translate }}
+                </label>
+                <input
+                  type="{{ showConfirmPassword ? 'text' : 'password' }}"
+                  id="confirmPassword"
+                  placeholder="{{ 'enter_password' | translate }}"
+                  class="input-style"
+                  formControlName="confirmPassword"
+                />
+                <i
+                  class="fa-regular pe-1 {{
+                    showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'
+                  }} toggle-password-icon"
+                  (click)="toggleConfirmPasswordVisibility()"
+                ></i>
               </div>
               <div
-                *ngIf="form.get('theTwoPasswords.confirmPassword')?.invalid && (form.get('theTwoPasswords.confirmPassword')?.touched || submitClicked)"
-                class="text-danger" style="font-size: 12px;">
-                Confirm password is required.
+                *ngIf="
+                  form.get('theTwoPasswords.confirmPassword')?.invalid &&
+                  (form.get('theTwoPasswords.confirmPassword')?.touched ||
+                    submitClicked)
+                "
+                class="text-danger"
+                style="font-size: 12px"
+              >
+                {{ "confirm_password_required" | translate }}
               </div>
               <div
                 *ngIf="form.get('theTwoPasswords')?.errors?.['isPasswordsMatching'] && (form.get('theTwoPasswords.confirmPassword')?.touched || submitClicked)"
-                class="text-danger" style="font-size: 12px;">
-                Passwords do not match.
+                class="text-danger"
+                style="font-size: 12px"
+              >
+                {{ "passwords_not_matching" | translate }}
               </div>
             </div>
           </div>
         </div>
 
-        <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
+        <!-- Buttons -->
+        <div
+          class="d-flex gap-3 justify-content-end"
+          style="margin: 20px 10px 20px 0px"
+        >
           <button type="button" class="reject-btn" data-bs-toggle="modal">
-            Cancel
+            {{ "cancel" | translate }}
           </button>
-          <button type="submit" class="approve-btn" [disabled]="!this.form.valid" data-bs-toggle="modal">
-            Save
+          <button
+            type="submit"
+            class="approve-btn"
+            [disabled]="!this.form.valid"
+            data-bs-toggle="modal"
+          >
+            {{ "save" | translate }}
           </button>
         </div>
       </div>
@@ -120,6 +317,10 @@
   </form>
 </div>
 
-<app-employees-verification-modal [phoneNumber]="form.get('countryCode')?.value + form.get('phoneNumber')?.value"
-  (verificationCompleted)="handleVerificationCompleted($event)">
-</app-employees-verification-modal>
+<!-- Verification Modal -->
+<app-employees-verification-modal
+  [phoneNumber]="
+    form.get('countryCode')?.value + form.get('phoneNumber')?.value
+  "
+  (verificationCompleted)="handleVerificationCompleted($event)"
+></app-employees-verification-modal>

@@ -8,17 +8,23 @@
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">Filter</h1>
+        <h1 class="modal-title" id="exampleModalLabel">
+          {{ "filter" | translate }}
+        </h1>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
         ></button>
       </div>
+
       <div class="modal-body">
         <div class="info d-flex flex-column gap-1">
-          <h3>Role</h3>
+          <h3>{{ "role" | translate }}</h3>
           <div
             class="d-flex align-items-center justify-content-start mb-4 gap-2"
           >
@@ -32,7 +38,7 @@
               }"
               (click)="toggleLink('admin', $event)"
             >
-              Admin
+              {{ "admin" | translate }}
               <span
                 *ngIf="isActiveLink('admin')"
                 (click)="clearLink('admin', $event)"
@@ -41,6 +47,7 @@
                 ✖
               </span>
             </a>
+
             <a
               class="text-decoration-none d-flex align-items-center gap-1"
               href="#"
@@ -51,7 +58,7 @@
               }"
               (click)="toggleLink('modrtetor', $event)"
             >
-              Modrtetor
+              {{ "moderator" | translate }}
               <span
                 *ngIf="isActiveLink('modrtetor')"
                 (click)="clearLink('modrtetor', $event)"
@@ -63,7 +70,9 @@
           </div>
         </div>
 
-        <button type="button" class="filter-btn m-auto d-block">Filter</button>
+        <button type="button" class="filter-btn m-auto d-block">
+          {{ "filter" | translate }}
+        </button>
       </div>
     </div>
   </div>

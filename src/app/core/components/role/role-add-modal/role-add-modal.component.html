@@ -1,43 +1,111 @@
-<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="addModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">Add New Role</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title" id="exampleModalLabel">
+          {{ "add_new_role" | translate }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
+        ></button>
       </div>
+
       <div class="modal-body d-flex flex-column gap-3 mt-2">
         <div class="d-flex flex-column" style="gap: 0.5rem">
           <div class="info d-flex flex-column gap-1 mt-2">
-            <h1>Role</h1>
+            <h1>{{ "role" | translate }}</h1>
             <p style="padding-right: 9rem">
-              A role provided access to predefined menus and features so that depending on assigned role an administrator can have access to what he need
+              {{ "role_description" | translate }}
             </p>
           </div>
-          <input type="text" id="title" placeholder="Role Name" class="input-style" [(ngModel)]="roleName">
+          <input
+            type="text"
+            id="title"
+            [placeholder]="'role_name' | translate"
+            class="input-style"
+            [(ngModel)]="roleName"
+          />
         </div>
+
         <table class="table my-4">
           <thead class="table-light">
             <tr>
-              <th scope="col" class="title-table"><p class="m-0">Pages</p></th>
-              <th scope="col" class="title-table"><p class="m-0">View</p></th>
-              <th scope="col" class="title-table"><p class="m-0">Edit</p></th>
-              <th scope="col" class="title-table"><p class="m-0">Delete</p></th>
-              <th scope="col" class="title-table"><p class="m-0">Add</p></th>
+              <th scope="col" class="title-table">
+                <p class="m-0">{{ "pages" | translate }}</p>
+              </th>
+              <th scope="col" class="title-table">
+                <p class="m-0">{{ "view" | translate }}</p>
+              </th>
+              <th scope="col" class="title-table">
+                <p class="m-0">{{ "edit" | translate }}</p>
+              </th>
+              <th scope="col" class="title-table">
+                <p class="m-0">{{ "delete" | translate }}</p>
+              </th>
+              <th scope="col" class="title-table">
+                <p class="m-0">{{ "add" | translate }}</p>
+              </th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let page of pages">
-              <th scope="row"><h4 class="m-0">{{ page.name }}</h4></th>
-              <td><input type="checkbox" [(ngModel)]="page.view" (change)="checkIfAllSelected()"/></td>
-              <td><input type="checkbox" [(ngModel)]="page.edit" (change)="checkIfAllSelected()"/></td>
-              <td><input type="checkbox" [(ngModel)]="page.delete" (change)="checkIfAllSelected()"/></td>
-              <td><input type="checkbox" [(ngModel)]="page.add" (change)="checkIfAllSelected()"/></td>
+              <th scope="row">
+                <h4 class="m-0">{{ page.name }}</h4>
+              </th>
+              <td>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="page.view"
+                  (change)="checkIfAllSelected()"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="page.edit"
+                  (change)="checkIfAllSelected()"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="page.delete"
+                  (change)="checkIfAllSelected()"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="page.add"
+                  (change)="checkIfAllSelected()"
+                />
+              </td>
             </tr>
           </tbody>
         </table>
-        <div class="d-flex gap-3 justify-content-end" style="margin: 20px 10px 20px 0px">
-          <button type="button" class="reject-btn" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="approve-btn" (click)="saveRole()">Save</button>
+
+        <div
+          class="d-flex gap-3 justify-content-end"
+          style="margin: 20px 10px 20px 0px"
+        >
+          <button type="button" class="reject-btn" data-bs-dismiss="modal">
+            {{ "cancel" | translate }}
+          </button>
+          <button type="button" class="approve-btn" (click)="saveRole()">
+            {{ "save" | translate }}
+          </button>
         </div>
       </div>
     </div>
