@@ -25,7 +25,7 @@ export class TopbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentLang = this.translationService.getCurrentLanguage();
+    this.currentLang = this.translationService.currentLang;
     const userProfileString = localStorage.getItem("user-profile");
     if (userProfileString) {
       this.userProfile = JSON.parse(userProfileString);

@@ -16,11 +16,9 @@ export class AppComponent implements OnInit {
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
-  constructor(private router: Router, private authService: AuthService, private translate: TranslationService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.translate.setDefaultLanguage();
-    
     this.checkAuthentication();
 
     this.router.events.subscribe(event => {

@@ -32,9 +32,10 @@ export class SignInComponent implements OnInit {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-  constructor(private fb: FormBuilder, private loginService: LoginService, private translationService: TranslationService) { }
+  constructor(private fb: FormBuilder, private loginService: LoginService, 
+    private translationService: TranslationService) { }
   ngOnInit(): void {
-    this.currentLang = this.translationService.getCurrentLanguage();
+    this.currentLang = this.translationService.currentLang;
     this.initializeForm();
     this.signInForm.reset();
   }
@@ -68,8 +69,8 @@ export class SignInComponent implements OnInit {
     }
   }
 
-  switchLanguage(lang: string) {
+  switchLang(lang: string) {
+    this.translationService.setLanguage(lang);
     this.currentLang = lang;
-    this.translationService.checkLanguage(lang);
   }
 }

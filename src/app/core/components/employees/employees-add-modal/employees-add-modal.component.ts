@@ -17,15 +17,18 @@ export class EmployeesAddModalComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
   form!: FormGroup;
+  currentLang = 'en';
   submitClicked?: boolean;
   isVerified: boolean = false;
   logoImage?: File;
   roles: RoleChooseDto[] = [];
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService, public translateService: TranslateService) {
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService, 
+    public translationService: TranslateService) {
     this.initializeForm();
   }
 
   ngOnInit(): void {
+    this.currentLang = this.translationService.currentLang;
     this.initializeForm();
     this.employeeService.getAllRoles().subscribe(data => {
       this.roles = data;
