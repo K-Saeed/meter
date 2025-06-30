@@ -18,7 +18,7 @@
             data-bs-dismiss="modal"
             aria-label="Close"
             [ngClass]="
-            translationService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+              translationService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
             "
           ></button>
         </div>
@@ -46,9 +46,14 @@
 
             <!-- Name -->
             <div class="position-relative input-container">
-              <label for="title" class="position-absolute label-style">{{
-                "name" | translate
-              }}</label>
+              <label
+                for="title"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "name" | translate }}</label
+              >
               <input
                 type="text"
                 id="title"
@@ -70,9 +75,14 @@
 
             <!-- Role -->
             <div class="position-relative input-container">
-              <label for="Role" class="position-absolute label-style">{{
-                "role" | translate
-              }}</label>
+              <label
+                for="Role"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "role" | translate }}</label
+              >
               <div
                 class="input-style d-flex justify-content-between align-items-center text-black"
                 (click)="toggleDropdown()"
@@ -110,9 +120,14 @@
                 class="position-relative input-container"
                 formGroupName="theTwoPasswords"
               >
-                <label for="Password" class="position-absolute label-style">{{
-                  "password" | translate
-                }}</label>
+                <label
+                  for="Password"
+                  class="position-absolute label-style"
+                  [ngClass]="
+                    currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                  "
+                  >{{ "password" | translate }}</label
+                >
                 <input
                   type="{{ showPassword ? 'text' : 'password' }}"
                   id="Password"
@@ -125,6 +140,10 @@
                     showPassword ? 'fa-eye-slash' : 'fa-eye'
                   }} toggle-password-icon"
                   (click)="togglePasswordVisibility()"
+                  [ngStyle]="{
+                    right: currentLang === 'ar' ? 'unset' : '10px',
+                    left: currentLang === 'ar' ? '10px' : 'unset'
+                  }"
                 ></i>
               </div>
               <div
@@ -154,9 +173,14 @@
           <div class="d-flex flex-column" style="gap: 2rem">
             <!-- Email -->
             <div class="position-relative input-container">
-              <label for="Email" class="position-absolute label-style">{{
-                "email" | translate
-              }}</label>
+              <label
+                for="Email"
+                class="position-absolute label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "email" | translate }}</label
+              >
               <input
                 type="email"
                 id="Email"
@@ -183,9 +207,14 @@
 
             <!-- Phone -->
             <div class="position-relative input-container">
-              <label for="phone" class="position-absolute z-1 label-style">{{
-                "phone_number" | translate
-              }}</label>
+              <label
+                for="phone"
+                class="position-absolute z-1 label-style"
+                [ngClass]="
+                  currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                "
+                >{{ "phone_number" | translate }}</label
+              >
               <div
                 class="input-wrapper d-flex align-items-center position-relative"
               >
@@ -206,14 +235,14 @@
                   class="input-style country-code"
                   formControlName="countryCode"
                   value="+966"
-                  style="padding-left: 40px; border: none"
+                  style="padding-left: 2.5rem; text-align: end; border: none"
                 />
+
                 <input
                   type="text"
                   id="phoneNumber"
                   class="input-style phone-number"
                   formControlName="phoneNumber"
-                  placeholder="{{ 'enter_phone_number' | translate }}"
                 />
                 <div
                   class="verify-text"
@@ -256,6 +285,9 @@
                 <label
                   for="confirmPassword"
                   class="position-absolute label-style"
+                  [ngClass]="
+                    currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+                  "
                 >
                   {{ "confirm_password" | translate }}
                 </label>
@@ -268,9 +300,13 @@
                 />
                 <i
                   class="fa-regular pe-1 {{
-                    showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'
+                    showPassword ? 'fa-eye-slash' : 'fa-eye'
                   }} toggle-password-icon"
                   (click)="toggleConfirmPasswordVisibility()"
+                  [ngStyle]="{
+                    right: currentLang === 'ar' ? 'unset' : '10px',
+                    left: currentLang === 'ar' ? '10px' : 'unset'
+                  }"
                 ></i>
               </div>
               <div

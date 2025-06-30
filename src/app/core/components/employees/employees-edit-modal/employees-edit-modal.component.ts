@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Regex } from 'src/app/shared/constant/regex';
 import { EmployeesAddModalComponent } from '../employees-add-modal/employees-add-modal.component';
 import { RoleChooseDto } from '../../role/model/role.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employees-edit-modal',
@@ -22,15 +23,18 @@ export class EmployeesEditModalComponent {
   showPassword = false;
   showConfirmPassword = false;
   submitClicked?: boolean;
+  currentLang = 'en';
 
   selectedVisibility: string = '';
   roles: RoleChooseDto[] = [];
 
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService,
+    public translationService: TranslateService) { }
 
 
   ngOnInit(): void {
+    this.currentLang = this.translationService.currentLang;
     this.employeeService.getAllRoles().subscribe(data => {
       this.roles = data;
     });
@@ -54,7 +58,7 @@ export class EmployeesEditModalComponent {
   }
 
   getTheTwoPasswords() {
-    
+
     const passwordControl = new FormControl('');
     const confirmPasswordControl = new FormControl('');
 

@@ -321,5 +321,6 @@
   "enter_phone_number": "Enter phone number",
   "phone_required": "Phone number is required.",
   "confirm_password_required": "Confirm password is required.",
-  "passwords_not_matching": "Passwords do not match."
+  "passwords_not_matching": "Passwords do not match.",
+  "invalid_passsword": "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
 }

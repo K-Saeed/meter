@@ -320,5 +320,7 @@
   "enter_phone_number": "ادخل رقم الجوال",
   "phone_required": "رقم الجوال مطلوب.",
   "confirm_password_required": "تأكيد كلمة المرور مطلوب.",
-  "passwords_not_matching": "كلمتا المرور غير متطابقتين."
+  "passwords_not_matching": "كلمتا المرور غير متطابقتين.",
+  "invalid_passsword": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتحتوي على حرف كبير، حرف صغير، رقم، وحرف خاص."
+
 }
