@@ -69,7 +69,7 @@ export class SignInComponent implements OnInit {
     }
   }
 
-  switchLang(lang: string) {
+  switchLanguage(lang: string) {
     this.translationService.setLanguage(lang);
     this.currentLang = lang;
   }
