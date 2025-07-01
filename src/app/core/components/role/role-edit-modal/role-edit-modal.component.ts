@@ -76,6 +76,9 @@ export class RoleEditModalComponent {
         },
         error: (e) => {
           console.error('Error Updating', e);
+        },
+        complete:()=>{
+          window.location.reload();
         }
       });
     }

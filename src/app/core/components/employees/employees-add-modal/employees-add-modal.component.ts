@@ -90,6 +90,9 @@ export class EmployeesAddModalComponent implements OnInit {
         },
         error: (e) => {
           console.log(e);
+        },
+        complete:()=>{
+          window.location.reload();
         }
       });
     } else {

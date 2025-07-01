@@ -21,6 +21,9 @@ export class EmployeesDeleteModalComponent {
         },
         error:(e)=>{
           console.log(e);
+        },
+        complete:()=>{
+          window.location.reload();
         }
       })
     }

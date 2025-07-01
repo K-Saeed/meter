@@ -22,6 +22,9 @@ export class RoleDeleteModalComponent {
         },
         error: (e) => {
           console.log(e);
+        },
+        complete:()=>{
+          window.location.reload();
         }
       })
     }
