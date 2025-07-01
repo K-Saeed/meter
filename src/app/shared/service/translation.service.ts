@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class TranslationService {
   constructor(private translate: TranslateService) {
     translate.addLangs(['en', 'ar']);
-    translate.setDefaultLang('en');
+    translate.setDefaultLang('ar');
 
     const savedLang = localStorage.getItem('app_language');
     const browserLang = translate.getBrowserLang();
