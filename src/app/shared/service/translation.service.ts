@@ -27,6 +27,6 @@ export class TranslationService {
   }
 
   get currentLang(): string {
-    return this.translate.currentLang;
+    return localStorage.getItem('app_language') || 'ar';
   }
 }
