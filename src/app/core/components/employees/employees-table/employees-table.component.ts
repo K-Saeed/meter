@@ -36,7 +36,6 @@ export class EmployeesTableComponent {
     }
   }
 
-
   filterUsers() {
     const term = this.searchTerm.toLowerCase();
     this.filteredUsers = this.users.filter(user =>

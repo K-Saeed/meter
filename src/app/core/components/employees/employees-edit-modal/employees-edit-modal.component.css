@@ -1,3 +1,4 @@
+
 .text-danger {
   color: rgb(202, 2, 2);
 }
@@ -64,6 +65,7 @@
   box-shadow: none;
 }
 
+
 .input-container {
   width: 100%;
   position: relative;
@@ -103,6 +105,7 @@
   cursor: pointer;
   color: #000;
 }
+
 
 .input-style::placeholder {
   border: none;
@@ -177,6 +180,7 @@ input[type="radio"]:checked {
   color: #f28f45;
 }
 
+
 .approve-btn {
   width: 110px;
   background-color: #f28f45;
@@ -192,6 +196,7 @@ input[type="radio"]:checked {
   font-size: 15px;
   color: #888;
 }
+
 
 .input-wrapper {
   position: relative;
@@ -219,6 +224,7 @@ input[type="radio"]:checked {
   width: 24px;
   height: auto;
 }
+
 
 .verify-text {
   position: absolute;

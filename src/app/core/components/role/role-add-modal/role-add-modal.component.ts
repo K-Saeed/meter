@@ -59,7 +59,6 @@ export class RoleAddModalComponent implements OnInit {
     };
 
     console.log(roleDto);
-
     this.employeeService.addRole(roleDto).subscribe({
       next: (n) => {
         console.log(n)
