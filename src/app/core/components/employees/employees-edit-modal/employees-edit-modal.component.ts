@@ -58,7 +58,6 @@ export class EmployeesEditModalComponent {
   }
 
   getTheTwoPasswords() {
-
     const passwordControl = new FormControl('');
     const confirmPasswordControl = new FormControl('');
 

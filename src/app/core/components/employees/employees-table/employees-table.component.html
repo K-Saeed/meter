@@ -3,11 +3,7 @@
     <thead class="table-light">
       <tr>
         <th scope="col">
-          <input
-            type="checkbox"
-            [(ngModel)]="selectAll"
-            (change)="toggleAll($event)"
-          />
+          <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAll($event)" />
         </th>
         <th scope="col" class="title-table">
           <p class="m-0">{{ "id" | translate }}</p>
@@ -32,11 +28,7 @@
     <tbody>
       <tr *ngFor="let user of paginatedUsers">
         <th scope="row">
-          <input
-            type="checkbox"
-            [(ngModel)]="user.selected"
-            (change)="checkIfAllSelected()"
-          />
+          <input type="checkbox" [(ngModel)]="user.selected" (change)="checkIfAllSelected()" />
         </th>
         <td>
           <h4 class="m-0">{{ user.id }}</h4>
@@ -137,16 +129,12 @@
           *ngFor="
             let page of [].constructor(Math.ceil(users.length / itemsPerPage));
             let i = index
-          "
-          [class.active]="i + 1 === currentPage"
-        >
+          " [class.active]="i + 1 === currentPage">
           <a class="page-link" href="#" (click)="setPage(i + 1, $event)">{{
             i + 1
-          }}</a>
+            }}</a>
         </li>
-        <li
-          class="page-item"
-          [class.disabled]="
+        <li class="page-item" [class.disabled]="
             currentPage === Math.ceil(users.length / itemsPerPage)
           "
         >
@@ -173,11 +161,7 @@
     <div class="font d-flex align-items-center">
       <h5 class="m-0 me-2">{{ "show" | translate }}</h5>
       <div class="select-wrapper">
-        <select
-          class="form-select mx-2 custom-select"
-          [(ngModel)]="itemsPerPage"
-          (change)="setPage(1, $event)"
-        >
+        <select class="form-select mx-2 custom-select" [(ngModel)]="itemsPerPage" (change)="setPage(1, $event)">
           <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">
             {{ option }}
           </option>

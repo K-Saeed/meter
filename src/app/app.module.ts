@@ -156,13 +156,13 @@ import { DevicesProposalShowDetailsModalComponent } from "./core/components/devi
 import { DevicesProposalShowModalComponent } from "./core/components/devices-proposals/devices-proposal-show-modal/devices-proposal-show-modal.component";
 import { DevicesProposalTableComponent } from "./core/components/devices-proposals/devices-proposal-table/devices-proposal-table.component";
 import { DevicesProposalTitleComponent } from "./core/components/devices-proposals/devices-proposal-title/devices-proposal-title.component";
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
-
 
 @NgModule({
   declarations: [

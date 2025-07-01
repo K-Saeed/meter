@@ -21,6 +21,7 @@ export class EmployeesTableComponent {
   constructor(private employeeService: EmployeeService, private translateService: TranslateService
   ) { this.currentLang = this.translateService.currentLang; }
 
+
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;

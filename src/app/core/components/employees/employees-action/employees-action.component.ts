@@ -19,10 +19,9 @@ export class EmployeesActionComponent {
   //   this.translateService.onLangChange.subscribe(lang => {
   //     this.currentLang = lang.lang;
   //   });
-  // }
+  // }  
 
   applySearch() {
     this.searchChanged.emit(this.searchTerm);
   }
-
 }
