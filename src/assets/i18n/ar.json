@@ -17,7 +17,7 @@
   "Transactions": "المعاملات",
   "work-submission": "تسليم الأعمال",
   "Employees": "الموظفون",
-  "Roles": "الأدوار",
+  "Roles": "الصلاحيات",
   "Chat": "الدردشة",
   "total_users": "إجمالي المستخدمين",
   "approved_devices": "الأجهزة المعتمدة",
@@ -159,7 +159,7 @@
   "search_in_clients": "ابحث في العملاء",
   "filter_and_chat": "تصنيف ومراسلة",
   "search_in_users": "ابحث في المستخدمين",
-  "role": "الدور",
+  "role": "الصلاحية",
   "merchants": "البائعون",
   "filtered_list": "القائمة المصفاة",
   "type_message": "اكتب رسالة...",
@@ -253,7 +253,7 @@
   "back": "رجوع",
   "next": "التالي",
   "add": "إضافة",
-  "choose_role": "اختر الدور",
+  "choose_role": "اختر الصلاحية",
   "invalid_phone": "رقم الجوال غير صالح",
   "password": "كلمة المرور",
   "enter_password": "أدخل كلمة المرور",
@@ -322,5 +322,4 @@
   "confirm_password_required": "تأكيد كلمة المرور مطلوب.",
   "passwords_not_matching": "كلمتا المرور غير متطابقتين.",
   "invalid_passsword": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل وتحتوي على حرف كبير، حرف صغير، رقم، وحرف خاص."
-
 }
