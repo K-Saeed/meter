@@ -1,15 +1,32 @@
+/* ========================
+   Search Container & Icon
+=========================== */
+.search-container {
+  position: relative;
+}
+
 .search-icon {
   position: absolute;
   top: 45%;
-  left: 8px;
   transform: translateY(-50%);
   z-index: 1;
 }
+
+.icon-ltr {
+  left: 8px;
+}
+
+.icon-rtl {
+  right: 8px;
+}
+
+/* ========================
+   Search Input & Button
+=========================== */
 .search-input {
   width: 320px;
   height: 42px;
-  padding: 8px 19px 8px 45px;
-  /* color: #9a9a9a; */
+  padding: 8px 19px 8px 45px; /* default padding for LTR */
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -17,6 +34,10 @@
   letter-spacing: -3%;
   border-radius: 12px;
   border: 1px solid #d9d9d9;
+}
+
+:host-context([dir="rtl"]) .search-input {
+  padding: 8px 45px 8px 19px;
 }
 
 .search-input::placeholder {

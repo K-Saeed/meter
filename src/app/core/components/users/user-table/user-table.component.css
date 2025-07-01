@@ -250,7 +250,7 @@ h4 {
   background-color: #099d4224;
   color: #099d42;
   font-size: 14px;
-  padding: 8px 4px 6px 10px;
+  /* padding: 8px 4px 6px 10px; */
   border-radius: 24px;
 }
 
@@ -270,7 +270,7 @@ h4 {
   background-color: #fcedd6;
   color: #f09868;
   font-size: 14px;
-  padding: 8px 4px 6px 20px;
+  /* padding: 8px 4px 6px 20px; */
   border-radius: 24px;
 }
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RolePermissionsDTO } from '../model/rolePermissions.model';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-role-edit-modal',
@@ -11,7 +12,7 @@ export class RoleEditModalComponent {
 
   @Input() role!: RolePermissionsDTO;
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, public translateService: TranslateService) { }
 
   selectAll: boolean = false;
   pages: any[] = [];

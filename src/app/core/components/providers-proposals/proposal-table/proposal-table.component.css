@@ -67,7 +67,7 @@ h4 {
   background-color: #099d4224;
   color: #099d42;
   font-size: 14px;
-  padding: 8px 4px 6px 7px;
+  /* padding: 8px 4px 6px 7px; */
   border-radius: 24px;
 }
 .red {
@@ -85,8 +85,23 @@ h4 {
   background-color: #fcedd6;
   color: #f09868;
   font-size: 14px;
-  padding: 8px 4px 6px 12px;
+  padding: 8px 15px 6px 12px;
   border-radius: 24px;
+}
+.blue {
+  width: 80px;
+  height: 33px;
+  background-color: #d6eaff; /* Light blue background */
+  color: #007bff; /* Blue text */
+  font-size: 14px;
+  border-radius: 24px;
+
+  /* Center the word "Paid" */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 !important; /* Optional: remove padding for exact centering */
+  text-align: center;
 }
 table {
   width: 100%;

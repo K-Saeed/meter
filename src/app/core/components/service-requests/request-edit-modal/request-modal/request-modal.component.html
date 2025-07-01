@@ -1,100 +1,293 @@
-  <form [formGroup]="formGroup">
-    <div class="modal-body d-flex flex-wrap gap-3 mt-2">
-      <div class="d-flex flex-column" style="gap: 2rem">
-        <!-- *ngIf="selectedPricing === 'Survey report'" -->
-        <div class="position-relative input-container">
-          <label for="pricing" class="position-absolute label-style">Purpose of Pricing</label>
-          <div class="input-style d-flex justify-content-between align-items-center text-black" (click)="togglePricingDropdown()">
-            {{ selectedPricing ? selectedPricing : "Choose Purpose of Pricing" }}
-            <img src="../../../../../assets/img/arrow-down-o.svg" />
-          </div>
-
-          <div *ngIf="pricingDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
-            <div class="scrollable-container">
-              <label class="radio-container d-flex align-items-center gap-2 mx-1" *ngFor="let option of pricingOptions">
-                <input type="radio" name="pricing" [value]="option.name" (change)="onPricingSelected(option.name)" [checked]="option.name === selectedPricing" />
-                <span class="radio-label">{{ option.name }}</span>
-              </label>
-            </div>
-          </div>
+<form [formGroup]="formGroup">
+  <div class="modal-body d-flex flex-wrap gap-3 mt-2">
+    <div class="d-flex flex-column" style="gap: 2rem">
+      <div class="position-relative input-container">
+        <label
+          for="pricing"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "purpose_of_pricing" | translate }}
+        </label>
+        <div
+          class="input-style d-flex justify-content-between align-items-center text-black"
+          (click)="togglePricingDropdown()"
+        >
+          {{
+            selectedPricing
+              ? selectedPricing
+              : ("choose_purpose_of_pricing" | translate)
+          }}
+          <img src="../../../../../assets/img/arrow-down-o.svg" />
         </div>
-        <div class="position-relative input-container">
-          <label for="survey" class="position-absolute label-style">Purpose of Survey Report</label>
-          <div class="input-style d-flex justify-content-between align-items-center text-black" (click)="toggleSurveyDropdown()">
-            {{ selectedSurvey ? selectedSurvey : "Choose Purpose of Survey Report" }}
-            <img src="../../../../../assets/img/arrow-down-o.svg" />
+        <div
+          *ngIf="pricingDropdownOpen"
+          class="dropdown-content d-flex flex-column gap-1"
+        >
+          <div class="scrollable-container">
+            <label
+              class="radio-container d-flex align-items-center gap-2 mx-1"
+              *ngFor="let option of pricingOptions"
+            >
+              <input
+                type="radio"
+                name="pricing"
+                [value]="option.name"
+                (change)="onPricingSelected(option.name)"
+                [checked]="option.name === selectedPricing"
+              />
+              <span class="radio-label">{{ option.name }}</span>
+            </label>
           </div>
-
-          <div *ngIf="surveyDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
-            <div class="scrollable-container">
-              <label class="radio-container d-flex align-items-center gap-2 mx-1" *ngFor="let survey of surveyReport">
-                <input type="radio" name="survey" [value]="survey.name" (change)="onSurveySelected(survey.name)" [checked]="survey.name === selectedSurvey" />
-                <span class="radio-label">{{ survey.name }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="position-relative input-container">
-          <label for="pieceNumber" class="position-absolute label-style">Piece Number</label>
-          <input type="text" id="pieceNumber" placeholder="Enter Piece Number" class="input-style" formControlName="pieceNumber" />
-        </div>
-        <div class="position-relative input-container">
-          <label for="Applicant" class="position-absolute label-style">Applicant Type</label>
-          <div class="input-style d-flex justify-content-between align-items-center text-black" (click)="toggleApplicantDropdown()">
-            {{ selectedApplicant ? selectedApplicant : "Choose Applicant Type" }}
-            <img src="../../../../../assets/img/arrow-down-o.svg" />
-          </div>
-
-          <div *ngIf="applicantDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
-            <div class="scrollable-container">
-              <label class="radio-container d-flex align-items-center gap-2 mx-1" *ngFor="let applicant of applicantOptions">
-                <input type="radio" name="Applicant" [value]="applicant.name" (change)="onApplicantSelected(applicant.name)" [checked]="applicant.name === selectedApplicant" />
-                <span class="radio-label">{{ applicant.name }}</span>
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="position-relative input-container">
-          <label for="applicantName" class="position-absolute label-style">Applicant's Name</label>
-          <input type="text" id="applicantName" placeholder="Enter Applicant's Name" class="input-style" formControlName="applicantName" />
         </div>
       </div>
 
-      <div class="d-flex flex-column" style="gap: 2rem">
-
-        <div class="position-relative input-container">
-          <label for="certificate" class="position-absolute label-style">Type of Certificate</label>
-          <div class="input-style d-flex justify-content-between align-items-center text-black" (click)="toggleCertificateDropdown()">
-            {{ selectedCertificate ? selectedCertificate : "Choose Type of Certificate" }}
-            <img src="../../../../../assets/img/arrow-down-o.svg" />
+      <div class="position-relative input-container">
+        <label
+          for="survey"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "purpose_of_survey_report" | translate }}
+        </label>
+        <div
+          class="input-style d-flex justify-content-between align-items-center text-black"
+          (click)="toggleSurveyDropdown()"
+        >
+          {{
+            selectedSurvey
+              ? selectedSurvey
+              : ("choose_purpose_of_survey_report" | translate)
+          }}
+          <img src="../../../../../assets/img/arrow-down-o.svg" />
+        </div>
+        <div
+          *ngIf="surveyDropdownOpen"
+          class="dropdown-content d-flex flex-column gap-1"
+        >
+          <div class="scrollable-container">
+            <label
+              class="radio-container d-flex align-items-center gap-2 mx-1"
+              *ngFor="let survey of surveyReport"
+            >
+              <input
+                type="radio"
+                name="survey"
+                [value]="survey.name"
+                (change)="onSurveySelected(survey.name)"
+                [checked]="survey.name === selectedSurvey"
+              />
+              <span class="radio-label">{{ survey.name }}</span>
+            </label>
           </div>
+        </div>
+      </div>
 
-          <div *ngIf="certificateDropdownOpen" class="dropdown-content d-flex flex-column gap-1">
-            <div class="scrollable-container">
-              <label class="radio-container d-flex align-items-center gap-2 mx-1" *ngFor="let certificate of certificateOptions">
-                <input type="radio" name="certificate" [value]="certificate.name" (change)="onCertificateSelected(certificate.name)" [checked]="certificate.name === selectedCertificate" />
-                <span class="radio-label">{{ certificate.name}}</span>
-              </label>
-            </div>
+      <div class="position-relative input-container">
+        <label
+          for="pieceNumber"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "piece_number" | translate }}
+        </label>
+        <input
+          type="text"
+          id="pieceNumber"
+          [placeholder]="'enter_piece_number' | translate"
+          class="input-style"
+          formControlName="pieceNumber"
+        />
+      </div>
+
+      <div class="position-relative input-container">
+        <label
+          for="Applicant"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "applicant_type" | translate }}
+        </label>
+        <div
+          class="input-style d-flex justify-content-between align-items-center text-black"
+          (click)="toggleApplicantDropdown()"
+        >
+          {{
+            selectedApplicant
+              ? selectedApplicant
+              : ("choose_applicant_type" | translate)
+          }}
+          <img src="../../../../../assets/img/arrow-down-o.svg" />
+        </div>
+        <div
+          *ngIf="applicantDropdownOpen"
+          class="dropdown-content d-flex flex-column gap-1"
+        >
+          <div class="scrollable-container">
+            <label
+              class="radio-container d-flex align-items-center gap-2 mx-1"
+              *ngFor="let applicant of applicantOptions"
+            >
+              <input
+                type="radio"
+                name="Applicant"
+                [value]="applicant.name"
+                (change)="onApplicantSelected(applicant.name)"
+                [checked]="applicant.name === selectedApplicant"
+              />
+              <span class="radio-label">{{ applicant.name }}</span>
+            </label>
           </div>
         </div>
-        <div class="position-relative input-container">
-          <label for="surveyReportNumber" class="position-absolute label-style">Survey Report
-            Number</label>
-          <input type="text" id="surveyReportNumber" placeholder="Enter Survey Report Number" class="input-style" formControlName="surveyReportNumber" />
-        </div>
-        <div class="position-relative input-container">
-          <label for="chartNumber" class="position-absolute label-style">Chart Number</label>
-          <input type="text" id="chartNumber" placeholder="Enter Chart Number" class="input-style" formControlName="chartNumber" />
-        </div>
-        <div class="position-relative input-container">
-          <label for="agencyNumber" class="position-absolute label-style">Agency Number</label>
-          <input type="text" id="agencyNumber" placeholder="Enter Agency Number" class="input-style" formControlName="agencyNumber" />
-        </div>
-        <div class="position-relative input-container">
-          <label for="id" class="position-absolute label-style">ID Number</label>
-          <input type="text" id="id" placeholder="Enter ID Number" class="input-style" formControlName="id" />
-        </div>
+      </div>
+
+      <div class="position-relative input-container">
+        <label
+          for="applicantName"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "applicant_name" | translate }}
+        </label>
+        <input
+          type="text"
+          id="applicantName"
+          [placeholder]="'enter_applicant_name' | translate"
+          class="input-style"
+          formControlName="applicantName"
+        />
       </div>
     </div>
-  </form>
+
+    <div class="d-flex flex-column" style="gap: 2rem">
+      <div class="position-relative input-container">
+        <label
+          for="certificate"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "type_of_certificate" | translate }}
+        </label>
+        <div
+          class="input-style d-flex justify-content-between align-items-center text-black"
+          (click)="toggleCertificateDropdown()"
+        >
+          {{
+            selectedCertificate
+              ? selectedCertificate
+              : ("choose_type_of_certificate" | translate)
+          }}
+          <img src="../../../../../assets/img/arrow-down-o.svg" />
+        </div>
+        <div
+          *ngIf="certificateDropdownOpen"
+          class="dropdown-content d-flex flex-column gap-1"
+        >
+          <div class="scrollable-container">
+            <label
+              class="radio-container d-flex align-items-center gap-2 mx-1"
+              *ngFor="let certificate of certificateOptions"
+            >
+              <input
+                type="radio"
+                name="certificate"
+                [value]="certificate.name"
+                (change)="onCertificateSelected(certificate.name)"
+                [checked]="certificate.name === selectedCertificate"
+              />
+              <span class="radio-label">{{ certificate.name }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="position-relative input-container">
+        <label
+          for="surveyReportNumber"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "survey_report_number" | translate }}
+        </label>
+        <input
+          type="text"
+          id="surveyReportNumber"
+          [placeholder]="'enter_survey_report_number' | translate"
+          class="input-style"
+          formControlName="surveyReportNumber"
+        />
+      </div>
+
+      <div class="position-relative input-container">
+        <label
+          for="chartNumber"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "chart_number" | translate }}
+        </label>
+        <input
+          type="text"
+          id="chartNumber"
+          [placeholder]="'enter_chart_number' | translate"
+          class="input-style"
+          formControlName="chartNumber"
+        />
+      </div>
+
+      <div class="position-relative input-container">
+        <label
+          for="agencyNumber"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "agency_number" | translate }}
+        </label>
+        <input
+          type="text"
+          id="agencyNumber"
+          [placeholder]="'enter_agency_number' | translate"
+          class="input-style"
+          formControlName="agencyNumber"
+        />
+      </div>
+
+      <div class="position-relative input-container">
+        <label
+          for="id"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+        >
+          {{ "id_number" | translate }}
+        </label>
+        <input
+          type="text"
+          id="id"
+          [placeholder]="'enter_id_number' | translate"
+          class="input-style"
+          formControlName="id"
+        />
+      </div>
+    </div>
+  </div>
+</form>

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit, SimpleChanges }
 import { Subscription } from 'rxjs';
 import { DevicesProposalService } from '../services/devices-porposal.service';
 import { DevicesProposalResponse } from '../models/devices-porposal-table.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-devices-proposal-table',
@@ -24,11 +25,13 @@ export class DevicesProposalTableComponent implements OnInit, OnDestroy {
   private statusSubscription!: Subscription;
   selectedProposalId?: string;
   proposal?: DevicesProposalResponse;
+  currentLang: string = 'en';
+
 
   constructor(
     private proposalService: DevicesProposalService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef, private translateService: TranslateService
+  ) { this.currentLang = this.translateService.currentLang; }
 
   ngOnInit(): void {
     this.statusSubscription = this.proposalService.status$.subscribe((status: string | null) => {

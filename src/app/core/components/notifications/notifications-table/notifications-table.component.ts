@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NotificationService } from 'src/app/shared/service/notification.service';
 import { NotificationDto } from '../models/notification.model';
 import { NotificationResponse } from '../models/notification-response.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notifications-table',
@@ -10,18 +11,7 @@ import { NotificationResponse } from '../models/notification-response.model';
 })
 export class NotificationsTableComponent {
   selectAll: boolean = false;
-  users = [
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Consolation', status: 'Sent', selected: false },
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'MonGe Office', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'MonGe Office', message: '"New features available..."', Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Consolation', status: 'Sent', selected: false },
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'All Users', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-    { id: '20', title: 'Service Update', message: '"New features available..."', Recipients: 'Providers', dateSent: 'September 21, 2013', typeOfService: 'Service', status: 'Scheduled', selected: true },
-  ];
+
 
   // notifications: NotificationResponse[] = [];
   // selectedNotification!: NotificationResponse;
@@ -30,7 +20,15 @@ export class NotificationsTableComponent {
   Math = Math;
   @Input() notifications: NotificationResponse[] = [];
   @Output() viewNotification = new EventEmitter<NotificationResponse>();
-
+  currentLang: string = 'en';
+  constructor(
+    private translateService: TranslateService
+  ) {
+    this.currentLang = this.translateService.currentLang;
+    this.translateService.onLangChange.subscribe((lang) => {
+      this.currentLang = lang.lang;
+    });
+  }
   // constructor(private notificationService: NotificationService) { }
 
 

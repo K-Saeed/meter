@@ -1,61 +1,58 @@
 <div class="dashboard">
-    <div class="card">
-        <div class="d-flex justify-content-between gap-2">
-            <div class="card-title flex-column">
-                <div class="d-flex align-items-center gap-1">
-                    <span class="rqtangle-o"></span>
-                    <h5 class="m-0">Total Customers</h5>
-                </div>
-                <div class="d-flex align-items-center gap-1">
-                    <h2 class="m-0">3,257 </h2>
-                    <div class="percentage d-flex align-items-center">
-                        <img src="../../../../../assets/img/arrow_upward.svg" alt="" srcset="">
-                        <span class="percentage">
-                            7.3%</span>
-                    </div>
-
-                </div>
-            </div>
-            <canvas id="totalCustomersChart"></canvas>
+  <div class="card">
+    <div class="d-flex justify-content-between gap-2">
+      <div class="card-title flex-column">
+        <div class="d-flex align-items-center gap-1">
+          <span class="rqtangle-o"></span>
+          <h5 class="m-0">{{ "total_customers" | translate }}</h5>
         </div>
-    </div>
-
-    <div class="card">
-        <div class="d-flex d-flex justify-content-between gap-2">
-            <div class="card-title flex-column">
-                <div class="d-flex align-items-center gap-1">
-                    <span class="rqtangle-p"></span>
-                    <h5 class="m-0">New Customers</h5>
-                </div>
-                <div class="d-flex align-items-center gap-1">
-                    <h2 class="m-0">50 </h2>
-                    <div class="percentage d-flex align-items-center">
-                        <img src="../../../../../assets/img/arrow_downward.svg" alt="" srcset="">
-                        <span class="percentage">1.5%</span>
-                    </div>
-                </div>
-
-            </div>
-            <canvas id="newCustomersChart"></canvas>
+        <div class="d-flex align-items-center gap-1">
+          <h2 class="m-0">3,257</h2>
+          <div class="percentage d-flex align-items-center">
+            <img src="../../../../../assets/img/arrow_upward.svg" alt="" />
+            <span class="percentage">7.3%</span>
+          </div>
         </div>
+      </div>
+      <canvas id="totalCustomersChart"></canvas>
     </div>
+  </div>
 
-    <div class="card">
-        <div class="d-flex justify-content-between gap-2">
-            <div class="card-title flex-column">
-                <div class="d-flex align-items-center gap-1">
-                    <span class="rqtangle-f"></span>
-                    <h5 class="m-0">Active Customers</h5>
-                </div>
-                <div class="d-flex align-items-center gap-1">
-                    <h2 class="m-0">389 </h2>
-                    <div class="percentage d-flex align-items-center">
-                        <img src="../../../../../assets/img/arrow_upwardf.svg" alt="" srcset="">
-                        <span class="percentage">7.3%</span>
-                    </div>
-                </div>
-            </div>
-            <canvas id="activeCustomersChart"></canvas>
+  <div class="card">
+    <div class="d-flex justify-content-between gap-2">
+      <div class="card-title flex-column">
+        <div class="d-flex align-items-center gap-1">
+          <span class="rqtangle-p"></span>
+          <h5 class="m-0">{{ "new_customers" | translate }}</h5>
         </div>
+        <div class="d-flex align-items-center gap-1">
+          <h2 class="m-0">50</h2>
+          <div class="percentage d-flex align-items-center">
+            <img src="../../../../../assets/img/arrow_downward.svg" alt="" />
+            <span class="percentage">1.5%</span>
+          </div>
+        </div>
+      </div>
+      <canvas id="newCustomersChart"></canvas>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="d-flex justify-content-between gap-2">
+      <div class="card-title flex-column">
+        <div class="d-flex align-items-center gap-1">
+          <span class="rqtangle-f"></span>
+          <h5 class="m-0">{{ "active_customers" | translate }}</h5>
+        </div>
+        <div class="d-flex align-items-center gap-1">
+          <h2 class="m-0">389</h2>
+          <div class="percentage d-flex align-items-center">
+            <img src="../../../../../assets/img/arrow_upwardf.svg" alt="" />
+            <span class="percentage">7.3%</span>
+          </div>
+        </div>
+      </div>
+      <canvas id="activeCustomersChart"></canvas>
+    </div>
+  </div>
 </div>

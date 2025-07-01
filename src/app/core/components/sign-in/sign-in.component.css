@@ -9,11 +9,36 @@
 .overlay-text {
   position: absolute;
   bottom: 0;
+  color: white;
+}
+
+.overlay-en {
   left: 38%;
   transform: translate(-50%, -25%);
-  color: white;
   text-align: start;
 }
+
+.overlay-ar {
+  right: 38%;
+  transform: translate(50%, -25%);
+  text-align: end;
+}
+
+.content-en {
+  right: 0;
+}
+
+.content-ar {
+  left: 0;
+}
+
+/* .overlay-text {
+  position: absolute;
+  bottom: 0;
+  padding: 20px;
+  color: white;
+  text-align: start;
+} */
 .overlay-text h2,
 .overlay-text p,
 .from-style h5,
@@ -32,6 +57,20 @@
   font-size: 25px;
   font-weight: 300;
   line-height: 35px;
+}
+.translate-arabic {
+  transform: translateX(-150%) !important;
+}
+
+.translate-english {
+  transform: translateX(-50%) !important;
+}
+.icon-ltr {
+  left: 8px;
+}
+
+.icon-rtl {
+  right: 8px;
 }
 .dropdown-menu-end {
   right: 0;
@@ -124,9 +163,18 @@
   color: #232323b0;
   padding: 0px;
 }
-.toggle-password-icon {
+.toggle-password-icon-right {
   position: absolute;
   right: 10px;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 15px;
+  color: #888;
+}
+.toggle-password-icon-left {
+  position: absolute;
+  left: 10px !important;
   top: 70%;
   transform: translateY(-50%);
   cursor: pointer;

@@ -3,7 +3,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { Regex } from 'src/app/shared/constant/regex';
 import { Employee } from '../model/employee.model';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
-import { RoleChooseDto} from '../../role/model/role.model';
+import { RoleChooseDto } from '../../role/model/role.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employees-add-modal',
@@ -16,15 +17,18 @@ export class EmployeesAddModalComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
   form!: FormGroup;
+  currentLang = 'en';
   submitClicked?: boolean;
   isVerified: boolean = false;
   logoImage?: File;
-  roles: RoleChooseDto[]  = [];
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+  roles: RoleChooseDto[] = [];
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService, 
+    public translationService: TranslateService) {
     this.initializeForm();
   }
 
   ngOnInit(): void {
+    this.currentLang = this.translationService.currentLang;
     this.initializeForm();
     this.employeeService.getAllRoles().subscribe(data => {
       this.roles = data;
@@ -81,10 +85,10 @@ export class EmployeesAddModalComponent implements OnInit {
       const employee = this.fillUserFormForm();
       console.log(employee)
       this.employeeService.addEmployee(employee, this.logoImage).subscribe({
-        next:(n)=>{
+        next: (n) => {
           console.log(n);
         },
-        error:(e)=>{
+        error: (e) => {
           console.log(e);
         },
         complete:()=>{

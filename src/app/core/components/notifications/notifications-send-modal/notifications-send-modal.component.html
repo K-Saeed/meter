@@ -8,32 +8,55 @@
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">Sent Notification</h1>
+        <h1 class="modal-title" id="exampleModalLabel">
+          {{ "send_notification" | translate }}
+        </h1>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
         ></button>
       </div>
+
       <div class="modal-body d-flex gap-3 mt-2">
         <div class="d-flex flex-column" style="gap: 2rem">
           <div class="position-relative input-container">
-            <label for="title" class="position-absolute label-style"
-              >Title</label
+            <label
+              for="title"
+              class="position-absolute label-style"
+              [ngClass]="
+                translateService.currentLang === 'ar'
+                  ? 'label-style-rtl'
+                  : 'label-style-ltr'
+              "
             >
+              {{ "title" | translate }}
+            </label>
             <input
               type="text"
               id="title"
-              placeholder="Enter Title"
+              [placeholder]="'enter_title' | translate"
               class="input-style"
               #title
             />
           </div>
+
           <div class="position-relative input-container">
-            <label for="recipients" class="position-absolute label-style"
-              >Recipients</label
+            <label
+              for="recipients"
+              class="position-absolute label-style"
+              [ngClass]="
+                translateService.currentLang === 'ar'
+                  ? 'label-style-rtl'
+                  : 'label-style-ltr'
+              "
             >
+              {{ "recipients" | translate }}
+            </label>
             <div
               class="input-style d-flex justify-content-between align-items-center text-black"
               (click)="toggleDropdown()"
@@ -41,7 +64,7 @@
               {{
                 selectedRecipients.length
                   ? selectedRecipients.join(", ")
-                  : "Choose Recipients"
+                  : ("choose_recipients" | translate)
               }}
               <img src="../../../../../assets/img/arrow-down-o.svg" />
             </div>
@@ -64,21 +87,30 @@
             </div>
           </div>
         </div>
+
         <div class="d-flex flex-column" style="gap: 2rem">
           <div class="position-relative input-container">
-            <label for="message" class="position-absolute label-style"
-              >Message</label
+            <label
+              for="message"
+              class="position-absolute label-style"
+              [ngClass]="
+                translateService.currentLang === 'ar'
+                  ? 'label-style-rtl'
+                  : 'label-style-ltr'
+              "
             >
+              {{ "message" | translate }}
+            </label>
             <textarea
-              type="text"
               id="message"
-              placeholder="Enter Message"
+              [placeholder]="'enter_message' | translate"
               class="input-style overflow-hidden"
               #message
             ></textarea>
           </div>
+
           <div class="d-flex flex-column gap-3 mx-4">
-            <h1>Visibility</h1>
+            <h1>{{ "visibility" | translate }}</h1>
             <div class="d-flex flex-column gap-3">
               <div class="info d-flex align-items-center" style="gap: 12px">
                 <input
@@ -89,8 +121,9 @@
                   value="Published"
                   (change)="onRadioChange()"
                 />
-                <label for="Published">Published</label>
+                <label for="Published">{{ "published" | translate }}</label>
               </div>
+
               <div class="info d-flex align-items-center" style="gap: 12px">
                 <input
                   type="radio"
@@ -100,16 +133,24 @@
                   value="Scheduled"
                   (change)="onRadioChange()"
                 />
-                <label for="Scheduled">Scheduled</label>
+                <label for="Scheduled">{{ "scheduled" | translate }}</label>
               </div>
 
               <div
                 class="position-relative input-container mt-2"
                 *ngIf="showDateInput"
               >
-                <label for="Date" class="position-absolute label-style"
-                  >Date</label
+                <label
+                  for="Date"
+                  class="position-absolute label-style"
+                  [ngClass]="
+                    translateService.currentLang === 'ar'
+                      ? 'label-style-rtl'
+                      : 'label-style-ltr'
+                  "
                 >
+                  {{ "date" | translate }}
+                </label>
                 <img
                   src="../../../../../assets/img/calendar.svg"
                   alt="Calendar Icon"
@@ -126,15 +167,21 @@
           </div>
         </div>
       </div>
+
       <div
         class="d-flex gap-3 justify-content-end"
         style="margin: 20px 10px 20px 0px"
       >
         <button type="button" class="reject-btn" data-bs-toggle="modal">
-          Cancel
+          {{ "cancel" | translate }}
         </button>
-        <button (click)="send(title.value, message.value)" type="button" class="approve-btn" data-bs-toggle="modal">
-          Save
+        <button
+          (click)="send(title.value, message.value)"
+          type="button"
+          class="approve-btn"
+          data-bs-toggle="modal"
+        >
+          {{ "save" | translate }}
         </button>
       </div>
     </div>

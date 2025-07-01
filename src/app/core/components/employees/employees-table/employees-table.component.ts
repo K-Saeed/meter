@@ -1,6 +1,7 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
 import { EmployeeResponse } from '../model/employee-response.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employees-table',
@@ -13,10 +14,14 @@ export class EmployeesTableComponent {
   filteredUsers: EmployeeResponse[] = [];
   selectAll: boolean = false;
   users: EmployeeResponse[] = [];
+  currentLang: string = 'en';
 
   selectedEmployee: EmployeeResponse = new EmployeeResponse();
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, private translateService: TranslateService
+  ) { this.currentLang = this.translateService.currentLang; }
+
+
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
@@ -30,7 +35,6 @@ export class EmployeesTableComponent {
       this.filterUsers();
     }
   }
-
 
   filterUsers() {
     const term = this.searchTerm.toLowerCase();

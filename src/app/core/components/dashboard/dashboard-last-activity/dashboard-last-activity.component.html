@@ -1,56 +1,76 @@
-<div class="last-activity d-flex flex-column border border-1 shadow-sm p-3 gap-4 mb-3" *ngIf="dashboardSummary">
-    <h3>Last Activity</h3>
-    <div class="d-flex flex-column gap-4">
-        <div class="d-flex gap-3 align-items-center">
-            <img src="../../../../../assets/img/s-r.svg" alt="" srcset="">
-            <div class="d-flex align-items-center justify-content-between width">
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">Activity Type</h4>
-                    <h5 class="m-0">New Service Request</h5>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">User Involved</h4>
-                    <h5 class="m-0">{{dashboardSummary.request}}</h5>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">Timestamp</h4>
-                    <h5 class="m-0">{{ (dashboardSummary.requestDate ?? 0) * 1000 | date:'yyyy-MM-dd hh:mm a' }}</h5>
-                </div>
-            </div>
+<div
+  class="last-activity d-flex flex-column border border-1 shadow-sm p-3 gap-4 mb-3"
+  *ngIf="dashboardSummary"
+>
+  <h3>Last Activity</h3>
+  <div class="d-flex flex-column gap-4">
+    <div class="d-flex gap-3 align-items-center">
+      <img src="../../../../../assets/img/s-r.svg" alt="" srcset="" />
+      <div class="d-flex align-items-center justify-content-between width">
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "activity_type" | translate }}</h4>
+          <h5 class="m-0">{{ "new_service_request" | translate }}</h5>
         </div>
-        <div class="d-flex gap-3 align-items-center">
-            <img src="../../../../../assets/img/proposal.svg" srcset="">
-            <div class="d-flex align-items-center justify-content-between width">
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">Activity Type</h4>
-                    <h5 class="m-0">New Proposal</h5>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">User Involved</h4>
-                    <h5 class="m-0">{{dashboardSummary.proposal}}</h5>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">Timestamp</h4>
-                    <h5 class="m-0">{{ (dashboardSummary.proposalDate ?? 0) * 1000 | date:'yyyy-MM-dd hh:mm a' }}</h5>
-                </div>
-            </div>
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "user_involved" | translate }}</h4>
+          <h5 class="m-0">{{ dashboardSummary.request }}</h5>
         </div>
-        <div class="d-flex gap-3 align-items-center">
-            <img src="../../../../../assets/img/activity-user.svg" srcset="">
-            <div class="d-flex align-items-center justify-content-between width">
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">Activity Type</h4>
-                    <h5 class="m-0">New User</h5>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">User Involved</h4>
-                    <h5 class="m-0">{{dashboardSummary.latestUser}}</h5>
-                </div>
-                <div class="d-flex flex-column gap-2">
-                    <h4 class="m-0">Timestamp</h4>
-                    <h5 class="m-0">  {{ (dashboardSummary.latestUserDate ?? 0) * 1000 | date:'yyyy-MM-dd hh:mm a' }}</h5>
-                </div>
-            </div>
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "timestamp" | translate }}</h4>
+          <h5 class="m-0">
+            {{
+              (dashboardSummary.requestDate ?? 0) * 1000
+                | date : "yyyy-MM-dd hh:mm a"
+            }}
+          </h5>
         </div>
+      </div>
     </div>
+    <div class="d-flex gap-3 align-items-center">
+      <img src="../../../../../assets/img/proposal.svg" srcset="" />
+      <div class="d-flex align-items-center justify-content-between width">
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "activity_type" | translate }}</h4>
+          <h5 class="m-0">{{ "new_proposal" | translate }}</h5>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "user_involved" | translate }}</h4>
+
+          <h5 class="m-0">{{ dashboardSummary.proposal }}</h5>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "timestamp" | translate }}</h4>
+          <h5 class="m-0">
+            {{
+              (dashboardSummary.proposalDate ?? 0) * 1000
+                | date : "yyyy-MM-dd hh:mm a"
+            }}
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex gap-3 align-items-center">
+      <img src="../../../../../assets/img/activity-user.svg" srcset="" />
+      <div class="d-flex align-items-center justify-content-between width">
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "activity_type" | translate }}</h4>
+          <h5 class="m-0">{{ "new_user" | translate }}</h5>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "user_involved" | translate }}</h4>
+
+          <h5 class="m-0">{{ dashboardSummary.latestUser }}</h5>
+        </div>
+        <div class="d-flex flex-column gap-2">
+          <h4 class="m-0">{{ "timestamp" | translate }}</h4>
+          <h5 class="m-0">
+            {{
+              (dashboardSummary.latestUserDate ?? 0) * 1000
+                | date : "yyyy-MM-dd hh:mm a"
+            }}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

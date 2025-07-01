@@ -1,62 +1,67 @@
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Service Provider Information:</h1>
+  <h1>{{ "service_provider_info" | translate }}</h1>
   <div class="info d-flex flex-column gap-3">
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Name:</span>
-      <span class="value">{{proposal?.providerName}}</span>
+      <span class="label">{{ "name" | translate }}:</span>
+      <span class="value">{{ proposal?.providerName }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Phone:</span>
-      <span class="value">{{proposal?.providerPhone}}</span>
+      <span class="label">{{ "phone" | translate }}:</span>
+      <span class="value">{{ proposal?.providerPhone }}</span>
     </h3>
   </div>
 </div>
 
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Customer Information:</h1>
+  <h1>{{ "customer_information" | translate }}</h1>
   <div class="info d-flex flex-column gap-3">
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Name:</span>
-      <span class="value">{{proposal?.requestDetails?.requestOwner?.name}}</span>
+      <span class="label">{{ "name" | translate }}:</span>
+      <span class="value">{{
+        proposal?.requestDetails?.requestOwner?.name
+      }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Phone:</span>
-      <span class="value">{{proposal?.requestDetails?.requestOwner?.mobile}}</span>
+      <span class="label">{{ "phone" | translate }}:</span>
+      <span class="value">{{
+        proposal?.requestDetails?.requestOwner?.mobile
+      }}</span>
     </h3>
   </div>
 </div>
 
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Proposal Information:</h1>
+  <h1>{{ "proposal_info" | translate }}</h1>
   <div class="info d-flex flex-column align-items-start gap-3">
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Title:</span>
-      <span class="value">{{proposal?.title}}</span>
+      <span class="label">{{ "title" | translate }}:</span>
+      <span class="value">{{ proposal?.title }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Description:</span>
-      <span class="value">{{proposal?.details}}</span>
+      <span class="label">{{ "description" | translate }}:</span>
+      <span class="value">{{ proposal?.details }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Price:</span>
-      <span class="value">{{proposal?.price}}</span>
+      <span class="label">{{ "total" | translate }}:</span>
+      <span class="value">{{ proposal?.price }}</span>
     </h3>
   </div>
 </div>
+
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Request Information:</h1>
+  <h1>{{ "request_information" | translate }}</h1>
   <div class="info d-flex flex-column align-items-start gap-3">
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Request ID:</span>
-      <span class="value">{{proposal?.requestDetails?.requestId}}</span>
+      <span class="label">{{ "id" | translate }}:</span>
+      <span class="value">{{ proposal?.requestDetails?.requestId }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Request Title:</span>
-      <span class="value">{{proposal?.requestDetails?.title}}</span>
+      <span class="label">{{ "request_title" | translate }}:</span>
+      <span class="value">{{ proposal?.requestDetails?.title }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Request Description:</span>
-      <span class="value">{{proposal?.requestDetails?.description}}.</span>
+      <span class="label">{{ "description" | translate }}:</span>
+      <span class="value">{{ proposal?.requestDetails?.description }}</span>
     </h3>
   </div>
 </div>

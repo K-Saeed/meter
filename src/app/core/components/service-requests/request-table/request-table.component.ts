@@ -9,6 +9,7 @@ import {
 import { RequestService } from "../services/request.service";
 import { combineLatest, Subscription } from "rxjs";
 import { RequestResponseDto } from "../models/request-table.model";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-request-table",
@@ -18,6 +19,7 @@ import { RequestResponseDto } from "../models/request-table.model";
 export class RequestTableComponent implements OnInit, OnDestroy {
   @Input() searchTerm: string = "";
   filteredRequests: RequestResponseDto[] = [];
+  currentLang: string = 'en';
 
   selectAll: boolean = false;
   currentPage: number = 1;
@@ -35,8 +37,14 @@ export class RequestTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private requestService: RequestService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private translateService: TranslateService
+  ) {
+    this.currentLang = this.translateService.currentLang;
+    this.translateService.onLangChange.subscribe((lang) => {
+      this.currentLang = lang.lang;
+    });
+  }
 
   ngOnInit() {
     this.statusTypeSubscription = combineLatest([

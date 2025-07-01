@@ -1,6 +1,6 @@
 <div class="d-flex flex-column">
   <div class="title d-flex flex-column gap-2">
-    <h3>Your Profile Picture</h3>
+    <h3>{{ "your_profile_picture" | translate }}</h3>
     <div
       class="profile-pic-container position-relative d-flex flex-column align-items-center justify-content-center gap-1"
     >
@@ -15,23 +15,39 @@
         alt="Add Gallery"
         id="profilePic"
       />
-      <h5 class="upload-text px-2">Upload Profile Picture</h5>
+      <h5 class="upload-text px-2">
+        {{ "upload_profile_picture" | translate }}
+      </h5>
     </div>
   </div>
+
   <div class="d-flex flex-column gap-4 mt-5">
     <div class="d-flex gap-4">
       <div class="position-relative input-container">
-        <label for="title" class="position-absolute label-style">Name</label>
+        <label
+          for="title"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+          >{{ "name" | translate }}</label
+        >
         <input
           type="text"
           id="title"
-          placeholder="Enter Name"
+          [placeholder]="'enter_name' | translate"
           class="input-style"
         />
       </div>
+
       <div class="position-relative input-container">
-        <label for="phone" class="position-absolute z-1 label-style"
-          >Phone Number</label
+        <label
+          for="phone"
+          class="position-absolute z-1 label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+          >{{ "phone_number" | translate }}</label
         >
         <div class="input-wrapper">
           <img
@@ -44,36 +60,50 @@
             class="input-style"
             [value]="phoneNumber"
             (input)="onPhoneInput($event)"
-            style="padding-left: 2.5rem"
+            style="padding-left: 2.5rem; text-align: end"
           />
           <div
             class="verify-text position-absolute pe-1"
             data-bs-toggle="modal"
             data-bs-target="#verifyModal"
           >
-            Verify
+            {{ "verify" | translate }}
           </div>
         </div>
       </div>
+
       <div class="position-relative input-container">
-        <label for="Email" class="position-absolute label-style">Email</label>
+        <label
+          for="Email"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+          >{{ "email" | translate }}</label
+        >
         <input
           type="email"
           id="Email"
-          placeholder="Enter Email"
+          [placeholder]="'enter_email' | translate"
           class="input-style"
         />
       </div>
     </div>
+
     <div class="d-flex gap-4">
       <div class="position-relative input-container">
-        <label for="currentPassword" class="position-absolute label-style"
-          >Current Password</label
+        <label
+          for="currentPassword"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+          >{{ "current_password" | translate }}</label
         >
         <input
           type="{{ showPassword ? 'text' : 'password' }}"
           id="currentPassword"
-          placeholder="Enter Current Password"
+          [placeholder]="'enter_current_password' | translate"
           class="input-style"
         />
         <i
@@ -81,16 +111,26 @@
             showPassword ? 'fa-eye-slash' : 'fa-eye'
           }} toggle-password-icon"
           (click)="togglePasswordVisibility()"
+          [ngStyle]="{
+            right: currentLang === 'ar' ? 'unset' : '10px',
+            left: currentLang === 'ar' ? '10px' : 'unset'
+          }"
         ></i>
       </div>
+
       <div class="position-relative input-container">
-        <label for="newPassword" class="position-absolute label-style"
-          >New Password</label
+        <label
+          for="newPassword"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+          >{{ "new_password" | translate }}</label
         >
         <input
           type="{{ showNewPassword ? 'text' : 'password' }}"
           id="newPassword"
-          placeholder="Enter New Password"
+          [placeholder]="'enter_new_password' | translate"
           class="input-style"
         />
         <i
@@ -98,16 +138,26 @@
             showNewPassword ? 'fa-eye-slash' : 'fa-eye'
           }} toggle-password-icon"
           (click)="toggleNewPasswordVisibility()"
+          [ngStyle]="{
+            right: currentLang === 'ar' ? 'unset' : '10px',
+            left: currentLang === 'ar' ? '10px' : 'unset'
+          }"
         ></i>
       </div>
+
       <div class="position-relative input-container">
-        <label for="confirmPassword" class="position-absolute label-style"
-          >Confirm Password</label
+        <label
+          for="confirmPassword"
+          class="position-absolute label-style"
+          [ngClass]="
+            currentLang === 'ar' ? 'label-style-rtl' : 'label-style-ltr'
+          "
+          >{{ "confirm_password" | translate }}</label
         >
         <input
           type="{{ showConfirmPassword ? 'text' : 'password' }}"
           id="confirmPassword"
-          placeholder="Enter Confirm Password"
+          [placeholder]="'enter_confirm_password' | translate"
           class="input-style"
         />
         <i
@@ -115,19 +165,24 @@
             showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'
           }} toggle-password-icon"
           (click)="toggleConfirmPasswordVisibility()"
+          [ngStyle]="{
+            right: currentLang === 'ar' ? 'unset' : '10px',
+            left: currentLang === 'ar' ? '10px' : 'unset'
+          }"
         ></i>
       </div>
     </div>
   </div>
+
   <div
     class="d-flex gap-3 justify-content-end"
     style="margin: 40px 10px 0px 0px"
   >
     <button type="button" class="reject-btn" data-bs-toggle="modal">
-      Cancel
+      {{ "cancel" | translate }}
     </button>
     <button type="button" class="approve-btn" data-bs-toggle="modal">
-      Save
+      {{ "save" | translate }}
     </button>
   </div>
 </div>

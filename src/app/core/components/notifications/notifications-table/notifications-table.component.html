@@ -10,28 +10,25 @@
           />
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">ID</p>
+          <p class="m-0">{{ "id" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Title</p>
+          <p class="m-0">{{ "title" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Message</p>
+          <p class="m-0">{{ "message" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Recipients</p>
+          <p class="m-0">{{ "recipients" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Date Sent</p>
-        </th>
-        <!-- <th scope="col" class="title-table">
-            <p class="m-0">Type of Service</p>
-          </th> -->
-        <th scope="col" class="title-table">
-          <p class="m-0">Status</p>
+          <p class="m-0">{{ "date_sent" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Actions</p>
+          <p class="m-0">{{ "status" | translate }}</p>
+        </th>
+        <th scope="col" class="title-table">
+          <p class="m-0">{{ "actions" | translate }}</p>
         </th>
       </tr>
     </thead>
@@ -63,44 +60,57 @@
             }"
             class="m-0"
           >
-            {{ notification.status }}
+            {{ notification.status?.toLowerCase() || "" | translate }}
           </h4>
         </td>
         <td>
           <div class="">
-            <!-- Actions Icons -->
-            <ng-container *appHasPermission="{ page: 'notifications', action: 'READ' }">
-            <img
-              class="icon cursor-pointer pe-2"
-              src="../../../../assets/img/eye.svg"
-              alt="View"
-              data-bs-toggle="modal"
-              data-bs-target="#viewModal"
-              (click)="onViewClick(notification)"
-            />
+            <ng-container
+              *appHasPermission="{ page: 'notifications', action: 'READ' }"
+            >
+              <img
+                class="icon cursor-pointer pe-2"
+                src="../../../../assets/img/eye.svg"
+                alt="View"
+                data-bs-toggle="modal"
+                data-bs-target="#viewModal"
+                (click)="onViewClick(notification)"
+              />
             </ng-container>
 
-            <ng-container *appHasPermission="{ page: 'notifications', action: 'DELETE' }">
-            <img
-              class="cursor-pointer ps-2"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg"
-              alt="Delete"
-            />
+            <ng-container
+              *appHasPermission="{ page: 'notifications', action: 'DELETE' }"
+            >
+              <img
+                class="cursor-pointer ps-2"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                src="../../../../assets/img/trash.svg"
+                alt="Delete"
+              />
             </ng-container>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
-  <!-- <app-notifications-show-modal
-    [notification]="selectedNotification"
-  ></app-notifications-show-modal> -->
+
   <div class="font d-flex align-items-center justify-content-between my-4">
-    <h5 class="left m-0">Showing 1 to 10 of 256 entries</h5>
+    <h5 class="left m-0">
+      {{
+        "showing"
+          | translate
+            : {
+                start: (currentPage - 1) * itemsPerPage + 1,
+                end: currentPage * itemsPerPage,
+                total: notifications.length
+              }
+      }}
+    </h5>
+
     <nav aria-label="Page navigation example">
       <ul class="pagination gap-2 m-0 align-items-center">
+        <!-- Previous Button -->
         <li class="page-item" [class.disabled]="currentPage === 1">
           <a
             class="page-link previous"
@@ -108,14 +118,21 @@
             aria-label="Previous"
             (click)="setPage(currentPage - 1, $event)"
           >
-            <span aria-hidden="true">
+            <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
               <img
                 src="../../../../../assets/img/arrow-left.svg"
                 alt="Previous"
               />
             </span>
+            <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-right.svg"
+                alt="السابق"
+              />
+            </span>
           </a>
         </li>
+
         <li
           class="page-item"
           *ngFor="
@@ -130,6 +147,7 @@
             i + 1
           }}</a>
         </li>
+
         <li
           class="page-item"
           [class.disabled]="
@@ -142,16 +160,22 @@
             aria-label="Next"
             (click)="setPage(currentPage + 1, $event)"
           >
-            <span aria-hidden="true">
+            <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
               <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
+            </span>
+            <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-left.svg"
+                alt="التالي"
+              />
             </span>
           </a>
         </li>
       </ul>
     </nav>
-    <div class="font d-flex align-items-center">
-      <h5 class="m-0 me-2">Show</h5>
 
+    <div class="font d-flex align-items-center">
+      <h5 class="m-0 me-2">{{ "show" | translate }}</h5>
       <div class="select-wrapper">
         <select
           class="form-select mx-2 custom-select"
@@ -164,7 +188,7 @@
         </select>
         <i class="fa-solid fa-chevron-down custom-select-icon"></i>
       </div>
-      <h5 class="m-0 ms-2">entries</h5>
+      <h5 class="m-0 ms-2">{{ "entries" | translate }}</h5>
     </div>
   </div>
 </div>

@@ -3,124 +3,214 @@
     <thead class="table-light">
       <tr>
         <th scope="col">
-          <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleAll($event)" />
+          <input
+            type="checkbox"
+            [(ngModel)]="selectAll"
+            (change)="toggleAll($event)"
+          />
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">ID</p>
+          <p class="m-0">{{ "id" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Product</p>
+          <p class="m-0">{{ "product" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Seller Name</p>
+          <p class="m-0">{{ "seller_name" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Date Sent</p>
+          <p class="m-0">{{ "date_sent" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Status</p>
+          <p class="m-0">{{ "status" | translate }}</p>
         </th>
         <th scope="col" class="title-table">
-          <p class="m-0">Actions</p>
+          <p class="m-0">{{ "actions" | translate }}</p>
         </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of paginatedProducts">
         <th scope="row">
-          <input type="checkbox" [(ngModel)]="product.selected" (change)="checkIfAllSelected()" />
+          <input
+            type="checkbox"
+            [(ngModel)]="product.selected"
+            (change)="checkIfAllSelected()"
+          />
         </th>
         <td>
           <h4 class="m-0">{{ product.productId }}</h4>
         </td>
-        <td class="d-flex align-items-center product-container gap-2" style="height: 100%;">
-          <img class="product-img" [src]="product.productLogo?.filePath" alt="Product Image" />
+        <td class="d-flex align-items-center product-container gap-2">
+          <img
+            class="product-img"
+            [src]="product.productLogo?.filePath"
+            alt="Product Image"
+          />
           <h4 class="m-0">{{ product.name }}</h4>
         </td>
-
         <td>
           <h4 class="m-0 product-name">{{ product.ownerName }}</h4>
         </td>
         <td>
-          <h4 class="m-0">{{ product.postDate | date: 'yyyy-MM-dd' }}</h4>
+          <h4 class="m-0">{{ product.postDate | date : "yyyy-MM-dd" }}</h4>
         </td>
         <td>
-          <h4 [ngClass]="{
+          <h4
+            [ngClass]="{
               green: product.status === 'Approved',
               red: product.status === 'Rejected',
               orange: product.status === 'Pending'
-            }" class="m-0">
-            {{ product.status }}
+            }"
+            [ngStyle]="
+              product.status === 'Approved' || product.status === 'completed'
+                ? {
+                    padding:
+                      currentLang === 'ar'
+                        ? '8px 25px 6px 25px'
+                        : '8px 4px 6px 7px'
+                  }
+                : product.status === 'Pending'
+                ? {
+                    padding:
+                      currentLang === 'ar'
+                        ? '8px 15px 6px 13px'
+                        : '8px 4px 6px 12px'
+                  }
+                : {}
+            "
+            class="m-0"
+          >
+            {{ product.status.toLowerCase() | translate }}
           </h4>
         </td>
         <td>
           <div class="">
-            <!-- Actions Icons -->
-            <ng-container *appHasPermission="{ page: 'products', action: 'READ' }">
-            <img class="cursor-pointer pe-2" data-bs-toggle="modal" data-bs-target="#viewModal"
-              src="../../../../assets/img/eye.svg" alt="View" (click)="setProductId(product.productId)" />
-          </ng-container>
-              <ng-container *appHasPermission="{ page: 'products', action: 'DELETE' }">
-            <img class="cursor-pointer ps-2" data-bs-toggle="modal" data-bs-target="#exampleModal"
-              src="../../../../assets/img/trash.svg" alt="Delete" (click)="setProductId(product.productId)" />
-              </ng-container>
-
+            <ng-container
+              *appHasPermission="{ page: 'products', action: 'READ' }"
+            >
+              <img
+                class="cursor-pointer pe-2"
+                data-bs-toggle="modal"
+                data-bs-target="#viewModal"
+                src="../../../../assets/img/eye.svg"
+                alt="View"
+                (click)="setProductId(product.productId)"
+              />
+            </ng-container>
+            <ng-container
+              *appHasPermission="{ page: 'products', action: 'DELETE' }"
+            >
+              <img
+                class="cursor-pointer ps-2"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                src="../../../../assets/img/trash.svg"
+                alt="Delete"
+                (click)="setProductId(product.productId)"
+              />
+            </ng-container>
           </div>
         </td>
       </tr>
     </tbody>
   </table>
+
   <app-products-delete-modal [product]="product"></app-products-delete-modal>
   <app-products-show-modal [product]="product"></app-products-show-modal>
-  <div class="font d-flex align-items-center justify-content-between my-4 pagination-space">
+
+  <div
+    class="font d-flex align-items-center justify-content-between my-4 pagination-space"
+  >
     <h5 class="left m-0">
-      Showing {{ (currentPage - 1) * itemsPerPage + 1 }} to {{ Math.min(currentPage * itemsPerPage, productList.length)
-      }} of {{ productList.length }} entries
+      {{ "showing" | translate }} {{ (currentPage - 1) * itemsPerPage + 1 }}
+      {{ "to" | translate }}
+      {{ Math.min(currentPage * itemsPerPage, productList.length) }}
+      {{ "of" | translate }} {{ productList.length }}
+      {{ "entries" | translate }}
     </h5>
+
     <nav aria-label="Page navigation example">
       <ul class="pagination gap-2 m-0 align-items-center">
-        <!-- Previous Button -->
         <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link previous" href="#" aria-label="Previous" (click)="setPage(currentPage - 1, $event)">
-            <span aria-hidden="true">
-              <img src="../../../../../assets/img/arrow-left.svg" alt="Previous" />
+          <a
+            class="page-link previous"
+            href="#"
+            aria-label="Previous"
+            (click)="setPage(currentPage - 1, $event)"
+          >
+            <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-left.svg"
+                alt="Previous"
+              />
+            </span>
+            <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-right.svg"
+                alt="السابق"
+              />
             </span>
           </a>
         </li>
 
-        <!-- Page Number Links -->
-        <li *ngFor="let page of getPagination()" class="page-item" [class.active]="page === currentPage"
-          [class.disabled]="page === -1">
-          <a class="page-link" href="#" *ngIf="page !== -1" (click)="setPage(page, $event)">
+        <li
+          *ngFor="let page of getPagination()"
+          class="page-item"
+          [class.active]="page === currentPage"
+          [class.disabled]="page === -1"
+        >
+          <a
+            class="page-link"
+            href="#"
+            *ngIf="page !== -1"
+            (click)="setPage(page, $event)"
+          >
             {{ page }}
           </a>
           <span class="page-link" *ngIf="page === -1">...</span>
         </li>
-
-        <!-- Next Button -->
-        <li class="page-item" [class.disabled]="currentPage === Math.ceil(productList.length / itemsPerPage)">
-          <a class="page-link next" href="#" aria-label="Next" (click)="setPage(currentPage + 1, $event)">
-            <span aria-hidden="true">
+        <li
+          class="page-item"
+          [class.disabled]="
+            currentPage === Math.ceil(productList.length / itemsPerPage)
+          "
+        >
+          <a
+            class="page-link next"
+            href="#"
+            aria-label="Next"
+            (click)="setPage(currentPage + 1, $event)"
+          >
+            <span aria-hidden="true" *ngIf="currentLang !== 'ar'">
               <img src="../../../../../assets/img/arrow-right.svg" alt="Next" />
+            </span>
+            <span aria-hidden="true" *ngIf="currentLang === 'ar'">
+              <img
+                src="../../../../../assets/img/arrow-left.svg"
+                alt="التالي"
+              />
             </span>
           </a>
         </li>
       </ul>
     </nav>
 
-
     <div class="font d-flex align-items-center">
-      <h5 class="m-0 me-2">Show</h5>
-
+      <h5 class="m-0 me-2">{{ "show" | translate }}</h5>
       <div class="select-wrapper">
-        <select class="form-select mx-2 custom-select" [(ngModel)]="itemsPerPage" (change)="setPage(1, $event)">
+        <select
+          class="form-select mx-2 custom-select"
+          [(ngModel)]="itemsPerPage"
+          (change)="setPage(1, $event)"
+        >
           <option *ngFor="let option of [4, 10, 20, 50, 100]" [value]="option">
             {{ option }}
           </option>
         </select>
         <i class="fa-solid fa-chevron-down custom-select-icon"></i>
       </div>
-      <h5 class="m-0 ms-2">entries</h5>
+      <h5 class="m-0 ms-2">{{ "entries" | translate }}</h5>
     </div>
   </div>
 </div>

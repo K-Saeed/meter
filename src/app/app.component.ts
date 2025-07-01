@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthService } from './shared/service/auth/auth.service';
-import { TranslationService } from './shared/service/translation.service';
 
 @Component({
   selector: 'app-root',
@@ -16,11 +15,9 @@ export class AppComponent implements OnInit {
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
-  constructor(private router: Router, private authService: AuthService, private translate: TranslationService) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
-    this.translate.setDefaultLanguage();
-    
     this.checkAuthentication();
 
     this.router.events.subscribe(event => {

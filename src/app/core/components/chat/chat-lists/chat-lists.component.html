@@ -1,36 +1,62 @@
 <div *ngIf="chatRooms" class="d-flex flex-column gap-3 mx-2">
   <div class="d-flex flex-column">
     <div class="message-style d-flex align-items-center gap-3 border-bottom">
-      <h3 class="m-0">Messages</h3>
-      <span>{{chatRooms.length}}</span>
+      <h3 class="m-0">{{ "messages" | translate }}</h3>
+      <span>{{ chatRooms.length }}</span>
       <h3 class="m-0">|</h3>
-      <button class="btn d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#filterChatDialog">
-        <span class="m-0">Filter & Send</span>
+      <button
+        class="btn d-flex align-items-center gap-2"
+        data-bs-toggle="modal"
+        data-bs-target="#filterChatDialog"
+      >
+        <span class="m-0">{{ "filter_send" | translate }}</span>
       </button>
     </div>
     <app-send-message-to-all></app-send-message-to-all>
-    <div class="search-container d-flex align-items-center position-relative my-3 mx-auto">
+    <div
+      class="search-container d-flex align-items-center position-relative my-3 mx-auto"
+    >
       <span class="search-icon p-2">
-        <img src="../../../../../assets/img/search-normal.svg" alt="Search Icon" />
+        <img
+          src="../../../../../assets/img/search-normal.svg"
+          alt="Search Icon"
+        />
       </span>
-      <input type="text" class="form-control search-input" placeholder="Search in employees" />
+      <input
+        type="text"
+        class="form-control search-input"
+        [placeholder]="'search_in_clients' | translate"
+      />
     </div>
   </div>
-  <div class="d-flex flex-column gap-4 scroll" style="margin: 0px 20px; max-height: 455px; overflow: auto">
-    <div class="profile-img d-flex justify-content-between" *ngFor="let chatRoom of chatRooms"
-      (click)="selectChatRoom(chatRoom)">
+  <div
+    class="d-flex flex-column gap-4 scroll"
+    style="margin: 0px 20px; max-height: 455px; overflow: auto"
+  >
+    <div
+      class="profile-img d-flex justify-content-between"
+      *ngFor="let chatRoom of chatRooms"
+      (click)="selectChatRoom(chatRoom)"
+    >
       <div class="d-flex gap-3">
-        <img [src]="chatRoom.customerProfile.logoPath" [alt]="chatRoom.customerProfile.name"
-          onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';" />
+        <img
+          [src]="chatRoom.customerProfile.logoPath"
+          [alt]="chatRoom.customerProfile.name"
+          onerror="this.onerror=null;this.src='../../../../assets/img/anonymous-profile.svg';"
+        />
         <div class="profile-info d-flex flex-column">
           <h3 class="m-0">{{ chatRoom.customerProfile.name }}</h3>
           <!-- <p>{{ chatRoom.lastMessage.split(' ').slice(0, 4).join(' ') }}</p> -->
-          <p *ngIf="chatRoom.lastMessage">{{ getSafeMessage(chatRoom.lastMessage) }}</p>
+          <p *ngIf="chatRoom.lastMessage">
+            {{ getSafeMessage(chatRoom.lastMessage) }}
+          </p>
 
           <span class="m-0">{{ chatRoom.customerProfile.role }}</span>
         </div>
       </div>
-      <h4 class="m-0" style="font-size: 10px;">{{ chatRoom.lastMessageTimestamp }}</h4>
+      <h4 class="m-0" style="font-size: 10px">
+        {{ chatRoom.lastMessageTimestamp }}
+      </h4>
     </div>
   </div>
 </div>

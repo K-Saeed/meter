@@ -67,7 +67,7 @@ h4 {
   background-color: #099d4224;
   color: #099d42;
   font-size: 14px;
-  padding: 8px 4px 6px 7px;
+  /* padding: 8px 4px 6px 7px; */
   border-radius: 24px;
 }
 .red {
@@ -91,8 +91,8 @@ h4 {
 .blue {
   width: 80px;
   height: 33px;
-  background-color: #d6eaff;  /* Light blue background */
-  color: #007bff;              /* Blue text */
+  background-color: #d6eaff; /* Light blue background */
+  color: #007bff; /* Blue text */
   font-size: 14px;
   border-radius: 24px;
 
@@ -100,7 +100,7 @@ h4 {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0; /* Optional: remove padding for exact centering */
+  padding: 0 !important; /* Optional: remove padding for exact centering */
   text-align: center;
 }
 

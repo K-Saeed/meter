@@ -2,24 +2,28 @@
   <div class="title d-flex align-items-start gap-2 flex-column mt-4">
     <div class="info d-flex flex-column gap-3">
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Project Name:</span>
-        <span class="value">{{ submission?.requestTitle || 'N/A' }}</span>
+        <span class="label">{{ "request_title" | translate }}:</span>
+        <span class="value">{{ submission?.requestTitle || "N/A" }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Provider Name:</span>
-        <span class="value">{{ submission?.providerName || 'N/A' }}</span>
+        <span class="label">{{ "provider_name" | translate }}:</span>
+        <span class="value">{{ submission?.providerName || "N/A" }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Date:</span>
-        <span class="value">{{ submission?.submittingDate | date: 'short' }}</span>
+        <span class="label">{{ "date" | translate }}:</span>
+        <span class="value">{{
+          submission?.submittingDate | date : "short"
+        }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Status:</span>
-        <span class="value">{{ submission?.status || 'N/A' }}</span>
+        <span class="label">{{ "status" | translate }}:</span>
+        <span class="value">{{ submission?.status || "N/A" }}</span>
       </h3>
       <h3 class="d-flex justify-content-between m-0">
-        <span class="label">Details:</span>
-        <span class="value">{{ submission?.consultation || submission?.certificateType || 'N/A' }}</span>
+        <span class="label">{{ "details" | translate }}:</span>
+        <span class="value">{{
+          submission?.consultation || submission?.certificateType || "N/A"
+        }}</span>
       </h3>
     </div>
   </div>

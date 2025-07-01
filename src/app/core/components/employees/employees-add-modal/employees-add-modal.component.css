@@ -29,7 +29,9 @@
   width: 12px;
   height: 12px;
 }
-
+.modal-header .btn-close {
+  margin: 0;
+}
 .info h3 {
   display: flex;
   justify-content: space-between;
@@ -70,7 +72,7 @@
 .label-style {
   position: absolute;
   top: 0;
-  left: 10px;
+  /* left: 10px; */
   transform: translateY(-50%);
   background-color: white;
   padding: 0 5px;
@@ -79,6 +81,12 @@
   font-weight: 400;
   font-family: Inter;
   line-height: 14.52px;
+}
+.label-style-rtl {
+  right: 10px;
+}
+.label-style-ltr {
+  left: 10px;
 }
 
 .input-style,
@@ -202,6 +210,7 @@ input[type="radio"]:checked {
   padding-left: 100px;
   /* border: none; */
   outline: none;
+  text-align: end;
 }
 
 .flag-icon {

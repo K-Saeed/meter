@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { ProductService } from "../services/product.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-products-filter-modal",
@@ -10,7 +11,10 @@ export class ProductsFilterModalComponent {
 
   activeLinks: string[] = [];
 
-  constructor(private productService: ProductService){}
+  constructor(private productService: ProductService,
+    public translateService: TranslateService
+
+  ) { }
 
   toggleLink(link: string, event: Event): void {
     event.preventDefault();
@@ -26,7 +30,7 @@ export class ProductsFilterModalComponent {
     event.preventDefault();
     event.stopPropagation();
     this.activeLinks = this.activeLinks.filter((l) => l !== link);
-    if(this.activeLinks[0] == null){
+    if (this.activeLinks[0] == null) {
       this.productService.setStatus(null)
     }
   }

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { Product } from "../models/product.model";
 import { ProductService } from "../services/product.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-products-table",
@@ -19,8 +20,14 @@ export class ProductsTableComponent implements OnInit, OnDestroy {
   product?: Product;
   private statusSubscription!: Subscription;
   selectedProductId: string | undefined;
+  currentLang: string = 'en';
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private translateService: TranslateService) {
+    this.currentLang = this.translateService.currentLang;
+    this.translateService.onLangChange.subscribe((lang) => {
+      this.currentLang = lang.lang;
+    });
+  }
 
   ngOnInit(): void {
     this.statusSubscription = this.productService.status$.subscribe(status => {

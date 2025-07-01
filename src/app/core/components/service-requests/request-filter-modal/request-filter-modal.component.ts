@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { RequestResponseDto } from "../models/request-table.model";
 import { RequestService } from "../services/request.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-request-filter-modal",
@@ -12,7 +13,10 @@ export class RequestFilterModalComponent {
   activeType: string | null = null;
   activeStatus: string | null = null;
 
-  constructor(private requestService: RequestService) { }
+  constructor(
+    private requestService: RequestService,
+    public translateService: TranslateService
+  ) { }
 
   toggleType(type: string, event: Event): void {
     event.preventDefault();

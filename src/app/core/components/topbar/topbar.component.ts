@@ -15,14 +15,17 @@ export class TopbarComponent implements OnInit {
   selectedOption: string = 'all';
   userProfile: any;
   imagPath: string = '';
+
   constructor(
     private authService: AuthService,
     private router: Router,
-    private translationService: TranslationService
-  ) { }
+    public translationService: TranslationService
+  ) {
+    this.currentLang = translationService.currentLang;
+  }
 
   ngOnInit(): void {
-    this.currentLang = this.translationService.getCurrentLanguage();
+    this.currentLang = this.translationService.currentLang;
     const userProfileString = localStorage.getItem("user-profile");
     if (userProfileString) {
       this.userProfile = JSON.parse(userProfileString);
@@ -46,8 +49,17 @@ export class TopbarComponent implements OnInit {
     this.router.navigate(['/signin']);
   }
 
-  switchLanguage(lang: string) {
+  switchLang(lang: string) {
+    this.translationService.setLanguage(lang);
     this.currentLang = lang;
-    this.translationService.checkLanguage(lang);
   }
+
+  get currentFlag(): string {
+    return this.currentLang === 'ar' ? 'ar.png' : 'en.png';
+  }
+
+  get currentLabel(): string {
+    return this.currentLang === 'ar' ? 'العربية' : 'English';
+  }
+
 }

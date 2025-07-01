@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { combineLatest, Subscription } from 'rxjs';
 import { UserTableDto } from '../models/user-table.model';
 import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-table',
@@ -25,12 +26,20 @@ export class UserTableComponent implements OnInit, OnDestroy {
   user?: UserTableDto;
   message!: string;
   statusAction: string = 'Pending';
+  currentLang: string = 'en';
 
   constructor(
     private userService: UserService,
     private userRquestCallService: UserRquestCallService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private translateService: TranslateService
+
+  ) {
+    this.currentLang = this.translateService.currentLang;
+    this.translateService.onLangChange.subscribe((lang) => {
+      this.currentLang = lang.lang;
+    });
+  }
 
   ngOnInit() {
     this.statusTypeSubscription = combineLatest([

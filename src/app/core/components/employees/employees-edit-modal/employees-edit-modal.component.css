@@ -1,3 +1,4 @@
+
 .text-danger {
   color: rgb(202, 2, 2);
 }
@@ -29,7 +30,9 @@
   width: 12px;
   height: 12px;
 }
-
+.modal-header .btn-close {
+  margin: 0;
+}
 .info h3 {
   display: flex;
   justify-content: space-between;
@@ -62,6 +65,7 @@
   box-shadow: none;
 }
 
+
 .input-container {
   width: 100%;
   position: relative;
@@ -70,7 +74,7 @@
 .label-style {
   position: absolute;
   top: 0;
-  left: 10px;
+  /* left: 10px; */
   transform: translateY(-50%);
   background-color: white;
   padding: 0 5px;
@@ -79,6 +83,12 @@
   font-weight: 400;
   font-family: Inter;
   line-height: 14.52px;
+}
+.label-style-rtl {
+  right: 10px;
+}
+.label-style-ltr {
+  left: 10px;
 }
 
 .input-style,
@@ -95,6 +105,7 @@
   cursor: pointer;
   color: #000;
 }
+
 
 .input-style::placeholder {
   border: none;
@@ -169,6 +180,7 @@ input[type="radio"]:checked {
   color: #f28f45;
 }
 
+
 .approve-btn {
   width: 110px;
   background-color: #f28f45;
@@ -184,6 +196,7 @@ input[type="radio"]:checked {
   font-size: 15px;
   color: #888;
 }
+
 
 .input-wrapper {
   position: relative;
@@ -202,6 +215,7 @@ input[type="radio"]:checked {
   padding-left: 100px;
   /* border: none; */
   outline: none;
+  text-align: end;
 }
 
 .flag-icon {
@@ -210,6 +224,7 @@ input[type="radio"]:checked {
   width: 24px;
   height: auto;
 }
+
 
 .verify-text {
   position: absolute;
