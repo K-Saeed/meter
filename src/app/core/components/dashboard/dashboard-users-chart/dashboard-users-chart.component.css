@@ -21,11 +21,24 @@ label {
   border-radius: 12px;
 }
 
-.chart-info {
+/* .chart-info {
   position: absolute;
   top: 20px;
   left: 37px;
 
+  margin: 0px;
+} */
+.chart-info-ltr {
+  position: absolute;
+  top: 20px;
+  left: 37px;
+  margin: 0px;
+}
+
+.chart-info-rtl {
+  position: absolute;
+  top: 20px;
+  right: 37px;
   margin: 0px;
 }
 

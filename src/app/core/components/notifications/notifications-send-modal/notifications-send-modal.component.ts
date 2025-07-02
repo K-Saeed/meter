@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationService } from 'src/app/shared/service/notification.service';
 import { NotificationDto } from '../models/notification.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notifications-send-modal',
@@ -16,11 +17,12 @@ export class NotificationsSendModalComponent {
     { name: 'Customers', selected: false },
     { name: 'Sellers', selected: false }
   ];
+  // currentLang = this.translateService.currentLang;
 
   selectedVisibility: string = '';
   showDateInput: boolean = false;
 
-  constructor(private notificationService: NotificationService) { }
+  constructor(private notificationService: NotificationService, public translateService: TranslateService) { }
 
 
   send(title: string, message: string) {
@@ -76,7 +78,7 @@ export class NotificationsSendModalComponent {
   }
 
 
-  getLoggedInUserEmail(){
+  getLoggedInUserEmail() {
     const userProfile = JSON.parse(localStorage.getItem('user-profile') || '{}');
     return userProfile.email;
   }

@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { RequestServiceDto } from "../../models/request-service-dto.model";
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: "app-request-modal",
@@ -11,6 +13,7 @@ export class RequestModalComponent implements OnInit {
   @Input() requestService?: RequestServiceDto;
   @Input() form?: FormGroup;
   formGroup!: FormGroup;
+  currentLang = this.translateService.currentLang;
 
   // dropdownOpen = false;
   pricingDropdownOpen = false;
@@ -36,7 +39,10 @@ export class RequestModalComponent implements OnInit {
   //     this.populateForm();
   //   }
   // }
+  constructor(
+    public translateService: TranslateService
 
+  ) { }
   initForm(): void {
     this.formGroup = this.form?.get('request') as FormGroup<any>;
   }
@@ -187,7 +193,7 @@ export class RequestModalComponent implements OnInit {
     }
     this.pricingDropdownOpen = false;
   }
-  
+
   onPricingSelected(value: string) {
     this.selectedPricing = value;
     this.pricingDropdownOpen = false;

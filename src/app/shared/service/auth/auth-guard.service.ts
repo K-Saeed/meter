@@ -17,7 +17,7 @@ export class AuthGuardService implements CanActivate {
     transactions: 'transactions',
     notifications: 'notifications',
     employees: 'employees',
-    roles: 'employees',//
+    roles: 'roles',//
     settings: 'dashboard',//
     products: 'products',
     devicesproposal: 'devicesproposal',

@@ -1,35 +1,43 @@
 <div class="d-flex">
-  <div class="position-relative">
-    <img
-      src="../../../../assets/img/man.png"
-      class="full-width-image"
-      alt=""
-      srcset=""
-    />
-    <div class="overlay-text">
-      <h2 class="">Welcome in <span>Meter</span> Dashboard</h2>
-      <p class="m-0">Are you ready to manage this amazing system</p>
+  <div class="position-relative" [ngClass]="currentLang === 'ar' ? 'content-ar' : 'content-en'">
+    <img src="../../../../assets/img/man.png" class="full-width-image" alt="" />
+    <div
+      class="overlay-text"
+      [ngClass]="currentLang === 'ar' ? 'overlay-ar' : 'overlay-en'"
+    >
+      <h2>
+        {{ "welcome_in" | translate }}
+        <span>{{ "meter" | translate }}</span>
+        {{ "dashboard" | translate }}
+      </h2>
+
+      <p class="m-0">{{ "ready" | translate }}</p>
     </div>
   </div>
-  <div class="dropdown position-absolute end-0 my-5 mx-5">
+
+  <div
+    class="dropdown position-absolute my-5 mx-5"
+    [ngClass]="currentLang === 'ar' ? 'start-0' : 'end-0'"
+  >
     <button
       class="btn btn-secondary dropdown-toggle d-flex align-items-center"
       type="button"
       id="languageDropdown"
       data-bs-toggle="dropdown"
       aria-expanded="false"
+      
     >
       <img
         class="world"
-        src="../../../../assets/img/en.png"
-        alt=""
+        [src]="currentLang === 'en' ? 'assets/img/en.png' : 'assets/img/ar.png'"
+        alt="language"
         style="margin-right: 8px"
       />
       <span class="d-flex gap-3 align-items-center">
-        English
+        {{ currentLang === "en" ? "English" : "العربية" }}
         <img
-          src="../../../../assets/img/arrow.svg"
-          alt=""
+          src="assets/img/arrow.svg"
+          alt="arrow"
           class="custom-arrow ms-auto"
         />
       </span>
@@ -38,48 +46,65 @@
       class="dropdown-menu dropdown-menu-end"
       aria-labelledby="languageDropdown"
     >
-      <!-- <li><a class="d-flex dropdown-item" href="#">English</a></li> -->
       <li>
-        <a class="dropdown-item d-flex align-items-center" href="#">
+        <a
+          class="dropdown-item d-flex align-items-center"
+          (click)="switchLanguage('en')"
+        >
           <img
             class="world"
-            src="../../../../assets/img/ar.png"
-            alt=""
+            src="assets/img/en.png"
+            alt="English"
             style="margin-right: 8px"
           />
-          Arabic</a
+          English
+        </a>
+      </li>
+      <li>
+        <a
+          class="dropdown-item d-flex align-items-center"
+          (click)="switchLanguage('ar')"
         >
+          <img
+            class="world"
+            src="assets/img/ar.png"
+            alt="Arabic"
+            style="margin-right: 8px"
+          />
+          العربية
+        </a>
       </li>
     </ul>
   </div>
 
   <div
     class="from-style d-flex flex-column align-items-center justify-content-center position-fixed end-0 top-50 translate-middle-x mx-auto gap-4"
+    [ngClass]="currentLang === 'ar' ? 'translate-arabic' : 'translate-english'"
   >
     <img
       src="../../../../assets/img/logo.png"
-      alt=""
-      srcset=""
+      alt="logo"
       class="img-fluid"
       width="264.93"
     />
     <div class="d-flex flex-column text-center">
-      <h5>Nice to see you again</h5>
-      <h2 class="m-0">Sign In to your Account</h2>
+      <h5>{{ "nice" | translate }}</h5>
+      <h2 class="m-0">{{ "sign" | translate }}</h2>
     </div>
-    <form [formGroup]="signInForm" (ngSubmit)="submit()" class="" action="">
+
+    <form [formGroup]="signInForm" (ngSubmit)="submit()" class="">
       <div class="d-flex flex-column gap-2">
         <div class="form-group">
           <div class="input-container">
-            <label for="Email" class="label-style">Email</label>
-            <br />
+            <label for="Email" class="label-style">
+              {{ "email" | translate }} </label
+            ><br />
             <input
               type="email"
               id="Email"
-              placeholder="Enter Email"
+              placeholder="{{ 'enter_email' | translate }}"
               class="input-style"
               [formControl]="emailAddressControl"
-              type="email"
             />
             <div
               *ngIf="
@@ -90,30 +115,38 @@
               <small
                 class="text-danger"
                 *ngIf="emailAddressControl.errors?.['required']"
-                >Email is required.</small
               >
+                {{ "email_required" | translate }}
+              </small>
               <small
                 class="text-danger"
                 *ngIf="emailAddressControl.errors?.['email']"
-                >Invalid email address.</small
               >
+                {{ "invalid_email" | translate }}
+              </small>
             </div>
           </div>
         </div>
+
         <div class="input-container">
-          <label for="Password" class="label-style">Password</label>
-          <br />
+          <label for="Password" class="label-style">
+            {{ "password" | translate }} </label
+          ><br />
           <input
             type="{{ showPassword ? 'text' : 'password' }}"
             id="Password"
-            placeholder="Enter Password"
+            placeholder="{{ 'enter_password' | translate }}"
             class="input-style"
             [formControl]="passwordControl"
           />
           <i
-            class="fa-regular pe-1 {{
-              showPassword ? 'fa-eye-slash' : 'fa-eye'
-            }} toggle-password-icon"
+            class="fa-regular toggle-password-icon"
+            [ngClass]="[
+              showPassword ? 'fa-eye-slash' : 'fa-eye',
+              currentLang === 'ar'
+                ? 'toggle-password-icon-left'
+                : 'toggle-password-icon-right'
+            ]"
             (click)="togglePasswordVisibility()"
           ></i>
           <div
@@ -125,24 +158,28 @@
             <small
               class="text-danger"
               *ngIf="passwordControl.errors?.['required']"
-              >Password is required.</small
             >
+              {{ "password_required" | translate }}
+            </small>
             <small
               class="text-danger"
               *ngIf="passwordControl.errors?.['pattern']"
-              >Invalid password address.</small
             >
+              {{ "invalid_password" | translate }}
+            </small>
           </div>
         </div>
+
         <h5 class="text-end text-decoration-underline fs-6 cursor-pointer">
-          Forget Password?
+          {{ "fpassword" | translate }}
         </h5>
       </div>
+
       <button
         type="submit"
         class="btn-signin d-flex justify-content-center align-items-center text-center my-3"
       >
-        Sing In
+        {{ "signin" | translate }}
       </button>
     </form>
   </div>

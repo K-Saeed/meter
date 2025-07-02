@@ -8,48 +8,36 @@
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">Add New Role</h1>
+        <h1 class="modal-title" id="exampleModalLabel">{{ role.roleName }}</h1>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
         ></button>
       </div>
+
       <div class="modal-body d-flex flex-column gap-3 mt-2">
-        <div class="d-flex flex-column" style="gap: 0.5rem">
-          <div class="info d-flex flex-column gap-1 mt-2">
-            <h1>Role</h1>
-            <p style="padding-right: 9rem">
-              A role provided access to predefined menus and features so that
-              depending on assigned role an administrator can have access to
-              what he need
-            </p>
-          </div>
-          <input
-            type="text"
-            id="title"
-            placeholder="Role Name"
-            class="input-style"
-          />
-        </div>
         <table class="table my-4">
           <thead class="table-light">
             <tr>
               <th scope="col" class="title-table">
-                <p class="m-0">Pages</p>
+                <p class="m-0">{{ "pages" | translate }}</p>
               </th>
               <th scope="col" class="title-table">
-                <p class="m-0">View</p>
+                <p class="m-0">{{ "view" | translate }}</p>
               </th>
               <th scope="col" class="title-table">
-                <p class="m-0">Edit</p>
+                <p class="m-0">{{ "edit" | translate }}</p>
               </th>
               <th scope="col" class="title-table">
-                <p class="m-0">Delete</p>
+                <p class="m-0">{{ "delete" | translate }}</p>
               </th>
               <th scope="col" class="title-table">
-                <p class="m-0">Add</p>
+                <p class="m-0">{{ "add" | translate }}</p>
               </th>
             </tr>
           </thead>
@@ -94,11 +82,16 @@
           class="d-flex gap-3 justify-content-end"
           style="margin: 20px 10px 20px 0px"
         >
-          <button type="button" class="reject-btn" data-bs-toggle="modal">
-            Cancel
+          <button type="button" class="reject-btn" data-bs-dismiss="modal">
+            {{ "cancel" | translate }}
           </button>
-          <button type="button" class="approve-btn" data-bs-toggle="modal">
-            Save
+          <button
+            type="button"
+            class="approve-btn"
+            (click)="editRoles()"
+            data-bs-dismiss="modal"
+          >
+            {{ "save" | translate }}
           </button>
         </div>
       </div>

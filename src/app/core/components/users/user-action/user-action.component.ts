@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-action',
@@ -7,9 +8,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class UserActionComponent {
   searchTerm: string = '';
+  currentLang: string = 'en';
 
   @Output() searchChanged: EventEmitter<string> = new EventEmitter<string>();
-
+  constructor(private translateService: TranslateService) {
+    this.currentLang = this.translateService.currentLang;
+  }
   applySearch() {
     this.searchChanged.emit(this.searchTerm);
   }

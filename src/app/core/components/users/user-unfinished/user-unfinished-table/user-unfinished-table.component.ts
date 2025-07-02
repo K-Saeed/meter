@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.service';
 import { DraftUserDto } from '../../models/draft-user.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-unfinished-table',
@@ -12,9 +13,18 @@ export class UserUnfinishedTableComponent {
   users: DraftUserDto[] = [];
   currentPage: number = 1;
   itemsPerPage: number = 4;
+  currentLang: string = 'en';
   Math = Math;
+  constructor(
+    private userService: UserRquestCallService,
+    private translateService: TranslateService
 
-  constructor(private userService: UserRquestCallService) {}
+  ) {
+    this.currentLang = this.translateService.currentLang;
+    this.translateService.onLangChange.subscribe((lang) => {
+      this.currentLang = lang.lang;
+    });
+  }
 
   ngOnInit(): void {
     this.userService.getAllUnfinishedUsers().subscribe({

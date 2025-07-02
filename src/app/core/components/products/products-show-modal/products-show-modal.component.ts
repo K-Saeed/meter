@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../models/product.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-products-show-modal',
@@ -9,7 +10,7 @@ import { Product } from '../models/product.model';
 export class ProductsShowModalComponent implements OnInit {
   @Input() product?: Product;
 
-  constructor() {}
+  constructor(public translateService: TranslateService) { }
 
   ngOnInit(): void {
 

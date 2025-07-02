@@ -1,9 +1,16 @@
+
+.text-danger {
+  color: rgb(202, 2, 2);
+}
+
 .modal {
   --bs-modal-padding: 0.5rem;
 }
+
 .modal-header {
   border-bottom: 0;
 }
+
 .modal-content {
   border-radius: 12px;
   box-shadow: 0 0px 8px -4px #10182814;
@@ -11,15 +18,20 @@
   height: auto;
   padding: 10px;
 }
+
 .modal-dialog {
   margin-top: 7rem;
   margin-left: auto;
   margin-right: auto;
 }
+
 .btn-close {
   color: #667085;
   width: 12px;
   height: 12px;
+}
+.modal-header .btn-close {
+  margin: 0;
 }
 .info h3 {
   display: flex;
@@ -27,16 +39,6 @@
   font-weight: 400;
   font-size: 12px;
 }
-
-/* .info .label,
-    .info .value {
-      font-weight: 400;
-      font-size: 12px;
-    }
-    
-    .info .value {
-      font-weight: 500;
-    } */
 
 .modal-header h1,
 .modal-body h1,
@@ -49,10 +51,12 @@
   line-height: 18px;
   text-align: center;
 }
+
 .info label {
   font-weight: 500;
   font-size: 14px;
 }
+
 .modal-body h1 {
   text-align: start;
 }
@@ -60,6 +64,8 @@
 .btn-close:focus {
   box-shadow: none;
 }
+
+
 .input-container {
   width: 100%;
   position: relative;
@@ -68,7 +74,7 @@
 .label-style {
   position: absolute;
   top: 0;
-  left: 10px;
+  /* left: 10px; */
   transform: translateY(-50%);
   background-color: white;
   padding: 0 5px;
@@ -77,6 +83,12 @@
   font-weight: 400;
   font-family: Inter;
   line-height: 14.52px;
+}
+.label-style-rtl {
+  right: 10px;
+}
+.label-style-ltr {
+  left: 10px;
 }
 
 .input-style,
@@ -93,6 +105,8 @@
   cursor: pointer;
   color: #000;
 }
+
+
 .input-style::placeholder {
   border: none;
   padding: 0px;
@@ -165,6 +179,8 @@ input[type="radio"]:checked {
   color: #fff;
   color: #f28f45;
 }
+
+
 .approve-btn {
   width: 110px;
   background-color: #f28f45;
@@ -180,10 +196,26 @@ input[type="radio"]:checked {
   font-size: 15px;
   color: #888;
 }
+
+
 .input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
+}
+.country-code {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  pointer-events: none;
+}
+.phone-number {
+  padding-left: 100px;
+  /* border: none; */
+  outline: none;
+  text-align: end;
 }
 
 .flag-icon {
@@ -192,7 +224,10 @@ input[type="radio"]:checked {
   width: 24px;
   height: auto;
 }
+
+
 .verify-text {
+  position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);

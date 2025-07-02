@@ -21,7 +21,9 @@
   width: 12px;
   height: 12px;
 }
-
+.modal-header .btn-close {
+  margin: 0;
+}
 .info .label,
 .info .value {
   font-weight: 400;

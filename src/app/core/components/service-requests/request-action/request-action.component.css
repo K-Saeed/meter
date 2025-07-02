@@ -1,19 +1,33 @@
-/* .search-container {
+/* ========================
+   Search Container & Icon
+=========================== */
+.search-container {
   position: relative;
-} */
+}
+
 .search-icon {
   position: absolute;
   top: 45%;
-  left: 8px;
   transform: translateY(-50%);
   z-index: 1;
 }
+
+.icon-ltr {
+  left: 8px;
+}
+
+.icon-rtl {
+  right: 8px;
+}
+
+/* ========================
+   Search Input & Button
+=========================== */
 .search-input,
 .btn-orange {
   width: 320px;
   height: 42px;
-  padding: 8px 19px 8px 45px;
-  /* color: #9a9a9a; */
+  padding: 8px 19px 8px 45px; /* default padding for LTR */
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -22,21 +36,33 @@
   border-radius: 12px;
   border: 1px solid #d9d9d9;
 }
+
+:host-context([dir="rtl"]) .search-input {
+  padding: 8px 45px 8px 19px;
+}
+
+/* Placeholder Styling */
 .search-input::placeholder {
   color: #9a9a9a;
   opacity: 1;
 }
+
 .form-control:focus {
   border: 1px solid #d9d9d9;
   box-shadow: none;
 }
+
+/* ========================
+   Buttons
+=========================== */
 .btn {
   width: 101px;
   height: 42px;
   border: 1px solid #d9d9d9;
   border-radius: 12px;
-  padding: 9px 16px 9px 16px;
+  padding: 9px 16px;
 }
+
 .btn span {
   font-family: Inter;
   color: #f28f45;
@@ -46,6 +72,7 @@
   letter-spacing: -3%;
   text-align: center;
 }
+
 .btn-check:checked + .btn,
 :not(.btn-check) + .btn:active,
 .btn:first-child:active,
@@ -53,6 +80,10 @@
 .btn.show {
   color: #d9d9d9;
 }
+
+/* ========================
+   Orange Button
+=========================== */
 .btn-orange {
   width: 130px;
   height: 42px;
@@ -63,6 +94,10 @@
   font-weight: 600;
   color: #ffffff;
 }
+
+/* ========================
+   Responsive
+=========================== */
 @media (max-width: 576px) {
   .search-input {
     width: 100%;
@@ -70,19 +105,30 @@
     height: 36px;
     padding: 8px 15px 8px 35px;
   }
-  .search-icon {
-    position: absolute;
-    top: 42%;
-    left: 3px;
-    transform: translateY(-50%);
-    z-index: 1;
+
+  :host-context([dir="rtl"]) .search-input {
+    padding: 8px 35px 8px 15px;
   }
+
+  .search-icon {
+    top: 42%;
+  }
+
+  .icon-ltr {
+    left: 3px;
+  }
+
+  .icon-rtl {
+    right: 3px;
+  }
+
   .btn {
     width: 80px;
     height: 36px;
     font-size: 12px;
     padding: 8px 12px;
   }
+
   .btn span {
     font-size: 12px;
   }
@@ -95,13 +141,16 @@
   }
 }
 
-/* Tablets (width between 577px and 768px) */
 @media (min-width: 577px) and (max-width: 768px) {
   .search-input {
     width: 100%;
     font-size: 11px;
     height: 40px;
     padding: 8px 15px 8px 40px;
+  }
+
+  :host-context([dir="rtl"]) .search-input {
+    padding: 8px 40px 8px 15px;
   }
 
   .btn {

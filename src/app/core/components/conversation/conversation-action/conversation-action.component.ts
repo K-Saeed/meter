@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ConversationService } from 'src/app/shared/service/conversation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-conversation-action',
@@ -7,9 +8,11 @@ import { ConversationService } from 'src/app/shared/service/conversation.service
   styleUrls: ['./conversation-action.component.css']
 })
 export class ConversationActionComponent {
+  currentLang: string = 'en';
 
-
-  constructor(private converstationService: ConversationService) { }
+  constructor(private converstationService: ConversationService, private translateService: TranslateService) {
+    this.currentLang = this.translateService.currentLang;
+  }
 
   syncConversations() {
     this.converstationService.syncAllConversations().subscribe({

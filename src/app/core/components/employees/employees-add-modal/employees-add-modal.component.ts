@@ -3,7 +3,8 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 import { Regex } from 'src/app/shared/constant/regex';
 import { Employee } from '../model/employee.model';
 import { EmployeeService } from 'src/app/shared/service/employee.service';
-import { RoleChooseDto} from '../../role/model/role.model';
+import { RoleChooseDto } from '../../role/model/role.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-employees-add-modal',
@@ -16,15 +17,18 @@ export class EmployeesAddModalComponent implements OnInit {
   showPassword = false;
   showConfirmPassword = false;
   form!: FormGroup;
+  currentLang = 'en';
   submitClicked?: boolean;
   isVerified: boolean = false;
   logoImage?: File;
-  roles: RoleChooseDto[]  = [];
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+  roles: RoleChooseDto[] = [];
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService, 
+    public translationService: TranslateService) {
     this.initializeForm();
   }
 
   ngOnInit(): void {
+    this.currentLang = this.translationService.currentLang;
     this.initializeForm();
     this.employeeService.getAllRoles().subscribe(data => {
       this.roles = data;
@@ -77,16 +81,20 @@ export class EmployeesAddModalComponent implements OnInit {
   submit(): void {
     this.submitClicked = true;
     console.log(this.form);
-    if (this.form.valid && this.isVerified) {
+    if (this.form.valid) {
       const employee = this.fillUserFormForm();
-      this.employeeService.addEmployee(employee, this.logoImage).subscribe(
-        () => {
-          // Handle successful registration
+      console.log(employee)
+      this.employeeService.addEmployee(employee, this.logoImage).subscribe({
+        next: (n) => {
+          console.log(n);
         },
-        (error) => {
-          console.log(error);
+        error: (e) => {
+          console.log(e);
+        },
+        complete:()=>{
+          window.location.reload();
         }
-      );
+      });
     } else {
       this.form.markAllAsTouched();
     }
@@ -94,10 +102,11 @@ export class EmployeesAddModalComponent implements OnInit {
 
   fillUserFormForm(): Employee {
     const employee = new Employee();
-    employee.firstName = this.form.get('name')?.value.trim();
+    employee.name = this.form.get('name')?.value.trim();
     employee.email = this.form.get('email')?.value.trim().toLowerCase();
-    employee.msisdn = this.form.get('countryCode')?.value + this.form.get('phoneNumber')?.value;
+    employee.phoneNumber = this.form.get('countryCode')?.value + this.form.get('phoneNumber')?.value;
     employee.password = this.form.get('theTwoPasswords.password')?.value;
+    employee.roleName = this.selectedVisibility;
     return employee;
   }
 

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { SocketChatService } from "../../new-chat/socket-chat.service";
 import { ChatRoom, Message } from "../../new-chat/chat-classes";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-conversation-table",
@@ -10,16 +11,20 @@ import { ChatRoom, Message } from "../../new-chat/chat-classes";
 })
 export class ConversationTableComponent implements OnInit, OnDestroy {
   selectAll: boolean = false;
-  chatRooms!:ChatRoom[];
+  currentLang: string = 'en';
+  chatRooms!: ChatRoom[];
   currentPage: number = 1;
   itemsPerPage: number = 4;
   Math = Math;
   totalPages: number = 1;
-  messages!:Message[];
-  selectedChatRoom!:ChatRoom;
+  messages!: Message[];
+  selectedChatRoom!: ChatRoom;
   private chatRoomsSubscription!: Subscription;
 
-  constructor(private socketChatService:SocketChatService) {}
+  constructor(private socketChatService: SocketChatService, private translateService: TranslateService,) {
+    this.currentLang = this.translateService.currentLang;
+
+  }
 
   ngOnInit(): void {
     this.getAllConversations();
@@ -46,7 +51,7 @@ export class ConversationTableComponent implements OnInit, OnDestroy {
 
   getMessagesByChatId(chatRoom: ChatRoom) {
     this.selectedChatRoom = chatRoom;
-    this.socketChatService.getMessagesByChatIdForAdmin(chatRoom.id??'').subscribe({
+    this.socketChatService.getMessagesByChatIdForAdmin(chatRoom.id ?? '').subscribe({
       next: (n) => {
         this.setMessages(n);
       },

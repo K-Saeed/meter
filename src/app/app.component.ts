@@ -7,7 +7,7 @@ import { AuthService } from './shared/service/auth/auth.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit  {
+export class AppComponent implements OnInit {
   title = 'meter-dashboard-frontend';
   showSidebarAndTopbar: boolean = false;
   isSidebarOpen = false;

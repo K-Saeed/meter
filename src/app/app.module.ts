@@ -118,7 +118,7 @@ import { UserSellerComponent } from './core/components/users/user-add-modal/user
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
 import { DashboardComponent } from './core/components/dashboard/dashboard.component';
 import { DashboardTitleComponent } from './core/components/dashboard/dashboard-title/dashboard-title.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from "@angular/common/http";
 import { NgxSpinnerModule } from "ngx-spinner";
 import { CommonModule } from "@angular/common";
 import { AuthGuardService } from "./shared/service/auth/auth-guard.service";
@@ -156,7 +156,13 @@ import { DevicesProposalShowDetailsModalComponent } from "./core/components/devi
 import { DevicesProposalShowModalComponent } from "./core/components/devices-proposals/devices-proposal-show-modal/devices-proposal-show-modal.component";
 import { DevicesProposalTableComponent } from "./core/components/devices-proposals/devices-proposal-table/devices-proposal-table.component";
 import { DevicesProposalTitleComponent } from "./core/components/devices-proposals/devices-proposal-title/devices-proposal-title.component";
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -316,8 +322,16 @@ import { DevicesProposalTitleComponent } from "./core/components/devices-proposa
     HttpClientModule,
     NgxSpinnerModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   ],
+  
   providers: [
     AuthGuardService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

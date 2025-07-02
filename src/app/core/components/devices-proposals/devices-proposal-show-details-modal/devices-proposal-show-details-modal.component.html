@@ -1,78 +1,81 @@
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Seller Information:</h1>
+  <h1>{{ "seller_proposal_details" | translate }}</h1>
   <div class="info d-flex flex-column gap-3">
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Name:</span>
+      <span class="label">{{ "name" | translate }}:</span>
       <span class="value">{{ proposal?.ownerName }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Mobile:</span>
+      <span class="label">{{ "phone" | translate }}:</span>
       <span class="value">{{ proposal?.ownerMobile }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
       <span class="label">Email:</span>
+      <span class="label">{{ "email" | translate }}:</span>
       <span class="value">{{ proposal?.ownerEmail }}</span>
     </h3>
   </div>
 </div>
 
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Customer Information:</h1>
+  <h1>{{ "customer_information" | translate }}</h1>
   <div class="info d-flex flex-column gap-3">
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Name:</span>
+      <span class="label">{{ "name" | translate }}:</span>
       <span class="value">{{ proposal?.customerName }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Mobile:</span>
+      <span class="label">{{ "phone" | translate }}:</span>
       <span class="value">{{ proposal?.customerMobile }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
       <span class="label">Email:</span>
+      <span class="label">{{ "email" | translate }}:</span>
       <span class="value">{{ proposal?.customerEmail }}</span>
     </h3>
   </div>
 </div>
+
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Device Information:</h1>
+  <h1>{{ "device_information" | translate }}</h1>
   <div class="info d-flex flex-column align-items-start gap-3">
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Device ID:</span>
+      <span class="label">{{ "device_id" | translate }}:</span>
       <span class="value">{{ proposal?.productId }}</span>
     </h3>
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Device Title:</span>
+      <span class="label">{{ "device_title" | translate }}:</span>
       <span class="value">{{ proposal?.productName }}</span>
     </h3>
   </div>
 </div>
+
 <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-  <h1>Proposal Information:</h1>
+  <h1>{{ "proposal_info" | translate }}</h1>
   <div class="info d-flex flex-column align-items-start gap-3">
-    <!-- <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Title:</span>
-      <span class="value">{{ proposal?.title }}</span>
-    </h3> -->
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Type of device:</span>
+      <span class="label">{{ "type_of_device" | translate }}:</span>
       <span class="value">{{ proposal?.requestType }}</span>
     </h3>
+
     <h3
       class="d-flex justify-content-between m-0"
       *ngIf="proposal?.requestType === 'rent' && proposal?.endRentingDate"
     >
-      <span class="label">End renting date:</span>
+      <span class="label">{{ "end_renting_date" | translate }}:</span>
       <span class="value">{{ proposal?.endRentingDate }}</span>
     </h3>
+
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">With worker:</span>
+      <span class="label">{{ "with_worker" | translate }}:</span>
       <span class="value">{{ proposal?.deviceWithWorker }}</span>
     </h3>
+
     <h3
       class="d-flex justify-content-between m-0"
       *ngIf="proposal?.requestType === 'rent' && proposal?.rentDate"
     >
-      <span class="label">Start renting date:</span>
+      <span class="label">{{ "start_renting_date" | translate }}:</span>
       <span class="value">{{ proposal?.rentDate }}</span>
     </h3>
 
@@ -80,14 +83,15 @@
       class="d-flex justify-content-between m-0"
       *ngIf="proposal?.requestType === 'rent' && proposal?.rentHours"
     >
-      <span class="label">Renting hours:</span>
+      <span class="label">{{ "renting_hours" | translate }}:</span>
       <span class="value">{{ proposal?.rentHours }} hours</span>
     </h3>
+
     <h3
       class="d-flex justify-content-between m-0"
       *ngIf="proposal?.requestType === 'rent'"
     >
-      <span class="label">Location:</span>
+      <span class="label">{{ "location" | translate }}:</span>
       <a
         class="value"
         target="_blank"
@@ -98,23 +102,27 @@
           proposal?.longitude
         "
       >
-        Click location
+        {{ "location" | translate }}
       </a>
     </h3>
+
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Seller fees:</span>
-      <!-- <span class="value">{{ proposal?.price }}</span> -->
+      <span class="label">{{ "seller_fees" | translate }}:</span>
+      <span class="value">{{ proposal?.price }}</span>
     </h3>
+
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Taxs:</span>
+      <span class="label">{{ "taxes" | translate }}:</span>
       <span class="value">{{ proposal?.taxes }}</span>
     </h3>
+
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Service fees:</span>
+      <span class="label">{{ "service_fees" | translate }}:</span>
       <span class="value">{{ proposal?.serviceFees }}</span>
     </h3>
+
     <h3 class="d-flex justify-content-between m-0">
-      <span class="label">Total:</span>
+      <span class="label">{{ "total" | translate }}:</span>
       <span class="value">{{ proposal?.price }}</span>
     </h3>
   </div>

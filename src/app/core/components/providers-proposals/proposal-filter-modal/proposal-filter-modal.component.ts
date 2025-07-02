@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { ProposalService } from '../services/porposal.service';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-proposal-filter-modal',
   templateUrl: './proposal-filter-modal.component.html',
@@ -11,8 +11,10 @@ export class ProposalFilterModalComponent {
   activeStatus: string | null = null;
   constructor(
     private proposalService: ProposalService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    public translateService: TranslateService
+
+  ) { }
 
   toggleLink(link: string, event: Event): void {
     event.preventDefault();

@@ -8,12 +8,17 @@
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">{{user?.role}} Info</h1>
+        <h1 class="modal-title" id="exampleModalLabel">
+          {{ user?.role }} {{ "user_info" | translate }}
+        </h1>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
         ></button>
       </div>
       <div class="modal-body">
@@ -27,7 +32,7 @@
             }"
             (click)="setActiveLink('details', $event)"
           >
-            Details
+            {{ "details" | translate }}
           </a>
           <a
             class="text-decoration-none"
@@ -38,36 +43,40 @@
             }"
             (click)="setActiveLink('attachments', $event)"
           >
-            Attachments
+            {{ "attachments" | translate }}
           </a>
         </div>
 
         <div *ngIf="activeLink === 'details'">
-          <app-user-show-details-modal  [user]="user"></app-user-show-details-modal>
+          <app-user-show-details-modal
+            [user]="user"
+          ></app-user-show-details-modal>
         </div>
         <div *ngIf="activeLink === 'attachments'">
-          <app-user-show-attachment-modal [user]="user"></app-user-show-attachment-modal>
+          <app-user-show-attachment-modal
+            [user]="user"
+          ></app-user-show-attachment-modal>
         </div>
 
         <ng-container *appHasPermission="{ page: 'users', action: 'EDIT' }">
-        <div class="d-flex gap-3 mt-4 justify-content-end">
-          <button
-            type="button"
-            class="reject-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#rejectModal"
-          >
-            Suspend
-          </button>
-          <button
-            type="button"
-            class="approve-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#approveModal"
-          >
-            Approve
-          </button>
-        </div>
+          <div class="d-flex gap-3 mt-4 justify-content-end">
+            <button
+              type="button"
+              class="reject-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#rejectModal"
+            >
+              {{ "suspend" | translate }}
+            </button>
+            <button
+              type="button"
+              class="approve-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#approveModal"
+            >
+              {{ "approve" | translate }}
+            </button>
+          </div>
         </ng-container>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomerDto, ProviderDto, SellerDto, UserDto } from 'src/app/core/models/user-to-be-added.model';
 import { UserService } from '../services/user.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-add-modal',
@@ -16,6 +17,7 @@ export class UserAddModalComponent implements OnInit {
   userForm!: FormGroup;
   selectedVisibility: string = '';
   isOnNextStep: boolean = false; // Tracks whether we are on the next step for providers
+  currentLang: string = 'en';
 
   Role = [
     { name: 'Customer', selected: false },
@@ -40,7 +42,10 @@ export class UserAddModalComponent implements OnInit {
   fileToBeUploaded!: File;
   filePreview!: (string | ArrayBuffer | null);
 
-  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private cdr: ChangeDetectorRef, private userService: UserService, public translateService: TranslateService) {
+    this.currentLang = this.translateService.currentLang;
+
+  }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -276,13 +281,13 @@ export class UserAddModalComponent implements OnInit {
     this.dropdownOpen = false;
   }
 
-  selectedActivity!:string;
+  selectedActivity!: string;
   updateSelectedActivityType(activity: any) {
     this.selectedActivity = activity.label;
     this.getGroup('provider').controls['activityType'].setValue(activity.id);
     this.dropdownOpen = false;
 
-    console.log(this.getNestedControl('provider','activityType')?.value)
+    console.log(this.getNestedControl('provider', 'activityType')?.value)
   }
 
   goToNextStep() {

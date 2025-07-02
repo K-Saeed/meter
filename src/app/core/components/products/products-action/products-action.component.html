@@ -1,7 +1,10 @@
 <div class="d-flex align-items-center justify-content-between">
   <div class="d-flex align-items-center gap-2">
     <div class="search-container d-flex align-items-center position-relative">
-      <span class="search-icon p-2">
+      <span
+        class="search-icon p-2"
+        [ngClass]="currentLang === 'ar' ? 'icon-rtl' : 'icon-ltr'"
+      >
         <img
           src="../../../../../assets/img/search-normal.svg"
           alt="Search Icon"
@@ -10,7 +13,7 @@
       <input
         type="text"
         class="form-control search-input"
-        placeholder="Search in products"
+        [placeholder]="'search_in_products' | translate"
       />
     </div>
     <button
@@ -19,17 +22,20 @@
       data-bs-target="#proposalFilterModal"
     >
       <img src="../../../../../assets/img/filter.svg" alt="" />
-      <span>Filter</span>
+      <span>{{ "filter" | translate }}</span>
     </button>
   </div>
-  <!-- <button
+  <!--
+  <button
     class="btn-orange d-flex align-items-center gap-2"
     data-bs-toggle="modal"
     data-bs-target="#addModal"
   >
-    <img src="../../../../../assets/img/add.svg" alt="" srcset="" />
-    <span>New Product</span>
-  </button> -->
+    <img src="../../../../../assets/img/add.svg" alt="" />
+    <span>{{ 'new_product' | translate }}</span>
+  </button>
+  -->
 </div>
+
 <app-products-filter-modal></app-products-filter-modal>
 <app-employees-add-modal></app-employees-add-modal>

@@ -143,10 +143,17 @@
   color: #e63737;
 }
 .img .dropdown-menu {
-  inset: 15px 0px auto auto !important;
+  inset: 15px 0px auto auto;
   border: none;
   width: 440px;
   border-radius: 8px;
+}
+.dropdown-ltr {
+  inset: 15px 0px auto auto !important;
+}
+
+.dropdown-rtl {
+  inset: 15px auto auto 0px !important;
 }
 .shadow-sm {
   box-shadow: 0 0 15px #00000029 !important;

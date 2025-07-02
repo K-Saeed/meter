@@ -11,6 +11,8 @@ import { saveAs } from "file-saver";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { ProposalResponse } from "../../providers-proposals/models/porposal-table.model";
 import { ProposalCallService } from "src/app/shared/service/proposal-call.service";
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: "app-request-show-modal",
@@ -30,7 +32,9 @@ export class RequestShowModalComponent implements OnInit, OnChanges {
   constructor(
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-    private proposalCallService: ProposalCallService
+    private proposalCallService: ProposalCallService,
+    public translateService: TranslateService
+
   ) { }
 
   ngOnInit(): void {

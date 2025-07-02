@@ -1,7 +1,9 @@
+import { transition } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth/auth.service';
+import { TranslationService } from 'src/app/shared/service/translation.service';
 
 @Component({
   selector: 'app-topbar',
@@ -9,15 +11,21 @@ import { AuthService } from 'src/app/shared/service/auth/auth.service';
   styleUrls: ['./topbar.component.css']
 })
 export class TopbarComponent implements OnInit {
+  currentLang = 'en';
   selectedOption: string = 'all';
   userProfile: any;
-  imagPath:string = '';
+  imagPath: string = '';
+
   constructor(
     private authService: AuthService,
     private router: Router,
-  ){}
+    public translationService: TranslationService
+  ) {
+    this.currentLang = translationService.currentLang;
+  }
 
   ngOnInit(): void {
+    this.currentLang = this.translationService.currentLang;
     const userProfileString = localStorage.getItem("user-profile");
     if (userProfileString) {
       this.userProfile = JSON.parse(userProfileString);
@@ -41,5 +49,17 @@ export class TopbarComponent implements OnInit {
     this.router.navigate(['/signin']);
   }
 
+  switchLang(lang: string) {
+    this.translationService.setLanguage(lang);
+    this.currentLang = lang;
+  }
+
+  get currentFlag(): string {
+    return this.currentLang === 'ar' ? 'ar.png' : 'en.png';
+  }
+
+  get currentLabel(): string {
+    return this.currentLang === 'ar' ? 'العربية' : 'English';
+  }
 
 }

@@ -1,92 +1,167 @@
-<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="viewModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
-        <h1 class="modal-title" id="exampleModalLabel">Request Details</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h1 class="modal-title" id="exampleModalLabel">
+          {{ "request_details" | translate }}
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
+        ></button>
       </div>
       <div class="modal-body">
         <div class="d-flex align-items-center my-2">
-          <a class="text-decoration-none me-3" href="#" [ngClass]="{
+          <a
+            class="text-decoration-none me-3"
+            href="#"
+            [ngClass]="{
               breadcrumb: activeLink === 'details',
               inActive: activeLink !== 'details'
-            }" (click)="setActiveLink('details', $event)">
-            Details
+            }"
+            (click)="setActiveLink('details', $event)"
+          >
+            {{ "details" | translate }}
           </a>
-          <a class="text-decoration-none" href="#" [ngClass]="{
+          <a
+            class="text-decoration-none"
+            href="#"
+            [ngClass]="{
               breadcrumbSpace: activeLink === 'attachments',
               inActive: activeLink !== 'attachments'
-            }" (click)="setActiveLink('attachments', $event)">
-            Attachments
+            }"
+            (click)="setActiveLink('attachments', $event)"
+          >
+            {{ "attachments" | translate }}
           </a>
-          <a *ngIf="offers.length > 0" class="text-decoration-none ms-3" href="#"
-            [ngClass]="{ breadcrumbSpace: activeLink === 'offers', inActive: activeLink !== 'offers' }"
-            (click)="setActiveLink('offers', $event)">
-            Offers
+          <a
+            *ngIf="offers.length > 0"
+            class="text-decoration-none ms-3"
+            href="#"
+            [ngClass]="{
+              breadcrumbSpace: activeLink === 'offers',
+              inActive: activeLink !== 'offers'
+            }"
+            (click)="setActiveLink('offers', $event)"
+          >
+            {{ "offers" | translate }}
           </a>
         </div>
         <!-- tab details -->
         <div *ngIf="activeLink === 'details'">
           <div class="d-flex flex-column">
             <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-              <h1>Customer Information:</h1>
+              <h1>{{ "customer_information" | translate }}</h1>
               <div class="info d-flex flex-column gap-3">
                 <h3 class="d-flex justify-content-between m-0">
-                  <span class="label">Name:</span>
-                  <span class="value">{{request?.requestOwner?.name}}</span>
+                  <span class="label">{{ "name" | translate }}:</span>
+                  <span class="value">{{ request?.requestOwner?.name }}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0">
-                  <span class="label">Email:</span>
-                  <span class="value">{{request?.requestOwner?.email}}</span>
+                  <span class="label">{{ "email" | translate }}:</span>
+                  <span class="value">{{ request?.requestOwner?.email }}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0">
-                  <span class="label">Phone:</span>
-                  <span class="value">{{request?.requestOwner?.mobile}}</span>
+                  <span class="label">{{ "phone" | translate }}:</span>
+                  <span class="value">{{ request?.requestOwner?.mobile }}</span>
                 </h3>
               </div>
             </div>
             <div class="title d-flex align-items-start gap-2 flex-column mt-4">
-              <h1>Request Information:</h1>
+              <h1>{{ "request_information" | translate }}</h1>
               <div class="info d-flex flex-column align-items-start gap-3">
                 <h3 class="d-flex justify-content-between m-0">
-                  <span class="label">Title:</span>
-                  <span class="value">{{request?.title}}</span>
+                  <span class="label">{{ "title" | translate }}:</span>
+                  <span class="value">{{ request?.title }}</span>
                 </h3>
                 <h3 class="d-flex justify-content-between m-0">
-                  <span class="label">Description::</span>
-                  <span class="value">{{request?.description}}</span>
+                  <span class="label">{{ "description" | translate }}:</span>
+                  <span class="value">{{ request?.description }}</span>
                 </h3>
-                <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Request Service'">
-                  <span class="label">Purpose of Pricing:</span>
-                  <span class="value">{{request?.requestServiceDto?.pricingPurpose}}</span>
+                <h3
+                  class="d-flex justify-content-between m-0"
+                  *ngIf="request?.type === 'Request Service'"
+                >
+                  <span class="label"
+                    >{{ "purpose_of_pricing" | translate }}:</span
+                  >
+                  <span class="value">{{
+                    request?.requestServiceDto?.pricingPurpose
+                  }}</span>
                 </h3>
-                <h3 class="d-flex justify-content-between m-0 " *ngIf="request?.type === 'Consolation'">
-                  <span class="label">Application Name:</span>
-                  <span class="value">{{request?.consultationRequestDto?.applicationName}}</span>
+                <h3
+                  class="d-flex justify-content-between m-0"
+                  *ngIf="request?.type === 'Consolation'"
+                >
+                  <span class="label"
+                    >{{ "application_name" | translate }}:</span
+                  >
+                  <span class="value">{{
+                    request?.consultationRequestDto?.applicationName
+                  }}</span>
                 </h3>
-                <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Engineering Job'">
-                  <span class="label">Certificate Type:</span>
-                  <span class="value">{{request?.jobRequestDto?.certificateType}}</span>
+                <h3
+                  class="d-flex justify-content-between m-0"
+                  *ngIf="request?.type === 'Engineering Job'"
+                >
+                  <span class="label"
+                    >{{ "certificate_type" | translate }}:</span
+                  >
+                  <span class="value">{{
+                    request?.jobRequestDto?.certificateType
+                  }}</span>
                 </h3>
-                <h3 class="d-flex justify-content-between m-0" *ngIf="request?.type === 'Engineering Job'">
-                  <span class="label">Address:</span>
+                <h3
+                  class="d-flex justify-content-between m-0"
+                  *ngIf="request?.type === 'Engineering Job'"
+                >
+                  <span class="label">{{ "address" | translate }}:</span>
                   <!-- <span class="value">{{request?.requestServiceDto?.region || request?.requestServiceDto?. }}</span> -->
                 </h3>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="showFilePopup" class="modal popup-overlay fade show d-block" tabindex="-1">
+        <div
+          *ngIf="showFilePopup"
+          class="modal popup-overlay fade show d-block"
+          tabindex="-1"
+        >
           <div class="modal-dialog popup-dialog modal-lg modal-dialog-centered">
             <div class="modal-content popup-content">
               <div class="modal-header">
-                <button type="button" class="btn-close" (click)="closePopup()"></button>
+                <button
+                  type="button"
+                  class="btn-close"
+                  (click)="closePopup()"
+                ></button>
               </div>
-              <div class=" modal-body">
+              <div class="modal-body">
                 <div *ngIf="isImageFile">
-                  <img [src]="selectedFileUrl" alt="File Image" class="img-fluid" width="100%">
+                  <img
+                    [src]="selectedFileUrl"
+                    alt="File Image"
+                    class="img-fluid"
+                    width="100%"
+                  />
                 </div>
-                <iframe *ngIf="!isImageFile" [src]="selectedFileUrl" width="100%" height="100%"></iframe>
+                <iframe
+                  *ngIf="!isImageFile"
+                  [src]="selectedFileUrl"
+                  width="100%"
+                  height="100%"
+                ></iframe>
               </div>
             </div>
           </div>
@@ -95,17 +170,30 @@
         <div *ngIf="activeLink === 'attachments'">
           <div class="d-flex flex-column gap-5 mt-5">
             <div class="d-flex flex-column justify-content-between gap-5">
-              <div *ngFor="let file of request?.requestFiles" (click)="openFileInPopup(file)"
-                class="d-flex flex-column justify-content-between gap-5">
+              <div
+                *ngFor="let file of request?.requestFiles"
+                (click)="openFileInPopup(file)"
+                class="d-flex flex-column justify-content-between gap-5"
+              >
                 <div class="d-flex align-items-center gap-3 cursor-pointer">
-                  <img src="../../../../../assets/img/pdf.svg" alt="" srcset="" />
-                  <div class="d-flex align-items-center justify-content-between w-100 cursor-pointer">
+                  <img
+                    src="../../../../../assets/img/pdf.svg"
+                    alt=""
+                    srcset=""
+                  />
+                  <div
+                    class="d-flex align-items-center justify-content-between w-100 cursor-pointer"
+                  >
                     <div class="attechment d-flex flex-column cursor-pointer">
                       <h4 class="m-0 cursor-pointer">{{ file.fileName }}</h4>
                       <p class="m-0 cursor-pointer">{{ file.uploadDate }}</p>
                     </div>
-                    <img class="cursor-pointer" src="../../../../../assets/img/fi_download.svg" alt=""
-                      (click)="downloadFile(file)" />
+                    <img
+                      class="cursor-pointer"
+                      src="../../../../../assets/img/fi_download.svg"
+                      alt=""
+                      (click)="downloadFile(file)"
+                    />
                   </div>
                 </div>
               </div>
@@ -117,54 +205,84 @@
           <div *ngIf="activeLink === 'offers'">
             <div class="d-flex flex-column scrollable-container">
               <!-- Loop through the offers list -->
-              <div *ngFor="let offer of offers; let i = index"
+              <div
+                *ngFor="let offer of offers; let i = index"
                 class="title d-flex align-items-start gap-2 flex-column mt-4 position-relative"
-                [ngClass]="{ 'open': selectedProposal === 'proposal' + i, 'closed': selectedProposal !== 'proposal' + i }">
+                [ngClass]="{
+                  open: selectedProposal === 'proposal' + i,
+                  closed: selectedProposal !== 'proposal' + i
+                }"
+              >
                 <div class="info d-flex flex-column gap-3">
                   <!-- Proposal Header -->
-                  <h3 class="d-flex justify-content-between m-0 cursor-pointer" (click)="showDetails('proposal' + i)">
-                    <span class="label">Proposal ID:</span>
-                    <span class="value">{{ offer.id + " " + offer.providerName }}</span>
-                    <i class="fa" [class.fa-chevron-down]="selectedProposal !== 'proposal' + i"
-                      [class.fa-chevron-up]="selectedProposal === 'proposal' + i"></i>
+                  <h3
+                    class="d-flex justify-content-between m-0 cursor-pointer"
+                    (click)="showDetails('proposal' + i)"
+                  >
+                    <span class="label">{{ "proposal_id" | translate }}:</span>
+                    <span class="value">{{
+                      offer.id + " " + offer.providerName
+                    }}</span>
+                    <i
+                      class="fa"
+                      [class.fa-chevron-down]="
+                        selectedProposal !== 'proposal' + i
+                      "
+                      [class.fa-chevron-up]="
+                        selectedProposal === 'proposal' + i
+                      "
+                    ></i>
                   </h3>
 
                   <!-- Proposal Details -->
-                  <div *ngIf="selectedProposal === 'proposal' + i" class="info d-flex flex-column gap-3">
+                  <div
+                    *ngIf="selectedProposal === 'proposal' + i"
+                    class="info d-flex flex-column gap-3"
+                  >
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Date Submitted:</span>
+                      <span class="label"
+                        >{{ "date_submitted" | translate }}:</span
+                      >
                       <span class="value">{{ offer.offerDate }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Provider name:</span>
+                      <span class="label"
+                        >{{ "provider_name" | translate }}:</span
+                      >
                       <span class="value">{{ offer.providerName }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Email:</span>
+                      <span class="label">{{ "email" | translate }}:</span>
                       <span class="value">{{ offer.providerEmail }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Phone:</span>
+                      <span class="label">{{ "phone" | translate }}:</span>
                       <span class="value">{{ offer.providerPhone }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Service Fees:</span>
+                      <span class="label"
+                        >{{ "service_fees" | translate }}:</span
+                      >
                       <span class="value">{{ offer.serviceFees }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Office Fees:</span>
+                      <span class="label"
+                        >{{ "office_fees" | translate }}:</span
+                      >
                       <span class="value">{{ offer.officeFees }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Taxes:</span>
+                      <span class="label">{{ "taxes" | translate }}:</span>
                       <span class="value">{{ offer.taxes }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Total:</span>
+                      <span class="label">{{ "total" | translate }}:</span>
                       <span class="value">{{ offer.price }}</span>
                     </h3>
                     <h3 class="d-flex justify-content-between m-0">
-                      <span class="label">Description:</span>
+                      <span class="label"
+                        >{{ "description" | translate }}:</span
+                      >
                       <span class="value">{{ offer.details }}</span>
                     </h3>
                     <!-- <div class="d-flex gap-3 justify-content-end buttons-container">
@@ -183,14 +301,29 @@
         </ng-container>
 
         <div class="d-flex gap-3 mt-4 justify-content-end">
-          <button type="button" class="reject-btn" data-bs-toggle="modal" data-bs-target="#rejectModal">
-            Reject
+          <button
+            type="button"
+            class="reject-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#rejectModal"
+          >
+            {{ "reject" | translate }}
           </button>
-          <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#pendingModal">
-            Pending
+          <button
+            type="button"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#pendingModal"
+          >
+            {{ "pending" | translate }}
           </button>
-          <button type="button" class="approve-btn" data-bs-toggle="modal" data-bs-target="#approveModal">
-            Approve
+          <button
+            type="button"
+            class="approve-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#approveModal"
+          >
+            {{ "approve" | translate }}
           </button>
         </div>
       </div>
@@ -198,7 +331,12 @@
   </div>
 </div>
 
-<app-request-reject-modal [requestId]="request?.requestId"></app-request-reject-modal>
-<app-request-approve-modal [requestId]="request?.requestId"></app-request-approve-modal>
-<app-request-pending-modal [requestId]="request?.requestId"></app-request-pending-modal>
-
+<app-request-reject-modal
+  [requestId]="request?.requestId"
+></app-request-reject-modal>
+<app-request-approve-modal
+  [requestId]="request?.requestId"
+></app-request-approve-modal>
+<app-request-pending-modal
+  [requestId]="request?.requestId"
+></app-request-pending-modal>

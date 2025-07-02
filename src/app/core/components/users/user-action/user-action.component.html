@@ -1,7 +1,10 @@
 <div class="btns d-flex align-items-center justify-content-between gap">
   <div class="d-flex align-items-center gap-2">
     <div class="search-container d-flex align-items-center position-relative">
-      <span class="search-icon p-2">
+      <span
+        class="search-icon p-2"
+        [ngClass]="currentLang === 'ar' ? 'icon-rtl' : 'icon-ltr'"
+      >
         <img
           src="../../../../../assets/img/search-normal.svg"
           alt="Search Icon"
@@ -10,7 +13,7 @@
       <input
         type="text"
         class="form-control search-input"
-        placeholder="Search in customer"
+        [placeholder]="'search_in_clients' | translate"
         [(ngModel)]="searchTerm"
         (input)="applySearch()"
       />
@@ -21,7 +24,7 @@
       data-bs-target="#userFilterModal"
     >
       <img src="../../../../../assets/img/filter.svg" alt="" />
-      <span>Filter</span>
+      <span>{{ "filter" | translate }}</span>
     </button>
   </div>
   <div class="d-flex gap-2">
@@ -30,7 +33,7 @@
       [routerLink]="'/unfinisheduser'"
     >
       <img src="../../../../../assets/img/info-circle.svg" alt="" />
-      <span>Unfinished User</span>
+      <span>{{ "unfinished_user" | translate }}</span>
     </button>
     <ng-container *appHasPermission="{ page: 'users', action: 'WRITE' }">
       <button
@@ -39,7 +42,7 @@
         data-bs-target="#addUserModal"
       >
         <img src="../../../../../assets/img/add.svg" alt="" />
-        <span>New User</span>
+        <span>{{ "new_user" | translate }}</span>
       </button>
     </ng-container>
   </div>

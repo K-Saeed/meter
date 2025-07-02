@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { UserService } from "../services/user.service";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: "app-user-filter-modal",
@@ -10,7 +11,7 @@ export class UserFilterModalComponent {
   activeRole: string | null = null;
   activeStatus: string | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, public translateService: TranslateService) { }
 
   toggleRole(role: string, event: Event): void {
     event.preventDefault();

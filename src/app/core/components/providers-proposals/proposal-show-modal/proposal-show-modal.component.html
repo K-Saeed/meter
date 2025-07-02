@@ -9,13 +9,16 @@
     <div class="modal-content d-flex">
       <div class="modal-header p-2 z-1">
         <h1 class="modal-title" id="exampleModalLabel">
-          Provider Proposal Details
+          {{ "providers_proposals" | translate }} {{ "details" | translate }}
         </h1>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          aria-label="Close"
+          aria-label="close"
+          [ngClass]="
+            translateService.currentLang === 'ar' ? 'me-auto' : 'ms-auto'
+          "
         ></button>
       </div>
       <div class="modal-body">
@@ -29,33 +32,35 @@
             }"
             (click)="setActiveLink('details', $event)"
           >
-            Details
+            {{ "details" | translate }}
           </a>
         </div>
 
         <div *ngIf="activeLink === 'details'">
-          <app-proposal-show-details-modal  [proposal]="proposal"></app-proposal-show-details-modal>
+          <app-proposal-show-details-modal
+            [proposal]="proposal"
+          ></app-proposal-show-details-modal>
         </div>
 
         <ng-container *appHasPermission="{ page: 'proposals', action: 'EDIT' }">
-        <div class="d-flex gap-3 mt-4 justify-content-end">
-          <button
-            type="button"
-            class="reject-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#rejectModal"
-          >
-            Reject
-          </button>
-          <button
-            type="button"
-            class="approve-btn"
-            data-bs-toggle="modal"
-            data-bs-target="#approveModal"
-          >
-            Approve
-          </button>
-        </div>
+          <div class="d-flex gap-3 mt-4 justify-content-end">
+            <button
+              type="button"
+              class="reject-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#rejectModal"
+            >
+              {{ "reject" | translate }}
+            </button>
+            <button
+              type="button"
+              class="approve-btn"
+              data-bs-toggle="modal"
+              data-bs-target="#approveModal"
+            >
+              {{ "approve" | translate }}
+            </button>
+          </div>
         </ng-container>
       </div>
     </div>

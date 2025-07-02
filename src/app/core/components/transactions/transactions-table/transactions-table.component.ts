@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TransactionResponse } from '../model/transaction.model';
 import { TransactionService } from 'src/app/shared/service/transaction-call.service';
 import { Subscription, switchMap } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transactions-table',
@@ -11,27 +12,40 @@ import { Subscription, switchMap } from 'rxjs';
 export class TransactionsTableComponent implements OnInit {
   selectAll: boolean = false;
   transactions: TransactionResponse[] = [];
-  transaction!:TransactionResponse;
+  transaction!: TransactionResponse;
   selectedTransactionId: string | undefined;
   transactionResponse?: TransactionResponse;
   private statusSubscription!: Subscription;
-
+  currentLang: string = 'en';
   currentPage: number = 1;
   itemsPerPage: number = 4;
   totalPages: number = 1;
   pagination: number[] = [];
   Math = Math;
 
-  constructor(private transactionService: TransactionService, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private transactionService: TransactionService,
+    private cdr: ChangeDetectorRef,
+    private translateService: TranslateService,
+    
+  ) {
+    this.currentLang = this.translateService.currentLang;
+    this.translateService.onLangChange.subscribe((lang) => {
+      this.currentLang = lang.lang;
+    });
+  }
 
   ngOnInit(): void {
     this.statusSubscription = this.transactionService.status$
       .pipe(
-        switchMap((status) => this.transactionService.getAllTransactionsList(status || ''))
+        switchMap((status) =>
+          this.transactionService.getAllTransactionsList(status || '')
+        )
       )
       .subscribe({
         next: (data) => {
           this.transactions = data;
+          this.currentPage = 1;
           this.updatePagination();
           this.cdr.detectChanges();
         },
@@ -39,36 +53,34 @@ export class TransactionsTableComponent implements OnInit {
       });
   }
 
-
   downloadInvoice(requestId: string) {
     this.transactionService.getInvoiceByRequestId(requestId).subscribe({
-      next:(n)=>{
-        // console.log(n);
-        if(n != null){          
+      next: (n) => {
+        if (n != null) {
           window.open(n.filePath, '_blank');
         }
       },
-      error:(e)=>{
+      error: (e) => {
         console.log(e);
-      }
-    })
+      },
+    });
   }
 
-  changeSelectedItem(transaction: TransactionResponse){
+  changeSelectedItem(transaction: TransactionResponse) {
     this.transaction = transaction;
   }
-    
+
   applyFilter(status: string) {
     this.transactionService.setStatus(status);
   }
 
   toggleAll(event: Event) {
     event.preventDefault();
-    this.transactions.forEach(transaction => transaction.selected = this.selectAll);
+    this.transactions.forEach((transaction) => (transaction.selected = this.selectAll));
   }
 
   checkIfAllSelected() {
-    this.selectAll = this.transactions.every(transaction => transaction.selected);
+    this.selectAll = this.transactions.every((transaction) => transaction.selected);
   }
 
   get paginatedUsers() {
@@ -76,6 +88,7 @@ export class TransactionsTableComponent implements OnInit {
     const end = start + this.itemsPerPage;
     return this.transactions.slice(start, end);
   }
+
   setPage(page: number, event: Event) {
     event.preventDefault();
     if (page >= 1 && page <= this.totalPages) {
@@ -83,10 +96,6 @@ export class TransactionsTableComponent implements OnInit {
       this.updatePagination();
     }
   }
-  // setPage(page: number, event: Event) {
-  //   event.preventDefault();
-  //   this.currentPage = page;
-  // }
 
   setTransactionId(transactionId: string | undefined) {
     this.selectedTransactionId = transactionId;
@@ -94,7 +103,9 @@ export class TransactionsTableComponent implements OnInit {
   }
 
   setTransaction() {
-    this.transactionResponse = this.transactions.find(transaction => transaction.id === this.selectedTransactionId);
+    this.transactionResponse = this.transactions.find(
+      (transaction) => transaction.id === this.selectedTransactionId
+    );
   }
 
   ngOnDestroy(): void {
@@ -102,10 +113,12 @@ export class TransactionsTableComponent implements OnInit {
       this.statusSubscription.unsubscribe();
     }
   }
+
   updatePagination() {
     this.totalPages = Math.ceil(this.transactions.length / this.itemsPerPage);
     this.pagination = this.getPagination();
   }
+
   getPagination(): number[] {
     const totalPages = this.totalPages;
     const maxVisiblePages = 4;
