@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js/auto';
+import { UserRquestCallService } from 'src/app/shared/service/userRequest-call.service';
+import { UserPageInfo } from '../models/user-page-info.model';
 
 @Component({
   selector: 'app-user-matrics-overview',
@@ -11,12 +13,30 @@ export class UserMatricsOverviewComponent implements OnInit {
   newCustomersChart: any;
   activeCustomersChart: any;
 
+  userPageInfo: UserPageInfo = new UserPageInfo();
+
+  constructor(private userRequest: UserRquestCallService) {}
+
   ngOnInit(): void {
     this.initializeCharts();
   }
 
+
+  getUserPageInfo(){
+    this.userRequest.getUserPageInfo().subscribe({
+
+      next:(n)=>{
+        this.userPageInfo = n;
+      },
+      error:(e)=>{
+        console.log(e);
+      }
+    })
+  }
   initializeCharts(): void {
     // Total Customers Chart
+    this.getUserPageInfo();
+
     this.totalCustomersChart = new Chart("totalCustomersChart", {
       type: 'line',
       data: {
