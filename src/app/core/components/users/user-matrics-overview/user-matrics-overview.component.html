@@ -7,7 +7,7 @@
           <h5 class="m-0">{{ "total_customers" | translate }}</h5>
         </div>
         <div class="d-flex align-items-center gap-1">
-          <h2 class="m-0">3,257</h2>
+          <h2 class="m-0">{{userPageInfo.totalUsers}}</h2>
           <div class="percentage d-flex align-items-center">
             <img src="../../../../../assets/img/arrow_upward.svg" alt="" />
             <span class="percentage">7.3%</span>
@@ -26,7 +26,7 @@
           <h5 class="m-0">{{ "new_customers" | translate }}</h5>
         </div>
         <div class="d-flex align-items-center gap-1">
-          <h2 class="m-0">50</h2>
+          <h2 class="m-0">{{userPageInfo.newUsers}}</h2>
           <div class="percentage d-flex align-items-center">
             <img src="../../../../../assets/img/arrow_downward.svg" alt="" />
             <span class="percentage">1.5%</span>
@@ -45,7 +45,7 @@
           <h5 class="m-0">{{ "active_customers" | translate }}</h5>
         </div>
         <div class="d-flex align-items-center gap-1">
-          <h2 class="m-0">389</h2>
+          <h2 class="m-0">{{userPageInfo.activeUsers}}</h2>
           <div class="percentage d-flex align-items-center">
             <img src="../../../../../assets/img/arrow_upwardf.svg" alt="" />
             <span class="percentage">7.3%</span>

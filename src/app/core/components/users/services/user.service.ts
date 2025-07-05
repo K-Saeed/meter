@@ -76,4 +76,9 @@ export class UserService {
   addUser(formData: FormData) {
    return this.userRequest.addUser(formData);
   }
+
+
+  getUserPageInfo(){
+    return this.userRequest.getUserPageInfo();
+  }
 }

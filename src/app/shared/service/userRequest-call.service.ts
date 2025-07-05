@@ -5,6 +5,7 @@ import { Product } from "src/app/core/components/products/models/product.model";
 import { SendOtp } from "src/app/core/components/users/models/send-otp.model";
 import { DraftUserDto } from "src/app/core/components/users/models/draft-user.model";
 import { UserTableDto } from "src/app/core/components/users/models/user-table.model";
+import { UserPageInfo } from "src/app/core/components/users/models/user-page-info.model";
 
 @Injectable({
   providedIn: "root",
@@ -65,4 +66,9 @@ export class UserRquestCallService {
     return this.http.get<DraftUserDto[]>(`/api/admin/user/get-users-unfinished`);
   }
 
+
+  getUserPageInfo(){
+    const url = `/api/admin/user/user-page-info`;
+    return this.http.get<UserPageInfo>(url);
+  }
 }
