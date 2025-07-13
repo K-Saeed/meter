@@ -135,7 +135,9 @@ img {
 .table-container::-webkit-scrollbar {
   height: 8px;
 }
-
+.text-orange {
+  color: #f18e42 !important;
+}
 .table-container::-webkit-scrollbar-thumb {
   background-color: #f28f45;
   border-radius: 4px;

@@ -55,6 +55,8 @@ export class RequestTableComponent implements OnInit, OnDestroy {
       this.type = type!;
       this.getRequestList();
     });
+    this.setYearOptions();
+    this.updateMonthlyUserCount();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -89,6 +91,8 @@ export class RequestTableComponent implements OnInit, OnDestroy {
         this.requests = res;
         this.filterRequests();
         this.updatePagination();
+        this.setYearOptions();       
+        this.updateMonthlyUserCount();
         this.cdr.detectChanges();
       },
       error: (e) => {
@@ -180,5 +184,60 @@ export class RequestTableComponent implements OnInit, OnDestroy {
       }
     }
     return pagination;
+  }
+
+  months = [
+    { value: 1, name: 'January' },
+    { value: 2, name: 'February' },
+    { value: 3, name: 'March' },
+    { value: 4, name: 'April' },
+    { value: 5, name: 'May' },
+    { value: 6, name: 'June' },
+    { value: 7, name: 'July' },
+    { value: 8, name: 'August' },
+    { value: 9, name: 'September' },
+    { value: 10, name: 'October' },
+    { value: 11, name: 'November' },
+    { value: 12, name: 'December' }
+  ];
+  
+  years: number[] = [];
+  selectedMonth: number | 'all' = 'all';
+  selectedYear: number | 'all' = 'all';
+  monthlyUserCount: number = 0;
+  
+
+  
+  setYearOptions() {
+    const yearsSet = new Set<number>();
+    this.requests.forEach(request => {
+      if (request.creationDate) {
+        const year = new Date(request.creationDate).getFullYear();
+        yearsSet.add(year);
+      }
+    });
+    this.years = Array.from(yearsSet).sort((a, b) => b - a); // descending order
+    // If no users, optionally add current year
+    if (this.years.length === 0) {
+      this.years = [new Date().getFullYear()];
+    }
+  }
+  
+  
+  updateMonthlyUserCount() {
+    let filtered = this.requests;
+    if (this.selectedYear !== 'all') {
+      filtered = filtered.filter(request => {
+        if (!request.creationDate) return false;
+        return new Date(request.creationDate).getFullYear() === +this.selectedYear;
+      });
+    }
+    if (this.selectedMonth !== 'all') {
+      filtered = filtered.filter(request => {
+        if (!request.creationDate) return false;
+        return new Date(request.creationDate).getMonth() + 1 === +this.selectedMonth;
+      });
+    }
+    this.monthlyUserCount = filtered.length;
   }
 }

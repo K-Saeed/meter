@@ -326,6 +326,7 @@
   "choose_month": "Choose Month",
   "choose_year": "Choose Year",
   "users_registered": "Numer Of Users",
+  "request_registered":"Number Of Requests",
   "all_years": "Year",
   "all_months": "Month"
 }
