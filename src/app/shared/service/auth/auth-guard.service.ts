@@ -52,7 +52,7 @@ export class AuthGuardService implements CanActivate {
       if (permissionKey && this.permissionService.hasPermission(permissionKey,'READ')) {
         return true;
       }
-      this.router.navigate(["/signin"]);
+      this.router.navigate(["/dashboard"]);
       return false;
     } else {
       this.router.navigate(["/signin"]); // Redirect to sign-in page if not authenticated
