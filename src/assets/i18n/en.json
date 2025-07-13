@@ -322,5 +322,10 @@
   "phone_required": "Phone number is required.",
   "confirm_password_required": "Confirm password is required.",
   "passwords_not_matching": "Passwords do not match.",
-  "invalid_passsword": "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character."
+  "invalid_passsword": "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one special character.",
+  "choose_month": "Choose Month",
+  "choose_year": "Choose Year",
+  "users_registered": "Numer Of Users",
+  "all_years": "Year",
+  "all_months": "Month"
 }

@@ -8,6 +8,10 @@ input[type="checkbox"] {
   border-radius: 6.2px;
   cursor: pointer;
 }
+.text-orange {
+  color: #f18e42 !important;
+}
+
 
 input[type="checkbox"]:checked::before {
   content: "\f00c";

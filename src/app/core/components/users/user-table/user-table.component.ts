@@ -50,6 +50,8 @@ export class UserTableComponent implements OnInit, OnDestroy {
       this.role = role!;
       this.getUserList();
     });
+    this.setYearOptions();
+    this.updateMonthlyUserCount();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -96,15 +98,18 @@ export class UserTableComponent implements OnInit, OnDestroy {
     this.userService.getUsersList(this.role, this.status).subscribe(
       (res) => {
         this.userList = res;
-        this.filterUsers(); // Filter on load
+        this.setYearOptions();         // <<-- call here, after userList is set
+        this.updateMonthlyUserCount(); // <<-- call here, after years are set
+        this.filterUsers();            // (if you still want filtering for the table)
         this.setPage(1, new Event(""));
-        this.cdr.detectChanges(); // Manually trigger change detection
+        this.cdr.detectChanges();
       },
       (err) => {
         console.log(err);
       }
     );
   }
+  
 
   filterUsers() {
     const term = this.searchTerm.toLowerCase();
@@ -190,4 +195,59 @@ export class UserTableComponent implements OnInit, OnDestroy {
     }
     return pagination;
   }
+  months = [
+    { value: 1, name: 'January' },
+    { value: 2, name: 'February' },
+    { value: 3, name: 'March' },
+    { value: 4, name: 'April' },
+    { value: 5, name: 'May' },
+    { value: 6, name: 'June' },
+    { value: 7, name: 'July' },
+    { value: 8, name: 'August' },
+    { value: 9, name: 'September' },
+    { value: 10, name: 'October' },
+    { value: 11, name: 'November' },
+    { value: 12, name: 'December' }
+  ];
+  
+  years: number[] = [];
+  selectedMonth: number | 'all' = 'all';
+  selectedYear: number | 'all' = 'all';
+  monthlyUserCount: number = 0;
+  
+
+  
+  setYearOptions() {
+    const yearsSet = new Set<number>();
+    this.userList.forEach(user => {
+      if (user.registeredDate) {
+        const year = new Date(user.registeredDate).getFullYear();
+        yearsSet.add(year);
+      }
+    });
+    this.years = Array.from(yearsSet).sort((a, b) => b - a); // descending order
+    // If no users, optionally add current year
+    if (this.years.length === 0) {
+      this.years = [new Date().getFullYear()];
+    }
+  }
+  
+  
+  updateMonthlyUserCount() {
+    let filtered = this.userList;
+    if (this.selectedYear !== 'all') {
+      filtered = filtered.filter(user => {
+        if (!user.registeredDate) return false;
+        return new Date(user.registeredDate).getFullYear() === +this.selectedYear;
+      });
+    }
+    if (this.selectedMonth !== 'all') {
+      filtered = filtered.filter(user => {
+        if (!user.registeredDate) return false;
+        return new Date(user.registeredDate).getMonth() + 1 === +this.selectedMonth;
+      });
+    }
+    this.monthlyUserCount = filtered.length;
+  }
+  
 }
