@@ -1,4 +1,43 @@
 <div class="table-container mx-3">
+  <div class="d-flex flex-wrap align-items-center gap-3 mb-3 px-3">
+    <div class="d-flex align-items-center gap-2 px-3 py-2 rounded-4 shadow-sm"
+     style="background-color: #fff6ec; min-width: 350px; max-width: 800px;">
+  <label for="monthSelect" class="mb-0 fw-semibold text-muted" style="font-size: 1rem;">
+    {{ "choose_month" | translate }}
+  </label>
+  <select id="monthSelect"
+          class="form-select form-select-sm"
+          style="min-width: 100px;"
+          [(ngModel)]="selectedMonth"
+          (change)="updateMonthlyUserCount()">
+    <option [value]="'all'">{{ "all_months" | translate }}</option>
+    <option *ngFor="let month of months" [value]="month.value">
+      {{ month.name }}
+    </option>
+  </select>
+
+  <label for="yearSelect" class="mb-0 fw-semibold text-muted ms-2" style="font-size: 1rem;">
+    {{ "choose_year" | translate }}
+  </label>
+  <select id="yearSelect"
+          class="form-select form-select-sm"
+          style="min-width: 90px;"
+          [(ngModel)]="selectedYear"
+          (change)="updateMonthlyUserCount()">
+    <option [value]="'all'">{{ "all_years" | translate }}</option>
+    <option *ngFor="let year of years" [value]="year">
+      {{ year }}
+    </option>
+  </select>
+
+  <span class="ms-2 fw-bold text-orange" style="font-size: 1.05rem;">
+    {{ "request_registered" | translate }}:
+    <span class="badge bg-white text-orange border border-warning rounded-pill px-3 py-2" style="font-size: 1.1rem;">
+      {{ monthlyUserCount }}
+    </span>
+  </span>
+</div>
+</div>
   <table class="table my-4">
     <thead class="table-light">
       <tr>
