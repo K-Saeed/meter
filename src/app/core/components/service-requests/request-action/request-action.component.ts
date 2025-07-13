@@ -25,4 +25,5 @@ export class RequestActionComponent implements OnInit {
   applySearch() {
     this.searchChanged.emit(this.searchTerm);
   }
+
 }
