@@ -7,6 +7,10 @@ export class PermissionService {
   private permissions: Record<string, string[]> | null = null;
 
   constructor() {
+    this.reload();
+  }
+
+  reload() {
     const encodedPermissions = localStorage.getItem('permissions');
     if (encodedPermissions) {
       try {

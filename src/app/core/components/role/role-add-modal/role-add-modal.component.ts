@@ -29,6 +29,7 @@ export class RoleAddModalComponent implements OnInit {
       { id: 5, name: 'Work Submission', view: false, edit: false, delete: false, add: false },
       { id: 6, name: 'Transactions', view: false, edit: false, delete: false, add: false },
       { id: 7, name: 'Products', view: false, edit: false, delete: false, add: false },
+      { id: 7, name: 'Devices Proposals', view: false, edit: false, delete: false, add: false },
       { id: 8, name: 'Notifications', view: false, edit: false, delete: false, add: false },
       { id: 9, name: 'Employees', view: false, edit: false, delete: false, add: false },
       { id: 10, name: 'Roles', view: false, edit: false, delete: false, add: false },
