@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'servicerequests', component: ServiceRequestsComponent, canActivate: [AuthGuardService] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuardService] },
   { path: 'providersproposal', component: ProvidersProposalsComponent, canActivate: [AuthGuardService] },
-  { path: 'devicesproposal', component: DevicesProposalsComponent},
+  { path: 'devicesproposal', component: DevicesProposalsComponent, canActivate: [AuthGuardService] },
   { path: 'conversations', component: ConversationComponent, canActivate: [AuthGuardService] },
   { path: 'transactions', component: TransactionsComponent, canActivate: [AuthGuardService] },
   { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuardService] },
