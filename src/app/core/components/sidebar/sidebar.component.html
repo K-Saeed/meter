@@ -119,7 +119,7 @@
       </a>
     </ng-container>
 
-    <ng-container>
+    <ng-container *appHasPermission="{ page: 'devices_proposals', action: 'READ' }" >
       <a
         class="nav-link d-flex align-items-center justify-content-between text-style list-group-item list-group-item-action"
         data-bs-toggle="list"
