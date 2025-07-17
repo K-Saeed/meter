@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { map, Observable } from "rxjs";
 import { AuthService } from "./auth.service";
 import { v4 as uuidv4 } from 'uuid';
+import { PermissionService } from "./permission.service";
 
 
 interface ValidateToken {
@@ -19,7 +20,7 @@ export class LoginService {
   unverifiedEmailError = false;
   validToken: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router,private permissionService:PermissionService) {}
 
   isLoggedIn: boolean = false;
 
@@ -34,6 +35,7 @@ export class LoginService {
         localStorage.setItem("permissions", response.permissions);
         localStorage.setItem("s", this.secretId);
 
+        this.permissionService.reload();
         this.isLoggedIn = true;
         this.router.navigate(["/dashboard"]);
       },

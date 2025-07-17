@@ -32,6 +32,7 @@ export class RoleEditModalComponent {
       { id: 5, name: 'Work Submission' },
       { id: 6, name: 'Transactions' },
       { id: 7, name: 'Products' },
+      { id: 7, name: 'Devices Proposals' },
       { id: 8, name: 'Notifications' },
       { id: 9, name: 'Employees' },
       { id: 10, name: 'Roles' },

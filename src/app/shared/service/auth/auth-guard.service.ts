@@ -20,7 +20,7 @@ export class AuthGuardService implements CanActivate {
     roles: 'roles',//
     settings: 'dashboard',//
     products: 'products',
-    devicesproposal: 'devicesproposal',
+    devicesproposal: 'devices_proposals',
     worksubmission: 'work_submission',
     WorkSubmission: 'work_submission',
     chat: 'chat',
