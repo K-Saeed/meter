@@ -1,10 +1,16 @@
-name: Production CI/CD Pipeline
+name: Develop CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
-
-
+    branches:
+        - develop
+        - main
+        - develop-AU
+        - main-AU
+        - develop-UAE
+        - main-UAE
+        - develop-CN
+        - main-CN
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -81,7 +87,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: .
-        file: ./Dockerfile.prod
+        file: ./docker/Dockerfile.${{ github.ref_name }}
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
@@ -91,19 +97,67 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Deploy to GCP VM
+    - name: Set environment variables per branch
+      run: |
+          case "${{ github.ref_name }}" in
+            develop)
+              echo "HOST=${{ secrets.VM_HOST_DEV }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_DEV }}" >> $GITHUB_ENV
+              ;;
+            main)
+              echo "HOST=${{ secrets.VM_HOST_PROD_GCP }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_PROD_GCP }}" >> $GITHUB_ENV
+              ;;
+            develop-AU)
+              echo "HOST=${{ secrets.VM_HOST_DEV_AU }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_DEV_AU }}" >> $GITHUB_ENV
+              ;;
+            main-AU)
+              echo "HOST=${{ secrets.VM_HOST_MAIN_AU }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_MAIN_AU }}" >> $GITHUB_ENV
+              ;;
+            develop-UAE)
+              echo "HOST=${{ secrets.VM_HOST_DEV_UAE }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_DEV_UAE }}" >> $GITHUB_ENV
+              ;;
+            main-UAE)
+              echo "HOST=${{ secrets.VM_HOST_MAIN_UAE }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_MAIN_UAE }}" >> $GITHUB_ENV
+              ;;
+            develop-CN)
+              echo "HOST=${{ secrets.VM_HOST_DEV_CN }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_DEV_CN }}" >> $GITHUB_ENV
+              ;;
+            main-CN)
+              echo "HOST=${{ secrets.VM_HOST_MAIN_CN }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_MAIN_CN }}" >> $GITHUB_ENV
+              ;;
+            *)
+              echo "Unsupported branch: ${{ github.ref_name }}"
+              exit 1
+              ;;
+          esac
+    - name: Deploy to VM
       env:
-        PRIVATE_KEY: ${{ secrets.VM_SSH_PRIVATE_KEY_PROD_GCP }}
-        HOST: ${{ secrets.VM_HOST_PROD_GCP }}
-        USER: ${{ secrets.VM_USER_PROD_GCP }}
+        PRIVATE_KEY: ${{ 
+            github.ref_name == 'develop' && secrets.VM_SSH_PRIVATE_KEY_DEV || 
+            github.ref_name == 'main' && secrets.VM_SSH_PRIVATE_KEY_PROD_GCP || 
+            github.ref_name == 'develop-AU' && secrets.VM_SSH_PRIVATE_KEY_DEV_AU || 
+            github.ref_name == 'main-AU' && secrets.VM_SSH_PRIVATE_KEY_MAIN_AU || 
+            github.ref_name == 'develop-UAE' && secrets.VM_SSH_PRIVATE_KEY_DEV_UAE || 
+            github.ref_name == 'main-UAE' && secrets.VM_SSH_PRIVATE_KEY_MAIN_UAE || 
+            github.ref_name == 'develop-CN' && secrets.VM_SSH_PRIVATE_KEY_DEV_CN || 
+            github.ref_name == 'main-CN' && secrets.VM_SSH_PRIVATE_KEY_MAIN_CN }}
+
       run: |
         echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
         ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
           REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
-          cd /home/info/meter
-          git checkout main
-          git pull origin main
+          cd /home/${USER}/meter
+          git fetch origin ${{ github.ref_name }}
+          git checkout ${{ github.ref_name }}
+          git pull origin ${{ github.ref_name }}
           # Create or update .env file
               cat << EOF > .env
         GITHUB_REPOSITORY=$REPO_LOWER
