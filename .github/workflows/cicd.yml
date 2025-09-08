@@ -11,6 +11,7 @@ on:
         - main-UAE
         - develop-CN
         - main-CN
+        - new-dev-vm
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -104,6 +105,10 @@ jobs:
               echo "HOST=${{ secrets.VM_HOST_DEV }}" >> $GITHUB_ENV
               echo "USER=${{ secrets.VM_USER_DEV }}" >> $GITHUB_ENV
               ;;
+            new-dev-vm)
+              echo "HOST=${{ secrets.VM_HOST_DEV }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_DEV }}" >> $GITHUB_ENV
+              ;;
             main)
               echo "HOST=${{ secrets.VM_HOST_PROD_GCP }}" >> $GITHUB_ENV
               echo "USER=${{ secrets.VM_USER_PROD_GCP }}" >> $GITHUB_ENV
@@ -140,7 +145,8 @@ jobs:
     - name: Deploy to VM
       env:
         PRIVATE_KEY: ${{ 
-            github.ref_name == 'develop' && secrets.VM_SSH_PRIVATE_KEY_DEV || 
+            github.ref_name == 'develop' && secrets.VM_SSH_PRIVATE_KEY_DEV ||
+            github.ref_name == 'new-dev-vm' && secrets.VM_SSH_PRIVATE_KEY_DEV ||
             github.ref_name == 'main' && secrets.VM_SSH_PRIVATE_KEY_PROD_GCP || 
             github.ref_name == 'develop-AU' && secrets.VM_SSH_PRIVATE_KEY_DEV_AU || 
             github.ref_name == 'main-AU' && secrets.VM_SSH_PRIVATE_KEY_MAIN_AU || 
