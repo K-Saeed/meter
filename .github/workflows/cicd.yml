@@ -106,7 +106,7 @@ jobs:
               echo "USER=${{ secrets.VM_USER_DEV }}" >> $GITHUB_ENV
               ;;
             new-dev-vm)
-              echo "HOST=${{ secrets.VM_HOST_DEV }}" >> $GITHUB_ENV
+              echo "HOST=${{ secrets.VM_HOST_DEV_TEST }}" >> $GITHUB_ENV
               echo "USER=${{ secrets.VM_USER_DEV }}" >> $GITHUB_ENV
               ;;
             main)
