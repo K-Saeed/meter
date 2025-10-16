@@ -56,7 +56,7 @@ export class UserRquestCallService {
     const params = new HttpParams().set('phoneNumber', phoneNumber);
     return this.http.post<SendOtp>(`/api/user/send-otp`, null, { params });
   }
-
+  
 
   addUser(formData:FormData){
     const url = `/api/user/register`;
