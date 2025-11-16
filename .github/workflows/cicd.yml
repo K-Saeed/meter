@@ -14,6 +14,7 @@ on:
       - uae-dev-update
 
 jobs:
+
   build:
     runs-on: ubuntu-latest
     permissions: write-all
@@ -24,8 +25,8 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm ci
@@ -49,7 +50,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download dist artifact
+      - name: Download dist
         uses: actions/download-artifact@v4
         with:
           name: dist
@@ -68,7 +69,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
 
-      - name: Build and Push Docker Image
+      - name: Build & Push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -81,7 +82,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Select HOST, USER, PRIVATE_KEY based on branch
+
+      # -----------------------------
+      # Select HOST + USER + SSH KEY
+      # -----------------------------
+      - name: Select deployment environment
+        id: select-env
         run: |
           BRANCH="${{ github.ref_name }}"
 
@@ -132,25 +138,26 @@ jobs:
               KEY="${{ secrets.VM_SSH_PRIVATE_KEY_DEV_UP }}"
               ;;
             *)
-              echo "❌ Unsupported branch: $BRANCH"
+              echo "❌ Unsupported branch $BRANCH"
               exit 1
               ;;
           esac
 
           echo "HOST=$HOST" >> $GITHUB_ENV
           echo "USER=$USER" >> $GITHUB_ENV
-          echo "PRIVATE_KEY<<EOF" >> $GITHUB_ENV
-          echo "$KEY" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
 
-      - name: Deploy to VM
-        run: |
-          echo "$PRIVATE_KEY" > private_key
+          # Write SSH key directly to file (correct & safe)
+          echo "$KEY" > private_key
           chmod 600 private_key
 
+      # -----------------------------
+      # Deployment
+      # -----------------------------
+      - name: Deploy to VM
+        run: |
           ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
+            
             REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
 
             cd /home/${USER}/meter
@@ -165,9 +172,10 @@ jobs:
           EOF
 
             docker pull ghcr.io/$REPO_LOWER:${{ github.ref_name }}
+
             docker compose down || true
             docker compose up -d
 
-            sleep 10
+            sleep 8
             docker compose ps
           '
