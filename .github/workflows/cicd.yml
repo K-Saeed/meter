@@ -10,7 +10,7 @@ on:
         - develop-UAE
         - main-UAE
         - develop-CN
-        - main-CNz
+        - main-CN
         - uae-dev-update
 jobs:
   build:
@@ -150,7 +150,7 @@ jobs:
             github.ref_name == 'develop-AU' && secrets.VM_SSH_PRIVATE_KEY_DEV_AU || 
             github.ref_name == 'main-AU' && secrets.VM_SSH_PRIVATE_KEY_MAIN_AU || 
             github.ref_name == 'develop-UAE' && secrets.VM_SSH_PRIVATE_KEY_DEV_UAE || 
-            github.ref_name == 'uae-dev-update' && secrets.VM_SSH_PRIVATE_KEY_DEV_UP || 
+            github.ref_name == 'uae-dev-update' && secrets.VM_SSH_PRIVATE_KEY_DEV_UP ||
             github.ref_name == 'main-UAE' && secrets.VM_SSH_PRIVATE_KEY_MAIN_UAE || 
             github.ref_name == 'develop-CN' && secrets.VM_SSH_PRIVATE_KEY_DEV_CN || 
             github.ref_name == 'main-CN' && secrets.VM_SSH_PRIVATE_KEY_MAIN_CN }}
