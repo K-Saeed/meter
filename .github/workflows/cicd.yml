@@ -155,45 +155,28 @@ jobs:
             github.ref_name == 'develop-CN' && secrets.VM_SSH_PRIVATE_KEY_DEV_CN || 
             github.ref_name == 'main-CN' && secrets.VM_SSH_PRIVATE_KEY_MAIN_CN }}
       run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          # Export variables for .env
-          
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
-            echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            # Convert repository name to lowercase for Docker
-            REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]") 
-            cd /home/${USER}/meter
-            git fetch origin ${{ github.ref_name }}
-            git checkout ${{ github.ref_name }}
-            git pull origin ${{ github.ref_name }}
-            # Create or update .env file
-                cat << EOF > .env
-          DB_NAME=${{ secrets.DB_NAME }}
-          DB_USER=${{ secrets.DB_USER }}
-          DB_PASSWORD=${{ secrets.DB_PASSWORD }}
-          GITHUB_REPOSITORY=$REPO_LOWER
-          IMAGE_TAG=${{ github.ref_name }}
-          EOF
-            echo 'SA_URL=${SA_URL}' >> .env
-            echo 'UAE_URL=${UAE_URL}' >> .env
-            echo 'AU_URL=${AU_URL}' >> .env
-            echo 'CN_URL=${CN_URL}' >> .env
-
-            # Pull, stop, and restart the container
-            docker pull ghcr.io/$REPO_LOWER:${{ github.ref_name }}
-            # Stop existing containers
-            docker compose down meter-backend || { echo "Docker Compose down failed"; exit 1; }
-            # Start new containers
-            docker compose up meter-backend  -d || { echo "Docker Compose up failed"; exit 1; }
-            # Check if the containers are running
-            sleep 10  # Give some time for containers to start
-            docker system prune -f
-            if ! docker compose ps | grep -q "Up"; then
-              echo "Containers failed to start properly"
-              docker compose logs
-              exit 1
-            fi
-            
-            echo "Deployment successful"
-          '
-
+        echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+        ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
+          cd /home/${USER}/meter
+          git fetch origin ${{ github.ref_name }}
+          git checkout ${{ github.ref_name }}
+          git pull origin ${{ github.ref_name }}
+          # Create or update .env file
+              cat << EOF > .env
+        GITHUB_REPOSITORY=$REPO_LOWER
+        IMAGE_TAG=${{ github.ref_name }}
+        EOF
+          git pull
+          docker pull ghcr.io/$REPO_LOWER:${{ github.ref_name }}
+          docker compose down  || { echo "Docker Compose down failed"; exit 1; }
+          docker compose up -d || { echo "Docker Compose up failed"; exit 1; }
+          sleep 10
+          if  docker compose ps | grep -q "Up"; then
+            echo "Containers failed to start properly"
+            docker compose logs
+            exit 1
+          fi
+          echo "Deployment successful"
+        '
