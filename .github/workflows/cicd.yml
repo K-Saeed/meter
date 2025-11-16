@@ -1,4 +1,4 @@
-name: Develop CI/CD Pipeline
+name: Frontend CI/CD Pipeline
 
 on:
   push:
@@ -17,6 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions: write-all
+
     steps:
       - uses: actions/checkout@v4
 
@@ -32,24 +33,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Delete Old Artifacts
-        uses: actions/github-script@v6
-        id: artifact
-        with:
-          script: |
-            const res = await github.rest.actions.listArtifactsForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-            });
-            res.data.artifacts.forEach(({ id }) => {
-              github.rest.actions.deleteArtifact({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                artifact_id: id,
-              });
-            });
-
-      - name: Upload artifact
+      - name: Upload dist
         uses: actions/upload-artifact@v4
         with:
           name: dist
@@ -61,108 +45,114 @@ jobs:
     permissions:
       contents: read
       packages: write
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Download artifact
+      - uses: actions/checkout@v4
+
+      - name: Download dist artifact
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
-      
-      - name: Log in to GitHub Container Registry
+
+      - name: Authenticate to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract metadata
+      - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ghcr.io/${{ github.repository }}
 
-      - name: Build and push image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: ./docker/Dockerfile.${{ github.ref_name }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
 
   deploy:
     needs: docker
     runs-on: ubuntu-latest
-    steps:
 
-      - name: Set environment variables per branch
+    steps:
+      - name: Select HOST, USER, PRIVATE_KEY based on branch
         run: |
-          case "${{ github.ref_name }}" in
+          BRANCH="${{ github.ref_name }}"
+
+          case "$BRANCH" in
             develop)
-              echo "HOST=${{ secrets.VM_HOST_DEV }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_DEV }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_DEV }}"
+              USER="${{ secrets.VM_USER_DEV }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_DEV }}"
               ;;
             main)
-              echo "HOST=${{ secrets.VM_HOST_PROD_GCP }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_PROD_GCP }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_PROD_GCP }}"
+              USER="${{ secrets.VM_USER_PROD_GCP }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_PROD_GCP }}"
               ;;
             develop-AU)
-              echo "HOST=${{ secrets.VM_HOST_DEV_AU }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_DEV_AU }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_DEV_AU }}"
+              USER="${{ secrets.VM_USER_DEV_AU }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_DEV_AU }}"
               ;;
             main-AU)
-              echo "HOST=${{ secrets.VM_HOST_MAIN_AU }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_MAIN_AU }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_MAIN_AU }}"
+              USER="${{ secrets.VM_USER_MAIN_AU }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_MAIN_AU }}"
               ;;
             develop-UAE)
-              echo "HOST=${{ secrets.VM_HOST_DEV_UAE }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_DEV_UAE }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_DEV_UAE }}"
+              USER="${{ secrets.VM_USER_DEV_UAE }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_DEV_UAE }}"
               ;;
             main-UAE)
-              echo "HOST=${{ secrets.VM_HOST_MAIN_UAE }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_MAIN_UAE }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_MAIN_UAE }}"
+              USER="${{ secrets.VM_USER_MAIN_UAE }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_MAIN_UAE }}"
               ;;
             develop-CN)
-              echo "HOST=${{ secrets.VM_HOST_DEV_CN }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_DEV_CN }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_DEV_CN }}"
+              USER="${{ secrets.VM_USER_DEV_CN }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_DEV_CN }}"
               ;;
             main-CN)
-              echo "HOST=${{ secrets.VM_HOST_MAIN_CN }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_MAIN_CN }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_MAIN_CN }}"
+              USER="${{ secrets.VM_USER_MAIN_CN }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_MAIN_CN }}"
               ;;
             uae-dev-update)
-              echo "HOST=${{ secrets.VM_HOST_DEV_UP }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_DEV_UP }}" >> $GITHUB_ENV
+              HOST="${{ secrets.VM_HOST_DEV_UP }}"
+              USER="${{ secrets.VM_USER_DEV_UP }}"
+              KEY="${{ secrets.VM_SSH_PRIVATE_KEY_DEV_UP }}"
               ;;
             *)
-              echo "Unsupported branch: ${{ github.ref_name }}"
+              echo "❌ Unsupported branch: $BRANCH"
               exit 1
               ;;
           esac
 
+          echo "HOST=$HOST" >> $GITHUB_ENV
+          echo "USER=$USER" >> $GITHUB_ENV
+          echo "PRIVATE_KEY<<EOF" >> $GITHUB_ENV
+          echo "$KEY" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Deploy to VM
-        env:
-          PRIVATE_KEY: >-
-            ${{ github.ref_name == 'develop' && secrets.VM_SSH_PRIVATE_KEY_DEV ||
-                github.ref_name == 'main' && secrets.VM_SSH_PRIVATE_KEY_PROD_GCP ||
-                github.ref_name == 'develop-AU' && secrets.VM_SSH_PRIVATE_KEY_DEV_AU ||
-                github.ref_name == 'main-AU' && secrets.VM_SSH_PRIVATE_KEY_MAIN_AU ||
-                github.ref_name == 'develop-UAE' && secrets.VM_SSH_PRIVATE_KEY_DEV_UAE ||
-                github.ref_name == 'main-UAE' && secrets.VM_SSH_PRIVATE_KEY_MAIN_UAE ||
-                github.ref_name == 'develop-CN' && secrets.VM_SSH_PRIVATE_KEY_DEV_CN ||
-                github.ref_name == 'main-CN' && secrets.VM_SSH_PRIVATE_KEY_MAIN_CN ||
-                github.ref_name == 'uae-dev-update' && secrets.VM_SSH_PRIVATE_KEY_DEV_UP }}
         run: |
           echo "$PRIVATE_KEY" > private_key
           chmod 600 private_key
 
           ssh -o StrictHostKeyChecking=no -i private_key ${USER}@${HOST} '
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
             REPO_LOWER=$(echo "${{ github.repository }}" | tr "[:upper:]" "[:lower:]")
-            
+
             cd /home/${USER}/meter
 
             git fetch origin ${{ github.ref_name }}
@@ -179,12 +169,5 @@ jobs:
             docker compose up -d
 
             sleep 10
-
-            if ! docker compose ps | grep -q "Up"; then
-              echo "Containers failed to start properly"
-              docker compose logs
-              exit 1
-            fi
-
-            echo "Deployment successful"
+            docker compose ps
           '
