@@ -133,7 +133,7 @@ jobs:
             main-CN)
               echo "HOST=${{ secrets.VM_HOST_MAIN_CN }}" >> $GITHUB_ENV
               echo "USER=${{ secrets.VM_USER_MAIN_CN }}" >> $GITHUB_ENV
-            dashboard-dev-uae)
+            uae-dev-update)
               echo "HOST=${{ secrets.VM_HOST_DEV_UP }}" >> $GITHUB_ENV
               echo "USER=${{ secrets.VM_USER_DEV_UP }}" >> $GITHUB_ENV
               ;;
