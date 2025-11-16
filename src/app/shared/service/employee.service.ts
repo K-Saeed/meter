@@ -22,6 +22,7 @@ export class EmployeeService {
         { type: 'application/json' })
     );
     if (logoImage) {
+      
       formData.append('logo-image', logoImage);
     }
 
