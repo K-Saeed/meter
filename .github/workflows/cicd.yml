@@ -135,8 +135,8 @@ jobs:
               echo "USER=${{ secrets.VM_USER_MAIN_CN }}" >> $GITHUB_ENV
                ;;
             uae-dev-update)
-              echo "HOST=${{ secrets.VM_HOST_DEV_UP }}" >> $GITHUB_ENV
-              echo "USER=${{ secrets.VM_USER_DEV_UP }}" >> $GITHUB_ENV
+              echo "HOST=${{ secrets.VM_HOST_DEV_UPI }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_DEV_UPI }}" >> $GITHUB_ENV
               ;;
             *)
               echo "Unsupported branch: ${{ github.ref_name }}"
@@ -151,7 +151,7 @@ jobs:
             github.ref_name == 'develop-AU' && secrets.VM_SSH_PRIVATE_KEY_DEV_AU || 
             github.ref_name == 'main-AU' && secrets.VM_SSH_PRIVATE_KEY_MAIN_AU || 
             github.ref_name == 'develop-UAE' && secrets.VM_SSH_PRIVATE_KEY_DEV_UAE || 
-            github.ref_name == 'uae-dev-update' && secrets.VM_SSH_PRIVATE_KEY_DEV_UP || 
+            github.ref_name == 'uae-dev-update' && secrets.VM_SSH_PRIVATE_KEY_DEV_UPI || 
             github.ref_name == 'main-UAE' && secrets.VM_SSH_PRIVATE_KEY_MAIN_UAE || 
             github.ref_name == 'develop-CN' && secrets.VM_SSH_PRIVATE_KEY_DEV_CN || 
             github.ref_name == 'main-CN' && secrets.VM_SSH_PRIVATE_KEY_MAIN_CN }}
