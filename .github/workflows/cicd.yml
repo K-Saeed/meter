@@ -148,7 +148,8 @@ jobs:
             github.ref_name == 'develop' && secrets.VM_SSH_PRIVATE_KEY_DEV || 
             github.ref_name == 'main' && secrets.VM_SSH_PRIVATE_KEY_PROD_GCP || 
             github.ref_name == 'develop-AU' && secrets.VM_SSH_PRIVATE_KEY_DEV_AU || 
-            github.ref_name == 'main-AU' && secrets.VM_SSH_PRIVATE_KEY_MAIN_AU || 
+            github.ref_name == 'main-AU' && secrets.VM_SSH_PRIVATE_KEY_MAIN_AU ||
+            github.ref_name == 'uae-dev-update' && secrets.VM_SSH_PRIVATE_KEY_DEV_UP ||  
             github.ref_name == 'develop-UAE' && secrets.VM_SSH_PRIVATE_KEY_DEV_UAE || 
             github.ref_name == 'develop-UAE' && secrets.VM_SSH_PRIVATE_KEY_DEV_UP || 
             github.ref_name == 'main-UAE' && secrets.VM_SSH_PRIVATE_KEY_MAIN_UAE || 
