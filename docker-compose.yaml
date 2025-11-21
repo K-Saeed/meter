@@ -3,9 +3,16 @@ version: '3.8'
 services:
   angular-app:
     image: ghcr.io/${GITHUB_REPOSITORY}:${IMAGE_TAG}
+    container_name: meter-angular-app-1
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./nginx/ssl:/etc/nginx/ssl
     restart: always
+    networks:
+      - meter-network
+
+networks:
+  meter-network:
+    external: true
