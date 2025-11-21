@@ -9,3 +9,10 @@ services:
     volumes:
       - ./nginx/ssl:/etc/nginx/ssl
     restart: always
+    networks:
+      - meter-network
+
+networks:
+  meter-network:
+    external: true
+    name: meter-network
