@@ -27,13 +27,13 @@ export class UserRquestCallService {
     };
   }
   getAllUsers(role: string | null, status: string | null): Observable<UserTableDto[]> {
-    this.apiUrl =  `/api/user/admin/all`;
+    this.apiUrl =  `/api/admin/user/admin/all`;
    if(status != null && role === null){
-       this.apiUrl = `/api/user/admin/all?status=${status}`
+       this.apiUrl = `/api/admin/user/admin/all?status=${status}`
    }else if(role != null && status === null){
-     this.apiUrl = `/api/user/admin/all?role=${role}`
+     this.apiUrl = `/api/admin/user/admin/all?role=${role}`
    }else if (role != null && status != null){
-     this.apiUrl = `/api/user/admin/all?role=${role}&status=${status}`
+     this.apiUrl = `/api/admin/user/admin/all?role=${role}&status=${status}`
    }
    return this.http.get<UserTableDto[]>(this.apiUrl);
  }
