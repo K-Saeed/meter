@@ -1,9 +1,12 @@
 {
   "/api/*": {
-    "target": "https://dashboard-dev.meter.com.sa",
+    "target": "http://localhost:8080",
     "secure": false,
     "logLevel": "debug",
     "headers": { "X-Forwarded-Prefix": "/api/" }
+  },
+  "user|product|request|requests|chat|notification|dashboard|admin|autodesk|courses|socket|discounts|nafath|reports": {
+    "": ""
   },
   "/socket.io": {
     "target": "ws://https://dashboard-dev.meter.com.sa",
