@@ -25,13 +25,13 @@ export class RquestCallService {
   }
 
   getAllRequest(type: string | null, status: string | null): Observable<RequestResponseDto[]> {
-    this.apiUrl =  `/api/admin/request/all`;
+    this.apiUrl =  `/api/dashboard/request/all`;
    if(status != null && type === null){
-       this.apiUrl = `/api/admin/request/all?status=${status}`
+       this.apiUrl = `/api/dashboard/request/all?status=${status}`
    }else if(type != null && status === null){
      this.apiUrl = `/api/admin/request/all?type=${type}`
    }else if (type != null && status != null){
-     this.apiUrl = `/api/admin/request/all?type=${type}&status=${status}`
+     this.apiUrl = `/api/dashboard/request/all?type=${type}&status=${status}`
    }
    return this.http.get<RequestResponseDto[]>(this.apiUrl);
  }

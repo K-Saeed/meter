@@ -27,13 +27,13 @@ export class UserRquestCallService {
     };
   }
   getAllUsers(role: string | null, status: string | null): Observable<UserTableDto[]> {
-    this.apiUrl =  `/api/dashboard/request/all`;
+    this.apiUrl =  `/api/user/admin/all`;
    if(status != null && role === null){
-       this.apiUrl = `/api/dashboard/request/all?status=${status}`
+       this.apiUrl = `/api/user/admin/all?status=${status}`
    }else if(role != null && status === null){
-     this.apiUrl = `/api/dashboard/request/all?role=${role}`
+     this.apiUrl = `/api/user/admin/all?role=${role}`
    }else if (role != null && status != null){
-     this.apiUrl = `/api/dashboard/request/all?role=${role}&status=${status}`
+     this.apiUrl = `/api/user/admin/all?role=${role}&status=${status}`
    }
    return this.http.get<UserTableDto[]>(this.apiUrl);
  }
@@ -42,7 +42,7 @@ export class UserRquestCallService {
   updateUserStatus(id: string, status: string): Observable<void> {
     console.log(status);
     
-    const url = `/api/dashboard/request/${id}/update-status`;
+    const url = `/api/user/admin/${id}/update-status`;
     return this.http.put<void>(url, null, { params: { status } });
   }
 
@@ -63,12 +63,12 @@ export class UserRquestCallService {
     return this.http.post<void>(url, formData);
   }
   getAllUnfinishedUsers(): Observable<DraftUserDto[]> {
-    return this.http.get<DraftUserDto[]>(`/api/dashboard/user/get-users-unfinished`);
+    return this.http.get<DraftUserDto[]>(`/api/admin/user/get-users-unfinished`);
   }
 
 
   getUserPageInfo(){
-    const url = `/api/dashboard/user/user-page-info`;
+    const url = `/api/admin/user/user-page-info`;
     return this.http.get<UserPageInfo>(url);
   }
 }
