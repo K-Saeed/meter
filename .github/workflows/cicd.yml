@@ -11,6 +11,7 @@ on:
         - main-UAE
         - develop-CN
         - main-CN
+        - fix/nginx/api
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -87,7 +88,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: .
-        file: ./docker/Dockerfile.${{ github.ref_name }}
+        file: ./docker/Dockerfile.develop-UAE
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
@@ -132,6 +133,10 @@ jobs:
               echo "HOST=${{ secrets.VM_HOST_MAIN_CN }}" >> $GITHUB_ENV
               echo "USER=${{ secrets.VM_USER_MAIN_CN }}" >> $GITHUB_ENV
               ;;
+            fix/nginx/api)
+              echo "HOST=${{ secrets.VM_HOST_FIX }}" >> $GITHUB_ENV
+              echo "USER=${{ secrets.VM_USER_fix }}" >> $GITHUB_ENV
+              ;;
             *)
               echo "Unsupported branch: ${{ github.ref_name }}"
               exit 1
@@ -147,6 +152,7 @@ jobs:
             github.ref_name == 'develop-UAE' && secrets.VM_SSH_PRIVATE_KEY_DEV_UAE || 
             github.ref_name == 'main-UAE' && secrets.VM_SSH_PRIVATE_KEY_MAIN_UAE || 
             github.ref_name == 'develop-CN' && secrets.VM_SSH_PRIVATE_KEY_DEV_CN || 
+            github.ref_name == 'fix/nginx/api' && secrets.VM_SSH_PRIVATE_KEY_FIX || 
             github.ref_name == 'main-CN' && secrets.VM_SSH_PRIVATE_KEY_MAIN_CN }}
 
       run: |
