@@ -1,12 +1,12 @@
 {
   "/api/*": {
-    "target": "https://dashboard-dev.meter.com.sa",
+    "target": "https://dashboard-dev.meteruae.ae",
     "secure": false,
     "logLevel": "debug",
     "headers": { "X-Forwarded-Prefix": "/api/" }
   },
   "/socket.io": {
-    "target": "ws://https://dashboard-dev.meter.com.sa",
+    "target": "ws://https://dashboard-meteruae.ae",
     "ws": true,
     "secure": false,
     "logLevel": "debug",
