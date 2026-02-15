@@ -9,6 +9,7 @@ import { NotificationDto } from 'src/app/core/components/notifications/models/no
 })
 export class NotificationService {
 
+  
 
   private notificationCache: NotificationResponse[] | null = null;
 
