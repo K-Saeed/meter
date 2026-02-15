@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
       }
     });
   }
+  
 
   private checkAuthentication() {
     this.showSidebarAndTopbar = this.authService.isAuthenticated() && !this.router.url.includes('/signin');
